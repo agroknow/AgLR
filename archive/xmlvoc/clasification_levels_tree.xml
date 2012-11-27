@@ -1,0 +1,14 @@
+<oe_ontology_hierrarchy>
+<Pre-primary_education></Pre-primary_education>
+<Primary_education></Primary_education>
+<Secondary_education>
+	<Lower_secondary_ed.></Lower_secondary_ed.>
+	<Upper_secondary_ed.></Upper_secondary_ed.>
+</Secondary_education>
+<Post-secondary_education>
+	<Post-secondary_non-tertiary_ed.></Post-secondary_non-tertiary_ed.>
+	<Bachelor_degree_st.></Bachelor_degree_st.>
+	<Postgraduate_st.></Postgraduate_st.>
+</Post-secondary_education>
+<Other></Other>
+</oe_ontology_hierrarchy>

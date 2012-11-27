@@ -1,0 +1,15 @@
+<oe_ontology_hierrarchy>
+<Classroom></Classroom>
+<Professional_training>
+	<Adult_ed.></Adult_ed.>
+	<Vocational_ed.></Vocational_ed.>
+	<Technical_ed.></Technical_ed.>
+</Professional_training>
+<Out-of-school_education>
+	<Family_ed.></Family_ed.>
+</Out-of-school_education>
+<Public_sensitization></Public_sensitization>
+<Special_needs_education></Special_needs_education>
+<Distance_education></Distance_education>
+<Other></Other>
+</oe_ontology_hierrarchy>

@@ -1,0 +1,2909 @@
+# Translation template for Omeka.
+# Copyright (C) 2011 Roy Rosenzweig Center for History and New Media
+# This file is distributed under the same license as the Omeka package.
+# 
+# Translators:
+# Guntars Jirgensons <guntars.jirgensons@riga.lv>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Metadata Editor AgLR\n"
+"Report-Msgid-Bugs-To: omeka-dev@googlegroups.com\n"
+"POT-Creation-Date: 2011-11-22 16:18-0500\n"
+"PO-Revision-Date: 2012-11-02 07:25+0000\n"
+"Last-Translator: Guntars Jirgensons <guntars.jirgensons@riga.lv>\n"
+"Language-Team: Latvian (http://www.transifex.com/projects/p/metadata-editor-aglr-1/language/lv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lv\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);\n"
+
+# Dublin Core description
+msgid ""
+"The Dublin Core metadata element set. These elements are common to all Omeka"
+" resources, including items, files, collections, exhibits, and entities. See"
+" http://dublincore.org/documents/dces/."
+msgstr "Dublin Core metadatu elementu kopa. Šie elementi ir kopīgi visiem Omeka resursiem, tostarp priekšmetiem, failiem, kolekcijām, izstādēm, un organizācijām. Sk http://dublincore.org/documents/dces/."
+
+# #-#-#-#-#  Omeka.base.pot (Omeka 1.5)  #-#-#-#-#
+# Dublin Core: Title element
+#: admin/themes/default/items/browse.php:129
+msgid "Title"
+msgstr "Virsraksts"
+
+# #-#-#-#-#  Omeka.base.pot (Omeka 1.5)  #-#-#-#-#
+# Dublin Core: Creator element
+#: admin/themes/default/items/browse.php:130
+msgid "Creator"
+msgstr "Veidotājs"
+
+# Dublin Core: Subject element
+msgid "Subject"
+msgstr "Subjekts"
+
+# #-#-#-#-#  Omeka.base.pot (Omeka 1.5)  #-#-#-#-#
+# Dublin Core: Description element
+#: admin/themes/default/collections/show.php:19
+#: admin/themes/default/element-sets/browse.php:13
+#: admin/themes/default/item-types/browse.php:14
+#: admin/themes/default/item-types/element-form.php:23
+#: admin/themes/default/item-types/element-list.php:6
+#: admin/themes/default/item-types/form.php:26
+#: admin/themes/default/item-types/show.php:18
+#: admin/themes/default/themes/browse.php:19
+#: application/views/scripts/collections/browse.php:15
+#: application/views/scripts/collections/show.php:7
+msgid "Description"
+msgstr "Apraksts"
+
+# Dublin Core: Publisher element
+msgid "Publisher"
+msgstr "Izdevējs"
+
+# Dublin Core: Contributor element
+# User role: contributor
+msgid "Contributor"
+msgstr "Atbalstītājs"
+
+# Dublin Core: Date element
+msgid "Date"
+msgstr "Datums"
+
+# #-#-#-#-#  Omeka.base.pot (Omeka 1.5)  #-#-#-#-#
+# Dublin Core: Type element
+#: admin/themes/default/items/browse.php:131
+msgid "Type"
+msgstr "Tips"
+
+# Dublin Core: Format element
+msgid "Format"
+msgstr "Formāts"
+
+# Dublin Core: Identifier element
+msgid "Identifier"
+msgstr "Identifikators"
+
+# Dublin Core: Source element
+msgid "Source"
+msgstr "Avots"
+
+# Dublin Core: Language element
+msgid "Language"
+msgstr "Valoda"
+
+# Dublin Core: Relation element
+msgid "Relation"
+msgstr "Realitāte"
+
+# Dublin Core: Coverage element
+msgid "Coverage"
+msgstr "Pārklājums"
+
+# Dublin Core: Rights element
+msgid "Rights"
+msgstr "Tiesības"
+
+# Item Type Metadata
+msgid "Item Type Metadata"
+msgstr "Metadata tips"
+
+# Item Type Metadata description
+msgid ""
+"The item type metadata element set, consisting of all item type elements "
+"bundled with Omeka and all item type elements created by an administrator."
+msgstr "Metadata elementu kopas tips, kas sastāv no visiem posteņa veida elementiem no Omeka komplekta un visu pozīciju veida elementiem, ko veido administrators."
+
+# Omeka Legacy File
+msgid "Omeka Legacy File"
+msgstr "Omeka Legacy Fails"
+
+# Omeka Legacy File description
+msgid ""
+"The metadata element set that, in addition to the Dublin Core element set, "
+"was included in the `files` table in previous versions of Omeka. These "
+"elements are common to all Omeka files. This set may be deprecated in future"
+" versions."
+msgstr "Metadatu elementu kopa, kas papildus Dublin Core elementu kopai, tika iekļauti, kā `faili` tabulā pie epriekšējām Omeka versijām. Šie elementi ir kopīgi visiem Omeka failiem. Šis komplekts var tikt novērtēts, kā novecojis salīdzinājumā ar nākotnes versiju."
+
+# Omeka Legacy File: Additional Creator element
+msgid "Additional Creator"
+msgstr "Papildus veidotājs"
+
+# Omeka Legacy File: Transcriber element
+msgid "Transcriber"
+msgstr "Transkripcijas"
+
+# Omeka Legacy File: Producer element
+msgid "Producer"
+msgstr "Producents"
+
+# Omeka Legacy File: Render Device element
+msgid "Render Device"
+msgstr "Radīt plānu"
+
+# Omeka Legacy File: Render Details element
+msgid "Render Details"
+msgstr "Radīt detaļas"
+
+# Omeka Legacy File: Capture Date element
+msgid "Capture Date"
+msgstr "Saistīt datus"
+
+# Omeka Legacy File: Capture Device element
+msgid "Capture Device"
+msgstr "Saistīts plāns"
+
+# Omeka Legacy File: Capture Details element
+msgid "Capture Details"
+msgstr "Saistītas detaļas"
+
+# Omeka Legacy File: Change History element
+msgid "Change History"
+msgstr "Mainīt vēsturi"
+
+# Omeka Legacy File: Watermark element
+msgid "Watermark"
+msgstr "Ūdenszīme"
+
+# Omeka Legacy File: Encryption element
+msgid "Encryption"
+msgstr "Šifrēšana"
+
+# Omeka Legacy File: Compression element
+msgid "Compression"
+msgstr "Saspiešana"
+
+# Omeka Legacy File: Post Processing element
+msgid "Post Processing"
+msgstr "Pēcapstrādes"
+
+# Omeka Image File
+msgid "Omeka Image File"
+msgstr "Omeka Attēla fails"
+
+# Omeka Image File description
+msgid ""
+"The metadata element set that was included in the `files_images` table in "
+"previous versions of Omeka. These elements are common to all image files."
+msgstr "Metadatu elementu kopa, kas tika iekļauta `files_images` tabulu iepriekšējās Omeka versijās. Šie elementi ir kopīgi visiem attēlu failiem."
+
+# Omeka Image File: Width element
+msgid "Width"
+msgstr "Platums"
+
+# Omeka Image File: Height element
+msgid "Height"
+msgstr "Augstums"
+
+# Omeka Image File: Bit Depth element
+msgid "Bit Depth"
+msgstr "Bitu izmērs"
+
+# Omeka Image File: Channels element
+msgid "Channels"
+msgstr "Kanāli"
+
+# Omeka Image File: Exif String element
+msgid "Exif String"
+msgstr "Exif rinda"
+
+# Omeka Image File: Exif Array element
+msgid "Exif Array"
+msgstr "Exif kārtība"
+
+# Omeka Image File: IPTC String element
+msgid "IPTC String"
+msgstr "IPTC rinda"
+
+# Omeka Image File: IPTC Array element
+msgid "IPTC Array"
+msgstr "IPTC kārtība"
+
+# Omeka Video File
+msgid "Omeka Video File"
+msgstr "Omeka Video fails"
+
+# Omeka Video File description
+msgid ""
+"The metadata element set that was included in the `files_videos` table in "
+"previous versions of Omeka. These elements are common to all video files."
+msgstr "Metadatu elementu kopa, kas tika iekļauta `files_videos` tabulu iepriekšējās Omeka versijās. Šie elementi ir kopīgi visiem video failiem."
+
+# Omeka Video File: Bitrate element
+msgid "Bitrate"
+msgstr "Bitu pārraides ātrums"
+
+# Omeka Video File: Duration element
+msgid "Duration"
+msgstr "Ilgums"
+
+# Omeka Video File: Sample Rate element
+msgid "Sample Rate"
+msgstr "Parauga ātrums"
+
+# Omeka Video File: Codec element
+msgid "Codec"
+msgstr "Kodeks"
+
+# Format (Legacy) Metadata element set
+msgid "Format (Legacy) Metadata"
+msgstr "Formāts (Legacy) Metadata"
+
+# User role: Super
+msgid "Super"
+msgstr "Lielisks"
+
+# User role: Admin
+msgid "Admin"
+msgstr "Administrēt"
+
+# User role: Researcher
+msgid "Researcher"
+msgstr "Pētnieks"
+
+#: admin/themes/default/collections/add.php:2
+#: admin/themes/default/collections/browse.php:6
+msgid "Add a Collection"
+msgstr "Pievienot kolekcijai"
+
+#: admin/themes/default/collections/add.php:9
+msgid "Save Collection"
+msgstr "Saglabāt kolekciju"
+
+#: admin/themes/default/collections/browse.php:2
+#: application/views/scripts/collections/browse.php:2
+#: application/views/scripts/common/footer.php:6
+#: application/views/scripts/functions.php:98
+msgid "Browse Collections"
+msgstr "Pārlūkot kolekcijas"
+
+#: admin/themes/default/collections/browse.php:4
+#: admin/themes/default/element-sets/browse.php:4
+#: admin/themes/default/item-types/browse.php:4
+#: admin/themes/default/items/browse.php:4
+#: admin/themes/default/plugins/browse.php:4
+#: admin/themes/default/tags/browse.php:4
+#: admin/themes/default/themes/browse.php:4
+#: admin/themes/default/users/browse.php:4
+#: application/views/scripts/items/browse.php:8
+#, php-format
+msgid "(%s total)"
+msgstr "(%s kopsumma)"
+
+#: admin/themes/default/collections/browse.php:18
+msgid "ID"
+msgstr "ID"
+
+#: admin/themes/default/collections/browse.php:19
+#: admin/themes/default/element-sets/browse.php:12
+#: admin/themes/default/item-types/form.php:20
+msgid "Name"
+msgstr "Vārds"
+
+#: admin/themes/default/collections/browse.php:20
+#: admin/themes/default/collections/show.php:22
+msgid "Collectors"
+msgstr "Kolekcionārs"
+
+#: admin/themes/default/collections/browse.php:21
+#: admin/themes/default/files/show.php:24
+#: admin/themes/default/items/browse.php:134
+#: application/views/scripts/files/show.php:57
+msgid "Date Added"
+msgstr "Pievienots"
+
+#: admin/themes/default/collections/browse.php:22
+#: admin/themes/default/collections/show.php:39
+#: admin/themes/default/item-types/show.php:42
+msgid "Total Number of Items"
+msgstr "Vienību skaits kopā"
+
+#: admin/themes/default/collections/browse.php:25
+#: admin/themes/default/item-types/browse.php:17
+msgid "Edit?"
+msgstr "Rediģēt?"
+
+#: admin/themes/default/collections/browse.php:44
+msgid "No collectors"
+msgstr "Nav kolekcionārs"
+
+#: admin/themes/default/collections/browse.php:57
+#: admin/themes/default/items/browse.php:150
+#: admin/themes/default/items/files-form.php:23
+#: admin/themes/default/users/browse.php:43
+#: admin/themes/default/users/browse.php:58
+msgid "Edit"
+msgstr "Rediģēt"
+
+#: admin/themes/default/collections/browse.php:68
+msgid "There are no collections on this page."
+msgstr "Šajā lapā nav kolekcijas"
+
+#: admin/themes/default/collections/browse.php:68
+msgid "View All Collections"
+msgstr "Skatīt visas kolekcijas"
+
+#: admin/themes/default/collections/browse.php:71
+msgid "Add a collection."
+msgstr "Pievienot kolekciju."
+
+#: admin/themes/default/collections/browse.php:71
+msgid "There are no collections in your archive."
+msgstr "Jūsu arhīvā nav kolekcijas"
+
+#: admin/themes/default/collections/edit.php:8
+#: admin/themes/default/collections/show.php:8
+#, php-format
+msgid "Edit Collection #%s"
+msgstr "Rediģēt kolekciju #%s"
+
+#: admin/themes/default/collections/edit.php:14
+msgid "Delete this Collection"
+msgstr "Dzēst šo kolekciju"
+
+#: admin/themes/default/collections/edit.php:20
+#: admin/themes/default/files/edit.php:36
+#: admin/themes/default/item-types/edit.php:20
+#: admin/themes/default/items/batch-edit.php:113
+#: admin/themes/default/items/edit.php:20
+#: admin/themes/default/plugins/config.php:9
+#: admin/themes/default/tags/edit.php:28
+#: application/controllers/UsersController.php:224
+#: application/forms/SecuritySettings.php:70
+#: application/forms/ThemeConfiguration.php:67
+msgid "Save Changes"
+msgstr "Saglabāt izmaiņas"
+
+#: admin/themes/default/collections/form.php:4
+msgid "Collection Details"
+msgstr "Kolekcijas detaļas"
+
+#: admin/themes/default/collections/form.php:4
+#: admin/themes/default/item-types/form.php:17
+#: install/views/scripts/index/index.phtml:13
+msgid "Required Fields"
+msgstr "Nepieciešamie lauki"
+
+#: admin/themes/default/collections/form.php:7
+msgid "Collection Name"
+msgstr "Kolekcijas nosaukums"
+
+#: admin/themes/default/collections/form.php:15
+msgid "Collection Description"
+msgstr "Kolekcijas apraksts"
+
+#: admin/themes/default/collections/form.php:25
+msgid ""
+"List collectors for this collection (optional - enter one name per line)"
+msgstr "Šīs kolekcijas veidotāju saraksts (pēc izvēles - ievadīt katrā rindā vienu vārdu)"
+
+#: admin/themes/default/collections/form.php:35
+#: admin/themes/default/collections/form.php:37
+#: admin/themes/default/items/batch-edit.php:42
+#: admin/themes/default/items/browse.php:100
+#: admin/themes/default/items/browse.php:132
+#: admin/themes/default/items/browse.php:177
+#: admin/themes/default/items/form.php:37
+msgid "Public"
+msgstr "Publisks"
+
+#: admin/themes/default/collections/form.php:37
+#: admin/themes/default/items/batch-edit.php:43
+msgid "Not Public"
+msgstr "Nav sabiedrisks"
+
+#: admin/themes/default/collections/form.php:42
+#: admin/themes/default/collections/form.php:44
+#: admin/themes/default/items/batch-edit.php:54
+#: admin/themes/default/items/browse.php:102
+#: admin/themes/default/items/browse.php:133
+#: admin/themes/default/items/browse.php:182
+#: admin/themes/default/items/form.php:43
+msgid "Featured"
+msgstr "Featured"
+
+#: admin/themes/default/collections/form.php:44
+#: admin/themes/default/items/batch-edit.php:55
+msgid "Not Featured"
+msgstr "nav Featured"
+
+#: admin/themes/default/collections/show.php:11
+#: admin/themes/default/items/show.php:14
+msgid "View Public Page"
+msgstr "Publiskās lapas viedoklis"
+
+#: admin/themes/default/collections/show.php:13
+msgid "Edit this Collection"
+msgstr "Rediģēt šo kolekciju"
+
+#: admin/themes/default/collections/show.php:27
+msgid "No collectors."
+msgstr "Nav kolekcionārs"
+
+#: admin/themes/default/collections/show.php:33
+#: admin/themes/default/item-types/show.php:30
+#: application/views/scripts/index.php:35
+msgid "Recently Added Items"
+msgstr "Nesen pievienotā informācija"
+
+#: admin/themes/default/common/footer.php:4
+msgid "Documentation"
+msgstr "Dokumentācija"
+
+#: admin/themes/default/common/footer.php:4
+#: admin/themes/default/common/login-footer.php:4
+msgid "Powered by Omeka"
+msgstr "Omeka enerģija"
+
+#: admin/themes/default/common/footer.php:4
+msgid "Support Forums"
+msgstr "Atbalsta forums"
+
+#: admin/themes/default/common/footer.php:6
+#: admin/themes/default/common/login-footer.php:4
+#: admin/themes/default/plugins/plugin-info.php:65
+#, php-format
+msgid "Version %s"
+msgstr "Versija %s"
+
+#: admin/themes/default/common/footer.php:9
+msgid "More information about your system"
+msgstr "Papildus informācija par jūsu sistēmu"
+
+#: admin/themes/default/common/header.php:5
+msgid "Omeka Admin"
+msgstr "Omeka administrators"
+
+#: admin/themes/default/common/header.php:24
+msgid "Skip Navigation"
+msgstr "Izlaist navigāciju"
+
+#: admin/themes/default/common/header.php:33
+msgid "Log Out"
+msgstr "Iziet"
+
+#: admin/themes/default/common/header.php:33
+#, php-format
+msgid "Welcome, %s"
+msgstr "Gaidīds, %s"
+
+#: admin/themes/default/common/header.php:36 admin/themes/default/index.php:58
+msgid "Settings"
+msgstr "Iestatījumi"
+
+#: admin/themes/default/common/header.php:38
+msgid "View Public Site"
+msgstr "Apskatīt publisko mājaslapu"
+
+#: admin/themes/default/common/primary-nav.php:5
+#: admin/themes/default/index.php:21
+#: admin/themes/default/items/batch-edit.php:14
+msgid "Items"
+msgstr "Priekšmeti"
+
+#: admin/themes/default/common/primary-nav.php:6
+#: admin/themes/default/index.php:32
+msgid "Collections"
+msgstr "Krājumi"
+
+#: admin/themes/default/common/primary-nav.php:7
+msgid "Item Types"
+msgstr "Priekšmeta veidi"
+
+#: admin/themes/default/common/primary-nav.php:8
+#: admin/themes/default/items/browse.php:166
+#: admin/themes/default/items/show.php:69
+#: application/views/scripts/items/browse.php:39
+#: application/views/scripts/items/show.php:26
+msgid "Tags"
+msgstr "Komentāri"
+
+#: admin/themes/default/common/settings-nav.php:6
+msgid "General Settings"
+msgstr "Vispārējie iestatījumi"
+
+#: admin/themes/default/common/settings-nav.php:8
+msgid "Plugins"
+msgstr "Komentāri"
+
+#: admin/themes/default/common/settings-nav.php:11
+msgid "Themes"
+msgstr "Tēmas"
+
+#: admin/themes/default/common/settings-nav.php:14
+#: admin/themes/default/index.php:45
+msgid "Users"
+msgstr "Lietotāji"
+
+#: admin/themes/default/common/settings-nav.php:17
+msgid "Element Sets"
+msgstr "Elementu komplekti"
+
+#: admin/themes/default/common/settings-nav.php:20
+msgid "Security Settings"
+msgstr "Drošības uzstādījumi"
+
+#: admin/themes/default/common/tags-nav.php:3
+#: admin/themes/default/tags/browse.php:2
+msgid "Browse Tags"
+msgstr "Pārlūkot komentārus"
+
+#: admin/themes/default/common/tags-nav.php:5
+#: admin/themes/default/tags/edit.php:2
+msgid "Edit Tag"
+msgstr "Labot komentāru"
+
+#: admin/themes/default/common/tags-nav.php:8
+#: admin/themes/default/tags/delete.php:2
+#: admin/themes/default/tags/delete.php:21
+msgid "Delete Tag"
+msgstr "Izdzēst komentāru"
+
+#: admin/themes/default/element-sets/browse.php:2
+msgid "Browse Element Sets"
+msgstr "Pārlūkot elementa komplektus"
+
+#: admin/themes/default/element-sets/browse.php:14
+#: admin/themes/default/items/batch-edit.php:101
+#: admin/themes/default/items/browse.php:153
+#: admin/themes/default/items/files-form.php:15
+#: admin/themes/default/users/browse.php:46
+#: application/helpers/FormFunctions.php:573
+msgid "Delete"
+msgstr "Izdzēst"
+
+#: admin/themes/default/error/403.php:2
+msgid "403: Forbidden"
+msgstr "403: Aizliegts"
+
+#: admin/themes/default/error/403.php:9
+msgid "Sorry, you do not have permission to access this page."
+msgstr "Piedodiet, jums nav atļauts piekļūt šai lapai"
+
+#: admin/themes/default/error/403.php:12 admin/themes/default/error/404.php:12
+#: admin/themes/default/error/405.php:10
+msgid "site administrator"
+msgstr "Mājaslapas administrators"
+
+#: admin/themes/default/error/403.php:13
+#, php-format
+msgid "If you think you should have permission, try contacting the %s."
+msgstr "Ja jūs domājat, ka jums vajadzētu būt piekļuves atļaujai, tad mēģiniet kontaktēties ar %s"
+
+#: admin/themes/default/error/404.php:2
+msgid "404: Page Not Found"
+msgstr "404: Lapa nav atrasta"
+
+#: admin/themes/default/error/404.php:9
+msgid ""
+"You&#8217;ve tried to access a page that does not seem to exist. Sometimes "
+"this happens. Below is a quick break-down of the items, collections, and "
+"exhibits on this site."
+msgstr "Jūs esat mēģinājis piekļūt lapai, kas neeksistē. Dažreiz tā notiek. Zemāk ir ātrs apskats par lietām, krājumiem un ekspozīcijas materiāliem, kas ir šinī saitā."
+
+#: admin/themes/default/error/404.php:13
+#, php-format
+msgid "If this does not help, try contacting the %s."
+msgstr "Ja tas nepalīdz, tad mēģiniet kontaktēties ar %s"
+
+#: admin/themes/default/error/404.php:15 admin/themes/default/index.php:88
+msgid "Recent Items"
+msgstr "Nesenie priekšmeti"
+
+#: admin/themes/default/error/404.php:25
+msgid "Recent Collections"
+msgstr "Nesenās kolekcijas"
+
+#: admin/themes/default/error/405.php:2
+msgid "405: Method Not Allowed"
+msgstr "405: Metode nav atļauta"
+
+#: admin/themes/default/error/405.php:11
+#, php-format
+msgid ""
+"You must use a different method to access this URL. If you reached this page"
+" by following a link or clicking a button in Omeka, please contact the %s."
+msgstr "Jums ir jāmēģina citāds veids, lai piekļūtu ULR. Ja jūs sasniedzāt šo lapu caur saikni, vai uzklikšķinot uz pogas Omekā, tad lūdzu kontaktējaties ar %s"
+
+#: admin/themes/default/files/edit.php:8
+#, php-format
+msgid "Edit File #%s"
+msgstr "Labot failu #%s"
+
+#: admin/themes/default/files/edit.php:17
+msgid "Delete this File"
+msgstr "Izdzēst šo failu"
+
+#: admin/themes/default/files/show.php:9
+#: application/views/scripts/files/show.php:9
+#, php-format
+msgid "File #%s"
+msgstr "Fails #%s"
+
+#: admin/themes/default/files/show.php:15
+msgid "Edit this File"
+msgstr "Labot šo failu"
+
+#: admin/themes/default/files/show.php:23
+#: application/views/scripts/files/show.php:55
+msgid "File History"
+msgstr "Faila vēsture"
+
+#: admin/themes/default/files/show.php:26
+#: application/views/scripts/files/show.php:61
+msgid "Date Modified"
+msgstr "Datums labots"
+
+#: admin/themes/default/files/show.php:28
+#: application/views/scripts/files/show.php:65
+msgid "Authentication"
+msgstr "Autentifikācija"
+
+#: admin/themes/default/files/show.php:36
+msgid "Format Metadata"
+msgstr "Pārveidot Metadatus"
+
+#: admin/themes/default/files/show.php:38
+#: application/views/scripts/files/show.php:23
+msgid "Archive Filename"
+msgstr "Arhīva faila nosaukums"
+
+#: admin/themes/default/files/show.php:39
+#: application/views/scripts/files/show.php:28
+msgid "Original Filename"
+msgstr "Orģinālais faila nosaukums"
+
+#: admin/themes/default/files/show.php:40
+#: application/views/scripts/files/show.php:33
+msgid "File Size"
+msgstr "Faila izmērs"
+
+#: admin/themes/default/files/show.php:45
+#: admin/themes/default/item-types/show.php:20
+#: application/views/scripts/files/show.php:39
+msgid "Type Metadata"
+msgstr "Metadatu veids"
+
+#: admin/themes/default/files/show.php:47
+#: application/views/scripts/files/show.php:41
+msgid "Mime Type / Browser"
+msgstr "Mīma veids/pārlūks"
+
+#: admin/themes/default/files/show.php:48
+#: application/views/scripts/files/show.php:45
+msgid "Mime Type / OS"
+msgstr "Atdarināšanas veids/OS"
+
+#: admin/themes/default/files/show.php:49
+#: application/views/scripts/files/show.php:49
+msgid "File Type / OS"
+msgstr "Faila veids/OS"
+
+#: admin/themes/default/files/show.php:54
+#: admin/themes/default/items/browse.php:201
+#: admin/themes/default/items/show.php:110
+msgid "Output Formats"
+msgstr "Izejas formāti"
+
+#: admin/themes/default/index.php:2
+msgid "Dashboard"
+msgstr "Mērinstrumentu panelis"
+
+#: admin/themes/default/index.php:12
+msgid "A new version of Omeka is available for download."
+msgstr "Ir iespējams nolādēt jauno Omeka versiju"
+
+#: admin/themes/default/index.php:13
+#, php-format
+msgid "Upgrade to %s"
+msgstr "Paaugstināt uz %s"
+
+#: admin/themes/default/index.php:19
+msgid "Getting Started with Omeka"
+msgstr "Sāc ar Omeku"
+
+#: admin/themes/default/index.php:24
+msgid "Add a new item to your archive"
+msgstr "Pievienot jaunu priekšmetu jūsu arhīvam"
+
+#: admin/themes/default/index.php:25
+msgid "Browse your items"
+msgstr "Pārlūkot jūsu priekšmetus"
+
+#: admin/themes/default/index.php:28
+msgid "Manage items in your archive: add, edit, and delete items."
+msgstr "Pārveido priekšmetus savā arhīvā: pievieno, labo un dzēs priekšmetus"
+
+#: admin/themes/default/index.php:35
+msgid "Add a collection to group items"
+msgstr "Pievienot kolekciju, lai sagrupētu priekšmetus"
+
+#: admin/themes/default/index.php:36
+msgid "Browse your collections"
+msgstr "Pārlūko savas kolekcijas"
+
+#: admin/themes/default/index.php:39
+msgid "Manage collections in your archive: add, edit, and delete collections."
+msgstr "Pārveido kolekcijas savā arhīvā: pievieno, labo un dzēs kolekcijas"
+
+#: admin/themes/default/index.php:48 admin/themes/default/users/browse.php:2
+msgid "Browse Users"
+msgstr "Pārlūkot lietotājus"
+
+#: admin/themes/default/index.php:50 admin/themes/default/users/browse.php:6
+msgid "Add a User"
+msgstr "Pievienot lietotāju"
+
+#: admin/themes/default/index.php:53
+msgid "Manage users of various levels: from researcher to super."
+msgstr "Skatīt, labot dažāda līmeņa lietotājus: no pētnieka līdz vadītājam"
+
+#: admin/themes/default/index.php:61 admin/themes/default/settings/edit.php:2
+msgid "Edit General Settings"
+msgstr "Labot galvenos iestatījumus"
+
+#: admin/themes/default/index.php:62
+msgid "Manage Themes"
+msgstr "Pārvaldīt tēmas"
+
+#: admin/themes/default/index.php:63
+msgid "Manage Plugins"
+msgstr "Pārvaldīt komentārus, spraudņus."
+
+#: admin/themes/default/index.php:65
+msgid ""
+"Manage your general settings for the site, including title, description, and"
+" themes."
+msgstr "Pārvaldīt savus galvenos iestatījumus saitā, ieskaitot nosaukumu, aprakstu un tēmas."
+
+#: admin/themes/default/index.php:75
+msgid "Site Overview"
+msgstr "Mājaslapas pārskats"
+
+#: admin/themes/default/index.php:85
+#, php-format
+msgid ""
+"<em>%1$s</em> contains %2$s items, in %3$s collections, tagged with %4$s "
+"keywords. There are %5$s users."
+msgstr "<em>%1$s</em> satur %2$s priekšmetus,  %3$s kolekcijās, atzīmēti ar %4$s atslēgvārdiem. Tur ir  %5$s lietotāji. "
+
+#: admin/themes/default/index.php:91
+msgid "There are no items to display."
+msgstr "Nav priekšmetu, ko parādīt."
+
+#: admin/themes/default/index.php:102 application/views/scripts/index.php:71
+msgid "View All Items"
+msgstr "Apskatīt visus priekšmetus"
+
+#: admin/themes/default/index.php:107
+msgid "Recent Tags"
+msgstr "Nesenie komentāri"
+
+#: admin/themes/default/item-types/add-existing-element.php:7
+#: admin/themes/default/item-types/add-new-element.php:7
+#: admin/themes/default/item-types/element-list.php:10
+#: admin/themes/default/item-types/element-list.php:24
+#: application/helpers/ElementForm.php:406
+msgid "Remove"
+msgstr "Noņemt"
+
+#: admin/themes/default/item-types/add.php:2
+#: admin/themes/default/item-types/add.php:10
+msgid "Add Item Type"
+msgstr "Pievienot priekšmeta tipu"
+
+#: admin/themes/default/item-types/browse.php:2
+msgid "Browse Item Types"
+msgstr "Pārlūkot priekšmeta tipus"
+
+#: admin/themes/default/item-types/browse.php:6
+msgid "Add an Item Type"
+msgstr "Pievienot priekšmeta tipu"
+
+#: admin/themes/default/item-types/browse.php:13
+msgid "Type Name"
+msgstr "Tipa vārds"
+
+#: admin/themes/default/item-types/browse.php:15
+msgid "Total Items"
+msgstr "Priekšmetu skaits"
+
+#: admin/themes/default/item-types/edit.php:8
+#, php-format
+msgid "Edit Item Type #%s"
+msgstr "Labot priekšmeta tipu #%s"
+
+#: admin/themes/default/item-types/edit.php:14
+msgid "Delete this Item Type"
+msgstr "Dzēst šo priekšmeta tipu"
+
+#: admin/themes/default/item-types/element-form.php:3
+msgid "Add an Element to this Item Type"
+msgstr "Pievienot elementu šims priekšmeta tipam"
+
+#: admin/themes/default/item-types/element-form.php:6
+msgid "Choose an existing element"
+msgstr "Izvēlies jau eksistējošu elementu"
+
+#: admin/themes/default/item-types/element-form.php:14
+msgid "Or Create a new Element"
+msgstr "Vai izveido jaunu elementu"
+
+#: admin/themes/default/item-types/element-form.php:31
+#: admin/themes/default/item-types/element-list.php:7
+msgid "Data Type"
+msgstr "Datu tipi"
+
+#: admin/themes/default/item-types/element-form.php:40
+#: admin/themes/default/item-types/element-list.php:61
+msgid "Add Element"
+msgstr "Pievienot elementu"
+
+#: admin/themes/default/item-types/element-list.php:1
+msgid "Edit Current Elements"
+msgstr "Labot pašreizējos elementus"
+
+#: admin/themes/default/item-types/element-list.php:5
+msgid "Element Name"
+msgstr "Elementa nosaukums"
+
+#: admin/themes/default/item-types/element-list.php:8
+#: admin/themes/default/items/files-form.php:14
+msgid "Order"
+msgstr "Sakārtot"
+
+#: admin/themes/default/item-types/element-list.php:59
+msgid "Existing"
+msgstr "Eksistējošs"
+
+#: admin/themes/default/item-types/element-list.php:60
+msgid "New"
+msgstr "Jauns"
+
+#: admin/themes/default/item-types/form.php:17
+msgid "Item Type Information"
+msgstr "Informācija par priekšmeta tipu"
+
+#: admin/themes/default/item-types/form.php:35
+msgid "Elements"
+msgstr "Elements"
+
+#: admin/themes/default/item-types/show.php:8
+#, php-format
+msgid "Item Type #%s"
+msgstr "Priekšmeta tips #%s"
+
+#: admin/themes/default/item-types/show.php:13
+msgid "Edit this Item Type"
+msgstr "Labot šo priekšmeta tipu"
+
+#: admin/themes/default/item-types/show.php:39
+msgid "There are no recently added items."
+msgstr "Nav nesen pievienoti priekšmeti"
+
+#: admin/themes/default/items/add.php:2
+#: admin/themes/default/items/browse.php:6
+msgid "Add an Item"
+msgstr "Pievienot priekšmetu"
+
+#: admin/themes/default/items/add.php:12
+msgid "Add Item"
+msgstr "Pievienot priekšmetu"
+
+#: admin/themes/default/items/batch-edit.php:2
+msgid "Batch Edit Items"
+msgstr "Sagrupēt labotos priekšmetus"
+
+#: admin/themes/default/items/batch-edit.php:15
+msgid "Changes will be applied to checked items."
+msgstr "Izmaiņas tiks veiktas atzīmētjiem priekšmetiem"
+
+#: admin/themes/default/items/batch-edit.php:36
+msgid "Item Metadata"
+msgstr "Priekšmets Metadata"
+
+#: admin/themes/default/items/batch-edit.php:39
+msgid "Public?"
+msgstr "Publisks?"
+
+#: admin/themes/default/items/batch-edit.php:41
+#: admin/themes/default/items/batch-edit.php:53
+#: admin/themes/default/items/batch-edit.php:65
+#: admin/themes/default/items/batch-edit.php:78
+msgid "Select Below"
+msgstr "Atzīmēt zemāk"
+
+#: admin/themes/default/items/batch-edit.php:51
+msgid "Featured?"
+msgstr "Iekļauts?"
+
+#: admin/themes/default/items/batch-edit.php:62
+#: admin/themes/default/items/item-type-form.php:2
+msgid "Item Type"
+msgstr "Priekšmeta tips"
+
+#: admin/themes/default/items/batch-edit.php:70
+#: admin/themes/default/items/batch-edit.php:83
+msgid "Remove?"
+msgstr "Noņemt?"
+
+#: admin/themes/default/items/batch-edit.php:75
+#: admin/themes/default/items/browse.php:165
+#: admin/themes/default/items/collection-form.php:2
+#: admin/themes/default/items/show.php:62
+#: application/views/scripts/items/show.php:18
+msgid "Collection"
+msgstr "Kolekcija"
+
+#: admin/themes/default/items/batch-edit.php:88
+#: admin/themes/default/items/tag-form.php:11
+#: admin/themes/default/items/tag-form.php:13
+msgid "Add Tags"
+msgstr "Pievienot komentāru"
+
+#: admin/themes/default/items/batch-edit.php:90
+#, php-format
+msgid "List of tags to add to all checked items, separated by %s."
+msgstr "Komentāru saraksts ko pievienot visiemm atzīmētajiem priekšmetiem, atdalīti ar %s."
+
+#: admin/themes/default/items/batch-edit.php:98
+msgid "Delete Items"
+msgstr "Izdzēst priekšmetus"
+
+#: admin/themes/default/items/batch-edit.php:99
+msgid "Check if you wish to delete selected items."
+msgstr "Pārbaudiet vai jūs vēlaties dzēst atzīmētos priekšmetus"
+
+#: admin/themes/default/items/browse.php:2
+#: application/views/scripts/common/footer.php:6
+#: application/views/scripts/functions.php:98
+#: application/views/scripts/items/browse.php:2
+#: application/views/scripts/items/tags.php:2
+msgid "Browse Items"
+msgstr "Pārlukot priekšmetus"
+
+#: admin/themes/default/items/browse.php:13
+msgid "Toggle"
+msgstr "Pārslēgt"
+
+#: admin/themes/default/items/browse.php:14
+msgid "Details"
+msgstr "Detaļas"
+
+#: admin/themes/default/items/browse.php:15
+msgid "Show Details"
+msgstr "Parādīt detaļas"
+
+#: admin/themes/default/items/browse.php:16
+msgid "Hide Details"
+msgstr "Paslēpt detaļas"
+
+#: admin/themes/default/items/browse.php:96
+msgid "Quick Filter"
+msgstr "Ātrais filtrs"
+
+#: admin/themes/default/items/browse.php:99
+msgid "All"
+msgstr "Visi"
+
+#: admin/themes/default/items/browse.php:101
+msgid "Private"
+msgstr "Privāts"
+
+#: admin/themes/default/items/browse.php:109
+#: application/helpers/LinkFunctions.php:63
+#: application/views/scripts/items/advanced-search.php:2
+msgid "Advanced Search"
+msgstr "Izvērstā meklēšana"
+
+#: admin/themes/default/items/browse.php:117
+#: admin/themes/default/items/browse.php:193
+msgid "Edit Selected Items"
+msgstr "Labot atzīmētos priekšmetus"
+
+#: admin/themes/default/items/browse.php:126
+msgid "Select"
+msgstr "Atzīmēt"
+
+#: admin/themes/default/items/browse.php:165
+#: admin/themes/default/items/show.php:64
+msgid "No Collection"
+msgstr "Nav kolekcijas"
+
+#: admin/themes/default/items/browse.php:166
+msgid "No Tags"
+msgstr "Nav komentāri"
+
+#: admin/themes/default/items/browse.php:207
+msgid "There are no items in the archive yet."
+msgstr "Nav priekšmeti ko arhivēt"
+
+#: admin/themes/default/items/browse.php:210
+msgid "Add an item."
+msgstr "Pievienot priekšmetu"
+
+#: admin/themes/default/items/browse.php:215
+#, php-format
+msgid "The query searched %s items and returned no results."
+msgstr "Tīmeklis meklēja %s priekšmetus, bet bez ruzultātiem"
+
+#: admin/themes/default/items/browse.php:215
+#, php-format
+msgid "Would you like to %s?"
+msgstr "Vai jūs vēlētos %s?"
+
+#: admin/themes/default/items/browse.php:215
+msgid "refine your search"
+msgstr "Papildiniet meklēšanas iestījumus"
+
+#: admin/themes/default/items/edit.php:3 admin/themes/default/items/show.php:3
+#: application/helpers/LinkFunctions.php:271
+#: application/views/scripts/functions.php:14
+msgid "[Untitled]"
+msgstr "[Bez nosaukuma]"
+
+#: admin/themes/default/items/edit.php:8
+#, php-format
+msgid "Edit Item #%s"
+msgstr "Labot priekšmetus #%s"
+
+#: admin/themes/default/items/edit.php:12
+msgid "Delete this Item"
+msgstr "Dzēst šo priekšmetu"
+
+#: admin/themes/default/items/files-form.php:4
+msgid ""
+"The path to Image Magick has not been set. No derivative images will be "
+"created. If you would like Omeka to create derivative images, please add the"
+" path to your settings form."
+msgstr "Image Magick saikne nav vēl uzstādīta. Atvasināti attēli netiks izveidoti. Vai jūs vēlētos, lai Omeka izveidotu atvasinātus attēlus, lūdzu pievienojiet saiti savā iestatījumu lapā."
+
+#: admin/themes/default/items/files-form.php:7
+msgid "Current Files"
+msgstr "Pašreizējie faili"
+
+#: admin/themes/default/items/files-form.php:12
+msgid "File Name"
+msgstr "Faila nosaukums"
+
+#: admin/themes/default/items/files-form.php:13
+msgid "Edit File Metadata"
+msgstr "Labot failu Metadata"
+
+#: admin/themes/default/items/files-form.php:36
+msgid "Add New Files"
+msgstr "Pievienot jaunus failus"
+
+#: admin/themes/default/items/files-form.php:39
+#: admin/themes/default/items/files-form.php:50
+msgid "Find a File"
+msgstr "Atrast failu"
+
+#: admin/themes/default/items/form.php:21
+msgid "Add Another File"
+msgstr "Atrast citu failu"
+
+#: admin/themes/default/items/item-type-form.php:8
+msgid "Pick this type"
+msgstr "Izvēlēties šo tipu"
+
+#: admin/themes/default/items/show.php:8
+#, php-format
+msgid "Item #%s"
+msgstr "Priekšmets #%s"
+
+#: admin/themes/default/items/show.php:18
+msgid "Edit this Item"
+msgstr "Labot šo priekšmetu"
+
+#: admin/themes/default/items/show.php:55
+msgid "Bibliographic Citation"
+msgstr "Bibiliogrāfiskā atsauce"
+
+#: admin/themes/default/items/show.php:76
+#: admin/themes/default/items/tag-form.php:18
+msgid "My Tags"
+msgstr "Mani komentāri"
+
+#: admin/themes/default/items/show.php:85
+msgid "Save Tags"
+msgstr "Saglabāt komentārus"
+
+#: admin/themes/default/items/show.php:95
+#: admin/themes/default/items/show.php:102
+msgid "View File Metadata"
+msgstr "Apskatīt failu Metadata"
+
+#: admin/themes/default/items/show.php:98
+msgid "Add a File"
+msgstr "Pievienot failu"
+
+#: admin/themes/default/items/show.php:98
+msgid "There are no files for this item yet."
+msgstr "Failu šim priekšmetam vēl nav."
+
+#: admin/themes/default/items/tag-form.php:14
+#, php-format
+msgid "Separate tags with %s"
+msgstr "Atdalīt komentārus ar %s"
+
+#: admin/themes/default/items/tag-form.php:42
+#: admin/themes/default/items/tag-list.php:2
+msgid "All Tags"
+msgstr "Visi komentāri"
+
+#: admin/themes/default/items/tags.php:2
+msgid "Browse Items by Tag"
+msgstr "Pārlūkot priekšmetus pēc komentāriem"
+
+#: admin/themes/default/items/tags.php:9
+#: admin/themes/default/tags/browse.php:27
+msgid "There are no tags to display. You must first tag some items."
+msgstr "Nav komentāri ko uzrādīt. Jums no sākuma jākomentē priekšmeti."
+
+#: admin/themes/default/plugins/browse.php:2
+msgid "Browse Plugins"
+msgstr "Pārlūkot spraudņus"
+
+#: admin/themes/default/plugins/browse.php:21
+msgid ""
+"You do not have any plugins installed. Add them to the plugins directory to "
+"see them listed here."
+msgstr "Jums nav ieinstalēti spraudņi. Pievienojiet tos spraudņu vietnē, lai tos šeit redzētu atzīmētus."
+
+#: admin/themes/default/plugins/browse.php:24
+msgid ""
+"Add new plugins by downloading them from the <a href=\"http://omeka.org/add-"
+"ons/plugins/\">Omeka Plugins Directory</a>, or <a "
+"href=\"http://omeka.org/codex/Plugin_Writing_Best_Practices\">write your "
+"own</a>!"
+msgstr "Pievienot jaunus spraudņus, tos lejupielādējot no <a href=\"http://omeka.org/add-ons/plugins/\">Omeka Plugins Directory</a>, or <a href=\"http://omeka.org/codex/Plugin_Writing_Best_Practices\">uzraksti savu pašu</a>!"
+
+#: admin/themes/default/plugins/config.php:2
+#, php-format
+msgid "Configure the &#8220;%s&#8221; Plugin"
+msgstr "Konfigurē &#8220;%s&#8221; Spraudnis"
+
+#: admin/themes/default/plugins/confirm-uninstall.php:2
+#, php-format
+msgid "Confirm %s Uninstall"
+msgstr "Apstiprināt %s Atinstalēt"
+
+#: admin/themes/default/plugins/confirm-uninstall.php:8
+msgid "Are you sure you want to uninstall this plugin?"
+msgstr "Vai tiešām vēlaties atinsatlēt šo spraudni?"
+
+#: admin/themes/default/plugins/confirm-uninstall.php:13
+msgid "Yes, I want to uninstall this plugin."
+msgstr "Jā, es vēlos atinstalēt šo spraudni"
+
+#: admin/themes/default/plugins/confirm-uninstall.php:16
+msgid "Cancel"
+msgstr "Atcelt"
+
+#: admin/themes/default/plugins/confirm-uninstall.php:16
+#: admin/themes/default/plugins/plugin-info.php:107
+msgid "Uninstall"
+msgstr "Atinstalēt"
+
+#: admin/themes/default/plugins/confirm-uninstall.php:16
+msgid "or"
+msgstr "vai"
+
+#: admin/themes/default/plugins/plugin-info.php:24
+#, php-format
+msgid "This version of %1$s requires at least Omeka %2$s."
+msgstr "Šai %1$s versijai nepieciešama vismaz Omeka %2$s."
+
+#: admin/themes/default/plugins/plugin-info.php:27
+#, php-format
+msgid ""
+"%1$s requires the following plugins to be installed, activated, and loaded: "
+"%2$s"
+msgstr "%1$s nepieciešams uzstādīt, aktivizēt un uzlādēt sekojošos spraudņus: %2$s"
+
+#: admin/themes/default/plugins/plugin-info.php:30
+msgid "The plugin.php file is missing."
+msgstr "trūkst plugin.php fails."
+
+#: admin/themes/default/plugins/plugin-info.php:39
+#, php-format
+msgid "The %s plugin cannot be loaded for the following reasons:"
+msgstr "%s spraudnis nevar tikt ielādēts sekojošu iemeslu dēļ"
+
+#: admin/themes/default/plugins/plugin-info.php:48
+#, php-format
+msgid "You have a new version of %s. Please upgrade!"
+msgstr "Jums ir pieejama jauna %s versija. Lūdzu atjaunojiet."
+
+#: admin/themes/default/plugins/plugin-info.php:58
+#: admin/themes/default/themes/browse.php:10
+msgid "Configure"
+msgstr "Konfigurēt"
+
+#: admin/themes/default/plugins/plugin-info.php:69
+#, php-format
+msgid "By %s"
+msgstr "%s"
+
+#: admin/themes/default/plugins/plugin-info.php:87
+msgid "Upgrade"
+msgstr "Atjauninājums"
+
+#: admin/themes/default/plugins/plugin-info.php:97
+#: application/views/scripts/users/activate.php:26
+msgid "Activate"
+msgstr "Aktīvizēt"
+
+#: admin/themes/default/plugins/plugin-info.php:97
+msgid "Deactivate"
+msgstr "Deaktivizēt"
+
+#: admin/themes/default/plugins/plugin-info.php:117
+#: application/forms/Install.php:173
+msgid "Install"
+msgstr "Uzstādīt"
+
+#: admin/themes/default/security/edit.php:2
+msgid "Edit Security Settings"
+msgstr "Labot drošības uzstādījumus"
+
+#: admin/themes/default/security/edit.php:10
+msgid "Restore Default File Extensions"
+msgstr "Atstatīt Noklusējuma Faila attīšanos"
+
+#: admin/themes/default/security/edit.php:15
+msgid "Restore Default File Mime Types"
+msgstr "Atstatīt Noklusējuma Faila atdarinājuma tipus"
+
+#: admin/themes/default/settings/edit.php:10
+msgid "Test"
+msgstr "Pārbaudīt"
+
+#: admin/themes/default/system-info/index.php:2
+msgid "System Information"
+msgstr "Sisēmas informācija"
+
+#: admin/themes/default/tags/browse.php:8
+msgid "Sort by"
+msgstr "Sakārtot pēc"
+
+#: admin/themes/default/tags/browse.php:11
+msgid "Most"
+msgstr "Visvairāk"
+
+#: admin/themes/default/tags/browse.php:12
+msgid "Least"
+msgstr "Vismazāk"
+
+#: admin/themes/default/tags/browse.php:13
+msgid "Alphabetical"
+msgstr "Alfabētiskā"
+
+#: admin/themes/default/tags/browse.php:14
+msgid "Recent"
+msgstr "Nesenie"
+
+#: admin/themes/default/tags/delete.php:11
+msgid "Select a tag to delete:"
+msgstr "Atzīmējiet komentāru, lai dzēstu:"
+
+#: admin/themes/default/tags/delete.php:25
+msgid "There are no tags to delete. You must first tag some items."
+msgstr "Nav komentāru, ko dzēst. No sākuma komentējiet kādus priekšmetus."
+
+#: admin/themes/default/tags/edit.php:12
+msgid "Choose a tag to rename"
+msgstr "Izvēlieties komentāru, lai to pārsauktu"
+
+#: admin/themes/default/tags/edit.php:22
+msgid "Enter a new tag name"
+msgstr "Ievadiet jaunā komentāra nosaukumu"
+
+#: admin/themes/default/tags/edit.php:32
+msgid "There are no tags to edit. You must first tag some items."
+msgstr "Nav komentāru ko labot. No sākuma komentējiet priekšmetus."
+
+#: admin/themes/default/themes/browse.php:2
+msgid "Browse Themes"
+msgstr "Pārlūkot tēmas"
+
+#: admin/themes/default/themes/browse.php:10
+msgid "Current Theme"
+msgstr "Pašreizējā tēma"
+
+#: admin/themes/default/themes/browse.php:13
+#: admin/themes/default/themes/browse.php:38
+#, php-format
+msgid "Screenshot for %s Theme"
+msgstr "Ekrānbilde %s tēmai"
+
+#: admin/themes/default/themes/browse.php:16
+#: admin/themes/default/themes/browse.php:32
+msgid "Author"
+msgstr "Autors"
+
+#: admin/themes/default/themes/browse.php:17
+#: admin/themes/default/themes/browse.php:33
+msgid "License"
+msgstr "Licence"
+
+#: admin/themes/default/themes/browse.php:18
+#: admin/themes/default/themes/browse.php:34
+msgid "Website"
+msgstr "Mājaslapa"
+
+#: admin/themes/default/themes/browse.php:23
+msgid "Change Theme"
+msgstr "Mainīt tēmu"
+
+#: admin/themes/default/themes/browse.php:44
+msgid "Switch Theme"
+msgstr "Apmainīt tēmu"
+
+#: admin/themes/default/themes/browse.php:48
+msgid ""
+"Add new themes by downloading them from the <a href=\"http://omeka.org/add-"
+"ons/themes/\">Omeka Theme Directory</a>, or <a "
+"href=\"http://omeka.org/codex/Theme_Writing_Best_Practices\">design your "
+"own</a>!"
+msgstr "Pievieno jaunu tēmu, lejupielādējot to no <a href=\"http://omeka.org/add-ons/themes/\">Omeka Theme Directory</a>, or <a href=\"http://omeka.org/codex/Theme_Writing_Best_Practices\">veido pats</a>!"
+
+#: admin/themes/default/themes/config.php:2
+#, php-format
+msgid "Configure the &#8220;%s&#8221; Theme"
+msgstr "Izmainīt &#8220;%s&#8221; Tēma"
+
+#: admin/themes/default/themes/config.php:9
+msgid "Configurations apply to this theme only."
+msgstr "Izmaiņas tiks veiktas tikai šai tēmai."
+
+#: admin/themes/default/users/add.php:2
+msgid "Add New User"
+msgstr "Pievienot jaunu lietotāju"
+
+#: admin/themes/default/users/browse.php:13
+msgid "Search Users"
+msgstr "Meklēt lietotājus"
+
+#: admin/themes/default/users/browse.php:15
+msgid "Select Role"
+msgstr "Atzīmēt lomu"
+
+#: admin/themes/default/users/browse.php:17
+msgid "Active"
+msgstr "Aktīvs"
+
+#: admin/themes/default/users/browse.php:17
+msgid "Inactive"
+msgstr "Neaktīvs"
+
+#: admin/themes/default/users/browse.php:17
+msgid "Select Status"
+msgstr "Izvēlēties statusu"
+
+#: admin/themes/default/users/browse.php:19
+msgid "Sort By"
+msgstr "Kārtot pēc"
+
+#: admin/themes/default/users/browse.php:20 application/forms/User.php:78
+msgid "First Name"
+msgstr "Vārds"
+
+#: admin/themes/default/users/browse.php:21 application/forms/User.php:91
+msgid "Last Name"
+msgstr "Uzvārds"
+
+#: admin/themes/default/users/browse.php:22
+msgid "Institution Name"
+msgstr "Institūcijas nosaukums"
+
+#: admin/themes/default/users/browse.php:23
+#: admin/themes/default/users/browse.php:41 application/forms/User.php:143
+msgid "Role"
+msgstr "Loma"
+
+#: admin/themes/default/users/browse.php:24
+#: admin/themes/default/users/browse.php:38
+#: admin/themes/default/users/show.php:22 application/forms/Install.php:35
+#: application/forms/Login.php:25 application/forms/User.php:28
+msgid "Username"
+msgstr "Lietotājvārds"
+
+#: admin/themes/default/users/browse.php:26
+msgid "Sort Order"
+msgstr "Sakārtots rīkojums"
+
+#: admin/themes/default/users/browse.php:27
+msgid "Ascending"
+msgstr "Augošā secībā"
+
+#: admin/themes/default/users/browse.php:28
+msgid "Descending"
+msgstr "Dilstošā secībā"
+
+#: admin/themes/default/users/browse.php:29
+#: application/helpers/FormFunctions.php:270
+#: application/views/scripts/items/advanced-search.php:167
+msgid "Search"
+msgstr "Meklēt"
+
+#: admin/themes/default/users/browse.php:39
+#: admin/themes/default/users/show.php:24
+msgid "Real Name"
+msgstr "Īstais vārds"
+
+#: admin/themes/default/users/browse.php:40
+#: admin/themes/default/users/show.php:26 application/forms/Install.php:79
+#: application/forms/RecoverPassword.php:32 application/forms/User.php:105
+#: application/views/scripts/users/forgot-password.php:14
+msgid "Email"
+msgstr "E-pasts"
+
+#: admin/themes/default/users/edit.php:8
+#, php-format
+msgid "Edit User #%s"
+msgstr "Labot lietotāju #%s"
+
+#: admin/themes/default/users/show.php:8
+#, php-format
+msgid "User #%s"
+msgstr "Lietotājs #%s"
+
+#: admin/themes/default/users/show.php:15
+msgid "Edit this User"
+msgstr "Labot šo lietotāju"
+
+#: admin/themes/default/users/show.php:28 application/forms/User.php:137
+msgid "Institution"
+msgstr "Iestāde"
+
+#: application/controllers/CollectionsController.php:31
+#, php-format
+msgid "The collection \"%s\" was successfully added!"
+msgstr "Kolekcija %s tika veiksmīgi pievienota"
+
+#: application/controllers/CollectionsController.php:37
+#, php-format
+msgid "The collection \"%s\" was successfully changed!"
+msgstr "Kolekcija %s bija veiksmīgi nomainīta"
+
+#: application/controllers/CollectionsController.php:43
+#, php-format
+msgid "The collection \"%s\" was successfully deleted!"
+msgstr "Kolekcija %s tika  veiksmīgi izdzēsta"
+
+#: application/controllers/CollectionsController.php:48
+msgid ""
+"This will delete the collection and its associated metadata. This will not "
+"delete any items in this collection, but will delete the reference to this "
+"collection in each item."
+msgstr "Tas izdzēsīs kolekciju un tās saistīto metadatu. Tas neizdzēsīs nevienu priekšmetu šajā kolekcijā, bet tas izdzēsīs norādes šīs kolekcijas katram priekšmetam."
+
+#: application/controllers/ElementSetsController.php:26
+msgid ""
+"This will delete the element set and all elements assigned to the element "
+"set. Items will lose all metadata that is specific to this element set."
+msgstr "Tas izdzēsīs elementu komplektu un visus elementus piešķirs elementu kopai. Priekšmeti zaudēs visus metadatus, kuri ir koncentrēti šajā elementu kopā."
+
+#: application/controllers/ErrorController.php:66
+msgid "Page not found."
+msgstr "Lapa nav atrasta"
+
+#: application/controllers/ErrorController.php:85
+msgid "Access denied."
+msgstr "Piekļuve liegta."
+
+#: application/controllers/ItemTypesController.php:38
+msgid ""
+"This will delete the item type but will not delete the elements assigned to "
+"the item type. Items that are assigned to this item type will lose all "
+"metadata that is specific to the item type."
+msgstr "Tas izdzēsīs punkta veidu, bet tas neizdzēsīs elementus, kuri ir piešķirti elementu veidam. Priekšmeti, kuri ir piešķirti šajam priekšmetu veidam, zaudēs visus metadatus, kuri ir koncentrēti šajā elementu kopā."
+
+#: application/controllers/ItemTypesController.php:58
+#, php-format
+msgid ""
+"The item type \"%s\" was successfully added!  You may now add elements to "
+"your new item type."
+msgstr "Priekšmeta veids %s tika veiksmīgi pievienots! Jūs tagad varat pievienot elementus savai jaunajai elementu kopai."
+
+#: application/controllers/ItemTypesController.php:94
+#, php-format
+msgid "The item type \"%s\" was successfully changed!"
+msgstr "Priekšmeta veids %s tika veiksmīgi nomainīts."
+
+#: application/controllers/ItemTypesController.php:115
+#: application/controllers/ItemTypesController.php:123
+#, php-format
+msgid "The item type cannot have more than one \"%s\" element."
+msgstr "Priekšmeta veidam nevar būt vairāk kā viens %s elements."
+
+#: application/controllers/ItemsController.php:108
+msgid "The item was successfully added!"
+msgstr "Priekšmets tika veiksmīgi pievienots!"
+
+#: application/controllers/ItemsController.php:113
+msgid "The item was successfully changed!"
+msgstr "Priekšmets bija veiksmīgi nomainīts!"
+
+#: application/controllers/ItemsController.php:118
+msgid "The item was successfully deleted!"
+msgstr "Priekšmets tika veiksmīgi izdzēsts!"
+
+#: application/controllers/ItemsController.php:123
+msgid ""
+"This will delete the item and its associated metadata. It will also delete "
+"all files and file metadata associated with this item."
+msgstr "Tas izdzēsīs priekšmetu un tā saistīto metadatu. Tas izdzēsīs visus failus un failu metadatus, kuri ir saistīti ar šo priekšmetu."
+
+#: application/controllers/ItemsController.php:266
+msgid "User does not have permission to add tags."
+msgstr "lietotājam nav atļauts pievienot tagus."
+
+#: application/controllers/ItemsController.php:299
+msgid "You must choose some items to batch edit."
+msgstr "Jums ir jāizvēlas kādu priekšmetu, lai rediģētu grupas."
+
+#: application/controllers/ItemsController.php:338
+msgid "User is not allowed to modify visibility of items."
+msgstr "Lietotājam nav atļauts pārveidot priekšmetu skatu."
+
+#: application/controllers/ItemsController.php:343
+msgid "User is not allowed to modify featured status of items."
+msgstr "Lietotājam nav atļauts pārveidot priekšmeta stāvokli."
+
+#: application/controllers/ItemsController.php:350
+msgid "User is not allowed to delete selected items."
+msgstr "Lietotājam nav atļauts dzēst atlasītos priekšmetus."
+
+#: application/controllers/ItemsController.php:356
+msgid "User is not allowed to edit selected items."
+msgstr "Lietotājam nav atļauts rediģēt atlasītos priekšmetus."
+
+#: application/controllers/ItemsController.php:361
+msgid "User is not allowed to tag selected items."
+msgstr "Lietotājam nav atļauts pievinot atlasītos priekšmetus."
+
+#: application/controllers/ItemsController.php:384
+msgid "The items were successfully changed!"
+msgstr "Priekšmeti tika veiksmīgi nomainīti!"
+
+#: application/controllers/PluginsController.php:49
+#, php-format
+msgid ""
+"Error in configuring plugin named \"%s\". Missing config and/or config_form "
+"hook(s)."
+msgstr "Kļūda konfigurēšanas spraudnī ar nosaukumu %s. Ir pazudis config_form un/vai tas ir uzķēries."
+
+#: application/controllers/PluginsController.php:55
+#, php-format
+msgid "The %s plugin was successfully configured!"
+msgstr "%s spraudnis ir veiksmīgi konfigurēts!"
+
+#: application/controllers/PluginsController.php:70
+#, php-format
+msgid "The %s plugin has already been installed."
+msgstr "%s spraudnis jau ir uzinstalēts."
+
+#: application/controllers/PluginsController.php:76
+#, php-format
+msgid "The %s plugin was successfully installed!"
+msgstr "%s spraudnis tika veiksmīgi uzinstalēts!"
+
+#: application/controllers/PluginsController.php:86
+#, php-format
+msgid "The following error occurred while installing the %s plugin: "
+msgstr "Sekojošā kļūda notika kamēr instalējās %s spraudnis:"
+
+#: application/controllers/PluginsController.php:111
+#, php-format
+msgid "The %s plugin was successfully activated!"
+msgstr "%s spraudnis tika veiksmīgi aktivizēts!"
+
+#: application/controllers/PluginsController.php:113
+#, php-format
+msgid "The %s plugin was activated, but could not be loaded: "
+msgstr "%s spraudnis tika aktivizēts, bet iespējams nav uzlādēts"
+
+#: application/controllers/PluginsController.php:116
+#, php-format
+msgid "The following error occurred while activating the %s plugin: "
+msgstr "Sekojošā kļūda notika kamēr aktivizējāt %s spraudni:"
+
+#: application/controllers/PluginsController.php:137
+#, php-format
+msgid "The %s plugin was successfully deactivated!"
+msgstr "%s spraudnis veiksmīgi deaktivizējās!"
+
+#: application/controllers/PluginsController.php:139
+#, php-format
+msgid "The following error occurred while deactivating the %s plugin: "
+msgstr "Sekojošā kļūda notika kamēr deaktivizējās %s spraudnis:"
+
+#: application/controllers/PluginsController.php:156
+#, php-format
+msgid "The %s plugin was successfully upgraded!"
+msgstr "%s spraudnis veiksmīgi uzlabojās!"
+
+#: application/controllers/PluginsController.php:161
+#, php-format
+msgid "The following error occurred while upgrading the %s plugin: "
+msgstr "Sekojošā kļūda notika, kad uzlaboja %s spraudni:"
+
+#: application/controllers/PluginsController.php:212
+msgid "You must confirm the uninstall before proceeding."
+msgstr "Jums ir jaapstiprina atinstalēšana pirms sākat atinstalēt."
+
+#: application/controllers/PluginsController.php:227
+#, php-format
+msgid "The %s plugin was successfully uninstalled!"
+msgstr "%s spraudnis tika veiksmīgi atinstalēts!"
+
+#: application/controllers/PluginsController.php:229
+#, php-format
+msgid "The following error occurred while uninstalling the %s plugin: "
+msgstr "Sekojošā kļūda notika, kad atinstalējāt %s spraudni:"
+
+#: application/controllers/PluginsController.php:256
+msgid "No plugin name given."
+msgstr "Nav dots spraudņa nosaukums."
+
+#: application/controllers/PluginsController.php:269
+#, php-format
+msgid "The plugin %s must be installed."
+msgstr "%s spraudni ir jāinstalē."
+
+#: application/controllers/SecurityController.php:46
+msgid "The security settings have been updated."
+msgstr "Drošības iestādījumi ir atjaunināti."
+
+#: application/controllers/SettingsController.php:44
+msgid "The general settings have been updated."
+msgstr "Vispārējie iestādījumi ir atjaunināti."
+
+#: application/controllers/SettingsController.php:46
+#: install/views/scripts/index/index.phtml:16
+msgid "There were errors found in your form. Please edit and resubmit."
+msgstr "Ir atrasta kļūda jūsu veidlapā. Lūdzu rediģēiet un iesniedziet."
+
+#: application/controllers/SettingsController.php:70
+msgid "Works"
+msgstr "Darbi"
+
+#: application/controllers/SettingsController.php:71
+msgid "Fails"
+msgstr "Faili"
+
+#: application/controllers/TagsController.php:51
+#, php-format
+msgid "Tag named '%s' was successfully deleted."
+msgstr "Pievienotais marķieris ar nosaukumu \"%s\" tika veiksmīgi izdzēsts."
+
+#: application/controllers/TagsController.php:64
+msgid "You have to be logged in to edit tags!"
+msgstr "Jums ir jāpieslēdzas, lai rediģētu pievienotos marķiera failus!"
+
+#: application/controllers/TagsController.php:101
+#, php-format
+msgid "Tag named \"%1$s\" was successfully renamed to \"%2$s\"."
+msgstr "Pievienotais marķiera fails ar nosaukumu \" %1$s\" tika veiksmīgi pārsaukts par \"%2$s\"."
+
+#: application/controllers/TagsController.php:128
+msgid "Invalid tagType given"
+msgstr "Nederīgs pievienotais marķiera veids."
+
+#: application/controllers/ThemesController.php:30
+msgid "Invalid form submission."
+msgstr "Nederīga forma iesniegšanai."
+
+#: application/controllers/ThemesController.php:38
+msgid "You have chosen an illegal theme name. Please select another theme."
+msgstr "Jūs izvēlējāties nelegālu tēmas nosaukumu. Lūdzu izvēlēties citu tēmu."
+
+#: application/controllers/ThemesController.php:51
+msgid "The theme has been successfully changed."
+msgstr "Tēma tika veiksmīgi nomainīta."
+
+#: application/controllers/ThemesController.php:77
+msgid "The theme settings were successfully saved!"
+msgstr "Tēmas iestatījumi tika veiksmīgi saglabāti!"
+
+#: application/controllers/UpgradeController.php:57
+msgid "SQL error in migration: "
+msgstr "SQL kļūda pārvietojas:"
+
+#: application/controllers/UsersController.php:97
+#: application/controllers/UsersController.php:103
+msgid ""
+"Unable to reset password. Please verify that the information is correct and "
+"contact an administrator if necessary."
+msgstr "Nav iespējams uzlikt paroli. Lūdzu pārbaudiet, ka informācija ir pareiza un sazinaties ar administratoru, ja tas ir nepieciešams."
+
+#: application/controllers/UsersController.php:129
+msgid "Please follow this link to reset your password:"
+msgstr "Lūdzu sekojiet šai saitei, lai uzliktu jūsu paroli:"
+
+#: application/controllers/UsersController.php:131
+#: application/controllers/UsersController.php:134
+#: application/controllers/UsersController.php:298
+#, php-format
+msgid "%s Administrator"
+msgstr "%s administrators"
+
+#: application/controllers/UsersController.php:135
+#, php-format
+msgid "[%s] Reset Your Password"
+msgstr "[%s] uzlieciet jūsu paroli."
+
+#: application/controllers/UsersController.php:138
+msgid "Please check your email for a link to reset your password."
+msgstr "Lūdzu, pārbaudiet savā e-pastā saiti, kur vārēsiet atjaunot paroli."
+
+#: application/controllers/UsersController.php:154
+msgid "Password: The passwords do not match."
+msgstr "Parole: paroles nesakrīt."
+
+#: application/controllers/UsersController.php:160
+msgid "You may now log in to Omeka."
+msgstr "Jūs tagad varat pieslēgties Omeka."
+
+#: application/controllers/UsersController.php:179
+msgid "Add User"
+msgstr "pievienot lietotāju."
+
+#: application/controllers/UsersController.php:189
+#, php-format
+msgid "The user \"%s\" was successfully added!"
+msgstr "Lietotājs \"%s\" tika veiksmīgi pievienots!"
+
+#: application/controllers/UsersController.php:245
+msgid "Password changed!"
+msgstr "Parole tika nomainīta!"
+
+#: application/controllers/UsersController.php:254
+#, php-format
+msgid "The user %s was successfully changed!"
+msgstr "Lietotājs %s tika veiksmīgi nomainīts!"
+
+#: application/controllers/UsersController.php:274
+#, php-format
+msgid "The user \"%s\" was successfully deleted!"
+msgstr "Lietotājs \"%s\" tika veiksmīgi izdzēsts!"
+
+#: application/controllers/UsersController.php:280
+#, php-format
+msgid ""
+"%s will be deleted from the system. Items, collections, and tags created by "
+"this user will remain in the archive, but will no longer be associated with "
+"this user."
+msgstr "%s tiks izdzēsts no sistēmas. priekšmeti, kolekcijas un pievienotie faili, kurus izveidoja lietotājs, paliks arhīvā, taču tie vairs nebūs saistīti ar šo lietotāju."
+
+#: application/controllers/UsersController.php:294
+msgid "Welcome!"
+msgstr "Laipni lūgti!"
+
+#: application/controllers/UsersController.php:296
+#, php-format
+msgid ""
+"Your account for the %s archive has been created. Please click the following"
+" link to activate your account:"
+msgstr "Jūsu konts priekš %s arhīva tika izveidots. Lūdzu noklikšķiniet uz sekojošo saiti, lai aktivizētu Jūsu kontu: "
+
+#: application/controllers/UsersController.php:299
+#, php-format
+msgid "Activate your account with the %s archive"
+msgstr "Aktivizēt Jūsu kontu ar %s arhīvu"
+
+#: application/forms/ChangePassword.php:35
+msgid "Current Password"
+msgstr "Pašreizējā parole "
+
+#: application/forms/ChangePassword.php:44
+msgid "New Password"
+msgstr "Jaunā parole "
+
+#: application/forms/ChangePassword.php:78
+msgid "Repeat New Password"
+msgstr "Atkārtot Jauno paroli"
+
+#: application/forms/ChangePassword.php:86
+msgid "Save Password"
+msgstr "Saglabāt paroli"
+
+#: application/forms/ChangePassword.php:95
+msgid "Change Password"
+msgstr "Nomainīt paroli"
+
+#: application/forms/GeneralSettings.php:28 application/forms/Install.php:85
+msgid "Site Title"
+msgstr "Lapa nosaukums"
+
+#: application/forms/GeneralSettings.php:32 application/forms/Install.php:90
+msgid "Site Description"
+msgstr "Lapas apraksts "
+
+#: application/forms/GeneralSettings.php:36 application/forms/Install.php:94
+msgid "Administrator Email"
+msgstr "Administratora e-pasts"
+
+#: application/forms/GeneralSettings.php:42 application/forms/Install.php:100
+msgid "Site Copyright Information"
+msgstr " Lapa ar informāciju par autortiesībām"
+
+#: application/forms/GeneralSettings.php:46 application/forms/Install.php:104
+msgid "Site Author Information"
+msgstr "Lapa ar informāciju par autoru"
+
+#: application/forms/GeneralSettings.php:50 application/forms/Install.php:108
+msgid "Tag Delimiter"
+msgstr "Pievienotā faila norobežotājs"
+
+#: application/forms/GeneralSettings.php:51
+msgid ""
+"Separate tags using this character or string. Be careful when changing this "
+"setting. You run the risk of splitting tags that contain the old delimiter."
+msgstr "Atdalīt pievienotos failus izmantojot raksturu, vai virkni. Esat uzmanīgs, kad Jūs mainat šos iestatījumus. Jūs riskējat sadalīt pievienotos failus, kuri satur vecos norobežojumus"
+
+#: application/forms/GeneralSettings.php:64 application/forms/Install.php:123
+msgid "Fullsize Image Size"
+msgstr "Pilna izmēra attēls"
+
+#: application/forms/GeneralSettings.php:65 application/forms/Install.php:124
+msgid "Maximum fullsize image size constraint (in pixels)."
+msgstr "Maksimāla pilna izmēra attēla ierobežojums (pikseļos)."
+
+#: application/forms/GeneralSettings.php:71 application/forms/Install.php:131
+msgid "Thumbnail Size"
+msgstr "Sīkattēla izmērs"
+
+#: application/forms/GeneralSettings.php:72 application/forms/Install.php:132
+msgid "Maximum thumbnail size constraint (in pixels)."
+msgstr "Maksimālais sīkattēla izmēra ierobežojums (pikseļos)."
+
+#: application/forms/GeneralSettings.php:78 application/forms/Install.php:139
+msgid "Square Thumbnail Size"
+msgstr "Sīkattēla izmēra laukums"
+
+#: application/forms/GeneralSettings.php:79 application/forms/Install.php:140
+msgid "Maximum square thumbnail size constraint (in pixels)."
+msgstr "Maksimālais sīkattēla laukuma izmēra ierobešojums (pikseļos)."
+
+#: application/forms/GeneralSettings.php:85 application/forms/Install.php:147
+msgid "Items Per Page (admin)"
+msgstr "Atspoguļot (administrators)"
+
+#: application/forms/GeneralSettings.php:86 application/forms/Install.php:148
+msgid ""
+"Limit the number of items displayed per page in the administrative "
+"interface."
+msgstr "Ierobežotais ierakstu skaits uzrādās lapas administratīvajā interfeisā"
+
+#: application/forms/GeneralSettings.php:92 application/forms/Install.php:155
+msgid "Items Per Page (public)"
+msgstr "Atspoguļot (publiski)"
+
+#: application/forms/GeneralSettings.php:93 application/forms/Install.php:156
+msgid "Limit the number of items displayed per page in the public interface."
+msgstr "Ierobežotais ierakstu skaits uzrādās  lapas publiskajā interfeisā"
+
+#: application/forms/GeneralSettings.php:99 application/forms/Install.php:163
+msgid "Show Empty Elements"
+msgstr "Parādīt tukšos elementus."
+
+#: application/forms/GeneralSettings.php:104
+msgid "Enable Prototype"
+msgstr "Ieslēgt prototipu"
+
+#: application/forms/GeneralSettings.php:106
+msgid ""
+"Enable the Prototype JavaScript library. This may be required for some older"
+" plugins."
+msgstr "Ir atļauts prototips JavaScript bibliotēkā. Tam ir nepieciešami daži vecāki spraudņi."
+
+#: application/forms/GeneralSettings.php:110 application/forms/Install.php:169
+msgid "Imagemagick Directory Path"
+msgstr "Attēlamagick kataloga ceļš"
+
+#: application/forms/GeneralSettings.php:114
+msgid "Save Settings"
+msgstr "Saglabāt iestatījumus"
+
+#: application/forms/Install.php:37
+msgid "Only alphanumeric characters are allowed."
+msgstr "Ir atļautas tikai burtciparu rakstzīmes."
+
+#: application/forms/Install.php:43 application/forms/Login.php:34
+msgid "Password"
+msgstr "Parole"
+
+#: application/forms/Install.php:44
+msgid "Must be at least 6 characters."
+msgstr "Ir nepieciešamas vismaz 6 rakstzīmes."
+
+#: application/forms/Install.php:66 application/forms/ResetPassword.php:49
+#: application/views/scripts/users/activate.php:19
+msgid "Re-type the Password"
+msgstr "Atkārtot paroli"
+
+#: application/forms/Install.php:67
+msgid "Confirm your password."
+msgstr "Apstiprināt Jūsu paroli"
+
+#: application/forms/Install.php:109
+msgid "Separate tags using this character or string."
+msgstr "Atdaliet pievienotos failus rakstzīmes vai rindas."
+
+#: application/forms/Install.php:165
+msgid "Whether metadata elements with no text will be displayed."
+msgstr "Metadatu elementi tiks parādīti arī bez teksta."
+
+#: application/forms/Install.php:180
+msgid "Default Superuser Account"
+msgstr "Noklusēts Superlietotāja konts"
+
+#: application/forms/Install.php:190
+msgid "Site Settings"
+msgstr "Vietnes iestatījumi"
+
+#: application/forms/Login.php:32
+msgid "Username cannot be empty."
+msgstr "Lietotājvārda vieta ir tukša."
+
+#: application/forms/Login.php:41
+msgid "Password cannot be empty."
+msgstr "Paroles vieta nevar būt tukša"
+
+#: application/forms/Login.php:42
+msgid "Remember Me?"
+msgstr "Atcerēties mani?"
+
+#: application/forms/Login.php:44 application/views/scripts/users/login.php:3
+msgid "Log In"
+msgstr "Pieslēgties"
+
+#: application/forms/RecoverPassword.php:41
+msgid "Email address is required."
+msgstr "E-pasta adrese."
+
+#: application/forms/RecoverPassword.php:51
+msgid "Invalid email address given."
+msgstr "Tiek dota nederīga e-pasta adrese."
+
+#: application/forms/RecoverPassword.php:53
+msgid "Invalid format given for email address."
+msgstr "Tiek dots nederīgs formāts e-pasta adresei."
+
+#: application/forms/RecoverPassword.php:55
+msgid "Invalid hostname given for email address."
+msgstr "Tiek dota nederīga resursdatora e-pasta adrese."
+
+#: application/forms/RecoverPassword.php:73
+msgid "Invalid email address"
+msgstr "Nederīga e-pasta adrese"
+
+#: application/forms/ResetPassword.php:28
+#: application/views/scripts/users/activate.php:13
+msgid "Create a Password"
+msgstr "Izdomājiet paroli"
+
+#: application/forms/ResetPassword.php:32
+msgid "Password is required."
+msgstr "Parole ir nepieciešama."
+
+#: application/forms/ResetPassword.php:38
+msgid "Typed passwords do not match."
+msgstr "Paroles nesakrīt."
+
+#: application/forms/SecuritySettings.php:27
+msgid "Disable File Upload Validation"
+msgstr "Atslēgt failu augšupielādes legalizāciju"
+
+#: application/forms/SecuritySettings.php:29
+msgid ""
+"Check this field if you would like to allow any file to be uploaded to "
+"Omeka."
+msgstr "Pārbaudiet šo lauku, ja Jūs vēlētos, lai varētu nodrošināt kādu failu, kas augšupielādēts no Omeka."
+
+#: application/forms/SecuritySettings.php:35
+msgid "Allowed File Extensions"
+msgstr "Tiek atļauts failu paplašinājums"
+
+#: application/forms/SecuritySettings.php:36
+msgid "List of allowed extensions for file uploads."
+msgstr "Failu augšupielādes saraksts ar atļautiem paplašinājumiem."
+
+#: application/forms/SecuritySettings.php:45
+msgid "Allowed File Types"
+msgstr "Atļauti failu veidi"
+
+#: application/forms/SecuritySettings.php:46
+msgid "List of allowed MIME types for file uploads"
+msgstr "Saraksts ar atļautiem MIME tipiem par failu augšupielādi"
+
+#: application/forms/SecuritySettings.php:55
+msgid "ReCaptcha Public Key"
+msgstr "ReCaptcha publiskā pieeja"
+
+#: application/forms/SecuritySettings.php:56
+msgid ""
+"Public key from recaptcha.net. Both this and the private key must be filled "
+"in to secure public forms."
+msgstr "Publiskā pieeja recaptcha.net. Gan šo, gan privāto pieeju ir jāaizpilda, lai nodrošinātu publisko formu."
+
+#: application/forms/SecuritySettings.php:63
+msgid "ReCaptcha Private Key"
+msgstr "ReCaptcha Privātā Pieeja"
+
+#: application/forms/SecuritySettings.php:64
+msgid ""
+"Private key from recaptcha.net. Both this and the public key must be filled "
+"in to secure public forms."
+msgstr "Privātā pieeja recaptcha.net. Gan šo, gan publisko ir jāaizpilda, lai nodrošinātu publisko formu."
+
+#: application/forms/User.php:35
+msgid "Username is required."
+msgstr "Ir nepieciešams lietotājvārds."
+
+#: application/forms/User.php:43
+msgid "Username must contain only letters and numbers."
+msgstr "Lietotājvārds var sastāvēt no burtiem un cipariem."
+
+#: application/forms/User.php:53
+msgid "Username must be at least %min% characters long."
+msgstr "Lietotājvārdam ir jābūt vismaz %min% rakstzīmes garam."
+
+#: application/forms/User.php:55
+msgid "Username must be at most %max% characters long."
+msgstr "Lietotājvārdam ir jābūt nevairāk ne, kā %max% rakstzīmes garam."
+
+#: application/forms/User.php:69
+msgid "This username is already in use."
+msgstr "Šis lietotājvārds jau tiek izmantots."
+
+#: application/forms/User.php:84
+msgid "First name is required."
+msgstr "Ir nepieciešams vārds."
+
+#: application/forms/User.php:97
+msgid "Last name is required."
+msgstr "Ir nepieciešams uzvārds."
+
+#: application/forms/User.php:103
+msgid "This email address is invalid."
+msgstr "Šī e-pasta adrese ir nederīga."
+
+#: application/forms/User.php:111
+msgid "Email is required."
+msgstr "Ir nepieciešams E-pasts."
+
+#: application/forms/User.php:130
+msgid "This email address is already in use."
+msgstr "Šī e-pasta adrese jau tiek izmantota."
+
+#: application/forms/User.php:151
+msgid "Active?"
+msgstr "Aktīvs?"
+
+#: application/helpers/AssetFunctions.php:270
+#: application/helpers/AssetFunctions.php:289
+#, php-format
+msgid "Could not find file %s!"
+msgstr "Neizdevās atrast failu %s!"
+
+#: application/helpers/CollectionFunctions.php:58
+#, php-format
+msgid "%s does not exist for collections!"
+msgstr "%s neeksistē kolekcijā!"
+
+#: application/helpers/CollectionFunctions.php:123
+msgid "Featured Collection"
+msgstr "Atzīmēts kolekcijā"
+
+#: application/helpers/CollectionFunctions.php:131
+msgid "No featured collections are available."
+msgstr "Nav pieejami īpaši krājumi."
+
+#: application/helpers/ElementForm.php:50
+msgid "Add Input"
+msgstr "Pievienot datus"
+
+#: application/helpers/ElementForm.php:286
+#, php-format
+msgid "Cannot display a form input for \"%s\" if element type name is not given!"
+msgstr "Nevar parādīt veidlapas ievadi \"%s\", ja nav dots elementa tipa vārds!"
+
+#: application/helpers/ElementForm.php:346
+msgid "From"
+msgstr "No kā"
+
+#: application/helpers/ElementForm.php:349
+msgid "To"
+msgstr "Kam"
+
+#: application/helpers/ElementForm.php:369
+msgid "Use HTML"
+msgstr "Lietot HTML"
+
+#: application/helpers/FileMetadata.php:83
+#, php-format
+msgid "%s is an invalid special value."
+msgstr "%s ir derīgs īpašā vietā."
+
+#: application/helpers/FormFunctions.php:134
+msgid "Select Below "
+msgstr "Izvēlēties zemāk esošo"
+
+#: application/helpers/FormFunctions.php:244
+#: application/helpers/FormFunctions.php:532
+#: application/views/scripts/users/forgot-password.php:18
+msgid "Submit"
+msgstr "Iesniegt"
+
+#: application/helpers/Functions.php:53
+msgid "Omeka RSS Feed"
+msgstr "Omeka RSS uztur"
+
+#: application/helpers/Functions.php:54
+msgid "Omeka Atom Feed"
+msgstr "Omeka Atom uztur"
+
+#: application/helpers/Functions.php:200
+msgid "Error: Invalid callback was provided for the loop."
+msgstr "Kļūda: nepareiza atzvanīšana norāda uz apvedceļu."
+
+#: application/helpers/ItemFunctions.php:58
+msgid "Featured Item"
+msgstr "Atzīmētais priekšmets"
+
+#: application/helpers/ItemFunctions.php:73
+msgid ""
+"An item has not been set to be displayed on this theme page! Please see "
+"Omeka documentation for details."
+msgstr "Ievietotais priekšmets nevar būt ievietots šīs tēmas lapā! Lūdzu skatīt Omeka dokumentācijā."
+
+#: application/helpers/ItemFunctions.php:571
+msgid "No featured items are available."
+msgstr "Raksturīgie priekšmeti ir nav pieejami."
+
+#: application/helpers/ItemMetadata.php:79
+#, php-format
+msgid "'%s' is an invalid special value."
+msgstr "'%s' ir nederīga īpaša vērtība."
+
+#: application/helpers/LinkFunctions.php:43
+msgid "View"
+msgstr "Apskatīt"
+
+#: application/helpers/LinkFunctions.php:208
+msgid "RSS"
+msgstr "RSS"
+
+#: application/helpers/LinkFunctions.php:225
+msgid "Next Item &rarr;"
+msgstr "Nākamais punkts &rarr"
+
+#: application/helpers/LinkFunctions.php:241
+msgid "&larr; Previous Item"
+msgstr "&larr ieriekšējais punkts"
+
+#: application/helpers/LinkFunctions.php:525
+msgid "Atom"
+msgstr "Atoms"
+
+#: application/helpers/TagFunctions.php:133
+msgid "No tags are available."
+msgstr "Neviens pievienotais fails nav pieejams"
+
+#: application/libraries/Omeka/View/Helper/RecordMetadataList.php:91
+msgid "[no text]"
+msgstr "[nav teksts]"
+
+#: application/models/ActsAsElementText.php:255
+#, php-format
+msgid "Cannot find an element with an ID of '%s'!"
+msgstr "Nevar atrast elementu ar ID \"%s\"!"
+
+#: application/models/ActsAsElementText.php:312
+#, php-format
+msgid ""
+"Element name is ambiguous! There is more than one element set containing an "
+"element named \"%s\"!"
+msgstr "Elementa nosaukums ir neskaidrs! Ir vairāk nekā viens elements, kas satur elementu ar nosaukumu \"%s\"!"
+
+#: application/models/ActsAsElementText.php:315
+#: application/models/ActsAsElementText.php:322
+#, php-format
+msgid "There is no element named \"%s\"!"
+msgstr "Nav atrasts neviens elements ar nosaukumu \"%s\"!"
+
+#: application/models/ActsAsElementText.php:326
+#, php-format
+msgid "There is no element named \"%1$s\" in the set named \"%2$s\"!"
+msgstr "Nav elements ar nosaukumu \"%1$s\", kas nosaukts \"%2$s\"!"
+
+#: application/models/ActsAsElementText.php:482
+msgid "Element texts are not formatted correctly!"
+msgstr "Elementu teksti nav formatēti pareizi! "
+
+#: application/models/ActsAsElementText.php:645
+#, php-format
+msgid "Cannot process form input for element with data type \"%s\"!"
+msgstr "Nevar apstrādāt ievades formu elementu ar datu tipu \"%s\"! "
+
+#: application/models/ActsAsElementText.php:660
+#, php-format
+msgid "The \"%s\" field has at least one invalid value!"
+msgstr "Šajā laukā \"%s\" ir vismaz viena nederīga vērtība!"
+
+#: application/models/ActsAsElementText.php:693
+#, php-format
+msgid "Cannot validate an element of data type \"%s\"!"
+msgstr "Nevar apstiprināt elementu ar data tipu \"%s\"!"
+
+#: application/models/ActsAsElementText.php:733
+msgid "Cannot save element text for records that are not yet persistent!"
+msgstr "Nevar saglabāt elementa tekstu ierakstam, kuri vēl nav patstāvīgi!"
+
+#: application/models/Collection.php:107
+msgid "Collectors must be either a string or an array."
+msgstr "Kolekcionāriem jābūt vainā virknē vai masīvā."
+
+#: application/models/Collection.php:148
+#, php-format
+msgid "The collection name must have between %1$s and %2$s characters."
+msgstr "Kolekcijas nosaukumam jābūta starp %1$s un %2$s zīmēm."
+
+#: application/models/Collection.php:198
+msgid ""
+"Argument passed to addCollector() must be a string or an instance of Entity."
+msgstr "Arguments nodots,  lai to pievienotu addCollector(), tam jābūt virknē vai no iestādes.  "
+
+#: application/models/Collection.php:230
+msgid "Cannot associate the collection with an unsaved user."
+msgstr "Nevar saistīt kolekciju ar nesaglabātu lietotāju."
+
+#: application/models/CollectionPermissions.php:37
+msgid "Invalid query provided to CollectionPermissions check"
+msgstr "Nepamatots jautājums sniedz CollectionPermissions pārbaudi "
+
+#: application/models/DataTypeTable.php:31
+#, php-format
+msgid "Cannot find id from DataType name: %s"
+msgstr "Nevar atrast ID no datu tipa ar nosaukumu: %s"
+
+#: application/models/Element.php:180
+msgid "Name must not be empty!"
+msgstr "Nosaukums nedrīkst būt tukšs! "
+
+#: application/models/Element.php:184
+msgid "Element must have a valid data type!"
+msgstr "Elementam jābūt derīgam datu tipos!"
+
+#: application/models/Element.php:188
+msgid "Element must have a valid record type!"
+msgstr "Elementa ierakstu tipiem jābūt derīgiem!"
+
+#: application/models/Element.php:193
+#, php-format
+msgid "%1$s already exists for element set #%2$s"
+msgstr "%1$s jau eksistē priekš elementa kompleksa #%2$s"
+
+#: application/models/Element.php:252
+#, php-format
+msgid "Cannot set element set ID: set named \"%s\" does not exist."
+msgstr "Nevar noteikt elementa kompleksu ID ar nosaukumu \"%s\", tas neeksistē. "
+
+#: application/models/ElementSet.php:119
+msgid "Name of element set must be unique."
+msgstr "Elementa nosaukumam jābūt unikālam. "
+
+#: application/models/ElementSet.php:123
+msgid "Name of element set must not be empty."
+msgstr "Elementa nosaukuma kompleks nedrīkst būt tukšs."
+
+#: application/models/EntitiesRelations.php:29
+msgid "Joins in the EntitiesRelations table must be given a polymorphic type"
+msgstr "Salaiduma daļā EntitiesRelations tabulai ir jābūt polifoma tipa"
+
+#: application/models/EntitiesRelations.php:33
+msgid "Joins in the EntitiesRelations table must be filled out entirely"
+msgstr "Salaiduma daļai EntitiesRelations tabulā jtābūt aizpildītam pilnībā"
+
+#: application/models/Entity.php:37
+msgid "The email address provided is not valid."
+msgstr "E-pasta nosacījuma adrese nav derīga."
+
+#: application/models/Entity.php:41
+msgid "The name for a person may not be completely blank."
+msgstr "Vietu, kurā jāraksta personas vārdu, nevar atstāt pilnīgi neaizpildītu."
+
+#: application/models/Entity.php:134
+msgid "Both of these Entities must be persistent in order to merge them."
+msgstr "Abām šīm vienībām jābūt patstāvīgām, lai tās apvienotu."
+
+#: application/models/File.php:110
+msgid "Cannot get the local path for a stored file."
+msgstr "Nevar iegūt vietējo ceļu uz vietu, kur glabājas faili."
+
+#: application/models/Item.php:298
+msgid ""
+"Files cannot be attached to an item that is not persistent in the database!"
+msgstr "Failus, kam nav patstāvīga datu bāze, nevar pievienot!"
+
+#: application/models/Item.php:412
+msgid "Cannot add an existing file to an item!"
+msgstr "Nevar pievienot esošo failu!"
+
+#: application/models/Item.php:416
+msgid "File must be valid before it can be associated with an item!"
+msgstr "Failam ir jābūt spēkā pirms tas tiek pievienots! "
+
+#: application/models/ItemBuilder.php:141
+msgid "Cannot add tags to an item if no Entity is available to tag."
+msgstr "Nevar pievienot failus objektam, ja Entity nav pieeja pievienošanai. "
+
+#: application/models/ItemBuilder.php:265
+msgid "Must specify a file transfer type when attaching files to an item!"
+msgstr "Jānorāda failu pārsūtīšanas veids, pievienojot to! "
+
+#: application/models/ItemPermissions.php:34
+#, php-format
+msgid ""
+"This SQL statement needs a FROM or JOIN clause equivalent to '%s i' in order"
+" to have permissions checked!"
+msgstr "Šī SQL nepieciešama NO vai PIEVIENO teikumu līdzvērtīgi \"%s i\", kārtībā, lai būtu atļauja pārbaudei!"
+
+#: application/models/ItemSearch.php:98
+msgid "Invalid search type given!"
+msgstr "Dots nederīgs meklēšanas veids!"
+
+#: application/models/ItemType.php:83
+#, php-format
+msgid "The item type name must have between %1$s and %2$s characters."
+msgstr "Pievienotā veida nosaukumam jābūt starp %1$s un %2$s rakstzīmēm. "
+
+#: application/models/ItemType.php:87
+msgid "The item type name must be unique."
+msgstr "Pievienotā veida nosaukumam ir jābūt unikālam."
+
+#: application/models/ItemType.php:175
+msgid "There are too many values in the element ordering array."
+msgstr "Masīvā ir pārāk daudz vērtības elementu pasūtīšanas."
+
+#: application/models/ItemType.php:177
+msgid "There are too few values in the element ordering array."
+msgstr "Masīvā pārāk maz vērtības elementu pārsūtīšanas."
+
+#: application/models/ItemType.php:221
+msgid ""
+"Invalid element data. To add elements, you must either pass an element "
+"objects or an array of element metadata."
+msgstr "Nederīgi elementa dati. Lai pievienotu elementus, jums ir, vai nu jāpiešķir elementam caurlaide, vai elementam jābūt no  matedata masīva. "
+
+#: application/models/ItemType.php:285
+msgid ""
+"Cannot remove elements from an item type that is not persistent in the "
+"database!"
+msgstr "Nevar elementam noņemt priekšmeta tipu, kam nav patstāvīgas datu bāzes!"
+
+#: application/models/ItemType.php:294
+#, php-format
+msgid "Cannot find element with ID %s!"
+msgstr "Nevar atrast ementu ar ID %s!"
+
+#: application/models/ItemType.php:337
+#, php-format
+msgid "Item type does not contain an element with the ID %s!"
+msgstr "Priekšmeta tips nesatur elementu ar ID %s!"
+
+#: application/models/ItemType.php:360
+msgid ""
+"Invalid parameter. The hasElement function requires either an element object"
+" or an element id to determine if an item type has an element."
+msgstr "Nederīgi parametri. Elementa funkcija pieprasa, vai nu elementa līdzekli, vai elementa ID, lai noteiktu vai priekšmeta tipam ir elements."
+
+#: application/models/Option.php:28 application/models/Option.php:32
+msgid "Each option must have a unique name."
+msgstr "Katrai izvēlei jābūt ar unikālu nosaukumu."
+
+#: application/models/Orderable.php:101
+msgid "Cannot add a child to a record that does not exist yet!"
+msgstr "Nevar pievienot bērna ierakstam, kas vēl nepastāv."
+
+#: application/models/Orderable.php:105
+#, php-format
+msgid "Child must be an instance of \"%s\""
+msgstr "Bērnam jābūt gadījumam no \"%s\""
+
+#: application/models/Plugin.php:94
+msgid "Names of plugins must not be blank"
+msgstr "Spraudņa nosaukumi nedrīkst būt tukši"
+
+#: application/models/Relatable.php:158
+msgid "Invalid entity provided!"
+msgstr "Nederīgs uzņēmums!"
+
+#: application/models/Relatable.php:169
+#, php-format
+msgid "Relationship called %s does not exist."
+msgstr "Attiecības ar nosaukumu %s nepastāv."
+
+#: application/models/Relatable.php:222
+msgid "Record must exist before relations can be set."
+msgstr "Ierakstam jāeksistē, pirms saikne var tikt izveidota."
+
+#: application/models/Tag.php:58
+msgid "Tags must be given a name."
+msgstr "Jāpiešķir atzīmēm vārds."
+
+#: application/models/Tag.php:62
+msgid "That name is already taken for this tag."
+msgstr "Šai atzīmei šis vārds jau ir aizņemts."
+
+#: application/models/Taggable.php:195
+msgid "A valid record ID # must be provided when tagging."
+msgstr "Derīgs ID # ieraksts jāievada, kad tiek veikta atzīme."
+
+#: application/models/Taggable.php:199
+msgid "A valid entity or user must be provided when tagging."
+msgstr "Jābūt derīgam uzņēmumam vai lietotājam, kad atzīmē."
+
+#: application/models/User.php:63
+msgid "No Entity record available."
+msgstr "Uzņēmuma ieraksti nav pieejami."
+
+#: application/models/User.php:75
+msgid "No Entity record is available when saving this User."
+msgstr "Uzņēmuma ieraksti nav pieejam, kad tiek noglabāts šis Lietotājs."
+
+#: application/models/User.php:92
+msgid "User may not change permissions to super-user"
+msgstr "Lietotājs nevar mainīt atļauju uz super-lietotāju"
+
+#: application/models/User.php:95
+msgid "User may not change roles."
+msgstr "Lietotājs nevar mainīt veidu."
+
+#: application/models/User.php:153
+msgid ""
+"If a first name and last name are not provided, then an institution name is "
+"required."
+msgstr "Ja vārds un uzvārds nav norādīts, tad ir nepieciešams iestādes nosaukums."
+
+#: application/models/User.php:156
+msgid "A first name is required."
+msgstr "Ir nepieciešams Vārds."
+
+#: application/models/User.php:159
+msgid "A last name is required."
+msgstr "Ir nepieciešams Uzvārds."
+
+#: application/models/User.php:175
+msgid "The user must be assigned a role."
+msgstr "Lietotājam ir jāpiešķir tā veids."
+
+#: application/models/User.php:180
+#, php-format
+msgid "The username \"%1$s\" must be between %2$s and %3$s characters."
+msgstr "Lietotājvārdam \"%1$s\" jābūt starp %2$s un %3$s rakstzīmēm."
+
+#: application/models/User.php:182
+msgid "The username must be alphanumeric."
+msgstr "Lietotājvārdam jāsatur burti un cipari."
+
+#: application/models/User.php:184
+#, php-format
+msgid "'%s' is already in use. Please choose another username."
+msgstr "'%s' jau ir aizņemts. Lūdzu, izvēlieties citu lietotājvārdu."
+
+#: application/models/UsersActivations.php:31
+msgid "Cannot create a user activation for non-existent user."
+msgstr "Nevar izveidot lietotāja aktivizāciju neeksistējošam lietotājam."
+
+#: application/views/scripts/collections/browse.php:21
+#: application/views/scripts/collections/show.php:13
+msgid "Collector(s)"
+msgstr "Kolekcionārs(i)"
+
+#: application/views/scripts/collections/browse.php:28
+#: application/views/scripts/collections/show.php:22
+#, php-format
+msgid "View the items in %s"
+msgstr "Apskatīt priekšmetu %s"
+
+#: application/views/scripts/collections/show.php:25
+#, php-format
+msgid "Items in the %s Collection"
+msgstr "%s Kolekcijā priekšmeti"
+
+#: application/views/scripts/common/delete-confirm.php:3
+#, php-format
+msgid "Delete %s"
+msgstr "Izdzēst %s"
+
+#: application/views/scripts/common/delete-confirm.php:12
+msgid "Are you sure?"
+msgstr "Vai esat drošs?"
+
+#: application/views/scripts/common/footer.php:6
+msgid "Home"
+msgstr "Mājas"
+
+#: application/views/scripts/common/footer.php:14
+msgid "Proudly powered by <a href=\"http://omeka.org\">Omeka</a>."
+msgstr "Tiek atbalstīts ar <a href=\"http://omeka.org\">Omeka</a>."
+
+#: application/views/scripts/common/pagination_control.php:7
+msgid "First"
+msgstr "Pirmais"
+
+#: application/views/scripts/common/pagination_control.php:14
+msgid "Previous"
+msgstr "Iepriekšējais"
+
+#: application/views/scripts/common/pagination_control.php:30
+msgid "Next"
+msgstr "Nākamais"
+
+#: application/views/scripts/common/pagination_control.php:37
+msgid "Last"
+msgstr "Pēdējais"
+
+#: application/views/scripts/error/403.php:2
+msgid "403 Page Forbidden"
+msgstr "403 Lapa Aizliegta"
+
+#: application/views/scripts/error/403.php:8
+msgid "You do not have permission to access this page."
+msgstr "Jums nav atļaujas piekļūt šai lapai."
+
+#: application/views/scripts/error/404.dc.php:1
+#: application/views/scripts/error/404.php:2
+#: application/views/scripts/error/404.xml.php:1
+msgid "404 Page Not Found"
+msgstr "404 Lapa Netika Atrasta"
+
+#: application/views/scripts/error/404.php:7
+#, php-format
+msgid "%s is not a valid URL."
+msgstr "%s nav derīga URL."
+
+#: application/views/scripts/error/404.rss2.php:1
+msgid "Rss2.0 Feed Not Found!"
+msgstr "Rss2.0 Padeve Nav Atrasta!"
+
+#: application/views/scripts/error/405.php:2
+msgid "405 Method Not Allowed"
+msgstr "405 Metode nav atļauta"
+
+#: application/views/scripts/error/405.php:7
+#, php-format
+msgid "The method used to access this URL (%s) is not valid."
+msgstr "Metode, kas izmantota, lai piekļūtu šim URL (%s) , nav derīga"
+
+#: application/views/scripts/error/index.php:4
+msgid "Omeka has encountered an error"
+msgstr "Omeka radusies kļūda"
+
+#: application/views/scripts/error/index.php:29
+msgid ""
+"To learn how to see more detailed information about this error, see the "
+"Omeka Codex page on <a "
+"href=\"http://omeka.org/codex/Retrieving_error_messages\">retrieving error "
+"messages</a>."
+msgstr "Lai iegūtu vairāk informācīju par šo kļūdu, apskatiet Omeka Codex lapu <a href=\"http://omeka.org/codex/Retrieving_error_messages\">labot kļūdu messages</a>."
+
+#: application/views/scripts/functions.php:54
+msgid "Dublin Core"
+msgstr "Dublin Core"
+
+#: application/views/scripts/functions.php:131
+msgid "Browse All"
+msgstr "Pārlūkot Visu"
+
+#: application/views/scripts/functions.php:131
+msgid "Browse by Tag"
+msgstr "Pārlūkot pēc atzīmēm"
+
+#: application/views/scripts/index.php:67
+msgid "No recent items available."
+msgstr "Nav pieejami nesenie priekšmeti."
+
+#: application/views/scripts/items/advanced-search.php:32
+msgid "Search for Keywords"
+msgstr "Meklēt atslēgvārdus"
+
+#: application/views/scripts/items/advanced-search.php:42
+msgid "Narrow by Specific Fields"
+msgstr "Sašaurināt uz noteiktām nozarēm"
+
+#: application/views/scripts/items/advanced-search.php:71
+msgid "contains"
+msgstr "Satur"
+
+#: application/views/scripts/items/advanced-search.php:72
+msgid "does not contain"
+msgstr "Nesatur"
+
+#: application/views/scripts/items/advanced-search.php:73
+msgid "is exactly"
+msgstr "Ir tieši"
+
+#: application/views/scripts/items/advanced-search.php:74
+msgid "is empty"
+msgstr "Tukšs"
+
+#: application/views/scripts/items/advanced-search.php:75
+msgid "is not empty"
+msgstr "Nav tukšs"
+
+#: application/views/scripts/items/advanced-search.php:86
+msgid "Add a Field"
+msgstr "Pievienot Lauku"
+
+#: application/views/scripts/items/advanced-search.php:90
+msgid "Search by a range of ID#s (example: 1-4, 156, 79)"
+msgstr "Meklēt pēc ID#s apgabala (piemēram: 1-4, 156, 79)"
+
+#: application/views/scripts/items/advanced-search.php:102
+msgid "Search By Collection"
+msgstr "Meklēt pēc Kolekcijām"
+
+#: application/views/scripts/items/advanced-search.php:112
+msgid "Search By Type"
+msgstr "Meklēt pēc Tipa"
+
+#: application/views/scripts/items/advanced-search.php:122
+msgid "Search By User"
+msgstr "Meklēt pēc Lietotāja"
+
+#: application/views/scripts/items/advanced-search.php:133
+msgid "Search By Tags"
+msgstr "Meklēt pēc Atzīmes"
+
+#: application/views/scripts/items/advanced-search.php:147
+msgid "Public/Non-Public"
+msgstr "Publisks/Privāts"
+
+#: application/views/scripts/items/advanced-search.php:150
+msgid "Only Public Items"
+msgstr "Tikai Publiski priekšmeti"
+
+#: application/views/scripts/items/advanced-search.php:151
+msgid "Only Non-Public Items"
+msgstr "Tiekai Privāti priekšmeti"
+
+#: application/views/scripts/items/advanced-search.php:157
+msgid "Featured/Non-Featured"
+msgstr "Iezīmēm/Bez iezīmēm"
+
+#: application/views/scripts/items/advanced-search.php:160
+msgid "Only Featured Items"
+msgstr "Tikai Priekšmeti ar iezīmēm"
+
+#: application/views/scripts/items/advanced-search.php:161
+msgid "Only Non-Featured Items"
+msgstr "Tikai Priekšmeti bez Iezīmēm"
+
+#: application/views/scripts/items/show.php:11
+msgid "Files"
+msgstr "Faili"
+
+#: application/views/scripts/items/show.php:33
+msgid "Citation"
+msgstr "Citāti"
+
+#: application/views/scripts/upgrade/completed.php:5
+#: application/views/scripts/upgrade/index.php:5
+#: application/views/scripts/upgrade/migrate.php:5
+msgid "Upgrade Omeka"
+msgstr "Atjaunot Omeka"
+
+#: application/views/scripts/upgrade/completed.php:10
+msgid "Omeka Upgrade Completed"
+msgstr "Omeka Atjaunināšana pabeigta"
+
+#: application/views/scripts/upgrade/completed.php:11
+#, php-format
+msgid "Please return to the %1$s or your site&#8217;s %2$s"
+msgstr "Lūdzu atgriezieties %1$s vai jūsu site&#8217;s %2$s"
+
+#: application/views/scripts/upgrade/completed.php:11
+msgid "Your Omeka database is completely up-to-date."
+msgstr "Jūsu Omeka datubāze ir ar jaunāko versiju."
+
+#: application/views/scripts/upgrade/completed.php:13
+#: application/views/scripts/upgrade/migrate.php:18
+msgid ""
+"If you have any questions please refer to <a "
+"href=\"http://omeka.org/codex\">Omeka documentation</a> or post a message on"
+" the <a href=\"http://omeka.org/forums\">Omeka forums</a>."
+msgstr "Ja jums ir kādi jautājumi, lūdzu, griezieties pie <a href=\"http://omeka.org/codex\">Omeka documentation</a> vai nosūtiet ziņu <a href=\"http://omeka.org/forums\">Omeka forums</a>."
+
+#: application/views/scripts/upgrade/index.php:10
+msgid "Upgrade Your Omeka Database"
+msgstr "Atjauniniet savu Omeka datubāzi"
+
+#: application/views/scripts/upgrade/index.php:12
+msgid ""
+"Your Omeka database is not compatible with your current version of Omeka."
+msgstr "Jūsu Omeka datubāze nav savietojama ar jūsu pašreizējo Omeka versiju."
+
+#: application/views/scripts/upgrade/index.php:13
+msgid ""
+"Please back up your existing database and then click the button to upgrade."
+msgstr "Lūdzu saglabājiet savu tagadējo datubāzi un tad uzklikšķiniet uz pogas, lai atjaunotu to."
+
+#: application/views/scripts/upgrade/index.php:15
+msgid "Upgrade Database"
+msgstr "Atjaunot Datubāzi"
+
+#: application/views/scripts/upgrade/migrate.php:11
+msgid "Omeka encountered an error when upgrading your installation."
+msgstr "Omeka radās kļūda, atjauninājumu instalācijas laikā."
+
+#: application/views/scripts/upgrade/migrate.php:16
+msgid "Please restore from your database backup and try again."
+msgstr "Lūdzu, atjaunojiet vecos failus, kas tika saglabāti datubāzē un mēģiniet vēlreiz."
+
+#: application/views/scripts/upgrade/migrate.php:21
+msgid "Omeka has upgraded successfully."
+msgstr "Omeka veiksmīgi atjaunināta."
+
+#: application/views/scripts/upgrade/migrate.php:22
+msgid "Return to Dashboard"
+msgstr "Atgriezties Sākuma panelī"
+
+#: application/views/scripts/users/activate.php:2
+msgid "User Activation"
+msgstr "Lietotāja aktivizācija"
+
+#: application/views/scripts/users/forgot-password.php:2
+msgid "Forgot Password"
+msgstr "Aizmirsāt Paroli?"
+
+#: application/views/scripts/users/forgot-password.php:7
+msgid "Back to Log In"
+msgstr "Atpakaļ, lai pierakstītos"
+
+#: application/views/scripts/users/forgot-password.php:10
+msgid "Enter your email address to retrieve your password."
+msgstr "Ievadiet savu e-pasta adresi, lai saņemtu jauno paroli."
+
+#: application/views/scripts/users/login.php:9
+msgid "Go to Home Page"
+msgstr "Iet uz Sākumu"
+
+#: application/views/scripts/users/login.php:9
+msgid "Lost your password?"
+msgstr "Pazaudējāt savu paroli?"
+
+#: install/views/scripts/index/errors.phtml:1
+msgid "Installation Error"
+msgstr "Uzstādīšanas Kļūda"
+
+#: install/views/scripts/index/errors.phtml:2
+msgid ""
+"Before installation can continue, the following errors must be resolved:"
+msgstr "Pirms uzstādīšana var tik turpināta, sekojošām kļūdām jābūt atrisinātām:"
+
+#: install/views/scripts/index/fatal-error.phtml:1
+msgid "Fatal Error"
+msgstr "Fatāla Kļūda"
+
+#: install/views/scripts/index/index.phtml:2
+msgid "Installation Warning"
+msgstr "Uzstādīšanas Brīdinājums"
+
+#: install/views/scripts/index/index.phtml:3
+msgid ""
+"The following issues will not affect installation, but they may negatively "
+"affect the behavior of Omeka:"
+msgstr "Sekojošas problēmas neietekmēs uzstādīšanu, bet var negatīvi ietekmēt turpmāko Omeka darbību:"
+
+#: install/views/scripts/index/index.phtml:13
+msgid "Configure Your Site"
+msgstr "Pārveidot Savu saitu"
+
+#: install/views/scripts/index/index.phtml:15
+msgid "Form Validation Errors"
+msgstr "Apstiprinēšanas Kļūdas veids"
+
+#: install/views/scripts/index/installed.phtml:1
+msgid ""
+"Omeka is installed. You may remove the \"install\" directory for security "
+"reasons."
+msgstr "Omeka ir uzstādīta. Jūs varat nodzēst \"Uzstādīšanas\" adresi drošības nolūkos."
+
+#: install/views/scripts/index/installed.phtml:2
+msgid "Admin Panel"
+msgstr "Administratora Panelis"
+
+#: install/views/scripts/index/installed.phtml:2
+msgid "Public Site"
+msgstr "Publisks Saits"
+
+#: install/views/scripts/layout.phtml:5 install/views/scripts/layout.phtml:9
+msgid "Omeka Installation"
+msgstr "Omeka uzstādīšana"
+
+#: admin/themes/default/items/browse.php:8
+msgid "Add a Hyperlink"
+msgstr "Pievienot Hipersaiti"
+
+#: admin/themes/default/items/files-form.php:93
+msgid "Upload a File"
+msgstr "Augšupielādēt Failu"
+
+#: admin/applications/Functions.phpgeneral!
+msgid "Add"
+msgstr "Pievienot"
+
+#: admin/applications/Functions.phpgeneral!
+msgid "Getting Started with Agricultural Learning Repository tool"
+msgstr "Sāc ar Agrikulturālu mācību krātuves darbarīku"
+
+#: admin/applications/Functions.phpgeneral!
+msgid "Translate"
+msgstr "Tulkot"
+
+#: admin/applications/Functions.phpgeneral!
+msgid "XML"
+msgstr "XML"
+
+#: admin/applications/Functions.phpgeneral!
+msgid "Hyperlink"
+msgstr "Hipersaite"
+
+#: admin/applications/Functions.phpgeneral!
+msgid "File"
+msgstr "Fails"
+
+#: admin/applications/Functions.phpgeneral!
+msgid "Photos"
+msgstr "Attēli"
+
+#: admin/applications/Functions.phpgeneral!
+msgid "Add a new hyperlink to your archive"
+msgstr "Pievienot jaunu hipersaiti jūsu arhīvam"
+
+#: admin/applications/Functions.phpgeneral!
+msgid "Please select language to translate:"
+msgstr "Lūdzu izvēlaties tulkošanas valodu:"
+
+#: admin/applications/Functions.phpgeneral!
+msgid "Translate Item #%s"
+msgstr "Tulkot priekšmetu #%s"
+
+#: admin/applications/Functions.phpgeneral!
+msgid "Save Translations"
+msgstr "Saglabāt tulkojumu"
+
+#: admin/applications/Functions.phpgeneral!
+msgid "Validate"
+msgstr "Apstiprināt"
+
+#: admin/applications/Functions.phpgeneral!
+msgid "Choose language"
+msgstr "Izvēlies valodu"

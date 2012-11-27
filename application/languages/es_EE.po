@@ -1,0 +1,2910 @@
+# Translation template for Omeka.
+# Copyright (C) 2011 Roy Rosenzweig Center for History and New Media
+# This file is distributed under the same license as the Omeka package.
+# 
+# Translators:
+# Kristiina Rattasepp <kristiina@miksike.ee>, 2012.
+# Milla Pilv <ljuda@miksike.ee>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Metadata Editor AgLR\n"
+"Report-Msgid-Bugs-To: omeka-dev@googlegroups.com\n"
+"POT-Creation-Date: 2011-11-22 16:18-0500\n"
+"PO-Revision-Date: 2012-11-01 12:32+0000\n"
+"Last-Translator: Milla Pilv <ljuda@miksike.ee>\n"
+"Language-Team: Estonian (Estonia) (http://www.transifex.com/projects/p/metadata-editor-aglr-1/language/et_EE/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: et_EE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# Dublin Core description
+msgid ""
+"The Dublin Core metadata element set. These elements are common to all Omeka"
+" resources, including items, files, collections, exhibits, and entities. See"
+" http://dublincore.org/documents/dces/."
+msgstr "Dublin Core metaandmete elementide komplekt. Need elemendid on ühised kõikide Omeka allikate jaoks, sisaldades ühikuid, faile, kogumikke, eksponaate ja entiteete. Vaata http://dublincore.org/documents/dces/."
+
+# #-#-#-#-#  Omeka.base.pot (Omeka 1.5)  #-#-#-#-#
+# Dublin Core: Title element
+#: admin/themes/default/items/browse.php:129
+msgid "Title"
+msgstr "Pealkiri"
+
+# #-#-#-#-#  Omeka.base.pot (Omeka 1.5)  #-#-#-#-#
+# Dublin Core: Creator element
+#: admin/themes/default/items/browse.php:130
+msgid "Creator"
+msgstr "Looja"
+
+# Dublin Core: Subject element
+msgid "Subject"
+msgstr "Subjekt"
+
+# #-#-#-#-#  Omeka.base.pot (Omeka 1.5)  #-#-#-#-#
+# Dublin Core: Description element
+#: admin/themes/default/collections/show.php:19
+#: admin/themes/default/element-sets/browse.php:13
+#: admin/themes/default/item-types/browse.php:14
+#: admin/themes/default/item-types/element-form.php:23
+#: admin/themes/default/item-types/element-list.php:6
+#: admin/themes/default/item-types/form.php:26
+#: admin/themes/default/item-types/show.php:18
+#: admin/themes/default/themes/browse.php:19
+#: application/views/scripts/collections/browse.php:15
+#: application/views/scripts/collections/show.php:7
+msgid "Description"
+msgstr "Kirjeldus"
+
+# Dublin Core: Publisher element
+msgid "Publisher"
+msgstr "Väljaandja"
+
+# Dublin Core: Contributor element
+# User role: contributor
+msgid "Contributor"
+msgstr "Kaasautor"
+
+# Dublin Core: Date element
+msgid "Date"
+msgstr "Kuupäev"
+
+# #-#-#-#-#  Omeka.base.pot (Omeka 1.5)  #-#-#-#-#
+# Dublin Core: Type element
+#: admin/themes/default/items/browse.php:131
+msgid "Type"
+msgstr "Tüüp"
+
+# Dublin Core: Format element
+msgid "Format"
+msgstr "Formaat"
+
+# Dublin Core: Identifier element
+msgid "Identifier"
+msgstr "Identifitseerija"
+
+# Dublin Core: Source element
+msgid "Source"
+msgstr "Allikas"
+
+# Dublin Core: Language element
+msgid "Language"
+msgstr "Keel"
+
+# Dublin Core: Relation element
+msgid "Relation"
+msgstr "Seos"
+
+# Dublin Core: Coverage element
+msgid "Coverage"
+msgstr "Ulatus"
+
+# Dublin Core: Rights element
+msgid "Rights"
+msgstr "Õigused"
+
+# Item Type Metadata
+msgid "Item Type Metadata"
+msgstr "Kirje tüüp / metaandmed"
+
+# Item Type Metadata description
+msgid ""
+"The item type metadata element set, consisting of all item type elements "
+"bundled with Omeka and all item type elements created by an administrator."
+msgstr "Ühikupõhine metaandmete elementide kogu, mis sisaldab kõiki elementide tüüpe, mis on Omekas ühte kohta kokku kogutud. Kogu sisaldab ka kõiki elementide tüüpe, mis on administraatori poolt loodud."
+
+# Omeka Legacy File
+msgid "Omeka Legacy File"
+msgstr "Omeka pärandi failid"
+
+# Omeka Legacy File description
+msgid ""
+"The metadata element set that, in addition to the Dublin Core element set, "
+"was included in the `files` table in previous versions of Omeka. These "
+"elements are common to all Omeka files. This set may be deprecated in future"
+" versions."
+msgstr "Metaandmete elementide kogu, mis lisaks Dublin Core elementide kogule sisaldab Omeka eelmiste versioonide faile. Need elemendid on tuntud kõigile Omeka failidele. See kogu võib olla lisatud ka tuleviku versiooni."
+
+# Omeka Legacy File: Additional Creator element
+msgid "Additional Creator"
+msgstr "Lisa looja"
+
+# Omeka Legacy File: Transcriber element
+msgid "Transcriber"
+msgstr "Transkribeerija"
+
+# Omeka Legacy File: Producer element
+msgid "Producer"
+msgstr "Tootja"
+
+# Omeka Legacy File: Render Device element
+msgid "Render Device"
+msgstr "Esitusvahend"
+
+# Omeka Legacy File: Render Details element
+msgid "Render Details"
+msgstr "Esituse detailid"
+
+# Omeka Legacy File: Capture Date element
+msgid "Capture Date"
+msgstr "Info kokku kogumise kuupäev"
+
+# Omeka Legacy File: Capture Device element
+msgid "Capture Device"
+msgstr "Info kokku kogumise seade"
+
+# Omeka Legacy File: Capture Details element
+msgid "Capture Details"
+msgstr "Info kokku kogumise detailid"
+
+# Omeka Legacy File: Change History element
+msgid "Change History"
+msgstr "Muuda ajalugu"
+
+# Omeka Legacy File: Watermark element
+msgid "Watermark"
+msgstr "Vesimärk"
+
+# Omeka Legacy File: Encryption element
+msgid "Encryption"
+msgstr "Krüptimine"
+
+# Omeka Legacy File: Compression element
+msgid "Compression"
+msgstr "Pakkimine"
+
+# Omeka Legacy File: Post Processing element
+msgid "Post Processing"
+msgstr "Järeltöötlus"
+
+# Omeka Image File
+msgid "Omeka Image File"
+msgstr "Omeka pildifail"
+
+# Omeka Image File description
+msgid ""
+"The metadata element set that was included in the `files_images` table in "
+"previous versions of Omeka. These elements are common to all image files."
+msgstr "Metaandmete elementide kogu oli lisatud \"files_images\" tabelisse Omeka eelmises versioonis. Need elemendid on kõikide pildifailide jaoks ühised."
+
+# Omeka Image File: Width element
+msgid "Width"
+msgstr "Laius"
+
+# Omeka Image File: Height element
+msgid "Height"
+msgstr "Kõrgus"
+
+# Omeka Image File: Bit Depth element
+msgid "Bit Depth"
+msgstr "Biti sügavus"
+
+# Omeka Image File: Channels element
+msgid "Channels"
+msgstr "Kanalid"
+
+# Omeka Image File: Exif String element
+msgid "Exif String"
+msgstr "Exif String"
+
+# Omeka Image File: Exif Array element
+msgid "Exif Array"
+msgstr "Exif Array"
+
+# Omeka Image File: IPTC String element
+msgid "IPTC String"
+msgstr "IPTC String"
+
+# Omeka Image File: IPTC Array element
+msgid "IPTC Array"
+msgstr "IPTC Array"
+
+# Omeka Video File
+msgid "Omeka Video File"
+msgstr "Omeka video fail"
+
+# Omeka Video File description
+msgid ""
+"The metadata element set that was included in the `files_videos` table in "
+"previous versions of Omeka. These elements are common to all video files."
+msgstr "Metaandmete elementide kogu, mis oli lisatud \"files_videos\" tabelisse eelmises Omeka versioonis. Need elemendid on ühised kõikide video failidega."
+
+# Omeka Video File: Bitrate element
+msgid "Bitrate"
+msgstr "Bitikiirus"
+
+# Omeka Video File: Duration element
+msgid "Duration"
+msgstr "Kestvus"
+
+# Omeka Video File: Sample Rate element
+msgid "Sample Rate"
+msgstr "Diskreetimissagedus"
+
+# Omeka Video File: Codec element
+msgid "Codec"
+msgstr "Kood"
+
+# Format (Legacy) Metadata element set
+msgid "Format (Legacy) Metadata"
+msgstr "Formeerimise metaandmed"
+
+# User role: Super
+msgid "Super"
+msgstr "Super"
+
+# User role: Admin
+msgid "Admin"
+msgstr "Administraator"
+
+# User role: Researcher
+msgid "Researcher"
+msgstr "Uurija"
+
+#: admin/themes/default/collections/add.php:2
+#: admin/themes/default/collections/browse.php:6
+msgid "Add a Collection"
+msgstr "Lisa kollektsioon"
+
+#: admin/themes/default/collections/add.php:9
+msgid "Save Collection"
+msgstr "Salvesta kollektsioon"
+
+#: admin/themes/default/collections/browse.php:2
+#: application/views/scripts/collections/browse.php:2
+#: application/views/scripts/common/footer.php:6
+#: application/views/scripts/functions.php:98
+msgid "Browse Collections"
+msgstr "Lehitse kollektsioone"
+
+#: admin/themes/default/collections/browse.php:4
+#: admin/themes/default/element-sets/browse.php:4
+#: admin/themes/default/item-types/browse.php:4
+#: admin/themes/default/items/browse.php:4
+#: admin/themes/default/plugins/browse.php:4
+#: admin/themes/default/tags/browse.php:4
+#: admin/themes/default/themes/browse.php:4
+#: admin/themes/default/users/browse.php:4
+#: application/views/scripts/items/browse.php:8
+#, php-format
+msgid "(%s total)"
+msgstr "(%s kokku)"
+
+#: admin/themes/default/collections/browse.php:18
+msgid "ID"
+msgstr "ID"
+
+#: admin/themes/default/collections/browse.php:19
+#: admin/themes/default/element-sets/browse.php:12
+#: admin/themes/default/item-types/form.php:20
+msgid "Name"
+msgstr "Nimi"
+
+#: admin/themes/default/collections/browse.php:20
+#: admin/themes/default/collections/show.php:22
+msgid "Collectors"
+msgstr "Kogujad"
+
+#: admin/themes/default/collections/browse.php:21
+#: admin/themes/default/files/show.php:24
+#: admin/themes/default/items/browse.php:134
+#: application/views/scripts/files/show.php:57
+msgid "Date Added"
+msgstr "Kuupäev lisatud"
+
+#: admin/themes/default/collections/browse.php:22
+#: admin/themes/default/collections/show.php:39
+#: admin/themes/default/item-types/show.php:42
+msgid "Total Number of Items"
+msgstr "Kirjete koguarv"
+
+#: admin/themes/default/collections/browse.php:25
+#: admin/themes/default/item-types/browse.php:17
+msgid "Edit?"
+msgstr "Redigeeri?"
+
+#: admin/themes/default/collections/browse.php:44
+msgid "No collectors"
+msgstr "Ei ole kogujaid"
+
+#: admin/themes/default/collections/browse.php:57
+#: admin/themes/default/items/browse.php:150
+#: admin/themes/default/items/files-form.php:23
+#: admin/themes/default/users/browse.php:43
+#: admin/themes/default/users/browse.php:58
+msgid "Edit"
+msgstr "Redigeeri"
+
+#: admin/themes/default/collections/browse.php:68
+msgid "There are no collections on this page."
+msgstr "Sellel lehel ei ole kogusid."
+
+#: admin/themes/default/collections/browse.php:68
+msgid "View All Collections"
+msgstr "Vaata kõiki kogusid."
+
+#: admin/themes/default/collections/browse.php:71
+msgid "Add a collection."
+msgstr "Lisa kogu."
+
+#: admin/themes/default/collections/browse.php:71
+msgid "There are no collections in your archive."
+msgstr "Sinu arhiivis ei ole kogusid."
+
+#: admin/themes/default/collections/edit.php:8
+#: admin/themes/default/collections/show.php:8
+#, php-format
+msgid "Edit Collection #%s"
+msgstr "Muuda kollektsiooni #%s"
+
+#: admin/themes/default/collections/edit.php:14
+msgid "Delete this Collection"
+msgstr "Kustuta see kogu"
+
+#: admin/themes/default/collections/edit.php:20
+#: admin/themes/default/files/edit.php:36
+#: admin/themes/default/item-types/edit.php:20
+#: admin/themes/default/items/batch-edit.php:113
+#: admin/themes/default/items/edit.php:20
+#: admin/themes/default/plugins/config.php:9
+#: admin/themes/default/tags/edit.php:28
+#: application/controllers/UsersController.php:224
+#: application/forms/SecuritySettings.php:70
+#: application/forms/ThemeConfiguration.php:67
+msgid "Save Changes"
+msgstr "Salvesta muudatused"
+
+#: admin/themes/default/collections/form.php:4
+msgid "Collection Details"
+msgstr "Kollektsiooni detailid"
+
+#: admin/themes/default/collections/form.php:4
+#: admin/themes/default/item-types/form.php:17
+#: install/views/scripts/index/index.phtml:13
+msgid "Required Fields"
+msgstr "Nõutud väljad"
+
+#: admin/themes/default/collections/form.php:7
+msgid "Collection Name"
+msgstr "Kollektsiooni nimi"
+
+#: admin/themes/default/collections/form.php:15
+msgid "Collection Description"
+msgstr "Kollektsiooni kirjeldus"
+
+#: admin/themes/default/collections/form.php:25
+msgid ""
+"List collectors for this collection (optional - enter one name per line)"
+msgstr "Kogujate nimekiri selle kollektsiooni jaoks (valikuline - lisa igale reale üks nimi)"
+
+#: admin/themes/default/collections/form.php:35
+#: admin/themes/default/collections/form.php:37
+#: admin/themes/default/items/batch-edit.php:42
+#: admin/themes/default/items/browse.php:100
+#: admin/themes/default/items/browse.php:132
+#: admin/themes/default/items/browse.php:177
+#: admin/themes/default/items/form.php:37
+msgid "Public"
+msgstr "Avalik"
+
+#: admin/themes/default/collections/form.php:37
+#: admin/themes/default/items/batch-edit.php:43
+msgid "Not Public"
+msgstr "Mitte avalik"
+
+#: admin/themes/default/collections/form.php:42
+#: admin/themes/default/collections/form.php:44
+#: admin/themes/default/items/batch-edit.php:54
+#: admin/themes/default/items/browse.php:102
+#: admin/themes/default/items/browse.php:133
+#: admin/themes/default/items/browse.php:182
+#: admin/themes/default/items/form.php:43
+msgid "Featured"
+msgstr "Esile tõstetud"
+
+#: admin/themes/default/collections/form.php:44
+#: admin/themes/default/items/batch-edit.php:55
+msgid "Not Featured"
+msgstr "Ei ole esile tõstetud"
+
+#: admin/themes/default/collections/show.php:11
+#: admin/themes/default/items/show.php:14
+msgid "View Public Page"
+msgstr "Vaata avalikku lehekülge"
+
+#: admin/themes/default/collections/show.php:13
+msgid "Edit this Collection"
+msgstr "Muuda seda kollektsiooni"
+
+#: admin/themes/default/collections/show.php:27
+msgid "No collectors."
+msgstr "Ei ole kogujaid"
+
+#: admin/themes/default/collections/show.php:33
+#: admin/themes/default/item-types/show.php:30
+#: application/views/scripts/index.php:35
+msgid "Recently Added Items"
+msgstr "Hiljuti lisatud kirjed"
+
+#: admin/themes/default/common/footer.php:4
+msgid "Documentation"
+msgstr "Dokumentatsioon"
+
+#: admin/themes/default/common/footer.php:4
+#: admin/themes/default/common/login-footer.php:4
+msgid "Powered by Omeka"
+msgstr "Loodud Omeka poolt"
+
+#: admin/themes/default/common/footer.php:4
+msgid "Support Forums"
+msgstr "Toetavad foorumid"
+
+#: admin/themes/default/common/footer.php:6
+#: admin/themes/default/common/login-footer.php:4
+#: admin/themes/default/plugins/plugin-info.php:65
+#, php-format
+msgid "Version %s"
+msgstr "Versioon %s"
+
+#: admin/themes/default/common/footer.php:9
+msgid "More information about your system"
+msgstr "Rohkem infot sinu süsteemi kohta."
+
+#: admin/themes/default/common/header.php:5
+msgid "Omeka Admin"
+msgstr "Omeka administraator"
+
+#: admin/themes/default/common/header.php:24
+msgid "Skip Navigation"
+msgstr "Jäta navigeerimine vahele"
+
+#: admin/themes/default/common/header.php:33
+msgid "Log Out"
+msgstr "Logi välja"
+
+#: admin/themes/default/common/header.php:33
+#, php-format
+msgid "Welcome, %s"
+msgstr "Tere tulemast, %s"
+
+#: admin/themes/default/common/header.php:36 admin/themes/default/index.php:58
+msgid "Settings"
+msgstr "Seaded"
+
+#: admin/themes/default/common/header.php:38
+msgid "View Public Site"
+msgstr "Vaata avalikku lehekülge"
+
+#: admin/themes/default/common/primary-nav.php:5
+#: admin/themes/default/index.php:21
+#: admin/themes/default/items/batch-edit.php:14
+msgid "Items"
+msgstr "Kirjed"
+
+#: admin/themes/default/common/primary-nav.php:6
+#: admin/themes/default/index.php:32
+msgid "Collections"
+msgstr "Kollektsioonid"
+
+#: admin/themes/default/common/primary-nav.php:7
+msgid "Item Types"
+msgstr "Kirjete tüübid"
+
+#: admin/themes/default/common/primary-nav.php:8
+#: admin/themes/default/items/browse.php:166
+#: admin/themes/default/items/show.php:69
+#: application/views/scripts/items/browse.php:39
+#: application/views/scripts/items/show.php:26
+msgid "Tags"
+msgstr "Sildid"
+
+#: admin/themes/default/common/settings-nav.php:6
+msgid "General Settings"
+msgstr "Üldised seaded"
+
+#: admin/themes/default/common/settings-nav.php:8
+msgid "Plugins"
+msgstr "Plugins (kogum tarkvara komponente)"
+
+#: admin/themes/default/common/settings-nav.php:11
+msgid "Themes"
+msgstr "Teemad"
+
+#: admin/themes/default/common/settings-nav.php:14
+#: admin/themes/default/index.php:45
+msgid "Users"
+msgstr "Kasutajad"
+
+#: admin/themes/default/common/settings-nav.php:17
+msgid "Element Sets"
+msgstr "Elementide kogumid"
+
+#: admin/themes/default/common/settings-nav.php:20
+msgid "Security Settings"
+msgstr "Turvalisuse seaded"
+
+#: admin/themes/default/common/tags-nav.php:3
+#: admin/themes/default/tags/browse.php:2
+msgid "Browse Tags"
+msgstr "Sirvi silte"
+
+#: admin/themes/default/common/tags-nav.php:5
+#: admin/themes/default/tags/edit.php:2
+msgid "Edit Tag"
+msgstr "Muuda silti"
+
+#: admin/themes/default/common/tags-nav.php:8
+#: admin/themes/default/tags/delete.php:2
+#: admin/themes/default/tags/delete.php:21
+msgid "Delete Tag"
+msgstr "Kustuta silt"
+
+#: admin/themes/default/element-sets/browse.php:2
+msgid "Browse Element Sets"
+msgstr "Sirvi elementide kogumeid"
+
+#: admin/themes/default/element-sets/browse.php:14
+#: admin/themes/default/items/batch-edit.php:101
+#: admin/themes/default/items/browse.php:153
+#: admin/themes/default/items/files-form.php:15
+#: admin/themes/default/users/browse.php:46
+#: application/helpers/FormFunctions.php:573
+msgid "Delete"
+msgstr "Kustuta"
+
+#: admin/themes/default/error/403.php:2
+msgid "403: Forbidden"
+msgstr "403: Keelatud"
+
+#: admin/themes/default/error/403.php:9
+msgid "Sorry, you do not have permission to access this page."
+msgstr "Vabandust, sul ei ole õigust sellele lehele siseneda."
+
+#: admin/themes/default/error/403.php:12 admin/themes/default/error/404.php:12
+#: admin/themes/default/error/405.php:10
+msgid "site administrator"
+msgstr "Lehekülje administraator"
+
+#: admin/themes/default/error/403.php:13
+#, php-format
+msgid "If you think you should have permission, try contacting the %s."
+msgstr "Kui sa arvad, et sul peaks õigused olema, siis proovi võtta ühendust %s."
+
+#: admin/themes/default/error/404.php:2
+msgid "404: Page Not Found"
+msgstr "404: Lehekülge ei leitud"
+
+#: admin/themes/default/error/404.php:9
+msgid ""
+"You&#8217;ve tried to access a page that does not seem to exist. Sometimes "
+"this happens. Below is a quick break-down of the items, collections, and "
+"exhibits on this site."
+msgstr "Proovisid siseneda lehele, mida ei ole olemas. Mõnikord juhtub nii. Allpool on välja toodud selle lehekülje ühikute, kollektsioonide ja failide rikked."
+
+#: admin/themes/default/error/404.php:13
+#, php-format
+msgid "If this does not help, try contacting the %s."
+msgstr "Kui see ei aita, siis proovi kontakteeruda %s."
+
+#: admin/themes/default/error/404.php:15 admin/themes/default/index.php:88
+msgid "Recent Items"
+msgstr "Hiljutised kirjed"
+
+#: admin/themes/default/error/404.php:25
+msgid "Recent Collections"
+msgstr "Hiljutised kollektsioonid"
+
+#: admin/themes/default/error/405.php:2
+msgid "405: Method Not Allowed"
+msgstr "405: Meetod pole lubatud"
+
+#: admin/themes/default/error/405.php:11
+#, php-format
+msgid ""
+"You must use a different method to access this URL. If you reached this page"
+" by following a link or clicking a button in Omeka, please contact the %s."
+msgstr "Pead kasutama teistsugust meetodit sellele URLile sisenemiseks. Kui jõudsid sellele lehele Omeka lingle vajutades, siis palun võta ühendust %s."
+
+#: admin/themes/default/files/edit.php:8
+#, php-format
+msgid "Edit File #%s"
+msgstr "Muuda faili #%s"
+
+#: admin/themes/default/files/edit.php:17
+msgid "Delete this File"
+msgstr "Kustuta see fail"
+
+#: admin/themes/default/files/show.php:9
+#: application/views/scripts/files/show.php:9
+#, php-format
+msgid "File #%s"
+msgstr "Fail #%s"
+
+#: admin/themes/default/files/show.php:15
+msgid "Edit this File"
+msgstr "Muuda seda faili"
+
+#: admin/themes/default/files/show.php:23
+#: application/views/scripts/files/show.php:55
+msgid "File History"
+msgstr "Faili ajalugu"
+
+#: admin/themes/default/files/show.php:26
+#: application/views/scripts/files/show.php:61
+msgid "Date Modified"
+msgstr "Kuupäev muudetud"
+
+#: admin/themes/default/files/show.php:28
+#: application/views/scripts/files/show.php:65
+msgid "Authentication"
+msgstr "Autentsuse kindlaks tegemine"
+
+#: admin/themes/default/files/show.php:36
+msgid "Format Metadata"
+msgstr "Formaadi metaandmed"
+
+#: admin/themes/default/files/show.php:38
+#: application/views/scripts/files/show.php:23
+msgid "Archive Filename"
+msgstr "Arhiivi faili nimi"
+
+#: admin/themes/default/files/show.php:39
+#: application/views/scripts/files/show.php:28
+msgid "Original Filename"
+msgstr "Algne faili nimi"
+
+#: admin/themes/default/files/show.php:40
+#: application/views/scripts/files/show.php:33
+msgid "File Size"
+msgstr "Faili suurus"
+
+#: admin/themes/default/files/show.php:45
+#: admin/themes/default/item-types/show.php:20
+#: application/views/scripts/files/show.php:39
+msgid "Type Metadata"
+msgstr "Tüübi metaandmed"
+
+#: admin/themes/default/files/show.php:47
+#: application/views/scripts/files/show.php:41
+msgid "Mime Type / Browser"
+msgstr "Mime`i tüüp/ brauser"
+
+#: admin/themes/default/files/show.php:48
+#: application/views/scripts/files/show.php:45
+msgid "Mime Type / OS"
+msgstr "Mime`i tüüp/OS"
+
+#: admin/themes/default/files/show.php:49
+#: application/views/scripts/files/show.php:49
+msgid "File Type / OS"
+msgstr "Faili tüüp/OS"
+
+#: admin/themes/default/files/show.php:54
+#: admin/themes/default/items/browse.php:201
+#: admin/themes/default/items/show.php:110
+msgid "Output Formats"
+msgstr "Tulemi formaadid"
+
+#: admin/themes/default/index.php:2
+msgid "Dashboard"
+msgstr "Töölaud"
+
+#: admin/themes/default/index.php:12
+msgid "A new version of Omeka is available for download."
+msgstr "Uus Omeka versioon on alla laadimiseks kättesaadav."
+
+#: admin/themes/default/index.php:13
+#, php-format
+msgid "Upgrade to %s"
+msgstr "Uuenda %s"
+
+#: admin/themes/default/index.php:19
+msgid "Getting Started with Omeka"
+msgstr "Esimesed sammud Omekaga tutvumisel"
+
+#: admin/themes/default/index.php:24
+msgid "Add a new item to your archive"
+msgstr "Lisa enda arhiivi uus kirje."
+
+#: admin/themes/default/index.php:25
+msgid "Browse your items"
+msgstr "Sirvi enda kirjeid."
+
+#: admin/themes/default/index.php:28
+msgid "Manage items in your archive: add, edit, and delete items."
+msgstr "Halda kirjeid enda arhiivis: lisa, muuda ja kustuta ühikuid."
+
+#: admin/themes/default/index.php:35
+msgid "Add a collection to group items"
+msgstr "Lisa grupi kirjete hulka kollektsioon"
+
+#: admin/themes/default/index.php:36
+msgid "Browse your collections"
+msgstr "Sirvi enda kollektsioone"
+
+#: admin/themes/default/index.php:39
+msgid "Manage collections in your archive: add, edit, and delete collections."
+msgstr "Halda enda arhiivis olevaid kollektsioone: lisa, muuda ja kustuta kollektsioone."
+
+#: admin/themes/default/index.php:48 admin/themes/default/users/browse.php:2
+msgid "Browse Users"
+msgstr "Otsi kasutajaid"
+
+#: admin/themes/default/index.php:50 admin/themes/default/users/browse.php:6
+msgid "Add a User"
+msgstr "Lisa kasutaja"
+
+#: admin/themes/default/index.php:53
+msgid "Manage users of various levels: from researcher to super."
+msgstr "Halda erinevatel tasemetel olevaid kasutajaid: uurijatest täisõigustega kasutajateni."
+
+#: admin/themes/default/index.php:61 admin/themes/default/settings/edit.php:2
+msgid "Edit General Settings"
+msgstr "Muuda üldiseid seadeid"
+
+#: admin/themes/default/index.php:62
+msgid "Manage Themes"
+msgstr "Halda teemasid"
+
+#: admin/themes/default/index.php:63
+msgid "Manage Plugins"
+msgstr "Halda \"plugin\"`eid"
+
+#: admin/themes/default/index.php:65
+msgid ""
+"Manage your general settings for the site, including title, description, and"
+" themes."
+msgstr "Halda enda üldisi seadeid sellel leheküljel, mis sisaldab pealkirja, kirjeldust ja teemasid."
+
+#: admin/themes/default/index.php:75
+msgid "Site Overview"
+msgstr "Lehekülje ülevaade"
+
+#: admin/themes/default/index.php:85
+#, php-format
+msgid ""
+"<em>%1$s</em> contains %2$s items, in %3$s collections, tagged with %4$s "
+"keywords. There are %5$s users."
+msgstr "<em>%1$s</em> sisaldab %2$s ühikut, %3$s kollektsioonides, sildistatud %4$s võtmesõnaga. Siin on %5$s kasutajat."
+
+#: admin/themes/default/index.php:91
+msgid "There are no items to display."
+msgstr "Ei ole ühtki kirjet, mida kuvada."
+
+#: admin/themes/default/index.php:102 application/views/scripts/index.php:71
+msgid "View All Items"
+msgstr "Vaata kõiki kirjeid"
+
+#: admin/themes/default/index.php:107
+msgid "Recent Tags"
+msgstr "Hiljutised sildid"
+
+#: admin/themes/default/item-types/add-existing-element.php:7
+#: admin/themes/default/item-types/add-new-element.php:7
+#: admin/themes/default/item-types/element-list.php:10
+#: admin/themes/default/item-types/element-list.php:24
+#: application/helpers/ElementForm.php:406
+msgid "Remove"
+msgstr "Eemalda"
+
+#: admin/themes/default/item-types/add.php:2
+#: admin/themes/default/item-types/add.php:10
+msgid "Add Item Type"
+msgstr "Lisa kirje tüüp"
+
+#: admin/themes/default/item-types/browse.php:2
+msgid "Browse Item Types"
+msgstr "Sirvi kirjete tüüpe"
+
+#: admin/themes/default/item-types/browse.php:6
+msgid "Add an Item Type"
+msgstr "Lisa kirje tüüp"
+
+#: admin/themes/default/item-types/browse.php:13
+msgid "Type Name"
+msgstr "Tüübi nimi"
+
+#: admin/themes/default/item-types/browse.php:15
+msgid "Total Items"
+msgstr "Kirjed kokku"
+
+#: admin/themes/default/item-types/edit.php:8
+#, php-format
+msgid "Edit Item Type #%s"
+msgstr "Muuda kirje tüüpi #%s"
+
+#: admin/themes/default/item-types/edit.php:14
+msgid "Delete this Item Type"
+msgstr "Kustuta see kirje tüüp"
+
+#: admin/themes/default/item-types/element-form.php:3
+msgid "Add an Element to this Item Type"
+msgstr "Lisa sellele kirje tüübile element"
+
+#: admin/themes/default/item-types/element-form.php:6
+msgid "Choose an existing element"
+msgstr "Vali olemasolevate elementide hulgast"
+
+#: admin/themes/default/item-types/element-form.php:14
+msgid "Or Create a new Element"
+msgstr "või loo uus element"
+
+#: admin/themes/default/item-types/element-form.php:31
+#: admin/themes/default/item-types/element-list.php:7
+msgid "Data Type"
+msgstr "Andmete tüüp"
+
+#: admin/themes/default/item-types/element-form.php:40
+#: admin/themes/default/item-types/element-list.php:61
+msgid "Add Element"
+msgstr "Lisa element"
+
+#: admin/themes/default/item-types/element-list.php:1
+msgid "Edit Current Elements"
+msgstr "Muuda olemasolevaid elemente"
+
+#: admin/themes/default/item-types/element-list.php:5
+msgid "Element Name"
+msgstr "Elemendi nimi"
+
+#: admin/themes/default/item-types/element-list.php:8
+#: admin/themes/default/items/files-form.php:14
+msgid "Order"
+msgstr "Järjekord"
+
+#: admin/themes/default/item-types/element-list.php:59
+msgid "Existing"
+msgstr "Olemasolev"
+
+#: admin/themes/default/item-types/element-list.php:60
+msgid "New"
+msgstr "Uus"
+
+#: admin/themes/default/item-types/form.php:17
+msgid "Item Type Information"
+msgstr "Kirje tüübi informatsioon"
+
+#: admin/themes/default/item-types/form.php:35
+msgid "Elements"
+msgstr "Elemendid"
+
+#: admin/themes/default/item-types/show.php:8
+#, php-format
+msgid "Item Type #%s"
+msgstr "Kirje tüüp #%s"
+
+#: admin/themes/default/item-types/show.php:13
+msgid "Edit this Item Type"
+msgstr "Muuda seda kirje tüüpi"
+
+#: admin/themes/default/item-types/show.php:39
+msgid "There are no recently added items."
+msgstr "Hiljuti pole ühtegi kirjet lisatud"
+
+#: admin/themes/default/items/add.php:2
+#: admin/themes/default/items/browse.php:6
+msgid "Add an Item"
+msgstr "Lisa üks kirje"
+
+#: admin/themes/default/items/add.php:12
+msgid "Add Item"
+msgstr "Lisa kirje"
+
+#: admin/themes/default/items/batch-edit.php:2
+msgid "Batch Edit Items"
+msgstr "Partii kirjete muutmine"
+
+#: admin/themes/default/items/batch-edit.php:15
+msgid "Changes will be applied to checked items."
+msgstr "Muudatused lisanduvad kontrollitud kirjetele."
+
+#: admin/themes/default/items/batch-edit.php:36
+msgid "Item Metadata"
+msgstr "Kirje metaandmed"
+
+#: admin/themes/default/items/batch-edit.php:39
+msgid "Public?"
+msgstr "Avalik?"
+
+#: admin/themes/default/items/batch-edit.php:41
+#: admin/themes/default/items/batch-edit.php:53
+#: admin/themes/default/items/batch-edit.php:65
+#: admin/themes/default/items/batch-edit.php:78
+msgid "Select Below"
+msgstr "Vali altpoolt"
+
+#: admin/themes/default/items/batch-edit.php:51
+msgid "Featured?"
+msgstr "Esile tõstetud?"
+
+#: admin/themes/default/items/batch-edit.php:62
+#: admin/themes/default/items/item-type-form.php:2
+msgid "Item Type"
+msgstr "Kirje tüüp"
+
+#: admin/themes/default/items/batch-edit.php:70
+#: admin/themes/default/items/batch-edit.php:83
+msgid "Remove?"
+msgstr "Eemaldada?"
+
+#: admin/themes/default/items/batch-edit.php:75
+#: admin/themes/default/items/browse.php:165
+#: admin/themes/default/items/collection-form.php:2
+#: admin/themes/default/items/show.php:62
+#: application/views/scripts/items/show.php:18
+msgid "Collection"
+msgstr "Kollektsioon"
+
+#: admin/themes/default/items/batch-edit.php:88
+#: admin/themes/default/items/tag-form.php:11
+#: admin/themes/default/items/tag-form.php:13
+msgid "Add Tags"
+msgstr "Lisa sildid"
+
+#: admin/themes/default/items/batch-edit.php:90
+#, php-format
+msgid "List of tags to add to all checked items, separated by %s."
+msgstr "Siltide nimekiri, mida saab lisada kõikidele kontrollitud kirjetele, eraldatud %s."
+
+#: admin/themes/default/items/batch-edit.php:98
+msgid "Delete Items"
+msgstr "Kustuta kirjed"
+
+#: admin/themes/default/items/batch-edit.php:99
+msgid "Check if you wish to delete selected items."
+msgstr "Kontrolli seda, kas soovid valitud kirjed kustutada."
+
+#: admin/themes/default/items/browse.php:2
+#: application/views/scripts/common/footer.php:6
+#: application/views/scripts/functions.php:98
+#: application/views/scripts/items/browse.php:2
+#: application/views/scripts/items/tags.php:2
+msgid "Browse Items"
+msgstr "Sirvi kirjeid"
+
+#: admin/themes/default/items/browse.php:13
+msgid "Toggle"
+msgstr "Vajutama"
+
+#: admin/themes/default/items/browse.php:14
+msgid "Details"
+msgstr "Detailid"
+
+#: admin/themes/default/items/browse.php:15
+msgid "Show Details"
+msgstr "Näita detaile"
+
+#: admin/themes/default/items/browse.php:16
+msgid "Hide Details"
+msgstr "Peida detailid"
+
+#: admin/themes/default/items/browse.php:96
+msgid "Quick Filter"
+msgstr "Kiire filtreerimine"
+
+#: admin/themes/default/items/browse.php:99
+msgid "All"
+msgstr "Kõik"
+
+#: admin/themes/default/items/browse.php:101
+msgid "Private"
+msgstr "Privaatne"
+
+#: admin/themes/default/items/browse.php:109
+#: application/helpers/LinkFunctions.php:63
+#: application/views/scripts/items/advanced-search.php:2
+msgid "Advanced Search"
+msgstr "Eelistatud otsing"
+
+#: admin/themes/default/items/browse.php:117
+#: admin/themes/default/items/browse.php:193
+msgid "Edit Selected Items"
+msgstr "Muuda valitud kirjeid"
+
+#: admin/themes/default/items/browse.php:126
+msgid "Select"
+msgstr "Vali"
+
+#: admin/themes/default/items/browse.php:165
+#: admin/themes/default/items/show.php:64
+msgid "No Collection"
+msgstr "Ei ole kollektsioone"
+
+#: admin/themes/default/items/browse.php:166
+msgid "No Tags"
+msgstr "Ei ole silte"
+
+#: admin/themes/default/items/browse.php:207
+msgid "There are no items in the archive yet."
+msgstr "Arhiivis ei ole veel ühtegi kirjet."
+
+#: admin/themes/default/items/browse.php:210
+msgid "Add an item."
+msgstr "Lisa kirje."
+
+#: admin/themes/default/items/browse.php:215
+#, php-format
+msgid "The query searched %s items and returned no results."
+msgstr "Päring otsis %s kirjet ja ei leidnud vastuseid. "
+
+#: admin/themes/default/items/browse.php:215
+#, php-format
+msgid "Would you like to %s?"
+msgstr "Kas soovid %s?"
+
+#: admin/themes/default/items/browse.php:215
+msgid "refine your search"
+msgstr "Paranda enda otsingut."
+
+#: admin/themes/default/items/edit.php:3 admin/themes/default/items/show.php:3
+#: application/helpers/LinkFunctions.php:271
+#: application/views/scripts/functions.php:14
+msgid "[Untitled]"
+msgstr "[Pealkirjata]"
+
+#: admin/themes/default/items/edit.php:8
+#, php-format
+msgid "Edit Item #%s"
+msgstr "Muuda kirjet #%s"
+
+#: admin/themes/default/items/edit.php:12
+msgid "Delete this Item"
+msgstr "Kustuta see kirje"
+
+#: admin/themes/default/items/files-form.php:4
+msgid ""
+"The path to Image Magick has not been set. No derivative images will be "
+"created. If you would like Omeka to create derivative images, please add the"
+" path to your settings form."
+msgstr "Image Magick asukoht ei ole määratud. Seotud pilte pole loodud. Kui soovid, et Omeka looks seotud pilte, siis lisa palun seadetest nende asukoht. "
+
+#: admin/themes/default/items/files-form.php:7
+msgid "Current Files"
+msgstr "Olemasolevad failid"
+
+#: admin/themes/default/items/files-form.php:12
+msgid "File Name"
+msgstr "Faili nimi"
+
+#: admin/themes/default/items/files-form.php:13
+msgid "Edit File Metadata"
+msgstr "Muuda faili metaandmeid"
+
+#: admin/themes/default/items/files-form.php:36
+msgid "Add New Files"
+msgstr "Lisa uusi faile"
+
+#: admin/themes/default/items/files-form.php:39
+#: admin/themes/default/items/files-form.php:50
+msgid "Find a File"
+msgstr "Leia fail"
+
+#: admin/themes/default/items/form.php:21
+msgid "Add Another File"
+msgstr "Lisa uus fail"
+
+#: admin/themes/default/items/item-type-form.php:8
+msgid "Pick this type"
+msgstr "Vali see tüüp"
+
+#: admin/themes/default/items/show.php:8
+#, php-format
+msgid "Item #%s"
+msgstr "Kirje #%s"
+
+#: admin/themes/default/items/show.php:18
+msgid "Edit this Item"
+msgstr "Muuda seda kirjet"
+
+#: admin/themes/default/items/show.php:55
+msgid "Bibliographic Citation"
+msgstr "Tsitaat kirjandusest"
+
+#: admin/themes/default/items/show.php:76
+#: admin/themes/default/items/tag-form.php:18
+msgid "My Tags"
+msgstr "Minu sildid"
+
+#: admin/themes/default/items/show.php:85
+msgid "Save Tags"
+msgstr "Salvesta sildid"
+
+#: admin/themes/default/items/show.php:95
+#: admin/themes/default/items/show.php:102
+msgid "View File Metadata"
+msgstr "Vaata faili metaandmeid"
+
+#: admin/themes/default/items/show.php:98
+msgid "Add a File"
+msgstr "Lisa fail"
+
+#: admin/themes/default/items/show.php:98
+msgid "There are no files for this item yet."
+msgstr "Selle kirje jaoks ei ole veel ühtegi faili."
+
+#: admin/themes/default/items/tag-form.php:14
+#, php-format
+msgid "Separate tags with %s"
+msgstr "Eralda sildid %s"
+
+#: admin/themes/default/items/tag-form.php:42
+#: admin/themes/default/items/tag-list.php:2
+msgid "All Tags"
+msgstr "Kõik sildid"
+
+#: admin/themes/default/items/tags.php:2
+msgid "Browse Items by Tag"
+msgstr "Sirvi kirjeid siltide kaupa"
+
+#: admin/themes/default/items/tags.php:9
+#: admin/themes/default/tags/browse.php:27
+msgid "There are no tags to display. You must first tag some items."
+msgstr "Ei ole ühtki silti, mida kuvada. Pead enne kirjeid sildistama."
+
+#: admin/themes/default/plugins/browse.php:2
+msgid "Browse Plugins"
+msgstr "Sirvi lisasid"
+
+#: admin/themes/default/plugins/browse.php:21
+msgid ""
+"You do not have any plugins installed. Add them to the plugins directory to "
+"see them listed here."
+msgstr "Sul ei ole installitud ühtki lisa. Lisa need lisade asukohta, et nad oleksid nimekirjas kuvatud."
+
+#: admin/themes/default/plugins/browse.php:24
+msgid ""
+"Add new plugins by downloading them from the <a href=\"http://omeka.org/add-"
+"ons/plugins/\">Omeka Plugins Directory</a>, or <a "
+"href=\"http://omeka.org/codex/Plugin_Writing_Best_Practices\">write your "
+"own</a>!"
+msgstr "Lisa uued lisad <a href=\"http://omeka.org/add-ons/plugins/\">Omeka lisade asukohast</a>, või <a href=\"http://omeka.org/codex/Plugin_Writing_Best_Practices\">loo ise uued</a>!"
+
+#: admin/themes/default/plugins/config.php:2
+#, php-format
+msgid "Configure the &#8220;%s&#8221; Plugin"
+msgstr "Sea valmis &#8220;%s&#8221; Lisa"
+
+#: admin/themes/default/plugins/confirm-uninstall.php:2
+#, php-format
+msgid "Confirm %s Uninstall"
+msgstr "Kinnita %s desinstallimine (eemaldamine)."
+
+#: admin/themes/default/plugins/confirm-uninstall.php:8
+msgid "Are you sure you want to uninstall this plugin?"
+msgstr "Oled sa kindel, et soovid selle lisa desinstallida (eemaldada)?"
+
+#: admin/themes/default/plugins/confirm-uninstall.php:13
+msgid "Yes, I want to uninstall this plugin."
+msgstr "Jah, ma soovin selle lisa eemaldada (desinstallida)."
+
+#: admin/themes/default/plugins/confirm-uninstall.php:16
+msgid "Cancel"
+msgstr "Tühista"
+
+#: admin/themes/default/plugins/confirm-uninstall.php:16
+#: admin/themes/default/plugins/plugin-info.php:107
+msgid "Uninstall"
+msgstr "Eemalda (desinstalli)"
+
+#: admin/themes/default/plugins/confirm-uninstall.php:16
+msgid "or"
+msgstr "või"
+
+#: admin/themes/default/plugins/plugin-info.php:24
+#, php-format
+msgid "This version of %1$s requires at least Omeka %2$s."
+msgstr "See versioon %1$s nõuab vähemalt Omeka %2$s olemasolu."
+
+#: admin/themes/default/plugins/plugin-info.php:27
+#, php-format
+msgid ""
+"%1$s requires the following plugins to be installed, activated, and loaded: "
+"%2$s"
+msgstr "%1$s eeldab, et järgnevad lisad oleksid installitud, aktiveeritud ja laetud: %2$s"
+
+#: admin/themes/default/plugins/plugin-info.php:30
+msgid "The plugin.php file is missing."
+msgstr "plugin.php fail on puudu"
+
+#: admin/themes/default/plugins/plugin-info.php:39
+#, php-format
+msgid "The %s plugin cannot be loaded for the following reasons:"
+msgstr "%s lisa ei saa laadida järgnevate põhjuste tõttu: "
+
+#: admin/themes/default/plugins/plugin-info.php:48
+#, php-format
+msgid "You have a new version of %s. Please upgrade!"
+msgstr "Sul on uus versioon %s. Palun uuenda!"
+
+#: admin/themes/default/plugins/plugin-info.php:58
+#: admin/themes/default/themes/browse.php:10
+msgid "Configure"
+msgstr "Sea valmis"
+
+#: admin/themes/default/plugins/plugin-info.php:69
+#, php-format
+msgid "By %s"
+msgstr "%s poolt"
+
+#: admin/themes/default/plugins/plugin-info.php:87
+msgid "Upgrade"
+msgstr "Uuenda"
+
+#: admin/themes/default/plugins/plugin-info.php:97
+#: application/views/scripts/users/activate.php:26
+msgid "Activate"
+msgstr "Aktiveeri"
+
+#: admin/themes/default/plugins/plugin-info.php:97
+msgid "Deactivate"
+msgstr "Deaktiveeri"
+
+#: admin/themes/default/plugins/plugin-info.php:117
+#: application/forms/Install.php:173
+msgid "Install"
+msgstr "Paigalda"
+
+#: admin/themes/default/security/edit.php:2
+msgid "Edit Security Settings"
+msgstr "Muuda turvalisuse seadeid"
+
+#: admin/themes/default/security/edit.php:10
+msgid "Restore Default File Extensions"
+msgstr "Taasta algsed failide laiendid"
+
+#: admin/themes/default/security/edit.php:15
+msgid "Restore Default File Mime Types"
+msgstr "Taasta algsed failide MIME tüübid"
+
+#: admin/themes/default/settings/edit.php:10
+msgid "Test"
+msgstr "Test"
+
+#: admin/themes/default/system-info/index.php:2
+msgid "System Information"
+msgstr "Süsteemi informatsioon"
+
+#: admin/themes/default/tags/browse.php:8
+msgid "Sort by"
+msgstr "Sorteeri vastavalt"
+
+#: admin/themes/default/tags/browse.php:11
+msgid "Most"
+msgstr "Kõige rohkem"
+
+#: admin/themes/default/tags/browse.php:12
+msgid "Least"
+msgstr "Kõige vähem"
+
+#: admin/themes/default/tags/browse.php:13
+msgid "Alphabetical"
+msgstr "Alfabeetilises järjekorras"
+
+#: admin/themes/default/tags/browse.php:14
+msgid "Recent"
+msgstr "Hiljutine"
+
+#: admin/themes/default/tags/delete.php:11
+msgid "Select a tag to delete:"
+msgstr "Vali silt, mida soovid kustutada:"
+
+#: admin/themes/default/tags/delete.php:25
+msgid "There are no tags to delete. You must first tag some items."
+msgstr "Ei ole ühtegi silti, mida kustutada. Pead kõigepealt kirjeid sildistama."
+
+#: admin/themes/default/tags/edit.php:12
+msgid "Choose a tag to rename"
+msgstr "Vali silt, et selle nime muuta"
+
+#: admin/themes/default/tags/edit.php:22
+msgid "Enter a new tag name"
+msgstr "Lisa uus sildi nimi"
+
+#: admin/themes/default/tags/edit.php:32
+msgid "There are no tags to edit. You must first tag some items."
+msgstr "Ei ole silte mida muuta. Pead enne kirjeid sildistama."
+
+#: admin/themes/default/themes/browse.php:2
+msgid "Browse Themes"
+msgstr "Sirvi teemasid"
+
+#: admin/themes/default/themes/browse.php:10
+msgid "Current Theme"
+msgstr "Praegune teema"
+
+#: admin/themes/default/themes/browse.php:13
+#: admin/themes/default/themes/browse.php:38
+#, php-format
+msgid "Screenshot for %s Theme"
+msgstr " %s teema kuvatõmmis"
+
+#: admin/themes/default/themes/browse.php:16
+#: admin/themes/default/themes/browse.php:32
+msgid "Author"
+msgstr "Autor"
+
+#: admin/themes/default/themes/browse.php:17
+#: admin/themes/default/themes/browse.php:33
+msgid "License"
+msgstr "Litsents"
+
+#: admin/themes/default/themes/browse.php:18
+#: admin/themes/default/themes/browse.php:34
+msgid "Website"
+msgstr "Veebilehekülg"
+
+#: admin/themes/default/themes/browse.php:23
+msgid "Change Theme"
+msgstr "Muuda teemat"
+
+#: admin/themes/default/themes/browse.php:44
+msgid "Switch Theme"
+msgstr "Vali teema"
+
+#: admin/themes/default/themes/browse.php:48
+msgid ""
+"Add new themes by downloading them from the <a href=\"http://omeka.org/add-"
+"ons/themes/\">Omeka Theme Directory</a>, or <a "
+"href=\"http://omeka.org/codex/Theme_Writing_Best_Practices\">design your "
+"own</a>!"
+msgstr "Lisa uued teemad <a href=\"http://omeka.org/add-ons/themes/\">Omeka teemade asukohast</a>, või <a href=\"http://omeka.org/codex/Theme_Writing_Best_Practices\">loo enda teema</a>!"
+
+#: admin/themes/default/themes/config.php:2
+#, php-format
+msgid "Configure the &#8220;%s&#8221; Theme"
+msgstr "Sea valmis &#8220;%s&#8221; Teema"
+
+#: admin/themes/default/themes/config.php:9
+msgid "Configurations apply to this theme only."
+msgstr "Seaded lisanduvad ainult sellele teemale."
+
+#: admin/themes/default/users/add.php:2
+msgid "Add New User"
+msgstr "Lisa uus kasutaja"
+
+#: admin/themes/default/users/browse.php:13
+msgid "Search Users"
+msgstr "Otsi kasutajaid"
+
+#: admin/themes/default/users/browse.php:15
+msgid "Select Role"
+msgstr "Vali roll"
+
+#: admin/themes/default/users/browse.php:17
+msgid "Active"
+msgstr "Aktiivne"
+
+#: admin/themes/default/users/browse.php:17
+msgid "Inactive"
+msgstr "Mitteaktiivne"
+
+#: admin/themes/default/users/browse.php:17
+msgid "Select Status"
+msgstr "Vali staatus"
+
+#: admin/themes/default/users/browse.php:19
+msgid "Sort By"
+msgstr "Sorteeri vastavalt"
+
+#: admin/themes/default/users/browse.php:20 application/forms/User.php:78
+msgid "First Name"
+msgstr "Eesnimi"
+
+#: admin/themes/default/users/browse.php:21 application/forms/User.php:91
+msgid "Last Name"
+msgstr "Perekonnanimi"
+
+#: admin/themes/default/users/browse.php:22
+msgid "Institution Name"
+msgstr "Institutsiooni nimi"
+
+#: admin/themes/default/users/browse.php:23
+#: admin/themes/default/users/browse.php:41 application/forms/User.php:143
+msgid "Role"
+msgstr "Roll"
+
+#: admin/themes/default/users/browse.php:24
+#: admin/themes/default/users/browse.php:38
+#: admin/themes/default/users/show.php:22 application/forms/Install.php:35
+#: application/forms/Login.php:25 application/forms/User.php:28
+msgid "Username"
+msgstr "Kasutajanimi"
+
+#: admin/themes/default/users/browse.php:26
+msgid "Sort Order"
+msgstr "Sorteerimise järjekord"
+
+#: admin/themes/default/users/browse.php:27
+msgid "Ascending"
+msgstr "Kasvavalt"
+
+#: admin/themes/default/users/browse.php:28
+msgid "Descending"
+msgstr "Kahanevalt"
+
+#: admin/themes/default/users/browse.php:29
+#: application/helpers/FormFunctions.php:270
+#: application/views/scripts/items/advanced-search.php:167
+msgid "Search"
+msgstr "Otsing"
+
+#: admin/themes/default/users/browse.php:39
+#: admin/themes/default/users/show.php:24
+msgid "Real Name"
+msgstr "Päris nimi"
+
+#: admin/themes/default/users/browse.php:40
+#: admin/themes/default/users/show.php:26 application/forms/Install.php:79
+#: application/forms/RecoverPassword.php:32 application/forms/User.php:105
+#: application/views/scripts/users/forgot-password.php:14
+msgid "Email"
+msgstr "E-posti aadress"
+
+#: admin/themes/default/users/edit.php:8
+#, php-format
+msgid "Edit User #%s"
+msgstr "Muuda kasutajat #%s"
+
+#: admin/themes/default/users/show.php:8
+#, php-format
+msgid "User #%s"
+msgstr "Kasutaja #%s"
+
+#: admin/themes/default/users/show.php:15
+msgid "Edit this User"
+msgstr "Muuda seda kasutajat"
+
+#: admin/themes/default/users/show.php:28 application/forms/User.php:137
+msgid "Institution"
+msgstr "Institutsioon"
+
+#: application/controllers/CollectionsController.php:31
+#, php-format
+msgid "The collection \"%s\" was successfully added!"
+msgstr "Kollektsioon \"%s\" lisati edukalt!"
+
+#: application/controllers/CollectionsController.php:37
+#, php-format
+msgid "The collection \"%s\" was successfully changed!"
+msgstr "Kollektsiooni \"%s\" muudeti edukalt!"
+
+#: application/controllers/CollectionsController.php:43
+#, php-format
+msgid "The collection \"%s\" was successfully deleted!"
+msgstr "Kollektsioon \"%s\" kustutati edukalt!"
+
+#: application/controllers/CollectionsController.php:48
+msgid ""
+"This will delete the collection and its associated metadata. This will not "
+"delete any items in this collection, but will delete the reference to this "
+"collection in each item."
+msgstr "Nii kustutatakse kollektsioon ja sellega seotud metaandmed. Kollektsiooni kirjed ei kustu. Kustuvad selle kollektsiooni iga kirje viited."
+
+#: application/controllers/ElementSetsController.php:26
+msgid ""
+"This will delete the element set and all elements assigned to the element "
+"set. Items will lose all metadata that is specific to this element set."
+msgstr "Nii kustutatakse elementide kogu ja kõik sellega seotud elemendid. Kirjed kaotavad kõik selle elementide koguga seotud metaandmed. "
+
+#: application/controllers/ErrorController.php:66
+msgid "Page not found."
+msgstr "Lehekülge ei leitud."
+
+#: application/controllers/ErrorController.php:85
+msgid "Access denied."
+msgstr "Ligipääs keelatud."
+
+#: application/controllers/ItemTypesController.php:38
+msgid ""
+"This will delete the item type but will not delete the elements assigned to "
+"the item type. Items that are assigned to this item type will lose all "
+"metadata that is specific to the item type."
+msgstr "Nii saab kustutada kirje tüüpi, kuid mitte elemente, mis on kirje tüübiga seotud. Kirjed, mis on selle kirje tüübiga seotud, kaotavad kõik kirje tüübiga seotud metaandmed."
+
+#: application/controllers/ItemTypesController.php:58
+#, php-format
+msgid ""
+"The item type \"%s\" was successfully added!  You may now add elements to "
+"your new item type."
+msgstr "Kirje tüüp \"%s\" lisati edukalt! Võid nüüd lisada elemente enda uue kirje tüübi juurde."
+
+#: application/controllers/ItemTypesController.php:94
+#, php-format
+msgid "The item type \"%s\" was successfully changed!"
+msgstr "Kirje tüüp \"%s\" muudeti edukalt! "
+
+#: application/controllers/ItemTypesController.php:115
+#: application/controllers/ItemTypesController.php:123
+#, php-format
+msgid "The item type cannot have more than one \"%s\" element."
+msgstr "Kirje tüüp ei saa omada rohkem kui üht \"%s\"  elementi."
+
+#: application/controllers/ItemsController.php:108
+msgid "The item was successfully added!"
+msgstr "Kirje lisati edukalt!"
+
+#: application/controllers/ItemsController.php:113
+msgid "The item was successfully changed!"
+msgstr "Kirjet muudeti edukalt!"
+
+#: application/controllers/ItemsController.php:118
+msgid "The item was successfully deleted!"
+msgstr "Kirje kustutati edukalt!"
+
+#: application/controllers/ItemsController.php:123
+msgid ""
+"This will delete the item and its associated metadata. It will also delete "
+"all files and file metadata associated with this item."
+msgstr "Nii kustub kirje ja sellega seotud metaandmed. Samuti kustuvad ka kõik kirjega seotud failid metaandmetega."
+
+#: application/controllers/ItemsController.php:266
+msgid "User does not have permission to add tags."
+msgstr "Kasutajal ei ole õigust silte lisada."
+
+#: application/controllers/ItemsController.php:299
+msgid "You must choose some items to batch edit."
+msgstr "Pead valima kirjeid, et muutmine oleks võimalik."
+
+#: application/controllers/ItemsController.php:338
+msgid "User is not allowed to modify visibility of items."
+msgstr "Kasutaja ei oma õigusi muuta kirjete nähtavust."
+
+#: application/controllers/ItemsController.php:343
+msgid "User is not allowed to modify featured status of items."
+msgstr "Kasutaja ei oma õigusi esile tõstetud kirjete staatuse muutmiseks."
+
+#: application/controllers/ItemsController.php:350
+msgid "User is not allowed to delete selected items."
+msgstr "Kasutajal ei ole lubatud valitud kirjeid kustutada."
+
+#: application/controllers/ItemsController.php:356
+msgid "User is not allowed to edit selected items."
+msgstr "Kasutajal ei ole lubatud valitud kirjeid muuta."
+
+#: application/controllers/ItemsController.php:361
+msgid "User is not allowed to tag selected items."
+msgstr "Kasutajal ei ole lubatud valitud kirjeid sildistada."
+
+#: application/controllers/ItemsController.php:384
+msgid "The items were successfully changed!"
+msgstr "Kirjeid muudeti edukalt!"
+
+#: application/controllers/PluginsController.php:49
+#, php-format
+msgid ""
+"Error in configuring plugin named \"%s\". Missing config and/or config_form "
+"hook(s)."
+msgstr "Viga lisa (plugin)  \"%s\"  seadistamisel. Puudub config and/or config_form hook(s)."
+
+#: application/controllers/PluginsController.php:55
+#, php-format
+msgid "The %s plugin was successfully configured!"
+msgstr " %s lisa (plugin) seadistati edukalt!"
+
+#: application/controllers/PluginsController.php:70
+#, php-format
+msgid "The %s plugin has already been installed."
+msgstr " %s lisa (plugin) on juba installitud."
+
+#: application/controllers/PluginsController.php:76
+#, php-format
+msgid "The %s plugin was successfully installed!"
+msgstr " %s lisa (plugin) installiti edukalt!"
+
+#: application/controllers/PluginsController.php:86
+#, php-format
+msgid "The following error occurred while installing the %s plugin: "
+msgstr "Järgnev viga esines  %s lisa (plugin) installimisel:"
+
+#: application/controllers/PluginsController.php:111
+#, php-format
+msgid "The %s plugin was successfully activated!"
+msgstr " %s lisa (plugin) aktiveeriti edukalt!"
+
+#: application/controllers/PluginsController.php:113
+#, php-format
+msgid "The %s plugin was activated, but could not be loaded: "
+msgstr " %s lisa (plugin) aktiveeriti, kuid seda ei saanud laadida:"
+
+#: application/controllers/PluginsController.php:116
+#, php-format
+msgid "The following error occurred while activating the %s plugin: "
+msgstr "Järgnev viga esines  %s lisa (plugin) aktiveerimisel:"
+
+#: application/controllers/PluginsController.php:137
+#, php-format
+msgid "The %s plugin was successfully deactivated!"
+msgstr " %s lisa (plugin) deaktiveeriti edukalt!"
+
+#: application/controllers/PluginsController.php:139
+#, php-format
+msgid "The following error occurred while deactivating the %s plugin: "
+msgstr " Järgnev viga esines %s lisa (plugin) deaktiveerimisel."
+
+#: application/controllers/PluginsController.php:156
+#, php-format
+msgid "The %s plugin was successfully upgraded!"
+msgstr "%s lisa (plugin) on edukalt uuendatud!"
+
+#: application/controllers/PluginsController.php:161
+#, php-format
+msgid "The following error occurred while upgrading the %s plugin: "
+msgstr "Järgnev viga esines %s lisa (plugin) uuendamisel:"
+
+#: application/controllers/PluginsController.php:212
+msgid "You must confirm the uninstall before proceeding."
+msgstr "Enne jätkamist pead kinnitama desinstallimise (eemaldamise)."
+
+#: application/controllers/PluginsController.php:227
+#, php-format
+msgid "The %s plugin was successfully uninstalled!"
+msgstr "%s lisa (plugin) eemaldati edukalt!"
+
+#: application/controllers/PluginsController.php:229
+#, php-format
+msgid "The following error occurred while uninstalling the %s plugin: "
+msgstr "Järgnev viga esines %s lisa (plugin) eemaldamisel."
+
+#: application/controllers/PluginsController.php:256
+msgid "No plugin name given."
+msgstr "Lisa (plugin) nime pole antud."
+
+#: application/controllers/PluginsController.php:269
+#, php-format
+msgid "The plugin %s must be installed."
+msgstr "Lisa (plugin) %s peab olema paigaldatud. "
+
+#: application/controllers/SecurityController.php:46
+msgid "The security settings have been updated."
+msgstr "Turvalisuse seaded on uuendatud."
+
+#: application/controllers/SettingsController.php:44
+msgid "The general settings have been updated."
+msgstr "Üldised seaded on uuendatud."
+
+#: application/controllers/SettingsController.php:46
+#: install/views/scripts/index/index.phtml:16
+msgid "There were errors found in your form. Please edit and resubmit."
+msgstr "Sinu vormis oli vigu. Palun muuda ja sisesta uuesti."
+
+#: application/controllers/SettingsController.php:70
+msgid "Works"
+msgstr "Tööd"
+
+#: application/controllers/SettingsController.php:71
+msgid "Fails"
+msgstr "Veateated"
+
+#: application/controllers/TagsController.php:51
+#, php-format
+msgid "Tag named '%s' was successfully deleted."
+msgstr "Silt nimega '%s kustutati edukalt."
+
+#: application/controllers/TagsController.php:64
+msgid "You have to be logged in to edit tags!"
+msgstr "Siltide muutmiseks pead olema sisse loginud!"
+
+#: application/controllers/TagsController.php:101
+#, php-format
+msgid "Tag named \"%1$s\" was successfully renamed to \"%2$s\"."
+msgstr "Silt nimega \"%1$s\" muudeti edukalt sildiks nimega \"%2$s\"."
+
+#: application/controllers/TagsController.php:128
+msgid "Invalid tagType given"
+msgstr "Vigane sildi tüüp"
+
+#: application/controllers/ThemesController.php:30
+msgid "Invalid form submission."
+msgstr "Vigane vormi lisamine."
+
+#: application/controllers/ThemesController.php:38
+msgid "You have chosen an illegal theme name. Please select another theme."
+msgstr "Oled valinud lubamatu teema nime. Palun vali teine teema."
+
+#: application/controllers/ThemesController.php:51
+msgid "The theme has been successfully changed."
+msgstr "Teemat muudeti edukalt."
+
+#: application/controllers/ThemesController.php:77
+msgid "The theme settings were successfully saved!"
+msgstr "Teema seaded salvestati edukalt!"
+
+#: application/controllers/UpgradeController.php:57
+msgid "SQL error in migration: "
+msgstr "SQL viga rändes:"
+
+#: application/controllers/UsersController.php:97
+#: application/controllers/UsersController.php:103
+msgid ""
+"Unable to reset password. Please verify that the information is correct and "
+"contact an administrator if necessary."
+msgstr "Parooli pole võimalik tühistada. Palun veendu, et informatsioon on korrektne ja võta vajadusel ühendust süsteemi administraatoriga."
+
+#: application/controllers/UsersController.php:129
+msgid "Please follow this link to reset your password:"
+msgstr "Palun järgi seda linki, et tühistada enda parool:"
+
+#: application/controllers/UsersController.php:131
+#: application/controllers/UsersController.php:134
+#: application/controllers/UsersController.php:298
+#, php-format
+msgid "%s Administrator"
+msgstr "%s Administraator"
+
+#: application/controllers/UsersController.php:135
+#, php-format
+msgid "[%s] Reset Your Password"
+msgstr "[%s] Tühista enda parool"
+
+#: application/controllers/UsersController.php:138
+msgid "Please check your email for a link to reset your password."
+msgstr "Palun kontrolli enda e-posti aadressi, et tühistada parool."
+
+#: application/controllers/UsersController.php:154
+msgid "Password: The passwords do not match."
+msgstr "Parool: Paroolid ei kattu."
+
+#: application/controllers/UsersController.php:160
+msgid "You may now log in to Omeka."
+msgstr "Võid nüüd Omeka`sse sisse logida."
+
+#: application/controllers/UsersController.php:179
+msgid "Add User"
+msgstr "Lisa kasutaja"
+
+#: application/controllers/UsersController.php:189
+#, php-format
+msgid "The user \"%s\" was successfully added!"
+msgstr "Kasutaja \"%s\" lisati edukalt!"
+
+#: application/controllers/UsersController.php:245
+msgid "Password changed!"
+msgstr "Parool on muudetud!"
+
+#: application/controllers/UsersController.php:254
+#, php-format
+msgid "The user %s was successfully changed!"
+msgstr "Kasutajat %s muudeti edukalt!"
+
+#: application/controllers/UsersController.php:274
+#, php-format
+msgid "The user \"%s\" was successfully deleted!"
+msgstr "Kasutaja \"%s\" kustutati edukalt!"
+
+#: application/controllers/UsersController.php:280
+#, php-format
+msgid ""
+"%s will be deleted from the system. Items, collections, and tags created by "
+"this user will remain in the archive, but will no longer be associated with "
+"this user."
+msgstr "%s kustutatakse süsteemist. Kirjed, kollektsioonid ja sildid, mis on selle kasutaja poolt lisatud, jäävad arhiivi, aga ei ole enam selle kasutajaga seotud."
+
+#: application/controllers/UsersController.php:294
+msgid "Welcome!"
+msgstr "Tere tulemast!"
+
+#: application/controllers/UsersController.php:296
+#, php-format
+msgid ""
+"Your account for the %s archive has been created. Please click the following"
+" link to activate your account:"
+msgstr " Sinu konto %s arhiivi jaoks on loodud. Palun vajuta järgnevat linki, et enda konto aktiveerida:"
+
+#: application/controllers/UsersController.php:299
+#, php-format
+msgid "Activate your account with the %s archive"
+msgstr "Aktiveeri enda konto koos %s arhiiviga."
+
+#: application/forms/ChangePassword.php:35
+msgid "Current Password"
+msgstr "Praegune parool"
+
+#: application/forms/ChangePassword.php:44
+msgid "New Password"
+msgstr "Uus parool"
+
+#: application/forms/ChangePassword.php:78
+msgid "Repeat New Password"
+msgstr "Korda uut parooli"
+
+#: application/forms/ChangePassword.php:86
+msgid "Save Password"
+msgstr "Salvesta parool"
+
+#: application/forms/ChangePassword.php:95
+msgid "Change Password"
+msgstr "Muuda parooli"
+
+#: application/forms/GeneralSettings.php:28 application/forms/Install.php:85
+msgid "Site Title"
+msgstr "Lehekülje pealkiri"
+
+#: application/forms/GeneralSettings.php:32 application/forms/Install.php:90
+msgid "Site Description"
+msgstr "Lehekülje kirjeldus"
+
+#: application/forms/GeneralSettings.php:36 application/forms/Install.php:94
+msgid "Administrator Email"
+msgstr "Administraatori e-posti aadress"
+
+#: application/forms/GeneralSettings.php:42 application/forms/Install.php:100
+msgid "Site Copyright Information"
+msgstr "Lehekülje autoriõiguste info"
+
+#: application/forms/GeneralSettings.php:46 application/forms/Install.php:104
+msgid "Site Author Information"
+msgstr "Lehekülje autori info"
+
+#: application/forms/GeneralSettings.php:50 application/forms/Install.php:108
+msgid "Tag Delimiter"
+msgstr "Siltide eraldaja"
+
+#: application/forms/GeneralSettings.php:51
+msgid ""
+"Separate tags using this character or string. Be careful when changing this "
+"setting. You run the risk of splitting tags that contain the old delimiter."
+msgstr "Eralda sildid kasutades seda märki või stringi."
+
+#: application/forms/GeneralSettings.php:64 application/forms/Install.php:123
+msgid "Fullsize Image Size"
+msgstr "Pildi täissuurus"
+
+#: application/forms/GeneralSettings.php:65 application/forms/Install.php:124
+msgid "Maximum fullsize image size constraint (in pixels)."
+msgstr "Maksimaalne pildi täissuuruse piirang (pikslites)."
+
+#: application/forms/GeneralSettings.php:71 application/forms/Install.php:131
+msgid "Thumbnail Size"
+msgstr "Pisipildi suurus"
+
+#: application/forms/GeneralSettings.php:72 application/forms/Install.php:132
+msgid "Maximum thumbnail size constraint (in pixels)."
+msgstr "Maksimaalne pisipildi suuruse piirang (pikslites)."
+
+#: application/forms/GeneralSettings.php:78 application/forms/Install.php:139
+msgid "Square Thumbnail Size"
+msgstr "Nelinurkse pisipildi suurus"
+
+#: application/forms/GeneralSettings.php:79 application/forms/Install.php:140
+msgid "Maximum square thumbnail size constraint (in pixels)."
+msgstr "Maksimaalne nelinurkse pisipildi suuruse piirang (pikslites)."
+
+#: application/forms/GeneralSettings.php:85 application/forms/Install.php:147
+msgid "Items Per Page (admin)"
+msgstr "Kirjed lehekülgede kaupa (admin)"
+
+#: application/forms/GeneralSettings.php:86 application/forms/Install.php:148
+msgid ""
+"Limit the number of items displayed per page in the administrative "
+"interface."
+msgstr "Piira kirjete arvu, mis on lehekülgede kaupa administraatori lehel kuvatud."
+
+#: application/forms/GeneralSettings.php:92 application/forms/Install.php:155
+msgid "Items Per Page (public)"
+msgstr "Kirjed lehekülgede kaupa (avalik)"
+
+#: application/forms/GeneralSettings.php:93 application/forms/Install.php:156
+msgid "Limit the number of items displayed per page in the public interface."
+msgstr "Piira kirjete arvu, mis on lehekülgede kaupa avalikul lehel kuvatud."
+
+#: application/forms/GeneralSettings.php:99 application/forms/Install.php:163
+msgid "Show Empty Elements"
+msgstr "Näita tühjasid elemente"
+
+#: application/forms/GeneralSettings.php:104
+msgid "Enable Prototype"
+msgstr "Võimalda proovieksemplari loomine"
+
+#: application/forms/GeneralSettings.php:106
+msgid ""
+"Enable the Prototype JavaScript library. This may be required for some older"
+" plugins."
+msgstr "Võimalda Prototype JavaScript library. See võib olla nõutav vanade lisade (plugins) jaoks."
+
+#: application/forms/GeneralSettings.php:110 application/forms/Install.php:169
+msgid "Imagemagick Directory Path"
+msgstr "Imagemagick kataloogi asukoht"
+
+#: application/forms/GeneralSettings.php:114
+msgid "Save Settings"
+msgstr "Salvesta seaded"
+
+#: application/forms/Install.php:37
+msgid "Only alphanumeric characters are allowed."
+msgstr "Ainult tähe või numbri märgid on lubatud."
+
+#: application/forms/Install.php:43 application/forms/Login.php:34
+msgid "Password"
+msgstr "Parool"
+
+#: application/forms/Install.php:44
+msgid "Must be at least 6 characters."
+msgstr "Peab sisaldama vähemalt 6 märki."
+
+#: application/forms/Install.php:66 application/forms/ResetPassword.php:49
+#: application/views/scripts/users/activate.php:19
+msgid "Re-type the Password"
+msgstr "Kirjuta parool uuesti."
+
+#: application/forms/Install.php:67
+msgid "Confirm your password."
+msgstr "Kinnita enda parool."
+
+#: application/forms/Install.php:109
+msgid "Separate tags using this character or string."
+msgstr "Eralda sildid kasutades seda märki või stringi."
+
+#: application/forms/Install.php:165
+msgid "Whether metadata elements with no text will be displayed."
+msgstr "Metaandmeelemendid kuvatakse ilma tekstita."
+
+#: application/forms/Install.php:180
+msgid "Default Superuser Account"
+msgstr "Vaikimisi loodud superkasutaja konto"
+
+#: application/forms/Install.php:190
+msgid "Site Settings"
+msgstr "Lehekülje seaded"
+
+#: application/forms/Login.php:32
+msgid "Username cannot be empty."
+msgstr "Kasutajanime koht ei saa tühjaks jääda."
+
+#: application/forms/Login.php:41
+msgid "Password cannot be empty."
+msgstr "Parooli koht ei saa tühjaks jääda."
+
+#: application/forms/Login.php:42
+msgid "Remember Me?"
+msgstr "Pea meeles?"
+
+#: application/forms/Login.php:44 application/views/scripts/users/login.php:3
+msgid "Log In"
+msgstr "Logi sisse"
+
+#: application/forms/RecoverPassword.php:41
+msgid "Email address is required."
+msgstr "E-posti aadress on kohustuslik."
+
+#: application/forms/RecoverPassword.php:51
+msgid "Invalid email address given."
+msgstr "Vigane e-posti aadress."
+
+#: application/forms/RecoverPassword.php:53
+msgid "Invalid format given for email address."
+msgstr "Vigane e-posti aadressi formaat."
+
+#: application/forms/RecoverPassword.php:55
+msgid "Invalid hostname given for email address."
+msgstr "E-posti aadressile on antud vigane masinanimi."
+
+#: application/forms/RecoverPassword.php:73
+msgid "Invalid email address"
+msgstr "Vigane e-posti aadress."
+
+#: application/forms/ResetPassword.php:28
+#: application/views/scripts/users/activate.php:13
+msgid "Create a Password"
+msgstr "Loo parool"
+
+#: application/forms/ResetPassword.php:32
+msgid "Password is required."
+msgstr "Parool on kohustuslik."
+
+#: application/forms/ResetPassword.php:38
+msgid "Typed passwords do not match."
+msgstr "Lisatud paroolid ei kattu."
+
+#: application/forms/SecuritySettings.php:27
+msgid "Disable File Upload Validation"
+msgstr "Blokeeri faili üles laadimise valideerimine"
+
+#: application/forms/SecuritySettings.php:29
+msgid ""
+"Check this field if you would like to allow any file to be uploaded to "
+"Omeka."
+msgstr "Kontrolli seda välja, kui soovid lubada Omeka`sse failide lisamist."
+
+#: application/forms/SecuritySettings.php:35
+msgid "Allowed File Extensions"
+msgstr "Lubatud failide laiendid."
+
+#: application/forms/SecuritySettings.php:36
+msgid "List of allowed extensions for file uploads."
+msgstr "Nimekiri lubatud laetavate failide laienditest."
+
+#: application/forms/SecuritySettings.php:45
+msgid "Allowed File Types"
+msgstr "Lubatud faili tüübid."
+
+#: application/forms/SecuritySettings.php:46
+msgid "List of allowed MIME types for file uploads"
+msgstr "Nimekiri lubatud laetavate failide MIME`i tüüpidest."
+
+#: application/forms/SecuritySettings.php:55
+msgid "ReCaptcha Public Key"
+msgstr "ReCaptcha avalik võti"
+
+#: application/forms/SecuritySettings.php:56
+msgid ""
+"Public key from recaptcha.net. Both this and the private key must be filled "
+"in to secure public forms."
+msgstr "Avalik võti recaptcha.net`ist. See ja privaatne võti peavad olema täidetud, et avalik vorm oleks turvaline."
+
+#: application/forms/SecuritySettings.php:63
+msgid "ReCaptcha Private Key"
+msgstr "ReCaptcha privaatne võti"
+
+#: application/forms/SecuritySettings.php:64
+msgid ""
+"Private key from recaptcha.net. Both this and the public key must be filled "
+"in to secure public forms."
+msgstr "Privaatne võti recaptcha.net`ist. See ja avalik võti peavad olema täidetud, et avalik vorm oleks turvaline."
+
+#: application/forms/User.php:35
+msgid "Username is required."
+msgstr "Kasutajanimi on kohustuslik."
+
+#: application/forms/User.php:43
+msgid "Username must contain only letters and numbers."
+msgstr "Kasutajanimi peab sisaldama ainult tähti ja numbreid."
+
+#: application/forms/User.php:53
+msgid "Username must be at least %min% characters long."
+msgstr "Kasutajanimi peab olema vähemalt %min% märki pikk."
+
+#: application/forms/User.php:55
+msgid "Username must be at most %max% characters long."
+msgstr "Kasutajanimi peab olema kõige rohkem %min% märki pikk."
+
+#: application/forms/User.php:69
+msgid "This username is already in use."
+msgstr "See kasutajanimi on juba kasutusel."
+
+#: application/forms/User.php:84
+msgid "First name is required."
+msgstr "Eesnimi on kohustuslik."
+
+#: application/forms/User.php:97
+msgid "Last name is required."
+msgstr "Perekonnanimi on kohustuslik."
+
+#: application/forms/User.php:103
+msgid "This email address is invalid."
+msgstr "See e-posti aadress on vigane."
+
+#: application/forms/User.php:111
+msgid "Email is required."
+msgstr "E-posti aadress on nõutav."
+
+#: application/forms/User.php:130
+msgid "This email address is already in use."
+msgstr "See e-posti aadress on juba kasutusel."
+
+#: application/forms/User.php:151
+msgid "Active?"
+msgstr "Aktiivne?"
+
+#: application/helpers/AssetFunctions.php:270
+#: application/helpers/AssetFunctions.php:289
+#, php-format
+msgid "Could not find file %s!"
+msgstr "Seda faili %s ei leitud!"
+
+#: application/helpers/CollectionFunctions.php:58
+#, php-format
+msgid "%s does not exist for collections!"
+msgstr "%s ei eksisteeri kollektsioonide jaoks!"
+
+#: application/helpers/CollectionFunctions.php:123
+msgid "Featured Collection"
+msgstr "Esile tõstetud kollektsioon"
+
+#: application/helpers/CollectionFunctions.php:131
+msgid "No featured collections are available."
+msgstr "Ühtki esile tõstetud kollektsiooni pole saadaval."
+
+#: application/helpers/ElementForm.php:50
+msgid "Add Input"
+msgstr "Lisa sisestus"
+
+#: application/helpers/ElementForm.php:286
+#, php-format
+msgid "Cannot display a form input for \"%s\" if element type name is not given!"
+msgstr "Ei saa kuvada vormi \"%s\", kui elemendi tüübi nimi pole antud!"
+
+#: application/helpers/ElementForm.php:346
+msgid "From"
+msgstr "Kellelt"
+
+#: application/helpers/ElementForm.php:349
+msgid "To"
+msgstr "Kellele"
+
+#: application/helpers/ElementForm.php:369
+msgid "Use HTML"
+msgstr "Kasuta HTML"
+
+#: application/helpers/FileMetadata.php:83
+#, php-format
+msgid "%s is an invalid special value."
+msgstr " %s on vigane eriväärtus."
+
+#: application/helpers/FormFunctions.php:134
+msgid "Select Below "
+msgstr "Vali altpoolt"
+
+#: application/helpers/FormFunctions.php:244
+#: application/helpers/FormFunctions.php:532
+#: application/views/scripts/users/forgot-password.php:18
+msgid "Submit"
+msgstr "Lisa"
+
+#: application/helpers/Functions.php:53
+msgid "Omeka RSS Feed"
+msgstr "Omeka RSS kanal"
+
+#: application/helpers/Functions.php:54
+msgid "Omeka Atom Feed"
+msgstr "Omeka Atom kanal"
+
+#: application/helpers/Functions.php:200
+msgid "Error: Invalid callback was provided for the loop."
+msgstr "Viga: Jälgimisel leiti veateade."
+
+#: application/helpers/ItemFunctions.php:58
+msgid "Featured Item"
+msgstr "Esile toodud kirje"
+
+#: application/helpers/ItemFunctions.php:73
+msgid ""
+"An item has not been set to be displayed on this theme page! Please see "
+"Omeka documentation for details."
+msgstr "Üks kirje ei ole seadistatud sellel teema leheküljel kuvamiseks! Palun vaata täpsema info saamiseks Omeka kirjeldust."
+
+#: application/helpers/ItemFunctions.php:571
+msgid "No featured items are available."
+msgstr "Esile toodud kirjed ei ole kättesaadavad."
+
+#: application/helpers/ItemMetadata.php:79
+#, php-format
+msgid "'%s' is an invalid special value."
+msgstr "'%s' on vigane eriväärtus."
+
+#: application/helpers/LinkFunctions.php:43
+msgid "View"
+msgstr "Vaata"
+
+#: application/helpers/LinkFunctions.php:208
+msgid "RSS"
+msgstr "RSS"
+
+#: application/helpers/LinkFunctions.php:225
+msgid "Next Item &rarr;"
+msgstr "Järgmine kirje &rarr;"
+
+#: application/helpers/LinkFunctions.php:241
+msgid "&larr; Previous Item"
+msgstr "&larr; Eelmine kirje"
+
+#: application/helpers/LinkFunctions.php:525
+msgid "Atom"
+msgstr "Standard"
+
+#: application/helpers/TagFunctions.php:133
+msgid "No tags are available."
+msgstr "Sildid pole kättesaadavad."
+
+#: application/libraries/Omeka/View/Helper/RecordMetadataList.php:91
+msgid "[no text]"
+msgstr "[teksti ei ole]"
+
+#: application/models/ActsAsElementText.php:255
+#, php-format
+msgid "Cannot find an element with an ID of '%s'!"
+msgstr "IDga '%s' elementi ei leitud!"
+
+#: application/models/ActsAsElementText.php:312
+#, php-format
+msgid ""
+"Element name is ambiguous! There is more than one element set containing an "
+"element named \"%s\"!"
+msgstr "Elemendi nimi on kahetähenduslik! Loodud on mitu elementide kogu, mis sisaldavad elementi nimega \"%s\"!"
+
+#: application/models/ActsAsElementText.php:315
+#: application/models/ActsAsElementText.php:322
+#, php-format
+msgid "There is no element named \"%s\"!"
+msgstr "Elementi nimega \"%s\" ei leitud!"
+
+#: application/models/ActsAsElementText.php:326
+#, php-format
+msgid "There is no element named \"%1$s\" in the set named \"%2$s\"!"
+msgstr "Ei leitud ühtki elementi nimega \"%1$s\" kogus nimega \"%2$s\"!"
+
+#: application/models/ActsAsElementText.php:482
+msgid "Element texts are not formatted correctly!"
+msgstr "Elemendi tekst ei ole korrektselt vormindatud."
+
+#: application/models/ActsAsElementText.php:645
+#, php-format
+msgid "Cannot process form input for element with data type \"%s\"!"
+msgstr "Elemendi vormi sisestust koos andmetüübiga\"%s\" ei saa töödelda!"
+
+#: application/models/ActsAsElementText.php:660
+#, php-format
+msgid "The \"%s\" field has at least one invalid value!"
+msgstr "\"%s\" väli omab vähemalt üht vigast väärtust!"
+
+#: application/models/ActsAsElementText.php:693
+#, php-format
+msgid "Cannot validate an element of data type \"%s\"!"
+msgstr "Andme tüübi \"%s\" elementi ei saa valideerida!"
+
+#: application/models/ActsAsElementText.php:733
+msgid "Cannot save element text for records that are not yet persistent!"
+msgstr "Elemendi teksti ei saa salvestada kirjete jaoks, mis ei ole veel püsivad!"
+
+#: application/models/Collection.php:107
+msgid "Collectors must be either a string or an array."
+msgstr "Kogujaks peab olema string või tabel."
+
+#: application/models/Collection.php:148
+#, php-format
+msgid "The collection name must have between %1$s and %2$s characters."
+msgstr "Kollektsiooni nimi peab olema %1$s ja %2$s märkide vahel."
+
+#: application/models/Collection.php:198
+msgid ""
+"Argument passed to addCollector() must be a string or an instance of Entity."
+msgstr "Muutuja, mis on lisatud addCollector()`sse peab olema string või ühik."
+
+#: application/models/Collection.php:230
+msgid "Cannot associate the collection with an unsaved user."
+msgstr "Kollektsiooni ei saa seostada salvestamata kasutajaga."
+
+#: application/models/CollectionPermissions.php:37
+msgid "Invalid query provided to CollectionPermissions check"
+msgstr "Vigane päring loodi CollectionPermissions kontrolli ajal."
+
+#: application/models/DataTypeTable.php:31
+#, php-format
+msgid "Cannot find id from DataType name: %s"
+msgstr "ID-d ei leitud DataType nimes: %s"
+
+#: application/models/Element.php:180
+msgid "Name must not be empty!"
+msgstr "Nime koht peab olema tühi!"
+
+#: application/models/Element.php:184
+msgid "Element must have a valid data type!"
+msgstr "Element peab omama kehtivat andme tüüpi!"
+
+#: application/models/Element.php:188
+msgid "Element must have a valid record type!"
+msgstr "Element peab omama kehtivat kirje tüüpi!"
+
+#: application/models/Element.php:193
+#, php-format
+msgid "%1$s already exists for element set #%2$s"
+msgstr "%1$s on elementide kogumikus #%2$s olemas."
+
+#: application/models/Element.php:252
+#, php-format
+msgid "Cannot set element set ID: set named \"%s\" does not exist."
+msgstr "Elementide ID kogu ei saa paika panna: \"%s\" ei eksisteeri."
+
+#: application/models/ElementSet.php:119
+msgid "Name of element set must be unique."
+msgstr "Elemendi nimi peab olema unikaalne."
+
+#: application/models/ElementSet.php:123
+msgid "Name of element set must not be empty."
+msgstr "Elementide kogu nimi peab olema määratud."
+
+#: application/models/EntitiesRelations.php:29
+msgid "Joins in the EntitiesRelations table must be given a polymorphic type"
+msgstr "EntitiesRelations tabelis peab ühendustele olema antud kuju muutev tüüp."
+
+#: application/models/EntitiesRelations.php:33
+msgid "Joins in the EntitiesRelations table must be filled out entirely"
+msgstr "EntitiesRelations tabelis peavad olema täielikult täidetud."
+
+#: application/models/Entity.php:37
+msgid "The email address provided is not valid."
+msgstr "Sisestatud e-posti aadress ei ole kehtiv."
+
+#: application/models/Entity.php:41
+msgid "The name for a person may not be completely blank."
+msgstr "Inimese nime koht ei tohi tühjaks jääda."
+
+#: application/models/Entity.php:134
+msgid "Both of these Entities must be persistent in order to merge them."
+msgstr "Mõlemad üksused peavad olema püsivad, et neid saaks liita."
+
+#: application/models/File.php:110
+msgid "Cannot get the local path for a stored file."
+msgstr "Salvestatud failile ei ole võimalik leida lokaalset teed."
+
+#: application/models/Item.php:298
+msgid ""
+"Files cannot be attached to an item that is not persistent in the database!"
+msgstr "Faile ei saa andmebaasis lisada kirjele, mis pole sisukas."
+
+#: application/models/Item.php:412
+msgid "Cannot add an existing file to an item!"
+msgstr "Ühikule ei saa lisada olemasolevat faili!"
+
+#: application/models/Item.php:416
+msgid "File must be valid before it can be associated with an item!"
+msgstr "Fail peab olema sobiv enne selle ühikuga seostamist!"
+
+#: application/models/ItemBuilder.php:141
+msgid "Cannot add tags to an item if no Entity is available to tag."
+msgstr "Kirjele pole võimalik lisada silte kui sildi jaoks pole loodud üksust."
+
+#: application/models/ItemBuilder.php:265
+msgid "Must specify a file transfer type when attaching files to an item!"
+msgstr "Kirjele failide lisamise ajal tuleb täpsustada faili ülekande tüüpi."
+
+#: application/models/ItemPermissions.php:34
+#, php-format
+msgid ""
+"This SQL statement needs a FROM or JOIN clause equivalent to '%s i' in order"
+" to have permissions checked!"
+msgstr "See SQL lause vajab FROM ja JOIN tingimust, mis on võrdväärne '%s i'ga, et load oleksid kontrollitud!"
+
+#: application/models/ItemSearch.php:98
+msgid "Invalid search type given!"
+msgstr "Esitatud on vigane otsingu tüüp!"
+
+#: application/models/ItemType.php:83
+#, php-format
+msgid "The item type name must have between %1$s and %2$s characters."
+msgstr "Kirje tüüp peab olema  %1$s ja %2$s märkide vahel."
+
+#: application/models/ItemType.php:87
+msgid "The item type name must be unique."
+msgstr "Ühiku tüübi nimi peab olema unikaalne."
+
+#: application/models/ItemType.php:175
+msgid "There are too many values in the element ordering array."
+msgstr "Elementide järjestamise tabelis on liiga palju väärtusi."
+
+#: application/models/ItemType.php:177
+msgid "There are too few values in the element ordering array."
+msgstr "Elementide järjestamise tabelis on liiga vähe väärtusi."
+
+#: application/models/ItemType.php:221
+msgid ""
+"Invalid element data. To add elements, you must either pass an element "
+"objects or an array of element metadata."
+msgstr "Vigased elemendi andmed. Et elemente lisada, pead läbima elementide objektid või elementide metaandmete tabeli."
+
+#: application/models/ItemType.php:285
+msgid ""
+"Cannot remove elements from an item type that is not persistent in the "
+"database!"
+msgstr "Ei saa eemaldada elemente kirje tüübist, mis ei ole andmebaasis püsiv."
+
+#: application/models/ItemType.php:294
+#, php-format
+msgid "Cannot find element with ID %s!"
+msgstr "Ei leia elementi IDga %s!"
+
+#: application/models/ItemType.php:337
+#, php-format
+msgid "Item type does not contain an element with the ID %s!"
+msgstr "Kirje tüüp ei sisalda elementi IDga %s!"
+
+#: application/models/ItemType.php:360
+msgid ""
+"Invalid parameter. The hasElement function requires either an element object"
+" or an element id to determine if an item type has an element."
+msgstr "Vigane parameeter. hasElement funktsioon nõuab elemendi objekti või elemendi id-d, et määrata seda, kas kirje tüüp omab elementi."
+
+#: application/models/Option.php:28 application/models/Option.php:32
+msgid "Each option must have a unique name."
+msgstr "Iga valik peab omama ainulaadset nime."
+
+#: application/models/Orderable.php:101
+msgid "Cannot add a child to a record that does not exist yet!"
+msgstr "Allüksust ei saa lisada kirjele, mida veel ei eksisteeri!"
+
+#: application/models/Orderable.php:105
+#, php-format
+msgid "Child must be an instance of \"%s\""
+msgstr "Allüksus peab olema olema juhtum \"%s\""
+
+#: application/models/Plugin.php:94
+msgid "Names of plugins must not be blank"
+msgstr "Lisade (plugin) nimed ei tohi tühjaks jääda."
+
+#: application/models/Relatable.php:158
+msgid "Invalid entity provided!"
+msgstr "Loodud on vigane üksus!"
+
+#: application/models/Relatable.php:169
+#, php-format
+msgid "Relationship called %s does not exist."
+msgstr "Seoseid nimega %s ei ole olemas."
+
+#: application/models/Relatable.php:222
+msgid "Record must exist before relations can be set."
+msgstr "Enne seoste paika panemist peab kirje olemas olema."
+
+#: application/models/Tag.php:58
+msgid "Tags must be given a name."
+msgstr "Siltidele peab panema nimed."
+
+#: application/models/Tag.php:62
+msgid "That name is already taken for this tag."
+msgstr "Selle sildi jaoks on vastav nimi juba kasutusel."
+
+#: application/models/Taggable.php:195
+msgid "A valid record ID # must be provided when tagging."
+msgstr "Kehtiv kirje ID # peab siltide lisamisel olema esitatud."
+
+#: application/models/Taggable.php:199
+msgid "A valid entity or user must be provided when tagging."
+msgstr "Kehtiv üksus või kasutaja peab olema sildistamisel esitatud."
+
+#: application/models/User.php:63
+msgid "No Entity record available."
+msgstr "Üksuse kirje pole kättesaadav."
+
+#: application/models/User.php:75
+msgid "No Entity record is available when saving this User."
+msgstr "Üksuse kirje on kasutaja salvestamisel kättesaadav."
+
+#: application/models/User.php:92
+msgid "User may not change permissions to super-user"
+msgstr "Kasutaja ei tohi õigusi muuta superkasutaja õigusteks."
+
+#: application/models/User.php:95
+msgid "User may not change roles."
+msgstr "Kasutaja ei saa rolle muuta."
+
+#: application/models/User.php:153
+msgid ""
+"If a first name and last name are not provided, then an institution name is "
+"required."
+msgstr "Kui ees- ja perekonnanime ei kirjutata, siis on institutsiooni nimi kohustuslik."
+
+#: application/models/User.php:156
+msgid "A first name is required."
+msgstr "Eesnimi on nõutav."
+
+#: application/models/User.php:159
+msgid "A last name is required."
+msgstr "Perekonnanimi on nõutav."
+
+#: application/models/User.php:175
+msgid "The user must be assigned a role."
+msgstr "Kasutaja peab olema rolli määratud."
+
+#: application/models/User.php:180
+#, php-format
+msgid "The username \"%1$s\" must be between %2$s and %3$s characters."
+msgstr "Kasutajanimi \"%1$s\" peab olema %2$s ja %3$s märkide vahel."
+
+#: application/models/User.php:182
+msgid "The username must be alphanumeric."
+msgstr "Kastajanimi peab koosnema numbritest ja tähtedest."
+
+#: application/models/User.php:184
+#, php-format
+msgid "'%s' is already in use. Please choose another username."
+msgstr "'%s' on juba kasutusel. Palun vali teine kasutajanimi."
+
+#: application/models/UsersActivations.php:31
+msgid "Cannot create a user activation for non-existent user."
+msgstr "Mitte olemasolevat kasutajat ei saa aktiveerida."
+
+#: application/views/scripts/collections/browse.php:21
+#: application/views/scripts/collections/show.php:13
+msgid "Collector(s)"
+msgstr "Koguja(d)"
+
+#: application/views/scripts/collections/browse.php:28
+#: application/views/scripts/collections/show.php:22
+#, php-format
+msgid "View the items in %s"
+msgstr "Vaata kirjeid %s"
+
+#: application/views/scripts/collections/show.php:25
+#, php-format
+msgid "Items in the %s Collection"
+msgstr "Kirjed %s kollektsioonis"
+
+#: application/views/scripts/common/delete-confirm.php:3
+#, php-format
+msgid "Delete %s"
+msgstr "Kustuta %s"
+
+#: application/views/scripts/common/delete-confirm.php:12
+msgid "Are you sure?"
+msgstr "Oled sa kindel?"
+
+#: application/views/scripts/common/footer.php:6
+msgid "Home"
+msgstr "Kodu"
+
+#: application/views/scripts/common/footer.php:14
+msgid "Proudly powered by <a href=\"http://omeka.org\">Omeka</a>."
+msgstr "Uhkusega <a href=\"http://omeka.org\">Omeka</a>."
+
+#: application/views/scripts/common/pagination_control.php:7
+msgid "First"
+msgstr "Esimene"
+
+#: application/views/scripts/common/pagination_control.php:14
+msgid "Previous"
+msgstr "Eelmine"
+
+#: application/views/scripts/common/pagination_control.php:30
+msgid "Next"
+msgstr "Järgmine"
+
+#: application/views/scripts/common/pagination_control.php:37
+msgid "Last"
+msgstr "Viimane"
+
+#: application/views/scripts/error/403.php:2
+msgid "403 Page Forbidden"
+msgstr "403 lehekülg keelatud"
+
+#: application/views/scripts/error/403.php:8
+msgid "You do not have permission to access this page."
+msgstr "Sul ei ole õigust sellele lehele siseneda."
+
+#: application/views/scripts/error/404.dc.php:1
+#: application/views/scripts/error/404.php:2
+#: application/views/scripts/error/404.xml.php:1
+msgid "404 Page Not Found"
+msgstr "404 lehekülge ei leitud"
+
+#: application/views/scripts/error/404.php:7
+#, php-format
+msgid "%s is not a valid URL."
+msgstr "%s ei ole kehtiv URL."
+
+#: application/views/scripts/error/404.rss2.php:1
+msgid "Rss2.0 Feed Not Found!"
+msgstr "Rss2.0 kanalit ei leitud!"
+
+#: application/views/scripts/error/405.php:2
+msgid "405 Method Not Allowed"
+msgstr "405 meetod pole lubatud"
+
+#: application/views/scripts/error/405.php:7
+#, php-format
+msgid "The method used to access this URL (%s) is not valid."
+msgstr "Meetod, millega sellele URLile  (%s) siseneti, ei ole kehtiv."
+
+#: application/views/scripts/error/index.php:4
+msgid "Omeka has encountered an error"
+msgstr "Omeka avastas vea"
+
+#: application/views/scripts/error/index.php:29
+msgid ""
+"To learn how to see more detailed information about this error, see the "
+"Omeka Codex page on <a "
+"href=\"http://omeka.org/codex/Retrieving_error_messages\">retrieving error "
+"messages</a>."
+msgstr "Et õppida, kuidas leida selle vea kohta detailsemat infot, vaata Omeka Codex leheküljele <a href=\"http://omeka.org/codex/Retrieving_error_messages\">retrieving error messages</a>."
+
+#: application/views/scripts/functions.php:54
+msgid "Dublin Core"
+msgstr "Dublin Core"
+
+#: application/views/scripts/functions.php:131
+msgid "Browse All"
+msgstr "Sirvi kõike"
+
+#: application/views/scripts/functions.php:131
+msgid "Browse by Tag"
+msgstr "Sirvi siltide kaupa"
+
+#: application/views/scripts/index.php:67
+msgid "No recent items available."
+msgstr "Viimased kirjeid pole kättesaadaval."
+
+#: application/views/scripts/items/advanced-search.php:32
+msgid "Search for Keywords"
+msgstr "Otsi võtmesõnu"
+
+#: application/views/scripts/items/advanced-search.php:42
+msgid "Narrow by Specific Fields"
+msgstr "Kitsenda spetsiifiliste väljade abil"
+
+#: application/views/scripts/items/advanced-search.php:71
+msgid "contains"
+msgstr "sisaldab"
+
+#: application/views/scripts/items/advanced-search.php:72
+msgid "does not contain"
+msgstr "ei sisalda"
+
+#: application/views/scripts/items/advanced-search.php:73
+msgid "is exactly"
+msgstr "on täpselt"
+
+#: application/views/scripts/items/advanced-search.php:74
+msgid "is empty"
+msgstr "on tühi"
+
+#: application/views/scripts/items/advanced-search.php:75
+msgid "is not empty"
+msgstr "ei ole tühi"
+
+#: application/views/scripts/items/advanced-search.php:86
+msgid "Add a Field"
+msgstr "lisa väli"
+
+#: application/views/scripts/items/advanced-search.php:90
+msgid "Search by a range of ID#s (example: 1-4, 156, 79)"
+msgstr "Otsi valikut ID#s (näiteks: 1-4, 156, 79)"
+
+#: application/views/scripts/items/advanced-search.php:102
+msgid "Search By Collection"
+msgstr "Otsi kollektsioonide järgi"
+
+#: application/views/scripts/items/advanced-search.php:112
+msgid "Search By Type"
+msgstr "Otsi tüübi järgi"
+
+#: application/views/scripts/items/advanced-search.php:122
+msgid "Search By User"
+msgstr "Otsi kasutaja järgi"
+
+#: application/views/scripts/items/advanced-search.php:133
+msgid "Search By Tags"
+msgstr "Otsi siltide järgi"
+
+#: application/views/scripts/items/advanced-search.php:147
+msgid "Public/Non-Public"
+msgstr "Avalik/Mitteavalik"
+
+#: application/views/scripts/items/advanced-search.php:150
+msgid "Only Public Items"
+msgstr "Ainult avalikud kirjed"
+
+#: application/views/scripts/items/advanced-search.php:151
+msgid "Only Non-Public Items"
+msgstr "Ainult mitteavalikud kirjed"
+
+#: application/views/scripts/items/advanced-search.php:157
+msgid "Featured/Non-Featured"
+msgstr "Esile tõstetud/Ei ole esile tõstetud"
+
+#: application/views/scripts/items/advanced-search.php:160
+msgid "Only Featured Items"
+msgstr "Ainult esile tõstetud kirjed"
+
+#: application/views/scripts/items/advanced-search.php:161
+msgid "Only Non-Featured Items"
+msgstr "Ainult mitte esile tõstetud kirjed"
+
+#: application/views/scripts/items/show.php:11
+msgid "Files"
+msgstr "Failid"
+
+#: application/views/scripts/items/show.php:33
+msgid "Citation"
+msgstr "Tsitaat"
+
+#: application/views/scripts/upgrade/completed.php:5
+#: application/views/scripts/upgrade/index.php:5
+#: application/views/scripts/upgrade/migrate.php:5
+msgid "Upgrade Omeka"
+msgstr "Uuenda Omeka`t"
+
+#: application/views/scripts/upgrade/completed.php:10
+msgid "Omeka Upgrade Completed"
+msgstr "Omeka uuendus lõpetatud"
+
+#: application/views/scripts/upgrade/completed.php:11
+#, php-format
+msgid "Please return to the %1$s or your site&#8217;s %2$s"
+msgstr "Palun mine tagasi %1$s või oma lehele &#8217;s %2$s"
+
+#: application/views/scripts/upgrade/completed.php:11
+msgid "Your Omeka database is completely up-to-date."
+msgstr "Sinu Omeka andmebaas on täiesti ajakohane."
+
+#: application/views/scripts/upgrade/completed.php:13
+#: application/views/scripts/upgrade/migrate.php:18
+msgid ""
+"If you have any questions please refer to <a "
+"href=\"http://omeka.org/codex\">Omeka documentation</a> or post a message on"
+" the <a href=\"http://omeka.org/forums\">Omeka forums</a>."
+msgstr "Kui sul on küsimusi, siis palun tutvu  <a href=\"http://omeka.org/codex\">Omeka dokumentatsiooniga</a> või postita teade <a href=\"http://omeka.org/forums\">Omeka foorumis</a>."
+
+#: application/views/scripts/upgrade/index.php:10
+msgid "Upgrade Your Omeka Database"
+msgstr "Uuenda enda Omeka andmebaasi"
+
+#: application/views/scripts/upgrade/index.php:12
+msgid ""
+"Your Omeka database is not compatible with your current version of Omeka."
+msgstr "Sinu Omeka andmebaas ei ühildu sinu praeguse Omeka versiooniga."
+
+#: application/views/scripts/upgrade/index.php:13
+msgid ""
+"Please back up your existing database and then click the button to upgrade."
+msgstr "Palun tee enda olemasolevast andmebaasist varukoopia ja siis vajuta uuendamise lingile."
+
+#: application/views/scripts/upgrade/index.php:15
+msgid "Upgrade Database"
+msgstr "Uuenda andmebaasi"
+
+#: application/views/scripts/upgrade/migrate.php:11
+msgid "Omeka encountered an error when upgrading your installation."
+msgstr "Omeka leidis vea paigalduse uuendamisel."
+
+#: application/views/scripts/upgrade/migrate.php:16
+msgid "Please restore from your database backup and try again."
+msgstr "Palun taasta enda andmebaasi varukoopia ja proovi uuesti."
+
+#: application/views/scripts/upgrade/migrate.php:21
+msgid "Omeka has upgraded successfully."
+msgstr "Omeka on edukalt uuendatud."
+
+#: application/views/scripts/upgrade/migrate.php:22
+msgid "Return to Dashboard"
+msgstr "Mine tagasi töölauale"
+
+#: application/views/scripts/users/activate.php:2
+msgid "User Activation"
+msgstr "Kasutaja aktiveerimine"
+
+#: application/views/scripts/users/forgot-password.php:2
+msgid "Forgot Password"
+msgstr "Unusta parool"
+
+#: application/views/scripts/users/forgot-password.php:7
+msgid "Back to Log In"
+msgstr "Tagasi sisse logimise lehele"
+
+#: application/views/scripts/users/forgot-password.php:10
+msgid "Enter your email address to retrieve your password."
+msgstr "Sisesta enda e-posti aadress, et saada parooli."
+
+#: application/views/scripts/users/login.php:9
+msgid "Go to Home Page"
+msgstr "Mine tagasi pealehele"
+
+#: application/views/scripts/users/login.php:9
+msgid "Lost your password?"
+msgstr "Kaotasid parooli?"
+
+#: install/views/scripts/index/errors.phtml:1
+msgid "Installation Error"
+msgstr "Paigaldamise viga"
+
+#: install/views/scripts/index/errors.phtml:2
+msgid ""
+"Before installation can continue, the following errors must be resolved:"
+msgstr "Enne kui paigaldamine saab jätkuda, peavad järgnevad vead olema lahendatud:"
+
+#: install/views/scripts/index/fatal-error.phtml:1
+msgid "Fatal Error"
+msgstr "Pöördumatu tõrge"
+
+#: install/views/scripts/index/index.phtml:2
+msgid "Installation Warning"
+msgstr "Paigaldamise hoiatus"
+
+#: install/views/scripts/index/index.phtml:3
+msgid ""
+"The following issues will not affect installation, but they may negatively "
+"affect the behavior of Omeka:"
+msgstr "Järgnevad küsimused ei mõjuta paigaldust, aga need võivad negatiivselt mõjutada Omeka käitumist:"
+
+#: install/views/scripts/index/index.phtml:13
+msgid "Configure Your Site"
+msgstr "Seadista oma lehekülg "
+
+#: install/views/scripts/index/index.phtml:15
+msgid "Form Validation Errors"
+msgstr "Formuleeri valideerimise vigu"
+
+#: install/views/scripts/index/installed.phtml:1
+msgid ""
+"Omeka is installed. You may remove the \"install\" directory for security "
+"reasons."
+msgstr "Omeka on paigaldatud. Võid eemaldada \"paigalda\" kausta turvalisuse eesmärgil."
+
+#: install/views/scripts/index/installed.phtml:2
+msgid "Admin Panel"
+msgstr "Administraatori paneel"
+
+#: install/views/scripts/index/installed.phtml:2
+msgid "Public Site"
+msgstr "Avalik lehekülg"
+
+#: install/views/scripts/layout.phtml:5 install/views/scripts/layout.phtml:9
+msgid "Omeka Installation"
+msgstr "Omeka paigaldamine"
+
+#: admin/themes/default/items/browse.php:8
+msgid "Add a Hyperlink"
+msgstr "Lisa hüperlink"
+
+#: admin/themes/default/items/files-form.php:93
+msgid "Upload a File"
+msgstr "Lae üles fail"
+
+#: admin/applications/Functions.phpgeneral!
+msgid "Add"
+msgstr "Lisa"
+
+#: admin/applications/Functions.phpgeneral!
+msgid "Getting Started with Agricultural Learning Repository tool"
+msgstr "Alusta põllumajandusliku õppevaramu vahendi kasutamist"
+
+#: admin/applications/Functions.phpgeneral!
+msgid "Translate"
+msgstr "Tõlgi"
+
+#: admin/applications/Functions.phpgeneral!
+msgid "XML"
+msgstr "XML"
+
+#: admin/applications/Functions.phpgeneral!
+msgid "Hyperlink"
+msgstr "Hüperlink"
+
+#: admin/applications/Functions.phpgeneral!
+msgid "File"
+msgstr "Fail"
+
+#: admin/applications/Functions.phpgeneral!
+msgid "Photos"
+msgstr "Fotod"
+
+#: admin/applications/Functions.phpgeneral!
+msgid "Add a new hyperlink to your archive"
+msgstr "Lisa enda arhiivi uus hüperlink"
+
+#: admin/applications/Functions.phpgeneral!
+msgid "Please select language to translate:"
+msgstr "Palun vali tõlkimise keel:"
+
+#: admin/applications/Functions.phpgeneral!
+msgid "Translate Item #%s"
+msgstr "Tõlgi kirje #%s"
+
+#: admin/applications/Functions.phpgeneral!
+msgid "Save Translations"
+msgstr "Salvesta tõlked"
+
+#: admin/applications/Functions.phpgeneral!
+msgid "Validate"
+msgstr "Kinnita"
+
+#: admin/applications/Functions.phpgeneral!
+msgid "Choose language"
+msgstr "Vali keel"
