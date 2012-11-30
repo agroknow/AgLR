@@ -1,63 +1,64 @@
 <?php
 $pageTitle = __('Ingesting Items');
-head(array('title'=>$pageTitle,'content_class' => 'horizontal-nav', 'bodyclass'=>'items primary browse-items')); ?>
+head(array('title' => $pageTitle, 'content_class' => 'horizontal-nav', 'bodyclass' => 'items primary browse-items'));
+?>
 <h1><?php echo $pageTitle; ?></h1>
-<?php 
-if ($handle = opendir('/var/www/html/xmls_for_ingest/')) {
-    echo '123';
-      /* This is the correct way to loop over the directory. */
-   while (false !== ($entry = readdir($handle))) {
-	if($entry!='.' and $entry!='..'){
+<?php
+if ($handle = opendir('/var/www/html/xmls_for_ingest/'.$_GET['url'].'/')) {
+//if ($handle = opendir('C:/Program Files (x86)/EasyPHP-12.1/www/xmls_for_ingest/test/')) {
+    //echo '123';
+    /* This is the correct way to loop over the directory. */
+    while (false !== ($entry = readdir($handle))) {
+        if ($entry != '.' and $entry != '..') {
 
 
 
-$xml = '';
-$output = '';
-libxml_use_internal_errors(false);
+            $xml = '';
+            $output = '';
+            libxml_use_internal_errors(false);
 //$entry = 'http_.s..s.confolio.vm.grnet.gr.s.scam.s.12.s.entry.s.1277.xml';
-echo 'aglr.agroknow.gr/xmls_for_ingest/' . $entry . '';
+            echo 'aglr.agroknow.gr/xmls_for_ingest/' . $entry . '<br>';
 //$xml = @simplexml_load_file('education.natural-europe.eu/organic-edunet/admin/items/xmls/'.$entry.'', NULL, LIBXML_NOERROR | LIBXML_NOWARNING);
-$xml = @simplexml_load_file('http://aglr.agroknow.gr/xmls_for_ingest/' . $entry . '', NULL, LIBXML_NOERROR | LIBXML_NOWARNING);
-//$xml = @simplexml_load_file('http://localhost/xmls_for_ingest/' . $entry . '', NULL, LIBXML_NOERROR | LIBXML_NOWARNING);
+$xml = @simplexml_load_file('http://aglr.agroknow.gr/xmls_for_ingest/'.$_GET['url'].'/' . $entry . '', NULL, LIBXML_NOERROR | LIBXML_NOWARNING);
+//$xml = @simplexml_load_file('http://localhost/xmls_for_ingest/test/' . $entry . '', NULL, LIBXML_NOERROR | LIBXML_NOWARNING);
 
-if ($xml === false) {
-    echo "An Error occured. Please try again later. Thank you!";
-}
+            if ($xml === false) {
+                echo "An Error occured. Please try again later. Thank you!";
+            }
 //$xml = simplexml_load_file('http://ariadne.cs.kuleuven.be/ariadne-partners/api/sqitarget?query=learning&start='.$startPage.'&size=12&lang=plql1&format=lom', NULL, LIBXML_NOERROR | LIBXML_NOWARNING);
 
-if ($xml) {
-    global $item_id;
-    $item_id = insertnewitemfromxml($xml);
-    $xml->getName();
-    foreach ($xml as $xml) {
-        $xmlname = $xml->getName();
-        //echo "<br><u>".$xmlname."</u><br>";
+            if ($xml) {
+                global $item_id;
+                $item_id = insertnewitemfromxml($xml);
+                $xml->getName();
+                foreach ($xml as $xml) {
+                    $xmlname = $xml->getName();
+                    //echo "<br><u>".$xmlname."</u><br>";
 
-        $xmlname_gelement = findidsfromxmlname($xmlname);
-        global $multi;
-        $multi = 0;
-        global $previous_getgeneralname;
-        $previous_getgeneralname = '';
-        foreach ($xml->children() as $getgeneral) {
-            $getgeneralname = $getgeneral->getName();
-            $xmlname_element = findidsfromxmlname($getgeneralname, $xmlname_gelement['id']);
-            //echo $getgeneralname."&nbsp".$xmlname_element['id']."<br>";
-            if ($getgeneralname != $previous_getgeneralname) {
-                $multi = 0;
+                    $xmlname_gelement = findidsfromxmlname($xmlname);
+                    global $multi;
+                    $multi = 0;
+                    global $previous_getgeneralname;
+                    $previous_getgeneralname = '';
+                    foreach ($xml->children() as $getgeneral) {
+                        $getgeneralname = $getgeneral->getName();
+                        $xmlname_element = findidsfromxmlname($getgeneralname, $xmlname_gelement['id']);
+                        //echo $getgeneralname."&nbsp".$xmlname_element['id']."<br>";
+                        if ($getgeneralname != $previous_getgeneralname) {
+                            $multi = 0;
+                        }
+                        create_the_query_for_ingest($xmlname_gelement, $xmlname_element, $getgeneralname, $xmlname, $getgeneral);
+                        $previous_getgeneralname = $getgeneralname;
+                    }
+                }
             }
-            create_the_query_for_ingest($xmlname_gelement, $xmlname_element, $getgeneralname, $xmlname, $getgeneral);
-            $previous_getgeneralname = $getgeneralname;
-        }
-    }
-}
-
         }///////////if($entry!='.' and $entry!='..'){
     }////// while (false !== ($entry = readdir($handle))) {
 } ////if $handle = opendir(
-
 else {
-    echo 'error!';    
+    echo 'error!';
 }
+
 function create_the_query_for_ingest($xmlname_gelement, $xmlname_element, $getgeneralname, $xmlname, $getgeneral) {
     global $multi;
     global $previous_getgeneralname;
@@ -352,6 +353,7 @@ function create_the_query_for_ingest($xmlname_gelement, $xmlname_element, $getge
             $multi+=1;
             $i = 0;
             $i+=1;
+            $getgeneral = 'OE AP v3.0'; ////manula for ingesting in specific repository
             savelomelementforxmlparsing($xmlname_element['id'], $getgeneral, $item_id, 'none', $i, $multi);
         } //if($getgeneralname=='metadataSchema'){
         if ($getgeneralname == 'language') {
@@ -377,10 +379,14 @@ function create_the_query_for_ingest($xmlname_gelement, $xmlname_element, $getge
             savelomelementforxmlparsing($xmlname_element['id'], NULL, $item_id, 'none', $i, $multi, $vocid);
         } //if($getgeneralname=='format') 
         if ($getgeneralname == 'location') {
-            $multi+=1;
-            $i = 0;
-            $i+=1;
-            savelomelementforxmlparsing($xmlname_element['id'], $getgeneral, $item_id, 'none', $i, $multi, NULL, 0);
+            //$test = stripos($getgeneral, 'rtsp://');
+            //echo $test.$getgeneral.'<br>';
+            if (!(stripos($getgeneral, 'tsp://v')>0)) {  ///for youtube ingest not insert the rtsp:// location that has!!
+                $multi+=1;
+                $i = 0;
+                $i+=1;
+                savelomelementforxmlparsing($xmlname_element['id'], $getgeneral, $item_id, 'none', $i, $multi, NULL, 0);
+            }
         } //if($getgeneralname=='location')
 
         if ($getgeneralname == 'installationRemarks') {
@@ -766,8 +772,8 @@ function insertnewitemfromxml($xml) {
         die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
     }
     global $collection_id;
-    $collection_id = 6; //test collection id
-    $user_entity_id=1; ///$user_entity_id
+    $collection_id = $_GET['collection_id']; //test collection id
+    $user_entity_id = 23; ///$user_entity_id
 
     $itemtdb = $db->Items;
 
@@ -789,12 +795,12 @@ function insertnewitemfromxml($xml) {
     } else {
         $formtype = 20;
     }
-    $formtype=11; ///////standar for these ingests
+    $formtype = 11; ///////standar for these ingests
     $path_public = 0;
 
     $date_modified = date("Y-m-d H:i:s");
     $mainAttributesSql = "INSERT INTO $itemtdb (featured,item_type_id,public,modified,added,collection_id) VALUES (0," . $formtype . ",'" . $path_public . "','" . $date_modified . "','" . $date_modified . "'," . $collection_id . ")";
-echo $mainAttributesSql; 
+    //echo $mainAttributesSql; 
     $db->exec($mainAttributesSql);
 
     $lastExhibitIdSQL = "SELECT LAST_INSERT_ID() AS LAST_EXHIBIT_ID FROM " . $itemtdb;
@@ -817,11 +823,11 @@ echo $mainAttributesSql;
 
 
     $mainAttributesSql = "INSERT INTO omeka_element_texts (record_id ,record_type_id ,element_id,text) VALUES (" . $last_exhibit_id . ",2,68,'" . $path_title . "')";
-echo $mainAttributesSql;
-   $db->exec($mainAttributesSql);
+    //echo $mainAttributesSql;
+    $db->exec($mainAttributesSql);
 
     $metadatarecordSql = "INSERT INTO metadata_record (id, object_id, object_type,date_modified) VALUES ('', " . $last_exhibit_id . ",'item','" . $date_modified . "')";
-   $execmetadatarecordSql = $db->query($metadatarecordSql);
+    $execmetadatarecordSql = $db->query($metadatarecordSql);
 
 
     $lastExhibitIdSQL = "SELECT LAST_INSERT_ID() AS LAST_EXHIBIT_ID FROM metadata_record";
@@ -913,7 +919,7 @@ function savelomelementforxmlparsing($element_hierarchy, $value, $item_id, $lang
     } else {
         $is_editable = 'NULL';
     }
-    $maxIdSQL_sg ="";
+    $maxIdSQL_sg = "";
     if ($vocabulary_id > 0) {
         $maxIdSQL_sg = "insert into metadata_element_value SET element_hierarchy=" . $element_hierarchy . ",is_editable=" . $is_editable . ",vocabulary_record_id=" . $vocabulary_id . ",language_id='" . $language . "',record_id=" . $item_id . ",multi=" . $multi . ",parent_indexer=" . $parent_indexer . " ON DUPLICATE KEY UPDATE vocabulary_record_id=" . $vocabulary_id . ";";
     } else {
@@ -922,9 +928,9 @@ function savelomelementforxmlparsing($element_hierarchy, $value, $item_id, $lang
         }
     }
     //echo $maxIdSQL_sg . "<br>";
-    if(strlen($maxIdSQL_sg)>0){
-   $execinsertelements_sg = $db->query($maxIdSQL_sg);
-   $execinsertelements_sg = null;
+    if (strlen($maxIdSQL_sg) > 0) {
+        $execinsertelements_sg = $db->query($maxIdSQL_sg);
+        $execinsertelements_sg = null;
     }
 }
 
@@ -962,9 +968,9 @@ function vcardinsert($element_hierarchy, $value, $item_id, $language, $parent_in
 
             $maxIdSQL_vc = "insert into metadata_element_value SET element_hierarchy=" . $element_hierarchy . ",value='Vcard Element',language_id='" . $language . "',record_id=" . $item_id . ",multi=" . $multi . ",parent_indexer=" . $parent_indexer . ",vcard_id=" . $result_chechvcard['id'] . " ON DUPLICATE KEY UPDATE vcard_id=" . $result_chechvcard['id'] . ";";
 
-            echo $maxIdSQL_vc . "<br>";
-           $exec = $db->query($maxIdSQL_vc);
-           $result_multi = $exec->fetch();
+            //echo $maxIdSQL_vc . "<br>";
+            $exec = $db->query($maxIdSQL_vc);
+            $result_multi = $exec->fetch();
         } else {
             $chechvcardins = "insert into metadata_vcard SET name='" . $vcard_name . "',surname='" . $vcard_surname . "',email='" . $vcard_email . "',organization='" . $vcard_organization . "';";
             $execchechvcardins = $db->query($chechvcardins);
@@ -978,12 +984,13 @@ function vcardinsert($element_hierarchy, $value, $item_id, $language, $parent_in
 
             $maxIdSQL_vc = "insert into metadata_element_value SET element_hierarchy=" . $element_hierarchy . ",value='Vcard Element',language_id='" . $language . "',record_id=" . $item_id . ",multi=" . $multi . ",parent_indexer=" . $parent_indexer . ",vcard_id=" . $result_chechvcardnew['id'] . " ON DUPLICATE KEY UPDATE vcard_id=" . $result_chechvcardnew['id'] . ";";
 
-            echo $maxIdSQL_vc . "<br>";
+            //echo $maxIdSQL_vc . "<br>";
             $exec = $db->query($maxIdSQL_vc);
             $result_multi = $exec->fetch();
         }
     }
 }
+
 function findidsfromxmlname($xmlelementname, $xmlparentelementhierarchyid = NULL) {
 
     require_once 'Omeka/Core.php';
@@ -1015,7 +1022,7 @@ function findidsfromxmlname($xmlelementname, $xmlparentelementhierarchyid = NULL
     $chechvcardnew = "select a.* from metadata_element_hierarchy a JOIN metadata_element b on b.id=a.element_id WHERE b.machine_name='" . $xmlelementname . "' " . $sqsq . " ";
     $chechvcardnewres = $db->query($chechvcardnew);
     $resultforfunc = $chechvcardnewres->fetch();
-    $chechvcardnewres-NULL;
+    $chechvcardnewres - NULL;
 
     return $resultforfunc;
 }
