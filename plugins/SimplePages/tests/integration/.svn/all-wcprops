@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/dev/svn/educational-pathway-authoring-tool/!svn/ver/6/plugins/SimplePages/tests/integration
+END
+GetCurrentSimplePageTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/dev/svn/educational-pathway-authoring-tool/!svn/ver/6/plugins/SimplePages/tests/integration/GetCurrentSimplePageTest.php
+END
+GetSimplePagesForLoopTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/dev/svn/educational-pathway-authoring-tool/!svn/ver/6/plugins/SimplePages/tests/integration/GetSimplePagesForLoopTest.php
+END
+TotalSimplePagesTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/dev/svn/educational-pathway-authoring-tool/!svn/ver/6/plugins/SimplePages/tests/integration/TotalSimplePagesTest.php
+END
+AclTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/dev/svn/educational-pathway-authoring-tool/!svn/ver/6/plugins/SimplePages/tests/integration/AclTest.php
+END
+NavigationTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/dev/svn/educational-pathway-authoring-tool/!svn/ver/6/plugins/SimplePages/tests/integration/NavigationTest.php
+END
+GetLinksForChildrenPagesTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/dev/svn/educational-pathway-authoring-tool/!svn/ver/6/plugins/SimplePages/tests/integration/GetLinksForChildrenPagesTest.php
+END
+IsHomePageTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/dev/svn/educational-pathway-authoring-tool/!svn/ver/6/plugins/SimplePages/tests/integration/IsHomePageTest.php
+END
+HasSimplePagesTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/dev/svn/educational-pathway-authoring-tool/!svn/ver/6/plugins/SimplePages/tests/integration/HasSimplePagesTest.php
+END
+SetCurrentSimplePageTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/dev/svn/educational-pathway-authoring-tool/!svn/ver/6/plugins/SimplePages/tests/integration/SetCurrentSimplePageTest.php
+END
+HasSimplePagesForLoopTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/dev/svn/educational-pathway-authoring-tool/!svn/ver/6/plugins/SimplePages/tests/integration/HasSimplePagesForLoopTest.php
+END
+SelectParentPageTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/dev/svn/educational-pathway-authoring-tool/!svn/ver/6/plugins/SimplePages/tests/integration/SelectParentPageTest.php
+END
+SetSimplePagesForLoopTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/dev/svn/educational-pathway-authoring-tool/!svn/ver/6/plugins/SimplePages/tests/integration/SetSimplePagesForLoopTest.php
+END
+SimplePageTest.php
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/dev/svn/educational-pathway-authoring-tool/!svn/ver/6/plugins/SimplePages/tests/integration/SimplePageTest.php
+END

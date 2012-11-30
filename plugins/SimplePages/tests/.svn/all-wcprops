@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/dev/svn/educational-pathway-authoring-tool/!svn/ver/6/plugins/SimplePages/tests
+END
+AllTests.php
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/dev/svn/educational-pathway-authoring-tool/!svn/ver/6/plugins/SimplePages/tests/AllTests.php
+END
+phpunit.xml
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/dev/svn/educational-pathway-authoring-tool/!svn/ver/6/plugins/SimplePages/tests/phpunit.xml
+END
+SimplePages_Test_AppTestCase.php
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/dev/svn/educational-pathway-authoring-tool/!svn/ver/6/plugins/SimplePages/tests/SimplePages_Test_AppTestCase.php
+END
