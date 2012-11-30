@@ -776,7 +776,7 @@ function insertnewitemfromxml($xml) {
     $user_entity_id = 23; ///$user_entity_id
 
     $itemtdb = $db->Items;
-
+ 
     $maxIdSQL = "SELECT MAX(id) AS MAX_ID FROM " . $itemtdb . " LIMIT 0,1";
     $exec = $db->query($maxIdSQL);
     $row = $exec->fetch();
