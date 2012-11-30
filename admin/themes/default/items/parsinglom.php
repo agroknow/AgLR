@@ -4,7 +4,7 @@ head(array('title' => $pageTitle, 'content_class' => 'horizontal-nav', 'bodyclas
 ?>
 <h1><?php echo $pageTitle; ?></h1>
 <?php
-if ($handle = opendir('/var/www/html/xmls_for_ingest/'.$_GET['url'].'/')) {
+if ($handle = opendir('/var/www/html/xmls_for_ingest/'.$_GET['url'].'/')) { 
 //if ($handle = opendir('C:/Program Files (x86)/EasyPHP-12.1/www/xmls_for_ingest/test/')) {
     //echo '123';
     /* This is the correct way to loop over the directory. */
