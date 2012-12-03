@@ -4,8 +4,9 @@ head(array('title' => $pageTitle, 'content_class' => 'horizontal-nav', 'bodyclas
 ?>
 <h1><?php echo $pageTitle; ?></h1>
 <?php
+if(isset($_GET['url'])){
 if ($handle = opendir('/var/www/html/xmls_for_ingest/'.$_GET['url'].'/')) { 
-//if ($handle = opendir('C:/Program Files (x86)/EasyPHP-12.1/www/xmls_for_ingest/test/')) {
+//if ($handle = opendir('C:/Program Files (x86)/EasyPHP-12.1/www/xmls_for_ingest/'.$_GET['url'].'/')) { 
     //echo '123';
     /* This is the correct way to loop over the directory. */
     while (false !== ($entry = readdir($handle))) {
@@ -20,13 +21,13 @@ if ($handle = opendir('/var/www/html/xmls_for_ingest/'.$_GET['url'].'/')) {
             echo 'aglr.agroknow.gr/xmls_for_ingest/' . $entry . '<br>';
 //$xml = @simplexml_load_file('education.natural-europe.eu/organic-edunet/admin/items/xmls/'.$entry.'', NULL, LIBXML_NOERROR | LIBXML_NOWARNING);
 $xml = @simplexml_load_file('http://aglr.agroknow.gr/xmls_for_ingest/'.$_GET['url'].'/' . $entry . '', NULL, LIBXML_NOERROR | LIBXML_NOWARNING);
-//$xml = @simplexml_load_file('http://localhost/xmls_for_ingest/test/' . $entry . '', NULL, LIBXML_NOERROR | LIBXML_NOWARNING);
+//$xml = @simplexml_load_file('http://localhost/xmls_for_ingest/'.$_GET['url'].'/' . $entry . '', NULL, LIBXML_NOERROR | LIBXML_NOWARNING);
 
             if ($xml === false) {
                 echo "An Error occured. Please try again later. Thank you!";
             }
 //$xml = simplexml_load_file('http://ariadne.cs.kuleuven.be/ariadne-partners/api/sqitarget?query=learning&start='.$startPage.'&size=12&lang=plql1&format=lom', NULL, LIBXML_NOERROR | LIBXML_NOWARNING);
-
+        
             if ($xml) {
                 global $item_id;
                 $item_id = insertnewitemfromxml($xml);
@@ -58,10 +59,11 @@ $xml = @simplexml_load_file('http://aglr.agroknow.gr/xmls_for_ingest/'.$_GET['ur
 else {
     echo 'error!';
 }
-
+}
 function create_the_query_for_ingest($xmlname_gelement, $xmlname_element, $getgeneralname, $xmlname, $getgeneral) {
     global $multi;
     global $previous_getgeneralname;
+    global $item_id;
     //echo "<br><u>" . $xmlname . "." . $getgeneralname . "&nbsp" . $xmlname_element['id'] . "</u><br>";
     if ($xmlname == 'general') {
 
@@ -256,7 +258,8 @@ function create_the_query_for_ingest($xmlname_gelement, $xmlname_element, $getge
 
         //echo 'multi=' . $multi . '<br>';
         if ($getgeneralname == 'identifier') {
-            $multi+=1;
+                        ///////for inserting metametadata.Identifier from xmls///////////
+            /*$multi+=1;
             $i = 1;
             savelomelementforxmlparsing($xmlname_element['id'], 'Parent Element', $item_id, 'none', $i, $multi);
             foreach ($getgeneral as $string) {
@@ -267,6 +270,26 @@ function create_the_query_for_ingest($xmlname_gelement, $xmlname_element, $getge
                     savelomelementforxmlparsing($xmlname_element2['id'], $string, $item_id, 'none', $i, $multi, NULL, 0);
                 }
                 if ($stringname == 'entry') {
+                    savelomelementforxmlparsing($xmlname_element2['id'], $string, $item_id, 'none', $i, $multi, NULL, 0);
+                }
+
+                //catalog-entry
+            }*/
+
+            ///////for inserting standar metametadata.Identifier and only ONE!!///////////
+            $multi=1;
+            $i = 1;
+            savelomelementforxmlparsing($xmlname_element['id'], 'Parent Element', $item_id, 'none', $i, $multi);
+            foreach ($getgeneral as $string) {
+                //$i+=1;
+                $stringname = $string->getName();
+                $xmlname_element2 = findidsfromxmlname($stringname, $xmlname_element['id']);
+                if ($stringname == 'catalog') {
+                    $string='Organic_Edunet_Schema';
+                    savelomelementforxmlparsing($xmlname_element2['id'], $string, $item_id, 'none', $i, $multi, NULL, 0);
+                }
+                if ($stringname == 'entry') {
+                    $string="Organic_Edunet_".$item_id."";
                     savelomelementforxmlparsing($xmlname_element2['id'], $string, $item_id, 'none', $i, $multi, NULL, 0);
                 }
 
@@ -350,11 +373,19 @@ function create_the_query_for_ingest($xmlname_gelement, $xmlname_element, $getge
         } //contribute
 
         if ($getgeneralname == 'metadataSchema') {
-            $multi+=1;
+            ///////for inserting metametadata.schema from xmls///////////
+            /*$multi+=1;
             $i = 0;
             $i+=1;
-            $getgeneral = 'OE AP v3.0'; ////manula for ingesting in specific repository
-            savelomelementforxmlparsing($xmlname_element['id'], $getgeneral, $item_id, 'none', $i, $multi);
+            $getgeneral = 'OE AP v3.0'; ////manual for ingesting in specific repository
+            savelomelementforxmlparsing($xmlname_element['id'], $getgeneral, $item_id, 'none', $i, $multi);*/
+            ///////for inserting standar metametadata.schema and only ONE!!///////////
+            $multi=1;
+            $i =1;
+            $getgeneral = 'OE AP v3.0'; ////manual for ingesting in specific repository
+            savelomelementforxmlparsing($xmlname_element['id'], $getgeneral, $item_id, 'none', $i, $multi, NULL, 0);
+            
+            
         } //if($getgeneralname=='metadataSchema'){
         if ($getgeneralname == 'language') {
 
@@ -721,7 +752,7 @@ function create_the_query_for_ingest($xmlname_gelement, $xmlname_element, $getge
         //echo 'multi=' . $multi . '<br>';
         if ($getgeneralname == 'taxonPath') {
             $multi+=1;
-            $i = 0;
+            $i = 1;
 
             foreach ($getgeneral->taxon->entry as $key => $getgeneral) {
                 $taxon = $getgeneral->string;
@@ -848,6 +879,7 @@ function langstring($getgeneral, $id, $i, $multi) {
     global $item_id;
     foreach ($getgeneral as $string) {
         //$i+=1;
+        if(strlen($string['language'])>0){$string['language']=$string['language'];}else{$string['language']='en';}
         savelomelementforxmlparsing($id, $string, $item_id, $string['language'], $i, $multi);
         //echo $string."-".$string['language']."<br>";
     }
