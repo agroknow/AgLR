@@ -12,7 +12,7 @@ if ($handle = opendir('/var/www/html/xmls_for_ingest/'.$_GET['url'].'/')) {
     while (false !== ($entry = readdir($handle))) {
         if ($entry != '.' and $entry != '..') {
 
-
+ 
 
             $xml = '';
             $output = '';
