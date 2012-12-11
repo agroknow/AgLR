@@ -201,9 +201,14 @@ $responseDate = $datetime . 'Z';
 $datetime_resum2 = gmstrftime('%Y-%m-%d'); //for expire date of the resumptionToken
 $datetime_resum = gmstrftime('%Y%m%d'); //for creation and checking of resumptionToken
 // do not change
-$XMLHEADER =
+/*$XMLHEADER =
         '<?xml version="1.0" encoding="UTF-8"?>
 <OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xmlns:lom="http://ltsc.ieee.org/xsd/LOM" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">' . "\n";
+*/
+$XMLHEADER =
+        '<?xml version="1.0" encoding="UTF-8"?>
+<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">' . "\n";
+
 
 $xmlheader = $XMLHEADER .
         ' <responseDate>' . $responseDate . "</responseDate>\n";

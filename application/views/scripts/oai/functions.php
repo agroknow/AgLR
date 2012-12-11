@@ -117,7 +117,7 @@ function oai_close() {
 
 function date2UTCdatestamp($date) {
     global $granularity;
-
+    $granularity='YYYY-MM-DDThh:mm:ssZ';
     if ($date == '')
         return '';
 
@@ -139,7 +139,7 @@ function date2UTCdatestamp($date) {
                 $val = preg_match($checkstr, $date, $matches);
                 if (!$val) {
                     // show that we have an error
-                    return "0000-00-00T00:00:00Z";
+                    return "0000-00-00T00:00:00.00Z";
                 }
                 // date is datetime format
                 /*
@@ -177,7 +177,7 @@ function date2UTCdatestamp($date) {
                             // we are after GMT, thus we need to subtract
                             $timestamp -= (int) $tz * 3600;
                         }
-                        return strftime("%Y-%m-%dT%H:%M:%SZ", $timestamp);
+                        return strftime("%Y-%m-%dT%H:%M:%S.00Z", $timestamp);
                     }
                 } elseif ($matches[14] == 'Z') {
                     return str_replace(' ', 'T', $date);
@@ -186,7 +186,7 @@ function date2UTCdatestamp($date) {
             } else {
                 // date is date format
                 // granularity 'YYYY-MM-DD' should be used...
-                return $date . 'T00:00:00Z';
+                return $date . 'T00:00:00.00Z';
             }
             break;
 
@@ -432,7 +432,13 @@ function preview_elements($datageneral4, $datageneral5, $metadatarecord, $datage
             $count_results = count($datageneral5);
 
             if ($count_results > 0) {
+                if($datageneral4['machine_name']=='identifier'){
+                    $thereturn.= '<resource>' . "\n";
+                }
                 $thereturn.=preview_elements_from_datatype($datageneral4, $datageneral5, $metadatarecord);
+                if($datageneral4['machine_name']=='identifier'){
+                    $thereturn.= '</resource>' . "\n";
+                }
             }
         }
     } elseif ($datageneral3['machine_name'] == 'general') { ///////if general
@@ -556,34 +562,32 @@ function preview_elements_from_datatype($datageneral4, $datageneral5, $metadatar
             $datageneral10 = $exec10->fetch();
 
             if (strlen($datageneral10['name']) > 0 or strlen($datageneral10['surname']) > 0) {
-                $fullname = "FN:" . $datageneral10['name'] . " " . $datageneral10['surname'] . "";
+                $fullname = "FN:" . $datageneral10['name'] . " " . $datageneral10['surname'] . "\r\n";
             } else {
                 $fullname = '';
             }
             if (strlen($datageneral10['email']) > 0) {
-                $email = "EMAIL;TYPE=INTERNET:" . $datageneral10['email'] . "";
+                $email = "EMAIL;TYPE=INTERNET:" . $datageneral10['email'] . "\r\n";
             } else {
                 $email = '';
             }
 
             if (strlen($datageneral10['organization']) > 0) {
-                $organization = "ORG:" . $datageneral10['organization'] . "";
+                $organization = "ORG:" . $datageneral10['organization'] . "\r\n";
             } else {
                 $organization = '';
             }
             if (strlen($datageneral10['name']) > 0 or strlen($datageneral10['surname']) > 0) {
                 if(strlen($datageneral10['surname'])>0){$surname=$datageneral10['surname'].';';}else{$surname='';}
                 if(strlen($datageneral10['name'])>0){$name=$datageneral10['name'];}else{$name='';}
-                $name = "N:" . $surname . "" . $datageneral10['name'] . "";
+                $name = "N:" . $surname . "" . $datageneral10['name'] . "\r\n";
             } else {
                 $name = '';
             }
 
 
             $output.= '<' . $machine_name . '>' . "\n";
-            $output.="<![CDATA[BEGIN:VCARD " . $fullname . " " . $email . " " . $organization . " " . $name . " VERSION:3.0
-END:VCARD
-]]>";
+            $output.="<![CDATA[BEGIN:VCARD\r\n" . $fullname . "" . $email . "" . $organization . "" . $name . "VERSION:3.0\r\nEND:VCARD]]>";
             $output.= '</' . $machine_name . '>' . "\n";
         }
 
@@ -616,13 +620,8 @@ END:VCARD
     } elseif ($datageneral4['form_type_id'] == 5) {
 
         foreach ($datageneral5 as $datageneral5) {
-            $datetime = $datageneral5['value'];
-            $selectvaluesvalue2 = explode(' ', $datetime);
-            $datetime = '';
-            $datetime.=$selectvaluesvalue2[0];
-            $datetime.='T';
-            $datetime.=$selectvaluesvalue2[1];
-            $datetime.='.00Z';
+            $datetime =returndatetime($datageneral5['value']);
+            
             $output.= '<' . $machine_name . '>' . "\n";
             $output.=xmlformat($datetime, 'dateTime', '', $indent);
             $output.= '</' . $machine_name . '>' . "\n";
@@ -643,6 +642,23 @@ function onlyNumbers($string) {
     //This function removes all characters other than numbers
     $string = preg_replace("/[^0-9]/", "", $string);
     return (int) $string;
+}
+function returndatetime($date){
+    $datetime = $date;
+            $selectvaluesvalue2 = explode(' ', $datetime);
+            $datetime = '';
+            //$selectvaluesvalue2[0]=date2UTCdatestamp($selectvaluesvalue2[0]);
+            //$selectvaluesvalue2[0] = date("YYYY-mm-dd", strtotime($selectvaluesvalue2[0]));
+            $datetime.=$selectvaluesvalue2[0];
+            $datetime.='T';
+            if(strlen($selectvaluesvalue2[1])>0){
+            $datetime.=$selectvaluesvalue2[1];
+            }else{
+             $datetime.='00:00:00';   
+            }
+            $datetime.='.00Z';
+            $datetime=date2UTCdatestamp($datetime);
+    return $datetime;
 }
 
 ?>

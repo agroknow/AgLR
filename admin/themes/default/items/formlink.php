@@ -456,6 +456,9 @@ else{ ?>
 
 
 <?php } ?>
+<div id="stepbuttoncollection">
+        <?php include('collection-form.php'); ?> 
+        </div>
 <div id="stepfile">
 <?php //include('files-form.php'); ?> 
 </div>

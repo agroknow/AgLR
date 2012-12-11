@@ -27,6 +27,11 @@ if (isset($args['verb'])) {
 			unset($args['verb']);
 			include 'oai2/getrecord.php';
 			break;
+                    
+                case 'GetRecordOnlyLom':
+			unset($args['verb']);
+			include 'oai2/getrecordonlylom.php';
+			break;
 			
 		case 'ListSets':
 			unset($args['verb']);
@@ -56,11 +61,19 @@ if (isset($args['verb'])) {
 
 
 //header($CONTENT_TYPE);
-echo $xmlheader;
+if($_GET['verb']=='GetRecordOnlyLom'){
+
+echo $output;
+echo $errors;
+
+}else{
+  echo $xmlheader;
 echo $request;
 echo $output;
 echo $errors;
-oai_close(); 
+oai_close();   
+}
+
 ?>
 
 

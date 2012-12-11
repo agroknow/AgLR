@@ -79,7 +79,7 @@ if (!isset($metadatarecord['id'])) {
 }
 
 if (empty($errors)) { //if no errors
-    $output .= "<GetRecord>\n";
+    
 
     
     $sqlomekaitem = "select * from omeka_items where id=" . $identifier . " ";
@@ -117,22 +117,7 @@ if (empty($errors)) { //if no errors
     $datestamp.='.00Z';
 
 
-    $output .= '<record>' . "\n";
-    $output .= '<header>' . "\n";
-    $output .= '<identifier>';
-    $output .= 'oai:' . $repositoryIdentifier . ':' . $metadatarecord['id'];
-    $output .= '</identifier>' . "\n";
-    $output .= '<datestamp>';
-    $output .= $datestamp;
-    $output .= '</datestamp>' . "\n";
-    if (strlen($oai_collection['id']) > 0) {
-        $output .= '<setSpec>';
-        $output .='aglr_collection_' . $oai_collection['id'];
-        $output .= '</setSpec>' . "\n";
-    }
-
-    $output .= '</header>' . "\n";
-    $output .= '<metadata>' . "\n";
+    
     $output .= '<lom xmlns="http://ltsc.ieee.org/xsd/LOM" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ltsc.ieee.org/xsd/LOM http://ltsc.ieee.org/xsd/lomv1.0/lomLoose.xsd">' . "\n";
 
 //query for creating general elements pelement=0		 
@@ -206,16 +191,7 @@ if (empty($errors)) { //if no errors
 
 
     $output .= '</lom>' . "\n";
-    $output .= '</metadata>' . "\n";
 
 
-    $output .= '</record>' . "\n";
-
-
-
-
-// end ListRecords
-    $output .=
-            '</GetRecord>' . "\n";
 }//if no errors!!!
 ?>

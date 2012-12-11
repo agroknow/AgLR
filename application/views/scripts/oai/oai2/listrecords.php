@@ -250,7 +250,11 @@ if (empty($errors)) { //if no errors
         $datestamp = '';
         $datestamp.=$selectvaluesvalue2[0];
         $datestamp.='T';
-        $datestamp.=$selectvaluesvalue2[1];
+        if(strlen($selectvaluesvalue2[1])>0){
+            $datestamp.=$selectvaluesvalue2[1];
+            }else{
+             $datestamp.='00:00:00';   
+            }
         $datestamp.='.00Z';
 
 
@@ -269,7 +273,7 @@ if (empty($errors)) { //if no errors
         }
         $output .= '</header>' . "\n";
         $output .= '<metadata>' . "\n";
-        $output .= '<lom xmlns="http://ltsc.ieee.org/xsd/LOM">' . "\n";
+        $output .= '<lom xmlns="http://ltsc.ieee.org/xsd/LOM" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ltsc.ieee.org/xsd/LOM http://ltsc.ieee.org/xsd/lomv1.0/lomLoose.xsd">' . "\n";
 
 //query for creating general elements pelement=0		 
         $sql3 = "SELECT c.*,b.machine_name,b.id as elm_id2 FROM  metadata_element b  LEFT JOIN metadata_element_hierarchy c 

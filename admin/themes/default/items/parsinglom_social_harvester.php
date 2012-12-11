@@ -4,30 +4,29 @@ head(array('title' => $pageTitle, 'content_class' => 'horizontal-nav', 'bodyclas
 ?>
 <h1><?php echo $pageTitle; ?></h1>
 <?php
-if(isset($_GET['url'])){
-if ($handle = opendir('/var/www/html/xmls_for_ingest/'.$_GET['url'].'/')) { 
-//if ($handle = opendir('C:/Program Files (x86)/EasyPHP-12.1/www/xmls_for_ingest/'.$_GET['url'].'/')) { 
+if ($handle = opendir('/var/www/html/xmls_for_ingest/'.$_GET['url'].'/')) {
+//if ($handle = opendir('C:/Program Files (x86)/EasyPHP-12.1/www/xmls_for_ingest/test/')) {
     //echo '123';
     /* This is the correct way to loop over the directory. */
     while (false !== ($entry = readdir($handle))) {
         if ($entry != '.' and $entry != '..') {
 
- 
+
 
             $xml = '';
             $output = '';
             libxml_use_internal_errors(false);
 //$entry = 'http_.s..s.confolio.vm.grnet.gr.s.scam.s.12.s.entry.s.1277.xml';
-            echo 'aglr.agroknow.gr/xmls_for_ingest/'.$_GET['url'].'/' . $entry . '<br>';
+            echo 'aglr.agroknow.gr/xmls_for_ingest/' . $entry . '<br>';
 //$xml = @simplexml_load_file('education.natural-europe.eu/organic-edunet/admin/items/xmls/'.$entry.'', NULL, LIBXML_NOERROR | LIBXML_NOWARNING);
 $xml = @simplexml_load_file('http://aglr.agroknow.gr/xmls_for_ingest/'.$_GET['url'].'/' . $entry . '', NULL, LIBXML_NOERROR | LIBXML_NOWARNING);
-//$xml = @simplexml_load_file('http://localhost/xmls_for_ingest/'.$_GET['url'].'/' . $entry . '', NULL, LIBXML_NOERROR | LIBXML_NOWARNING);
+//$xml = @simplexml_load_file('http://localhost/xmls_for_ingest/test/' . $entry . '', NULL, LIBXML_NOERROR | LIBXML_NOWARNING);
 
             if ($xml === false) {
                 echo "An Error occured. Please try again later. Thank you!";
             }
 //$xml = simplexml_load_file('http://ariadne.cs.kuleuven.be/ariadne-partners/api/sqitarget?query=learning&start='.$startPage.'&size=12&lang=plql1&format=lom', NULL, LIBXML_NOERROR | LIBXML_NOWARNING);
-        
+
             if ($xml) {
                 global $item_id;
                 $item_id = insertnewitemfromxml($xml);
@@ -51,8 +50,6 @@ $xml = @simplexml_load_file('http://aglr.agroknow.gr/xmls_for_ingest/'.$_GET['ur
                         create_the_query_for_ingest($xmlname_gelement, $xmlname_element, $getgeneralname, $xmlname, $getgeneral);
                         $previous_getgeneralname = $getgeneralname;
                     }
-                    //////insert metametadata.schema manual for 
-                    savelomelementforxmlparsing(67, 'OE AP v3.0', $item_id, 'none', 1, 1, NULL, 0);
                 }
             }
         }///////////if($entry!='.' and $entry!='..'){
@@ -61,11 +58,10 @@ $xml = @simplexml_load_file('http://aglr.agroknow.gr/xmls_for_ingest/'.$_GET['ur
 else {
     echo 'error!';
 }
-}
+
 function create_the_query_for_ingest($xmlname_gelement, $xmlname_element, $getgeneralname, $xmlname, $getgeneral) {
     global $multi;
     global $previous_getgeneralname;
-    global $item_id;
     //echo "<br><u>" . $xmlname . "." . $getgeneralname . "&nbsp" . $xmlname_element['id'] . "</u><br>";
     if ($xmlname == 'general') {
 
@@ -188,8 +184,7 @@ function create_the_query_for_ingest($xmlname_gelement, $xmlname_element, $getge
             $vocid = findvocabularyid($getgeneral->role->value, $xmlname_element2['element_id']);
             savelomelementforxmlparsing($xmlname_element2['id'], NULL, $item_id, 'none', '1', $multi, $vocid);
             $xmlname_element3 = findidsfromxmlname('date', $xmlname_element1['id']);
-            $datetimecontr=  explode("T", $getgeneral->date->dateTime);
-            savelomelementforxmlparsing($xmlname_element3['id'], $datetimecontr[0], $item_id, 'none', '1', $multi);
+            savelomelementforxmlparsing($xmlname_element3['id'], $getgeneral->date->dateTime, $item_id, 'none', '1', $multi);
 
             foreach ($getgeneral->entity as $string) {
                 $i+=1;
@@ -261,8 +256,7 @@ function create_the_query_for_ingest($xmlname_gelement, $xmlname_element, $getge
 
         //echo 'multi=' . $multi . '<br>';
         if ($getgeneralname == 'identifier') {
-                        ///////for inserting metametadata.Identifier from xmls///////////
-            /*$multi+=1;
+            $multi+=1;
             $i = 1;
             savelomelementforxmlparsing($xmlname_element['id'], 'Parent Element', $item_id, 'none', $i, $multi);
             foreach ($getgeneral as $string) {
@@ -273,26 +267,6 @@ function create_the_query_for_ingest($xmlname_gelement, $xmlname_element, $getge
                     savelomelementforxmlparsing($xmlname_element2['id'], $string, $item_id, 'none', $i, $multi, NULL, 0);
                 }
                 if ($stringname == 'entry') {
-                    savelomelementforxmlparsing($xmlname_element2['id'], $string, $item_id, 'none', $i, $multi, NULL, 0);
-                }
-
-                //catalog-entry
-            }*/
-
-            ///////for inserting standar metametadata.Identifier and only ONE!!///////////
-            $multi=1;
-            $i = 1;
-            savelomelementforxmlparsing($xmlname_element['id'], 'Parent Element', $item_id, 'none', $i, $multi);
-            foreach ($getgeneral as $string) {
-                //$i+=1;
-                $stringname = $string->getName();
-                $xmlname_element2 = findidsfromxmlname($stringname, $xmlname_element['id']);
-                if ($stringname == 'catalog') {
-                    $string='Organic_Edunet_Schema';
-                    savelomelementforxmlparsing($xmlname_element2['id'], $string, $item_id, 'none', $i, $multi, NULL, 0);
-                }
-                if ($stringname == 'entry') {
-                    $string="Organic_Edunet_".$item_id."";
                     savelomelementforxmlparsing($xmlname_element2['id'], $string, $item_id, 'none', $i, $multi, NULL, 0);
                 }
 
@@ -309,8 +283,7 @@ function create_the_query_for_ingest($xmlname_gelement, $xmlname_element, $getge
             $vocid = findvocabularyid($getgeneral->role->value, $xmlname_element2['element_id']);
             savelomelementforxmlparsing($xmlname_element2['id'], NULL, $item_id, 'none', '1', $multi, $vocid);
             $xmlname_element3 = findidsfromxmlname('date', $xmlname_element1['id']);
-            $datetimecontr=  explode("T", $getgeneral->date->dateTime);
-            savelomelementforxmlparsing($xmlname_element3['id'], $datetimecontr[0], $item_id, 'none', '1', $multi);
+            savelomelementforxmlparsing($xmlname_element3['id'], $getgeneral->date->dateTime, $item_id, 'none', '1', $multi);
 
             foreach ($getgeneral->entity as $string) {
                 $i+=1;
@@ -377,16 +350,11 @@ function create_the_query_for_ingest($xmlname_gelement, $xmlname_element, $getge
         } //contribute
 
         if ($getgeneralname == 'metadataSchema') {
-            ///////for inserting metametadata.schema from xmls///////////
-            /*$multi+=1;
+            $multi+=1;
             $i = 0;
             $i+=1;
-            $getgeneral = 'OE AP v3.0'; ////manual for ingesting in specific repository
-            savelomelementforxmlparsing($xmlname_element['id'], $getgeneral, $item_id, 'none', $i, $multi);*/
-            ///////for inserting standar metametadata.schema and only ONE!! On the top we have already on insert!!!///////////
-
-            
-            
+            $getgeneral = 'OE AP v3.0'; ////manula for ingesting in specific repository
+            savelomelementforxmlparsing($xmlname_element['id'], $getgeneral, $item_id, 'none', $i, $multi);
         } //if($getgeneralname=='metadataSchema'){
         if ($getgeneralname == 'language') {
 
@@ -753,7 +721,7 @@ function create_the_query_for_ingest($xmlname_gelement, $xmlname_element, $getge
         //echo 'multi=' . $multi . '<br>';
         if ($getgeneralname == 'taxonPath') {
             $multi+=1;
-            $i = 1;
+            $i = 0;
 
             foreach ($getgeneral->taxon->entry as $key => $getgeneral) {
                 $taxon = $getgeneral->string;
@@ -805,10 +773,10 @@ function insertnewitemfromxml($xml) {
     }
     global $collection_id;
     $collection_id = $_GET['collection_id']; //test collection id
-    $user_entity_id = $_GET['entity_id'];; ///$user_entity_id
+    $user_entity_id = 23; ///$user_entity_id
 
     $itemtdb = $db->Items;
- 
+
     $maxIdSQL = "SELECT MAX(id) AS MAX_ID FROM " . $itemtdb . " LIMIT 0,1";
     $exec = $db->query($maxIdSQL);
     $row = $exec->fetch();
@@ -880,7 +848,6 @@ function langstring($getgeneral, $id, $i, $multi) {
     global $item_id;
     foreach ($getgeneral as $string) {
         //$i+=1;
-        if(strlen($string['language'])>0){$string['language']=$string['language'];}else{$string['language']='en';}
         savelomelementforxmlparsing($id, $string, $item_id, $string['language'], $i, $multi);
         //echo $string."-".$string['language']."<br>";
     }

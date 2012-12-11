@@ -822,7 +822,7 @@ function lomselectform($data6, $dataform, $datalan, $extra, $parent_multi = NULL
     $output = '';
     if ($dataform['min_occurs'] > 0) {
         $output = '<div style="float:left;border-bottom:1px solid #d7d5c4;padding-right:9px; margin-right:5px;padding-bottom:9px; margin-bottom:5px; width:100%;"  id="' . $dataform['id'] . '" class="mandatory_element">';
-    } elseif ($dataform['is_recommented'] == 1) {
+    } elseif ($dataform['is_recommented'] == 1  or $parent_multi>0) {
         $output = '<div style="float:left;border-bottom:1px solid #d7d5c4;padding-right:9px; margin-right:5px;padding-bottom:9px; margin-bottom:5px; width:100%;"  id="' . $dataform['id'] . '" class="recommented_element">';
     } else {
         $output = '<div style="float:left;border-bottom:1px solid #d7d5c4;padding-right:9px; margin-right:5px;padding-bottom:9px; margin-bottom:5px; width:100%;"  id="' . $dataform['id'] . '" class="optional_element">';
@@ -1104,7 +1104,7 @@ function lomtextareaform($data6, $dataform, $datalan, $parent_multi = NULL, $rec
         if ($dataform['min_occurs'] > 0) {
             $output = '<div style="float:left;border-bottom:1px solid #d7d5c4;padding-right:9px; margin-right:5px;padding-bottom:9px; margin-bottom:5px; 
 			width:100%;"  id="' . $dataform['id'] . '" class="mandatory_element">';
-        } elseif ($dataform['is_recommented'] == 1) {
+        } elseif ($dataform['is_recommented'] == 1  or $parent_multi>0) {
             $output = '<div style="float:left;border-bottom:1px solid #d7d5c4;padding-right:9px; margin-right:5px;padding-bottom:9px; margin-bottom:5px; 
 			width:100%;"  id="' . $dataform['id'] . '" class="recommented_element">';
         } else {
@@ -1583,7 +1583,7 @@ function lomtextform($data6, $dataform, $datalan, $parent_multi = NULL, $record 
         if ($dataform['min_occurs'] > 0) {
             $output = '<div style="float:left;border-bottom:1px solid #d7d5c4;padding-right:9px; margin-right:5px;padding-bottom:9px; margin-bottom:5px; 
 			width:100%;"  id="' . $dataform['id'] . '" class="mandatory_element">';
-        } elseif ($dataform['is_recommented'] == 1) {
+        } elseif ($dataform['is_recommented'] == 1 or $parent_multi>0) {
             $output = '<div style="float:left;border-bottom:1px solid #d7d5c4;padding-right:9px; margin-right:5px;padding-bottom:9px; margin-bottom:5px; 
 			width:100%;"  id="' . $dataform['id'] . '" class="recommented_element">';
         } else {

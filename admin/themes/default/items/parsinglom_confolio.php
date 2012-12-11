@@ -188,8 +188,7 @@ function create_the_query_for_ingest($xmlname_gelement, $xmlname_element, $getge
             $vocid = findvocabularyid($getgeneral->role->value, $xmlname_element2['element_id']);
             savelomelementforxmlparsing($xmlname_element2['id'], NULL, $item_id, 'none', '1', $multi, $vocid);
             $xmlname_element3 = findidsfromxmlname('date', $xmlname_element1['id']);
-            $datetimecontr=  explode("T", $getgeneral->date->dateTime);
-            savelomelementforxmlparsing($xmlname_element3['id'], $datetimecontr[0], $item_id, 'none', '1', $multi);
+            savelomelementforxmlparsing($xmlname_element3['id'], $getgeneral->date->dateTime, $item_id, 'none', '1', $multi);
 
             foreach ($getgeneral->entity as $string) {
                 $i+=1;
@@ -309,8 +308,7 @@ function create_the_query_for_ingest($xmlname_gelement, $xmlname_element, $getge
             $vocid = findvocabularyid($getgeneral->role->value, $xmlname_element2['element_id']);
             savelomelementforxmlparsing($xmlname_element2['id'], NULL, $item_id, 'none', '1', $multi, $vocid);
             $xmlname_element3 = findidsfromxmlname('date', $xmlname_element1['id']);
-            $datetimecontr=  explode("T", $getgeneral->date->dateTime);
-            savelomelementforxmlparsing($xmlname_element3['id'], $datetimecontr[0], $item_id, 'none', '1', $multi);
+            savelomelementforxmlparsing($xmlname_element3['id'], $getgeneral->date->dateTime, $item_id, 'none', '1', $multi);
 
             foreach ($getgeneral->entity as $string) {
                 $i+=1;
@@ -384,7 +382,6 @@ function create_the_query_for_ingest($xmlname_gelement, $xmlname_element, $getge
             $getgeneral = 'OE AP v3.0'; ////manual for ingesting in specific repository
             savelomelementforxmlparsing($xmlname_element['id'], $getgeneral, $item_id, 'none', $i, $multi);*/
             ///////for inserting standar metametadata.schema and only ONE!! On the top we have already on insert!!!///////////
-
             
             
         } //if($getgeneralname=='metadataSchema'){

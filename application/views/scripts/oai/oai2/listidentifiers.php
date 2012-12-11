@@ -252,7 +252,11 @@ if (empty($errors)) { //if no errors
         $datestamp = '';
         $datestamp.=$selectvaluesvalue2[0];
         $datestamp.='T';
-        $datestamp.=$selectvaluesvalue2[1];
+        if(strlen($selectvaluesvalue2[1])>0){
+            $datestamp.=$selectvaluesvalue2[1];
+            }else{
+             $datestamp.='00:00:00';   
+            }
         $datestamp.='Z';
 
 
