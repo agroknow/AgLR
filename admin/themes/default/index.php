@@ -16,7 +16,7 @@ head(array('bodyclass'=>'index primary-secondary', 'title'=>$pageTitle)); ?>
               endif; ?><?php */?>
         <?php echo flash(); ?>    
             <div id="getting-started">
-                <h2><?php echo __('Getting Started with Agricultural Learning Repository tool'); ?></h2>
+                <h2><?php echo __('Getting Started with '.settings('site_title').''); ?></h2>
                 <dl>
                     <dt class="items"><?php echo link_to('items', null, __('Items')); ?></dt>
                     <dd class="items">

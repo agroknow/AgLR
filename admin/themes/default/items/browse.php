@@ -158,6 +158,12 @@ head(array('title'=>$pageTitle,'content_class' => 'horizontal-nav', 'bodyclass'=
             <span class="title"><?php echo link_to_item(item('Dublin Core', 'Title'), array(), 'edit'); ?></span>
             <ul class="action-links group">
             <li><?php $uri=WEB_ROOT; $uri=explode('http://',$uri);	echo '<a href="http://'.$uri[1].'/oai?verb=GetRecordOnlyLom&metadataPrefix=oai_lom&identifier=oai:'.$uri[1].'/:'.$item->id.'" target="_blank">XML</a>'; ?></li>
+            <?php
+            #
+            #
+            #Uncomment for autotranslate
+            #div for autotranslate <div id="'.$item->id.'_trans"
+            ?>
             <li><?php echo '<a href="javascript:void(0);" onclick="translatediv(\''.$item->id.'_trans\',\''.$item->id.'\')">'.__('Translate').'</a>'; ?></li>
                 
    	    
@@ -166,7 +172,9 @@ head(array('title'=>$pageTitle,'content_class' => 'horizontal-nav', 'bodyclass'=
                 <?php endif; ?>
                 <?php if (has_permission($item, 'delete')): ?>
                 <li><?php echo link_to_item(__('Delete'), array('class' => 'delete-confirm'), 'delete-confirm'); ?></li>
-                <?php echo '<div id="'.$item->id.'_trans" title="'.__('Please select language to translate:').'"></div>'; ?>
+                <?php 
+                #Div for autotranslate
+                echo '<div id="'.$item->id.'_trans" title="'.__('Please select language to translate:').'"></div>'; ?>
             <script type="text/javascript" charset="utf-8">
                 function translatediv(name,item_id){
 

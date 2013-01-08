@@ -220,7 +220,7 @@ div.field {position:relative; border-bottom:1px dotted #eee; padding: 18px 0;}
 .primary .vertical-nav #primary .textinput, .primary .vertical-nav #primary select {}
 
 /* .primary-secondary */
-.primary-secondary #primary, .vertical-nav #primary {float:left; width: 558px;}
+.primary-secondary #primary, .vertical-nav #primary {float:left; width: 598px;}
 .primary-secondary #secondary {float:right; width: 224px;}
 
 /* .primary-secondary-tertiary */

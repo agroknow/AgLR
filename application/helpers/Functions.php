@@ -2626,87 +2626,9 @@ jQuery(function () {
             <option value="lv">Latviešu</option>
             <option value="es">Español</option>
             <option value="fr">Français</option>
-            <option value="tr">Türk</option>
+            <option value="tr">Türkçe</option>
         </select>
         </form>
-        <?php /* ?>
-        <a href="<?php change_interface_language('en'); ?>">
-            <?php if ($_SESSION['get_language'] == 'en') { ?>
-                <img src="<?php echo uri('themes/default/images/english_grey.png'); ?>">
-            <?php } else { ?>
-                <img src="<?php echo uri('themes/default/images/english.png'); ?>">
-            <?php } ?>
-        </a>
-        <a href="<?php change_interface_language('el'); ?>">
-            <?php if ($_SESSION['get_language'] == 'el') { ?>
-                <img src="<?php echo uri('themes/default/images/greece_grey.png'); ?>">
-            <?php } else { ?>
-                <img src="<?php echo uri('themes/default/images/greece.png'); ?>">
-            <?php } ?>
-        </a>
-        <a href="<?php change_interface_language('de'); ?>">
-            <?php if ($_SESSION['get_language'] == 'de') { ?>
-                <img src="<?php echo uri('themes/default/images/germany_grey.png'); ?>">
-            <?php } else { ?>
-                <img src="<?php echo uri('themes/default/images/germany.png'); ?>">
-            <?php } ?>
-        </a>
-        <a href="<?php change_interface_language('it'); ?>">
-            <?php if ($_SESSION['get_language'] == 'it') { ?>
-                <img src="<?php echo uri('themes/default/images/italy_grey.png'); ?>">
-            <?php } else { ?>
-                <img src="<?php echo uri('themes/default/images/italy.png'); ?>">
-            <?php } ?>
-        </a>
-        <a href="<?php change_interface_language('fr'); ?>">
-            <?php if ($_SESSION['get_language'] == 'fr') { ?>
-                <img src="<?php echo uri('themes/default/images/france_grey.png'); ?>" width="24" height="18">
-            <?php } else { ?>
-                <img src="<?php echo uri('themes/default/images/france.png'); ?>" width="24" height="18">
-            <?php } ?>
 
-        </a>
-        <a href="<?php change_interface_language('es'); ?>">
-            <?php if ($_SESSION['get_language'] == 'es') { ?>
-                <img src="<?php echo uri('themes/default/images/spain_grey.png'); ?>" width="24" height="18">
-            <?php } else { ?>
-                <img src="<?php echo uri('themes/default/images/spain.png'); ?>" width="24" height="18">
-            <?php } ?>
-
-        </a>
-        <a href="<?php change_interface_language('tr'); ?>">
-            <?php if ($_SESSION['get_language'] == 'tr') { ?>
-                <img src="<?php echo uri('themes/default/images/turkish_grey.png'); ?>" width="24" height="18">
-            <?php } else { ?>
-                <img src="<?php echo uri('themes/default/images/turkish.png'); ?>" width="24" height="18">
-            <?php } ?>
-
-        </a>
-        <a href="<?php change_interface_language('lv'); ?>">
-            <?php if ($_SESSION['get_language'] == 'lv') { ?>
-                <img src="<?php echo uri('themes/default/images/latvia_grey.png'); ?>" width="24" height="18">
-            <?php } else { ?>
-                <img src="<?php echo uri('themes/default/images/latvia.png'); ?>" width="24" height="18">
-            <?php } ?>
-
-        </a>
-        <a href="<?php change_interface_language('ee'); ?>">
-            <?php if ($_SESSION['get_language'] == 'ee') { ?>
-                <img src="<?php echo uri('themes/default/images/estonia_grey.png'); ?>" width="24" height="18">
-            <?php } else { ?>
-                <img src="<?php echo uri('themes/default/images/estonia.png'); ?>" width="24" height="18">
-            <?php } ?>
-
-        </a>
-        <a href="<?php change_interface_language('ru'); ?>">
-            <?php if ($_SESSION['get_language'] == 'ru') { ?>
-                <img src="<?php echo uri('themes/default/images/russian_grey.gif'); ?>" width="24" height="18">
-            <?php } else { ?>
-                <img src="<?php echo uri('themes/default/images/russian.gif'); ?>" width="24" height="18">
-            <?php } ?>
-
-        </a>
-         * 
-         *  <?php */ ?>
         <?php
     }
