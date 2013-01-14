@@ -155,7 +155,7 @@ head(array('title'=>$pageTitle,'content_class' => 'horizontal-nav', 'bodyclass'=
         <td class="batch-edit-check" scope="row"><input type="checkbox" name="items[]" value="<?php echo $id; ?>" /></td>
         <?php endif; ?><?php */?>
         <td class="item-info">
-            <span class="title"><?php echo link_to_item(item('Dublin Core', 'Title'), array(), 'edit'); ?></span>
+            <span class="title"><?php echo link_to_item(item('Dublin Core', 'Title'), array(), 'show'); ?></span>
             <ul class="action-links group">
             <li><?php $uri=WEB_ROOT; $uri=explode('http://',$uri);	echo '<a href="http://'.$uri[1].'/oai?verb=GetRecordOnlyLom&metadataPrefix=oai_lom&identifier=oai:'.$uri[1].'/:'.$item->id.'" target="_blank">XML</a>'; ?></li>
             <?php
@@ -164,8 +164,9 @@ head(array('title'=>$pageTitle,'content_class' => 'horizontal-nav', 'bodyclass'=
             #Uncomment for autotranslate
             #div for autotranslate <div id="'.$item->id.'_trans"
             ?>
+            <?php if (has_permission($item, 'edit')): ?>
             <li><?php echo '<a href="javascript:void(0);" onclick="translatediv(\''.$item->id.'_trans\',\''.$item->id.'\')">'.__('Translate').'</a>'; ?></li>
-                
+                <?php endif; ?>
    	    
                 <?php if (has_permission($item, 'edit')): ?>
                 <li><?php echo link_to_item(__('Edit'), array(), 'edit'); ?></li>
@@ -174,6 +175,7 @@ head(array('title'=>$pageTitle,'content_class' => 'horizontal-nav', 'bodyclass'=
                 <li><?php echo link_to_item(__('Delete'), array('class' => 'delete-confirm'), 'delete-confirm'); ?></li>
                 <?php 
                 #Div for autotranslate
+                if (has_permission($item, 'edit')):
                 echo '<div id="'.$item->id.'_trans" title="'.__('Please select language to translate:').'"></div>'; ?>
             <script type="text/javascript" charset="utf-8">
                 function translatediv(name,item_id){
@@ -198,6 +200,7 @@ jQuery.post("<?php echo uri('items/translatexerox'); ?>", { name: name, item_id:
 
 }
 </script>
+                <?php endif; ?>
 
                 <?php endif; ?>
             </ul>

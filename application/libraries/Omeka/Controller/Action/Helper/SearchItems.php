@@ -58,7 +58,7 @@ class Omeka_Controller_Action_Helper_SearchItems extends Zend_Controller_Action_
 		
 		////////gkista add for custom search///////////////
 		//print_r($options); break;
-		if(isset($options['user']) and $options['user']!=1 and $options['role']!='super' and $options['role']!='Validator' and $options['role']!='admin'){$params['user']=$options['user'];}
+		if(isset($options['user']) and $options['user']!=1 and !has_permission('Items', 'browseAll')){$params['user']=$options['user'];}
 		if(isset($options['type'])){$params['type']=$options['type'];}
 		//print_r($params); break;
 		

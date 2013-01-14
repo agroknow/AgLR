@@ -9,7 +9,7 @@
  * */
 //Define our resources/privileges in a flat list here
 $resources = array(
-    'Items' => array('add', 'batch-edit', 'edit', 'editSelf', 'editAll', 'delete', 'deleteSelf', 'deleteAll', 'tag', 'showNotPublic', 'showSelfNotPublic', 'untagOthers', 'makePublic', 'makeFeatured', 'modifyPerPage', 'browse'),
+    'Items' => array('add', 'batch-edit', 'edit', 'editSelf', 'editAll', 'delete', 'deleteSelf', 'deleteAll', 'tag', 'showNotPublic', 'showSelfNotPublic', 'untagOthers', 'makePublic', 'makeFeatured', 'modifyPerPage', 'browse', 'browseAll'),
     'Collections' => array('add', 'edit', 'delete', 'showNotPublic', 'browse', 'editSelf'),
     'ElementSets' => array('browse', 'delete'),
     'Files' => array('edit', 'delete'),
@@ -37,7 +37,7 @@ $allowList = array(
     //array('researcher',array('Items', 'Collections'),array('showNotPublic')),
     //Contributors can add and tag items, edit or delete their own items, and see their items that are not public
     //array('contributor', 'Items', array('tag', 'add', 'batch-edit', 'editSelf', 'deleteSelf', 'showSelfNotPublic')),
-    array('Validator', 'Items', array('add', 'batch-edit', 'edit', 'editSelf', 'editAll', 'delete', 'deleteSelf', 'deleteAll', 'tag', 'showNotPublic', 'showSelfNotPublic', 'untagOthers', 'makePublic', 'makeFeatured', 'modifyPerPage', 'browse')),
+    array('Validator', 'Items', array('add', 'batch-edit', 'edit', 'editSelf', 'editAll', 'delete', 'deleteSelf', 'deleteAll', 'tag', 'showNotPublic', 'showSelfNotPublic', 'untagOthers', 'makePublic', 'makeFeatured', 'modifyPerPage', 'browse', 'browseAll')),
     array('Validator', 'Users', array('browse', 'editSelf', 'deleteSelf')),
     array('Validator', 'Collections', array('add', 'edit', 'delete', 'showNotPublic', 'browse', 'editSelf')),
     array('Annotator', 'Items', array('tag', 'add', 'batch-edit', 'editSelf', 'deleteSelf', 'showSelfNotPublic')),
@@ -46,6 +46,9 @@ $allowList = array(
     array('Museum Educators', 'Items', array('tag', 'add', 'batch-edit', 'editSelf', 'deleteSelf', 'showSelfNotPublic')),
     array('Museum Educators', 'Users', array('browse', 'editSelf', 'deleteSelf')),
     array('Museum Educators', 'Collections', array('browse', 'add', 'delete', 'edit', 'showNotPublic')),
+    array('Reviewer', 'Items', array('tag', 'add', 'batch-edit', 'editSelf', 'deleteSelf', 'showSelfNotPublic', 'showNotPublic', 'browseAll')),
+    array('Reviewer', 'Users', array('browse', 'editSelf', 'deleteSelf')),
+    array('Reviewer', 'Collections', array('browse', 'add', 'delete', 'edit', 'showNotPublic')),
     //Non-authenticated users can access the upgrade script (for logistical reasons).
     array(null, 'Upgrade')
 );
@@ -69,6 +72,7 @@ $acl->addRole(new Zend_Acl_Role('Validator'));
 // New roles added for science tweets
 $acl->addRole(new Zend_Acl_Role('Museum Educators'));
 $acl->addRole(new Zend_Acl_Role('Annotator'));
+$acl->addRole(new Zend_Acl_Role('Reviewer'));
 
 $acl->loadAllowList($allowList);
 
@@ -85,7 +89,7 @@ $acl->deny(array(null, 'admin', 'super'), 'Users');
 // For some unknown reason, this assertion must be associated with named roles 
 // (i.e., not null) in order to work correctly.  Allowing the null role causes 
 // it to fail.
-$acl->allow(array('admin', 'super', 'Validator', 'Museum Educators', 'Annotator'), 'Users', null, new User_AclAssertion());
-$acl->allow(array('admin', 'super', 'Validator', 'Museum Educators', 'Annotator'), 'Items', array('edit', 'delete'), new Item_OwnershipAclAssertion());
+$acl->allow(array('admin', 'super', 'Validator', 'Museum Educators', 'Annotator', 'Reviewer'), 'Users', null, new User_AclAssertion());
+$acl->allow(array('admin', 'super', 'Validator', 'Museum Educators', 'Annotator', 'Reviewer'), 'Items', array('edit', 'delete'), new Item_OwnershipAclAssertion());
 $acl->deny('admin', 'ItemTypes', array('delete', 'delete-element'));
 ?>

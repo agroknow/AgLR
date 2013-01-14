@@ -2632,3 +2632,596 @@ jQuery(function () {
 
         <?php
     }
+    function show_metadata_info($object_id, $object_type, $language = 'en') {
+
+        require_once 'Omeka/Core.php';
+        $core = new Omeka_Core;
+
+        try {
+            $db = $core->getDb();
+
+            //Force the Zend_Db to make the connection and catch connection errors
+            try {
+                $mysqli = $db->getConnection()->getConnection();
+            } catch (Exception $e) {
+                throw new Exception("<h1>MySQL connection error: [" . mysqli_connect_errno() . "]</h1>" . "<p>" . $e->getMessage() . '</p>');
+            }
+        } catch (Exception $e) {
+            die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
+        }
+
+        //query for all values
+        $sql = "SELECT * FROM metadata_record WHERE object_id=" . $object_id . " and object_type='" . $object_type . "'";
+        $execrecord = $db->query($sql);
+        $metadatarecord = $execrecord->fetch();
+//foreach($datarecord as $datarecord){$datarecord['id']=$datarecord['id'];}
+//query for creating general elements pelement=0		 
+        $sql3 = "SELECT c.*,b.machine_name,b.id as elm_id2 FROM  metadata_element b  LEFT JOIN metadata_element_hierarchy c 
+			ON c.element_id = b.id WHERE c.pelement_id=0 and c.is_visible=1  ORDER BY (case WHEN c.sequence IS NULL THEN '9999' ELSE c.sequence END) ASC;";
+        $exec3 = $db->query($sql3);
+        $datageneral3 = $exec3->fetchAll();
+
+
+/////////////////////////
+
+        foreach ($datageneral3 as $datageneral3) {
+
+            $output2 = '';
+            $sql4 = "SELECT c.*,b.machine_name,b.id as elm_id FROM  metadata_element b  LEFT JOIN metadata_element_hierarchy c 
+			ON c.element_id = b.id  WHERE c.pelement_id=" . $datageneral3['elm_id2'] . " and c.is_visible=1 ORDER BY (case WHEN c.sequence IS NULL THEN '9999' ELSE c.sequence END) ASC;";
+            //echo $sql4;break;
+            $exec4 = $db->query($sql4);
+            $datageneral4 = $exec4->fetchAll();
+
+
+            if ($datageneral3['machine_name'] == 'rights') { ///////if RIGHTS
+                $output2.= show_metadata_info_elements($datageneral4, NULL, $metadatarecord, $datageneral3, $language);
+            } elseif ($datageneral3['machine_name'] == 'classification') { ///////if CLASSIFICATION
+                // $output2.= show_metadata_info_elements($datageneral4, NULL, $metadatarecord, $datageneral3,$language);
+            } elseif ($datageneral3['machine_name'] == 'relation') { ///////if RELATION
+                //$output2.= show_metadata_info_elements($datageneral4, NULL, $metadatarecord, $datageneral3,$language);
+            } else { ///the rest parent elements///////////////////////////////
+                foreach ($datageneral4 as $datageneral4) {
+
+
+
+                    $sql5 = "SELECT * FROM  metadata_element_value WHERE record_id=" . $metadatarecord['id'] . " and element_hierarchy=" . $datageneral4['id'] . " ORDER BY multi ASC;";
+                    //echo $sql4."<br>";
+                    $exec5 = $db->query($sql5);
+                    $datageneral5 = $exec5->fetchAll();
+                    $count_results = count($datageneral5);
+
+                    if ($count_results > 0) {
+
+                        if ($datageneral3['machine_name'] == 'general') { ///////if GENERAL
+                            $output2.= show_metadata_info_elements($datageneral4, $datageneral5, $metadatarecord, $datageneral3, $language);
+                        } elseif ($datageneral3['machine_name'] == 'educational') { ///////if EDUCATIONAL
+                            $output2.= show_metadata_info_elements($datageneral4, $datageneral5, $metadatarecord, $datageneral3, $language);
+                        } elseif ($datageneral3['machine_name'] == 'technical') { ///////if TECHNICAL
+                            $output2.= show_metadata_info_elements($datageneral4, $datageneral5, $metadatarecord, $datageneral3, $language);
+                        } elseif ($datageneral3['machine_name'] == 'lifeCycle') { ///////if LIFECYCLE
+                            $output2.= show_metadata_info_elements($datageneral4, $datageneral5, $metadatarecord, $datageneral3, $language);
+                        } elseif ($datageneral3['machine_name'] == 'metaMetadata') { ///////if META-METADATA
+                            $output2.= show_metadata_info_elements($datageneral4, $datageneral5, $metadatarecord, $datageneral3, $language);
+                        } elseif ($datageneral3['machine_name'] == 'annotation') { ///////if ANNOTATION
+                            $output2.= show_metadata_info_elements($datageneral4, $datageneral5, $metadatarecord, $datageneral3, $language);
+                        } else {
+                            $output2.= show_metadata_info_elements($datageneral4, $datageneral5, $metadatarecord, NULL, $language);
+                        }
+                    }//if count_results
+                }//datageneral4
+            } ///the rest parent elements///////////////////////////////	
+            ////////////////echo the result of all parent element if exist
+
+            if (strlen($output2) > 0) {
+                $sqltr = "SELECT * FROM metadata_element_label WHERE element_id=" . $datageneral3['elm_id2'] . " and language_id='" . $language . "'";
+                $execrecordtr = $db->query($sqltr);
+                $metadatarecordtr = $execrecordtr->fetch();
+                $output.= '<strong><u>' . $metadatarecordtr['labal_name'] . '</u></strong>:<br>';
+                $output.= $output2;
+                $output.= "<br>";
+            }
+        }//datageneral3
+
+
+
+
+        /*
+          $sql="SELECT a.*,c.labal_name FROM metadata_element_value a join metadata_element_hierarchy b ON b.id=a.element_hierarchy join metadata_element_label c ON b.element_id=c.element_id WHERE a.record_id=".$datarecord['id']." ORDER BY b.pelement_id ASC, b.sequence ASC";
+          $exec5=$db->query($sql);
+          $data51=$exec5->fetchAll();
+
+          $output='';
+          foreach($data51 as $data5){
+
+          if($data5['labal_name']=='Are commercial uses of this resource allowed?'){
+
+          $right1=$data5['value'];
+          }
+
+          elseif($data5['labal_name']=='Are modifications of your work of this resource by other people allowed?'){
+
+          $right2=$data5['value'];
+          }
+          else{
+
+
+          if($data5['language_id']=='en' or $data5['language_id']=='none'){
+          if(strlen($data5['value'])>1){
+          if($data5['labal_name']=='Please elaborate'){
+          $output.= $data5['value']." , ";
+          } else{
+          $output.= "<strong>".$data5['labal_name']."</strong> : ".$data5['value']." , ";}
+          }
+          }
+          }
+
+          }
+          $output2='';
+          if($right1=='yes' and $right2=='yes'){$output2.= '<br><a href="http://www.creativecommons.org/licenses/by/3.0" target="_blank"><img src="'.uri('themes/natural/images/cc/cc-by.png').'"></a>';}
+          elseif($right1=='yes' and $right2=='no'){$output2.= '<br><a href="http://www.creativecommons.org/licenses/by-nd/3.0" target="_blank"><img src="'.uri('themes/natural/images/cc/cc-by-nd.png').'"></a>';}
+          elseif($right1=='yes' and $right2=='Yes, if others share alike'){$output2.= '<br><a href="http://www.creativecommons.org/licenses/by-sa/3.0" target="_blank"><img src="'.uri('themes/natural/images/cc/cc-by-sa.png').'"></a>';}
+          elseif($right1=='no' and $right2=='yes'){$output2.= '<br><a href="http://www.creativecommons.org/licenses/by-nc/3.0" target="_blank"><img src="'.uri('themes/natural/images/cc/cc-by-nc.png').'"></a>';}
+          elseif($right1=='no' and $right2=='no'){$output2.= '<br><a href="http://www.creativecommons.org/licenses/by-nc-nd/3.0" target="_blank"><img src="'.uri('themes/natural/images/cc/cc-by-nc-nd.png').'"></a>';}
+          elseif($right1=='no' and $right2=='Yes, if others share alike'){$output2.= '<br><a href="http://www.creativecommons.org/licenses/by-nc-sa/3.0" target="_blank"><img src="'.uri('themes/natural/images/cc/cc-by-nc-sa.png').'"></a>';}
+          else{echo ' ';}
+
+          $len=strlen($output);
+          $test=substr($output,0,($len-2));
+          echo $test;
+          echo $output2;
+          //end
+         * 
+         */
+        echo $output;
+    }
+
+    function show_metadata_info_elements($datageneral4, $datageneral5, $metadatarecord, $datageneral3, $language) {
+
+        require_once 'Omeka/Core.php';
+        $core = new Omeka_Core;
+
+        try {
+            $db = $core->getDb();
+
+            //Force the Zend_Db to make the connection and catch connection errors
+            try {
+                $mysqli = $db->getConnection()->getConnection();
+            } catch (Exception $e) {
+                throw new Exception("<h1>MySQL connection error: [" . mysqli_connect_errno() . "]</h1>" . "<p>" . $e->getMessage() . '</p>');
+            }
+        } catch (Exception $e) {
+            die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
+        }
+
+        $thereturn = '';
+
+
+
+        if ($datageneral3['machine_name'] == 'rights') { ///////if RIGHTS
+            foreach ($datageneral4 as $datageneral4) {
+                $sqltr = "SELECT * FROM metadata_element_label WHERE element_id=" . $datageneral4['elm_id'] . " and language_id='" . $language . "'";
+                $execrecordtr = $db->query($sqltr);
+                $metadatarecordtr = $execrecordtr->fetch();
+                $sql5 = "SELECT * FROM  metadata_element_value WHERE record_id=" . $metadatarecord['id'] . " and element_hierarchy=" . $datageneral4['id'] . " ORDER BY multi ASC;";
+                //echo $sql4."<br>";
+                $exec5 = $db->query($sql5);
+                $datageneral5 = $exec5->fetchAll();
+                $exec_right = $db->query($sql5);
+                $datageneral_right = $exec_right->fetch();
+                $count_results = count($datageneral5);
+
+                if ($count_results > 0) {
+                    //echo $datageneral_right['element_hierarchy']."123";
+                    if ($datageneral_right['element_hierarchy'] == 22) {  /////rights for creative commons  element_id=22
+                        if (strlen($datageneral_right['value']) > 0) {
+                            $right1 = $datageneral_right['value'];
+                        }
+                    } elseif ($datageneral_right['element_hierarchy'] == 23) {  /////rights for creative commons element_id=23
+                        if (strlen($datageneral_right['value']) > 0) {
+                            $right2 = $datageneral_right['value'];
+                        }
+                    } elseif ($datageneral_right['element_hierarchy'] == 9) {  /////rights for adding source value element_id=9
+                        if (strlen($datageneral_right['value']) > 0) {
+
+                            $thereturn.= '' . $metadatarecordtr['labal_name'] . ':' . $datageneral_right['value'] . '<br>';
+                        }
+                    } elseif ($datageneral_right['element_hierarchy'] == 24) {  /////rights for adding source value element_id=24
+                        if (strlen($datageneral_right['value']) > 0) {
+
+                            $thereturn.= '' . $metadatarecordtr['labal_name'] . ':' . $datageneral_right['value'] . '<br>';
+                        }
+                    } elseif ($datageneral_right['element_hierarchy'] == 81) {  ////if isset description instead of creative commons
+                        if (strlen($datageneral_right['value']) > 0) {
+                            $right3 = $datageneral_right['value'];
+                        }
+                    } else {
+                        $thereturn.=show_metadata_info_preview_elements_from_datatype($datageneral4, $datageneral5, $metadatarecord, NULL, $language); //else echo the element
+                    }
+                }///if($count_results>0){ 
+            }//foreach datageneral4 afou exei perasei oles tis times...
+            //////////////diadikasia gia echo to creative commons h to description an uparxei auto.////////////////
+            if (strlen($right3) > 0) {
+                $thereturn.=show_metadata_info_preview_elements_from_datatype($datageneral4, $datageneral5, $metadatarecord, NULL, $language);
+            } elseif ($right1 == 'yes' and $right2 == 'yes') {
+                $thereturn.= '<br><a href="http://www.creativecommons.org/licenses/by/3.0" target="_blank"><img src="' . uri('themes/natural/images/cc/cc-by.png') . '"></a>';
+            } elseif ($right1 == 'yes' and $right2 == 'no') {
+                $thereturn.= '<br><a href="http://www.creativecommons.org/licenses/by-nd/3.0" target="_blank"><img src="' . uri('themes/natural/images/cc/cc-by-nd.png') . '"></a>';
+            } elseif ($right1 == 'yes' and $right2 == 'Yes, if others share alike') {
+                $thereturn.= '<br><a href="http://www.creativecommons.org/licenses/by-sa/3.0" target="_blank"><img src="' . uri('themes/natural/images/cc/cc-by-sa.png') . '"></a>';
+            } elseif ($right1 == 'no' and $right2 == 'yes') {
+                $thereturn.= '<br><a href="http://www.creativecommons.org/licenses/by-nc/3.0" target="_blank"><img src="' . uri('themes/natural/images/cc/cc-by-nc.png') . '"></a>';
+            } elseif ($right1 == 'no' and $right2 == 'no') {
+                $thereturn.= '<br><a href="http://www.creativecommons.org/licenses/by-nc-nd/3.0" target="_blank"><img src="' . uri('themes/natural/images/cc/cc-by-nc-nd.png') . '"></a>';
+            } elseif ($right1 == 'no' and $right2 == 'Yes, if others share alike') {
+                $thereturn.= '<br><a href="http://www.creativecommons.org/licenses/by-nc-sa/3.0" target="_blank"><img src="' . uri('themes/natural/images/cc/cc-by-nc-sa.png') . '"></a>';
+            }
+        } elseif ($datageneral3['machine_name'] == 'classification') { ///////if CLASSIFICATION
+            $thereturn = '';
+            $thereturnonto = '';
+            foreach ($datageneral4 as $datageneral4) {
+
+                $sql8 = "SELECT * FROM  metadata_element_value WHERE record_id=" . $metadatarecord['id'] . " and element_hierarchy=" . $datageneral4['id'] . " ORDER BY multi ASC ;";
+                //echo $sql8."<br>"; break;
+                $exec8 = $db->query($sql8);
+                $datageneral8 = $exec8->fetchAll();
+                $count_results8 = count($datageneral8);
+                if ($count_results8 > 0) {
+
+                    //print_r($datageneral8);break;
+                    foreach ($datageneral8 as $datageneral8) {
+
+                        $sql6 = "SELECT c.*,b.machine_name,b.id as elm_id FROM  metadata_element b  LEFT JOIN metadata_element_hierarchy c 
+			ON c.element_id = b.id  WHERE c.pelement_id=" . $datageneral4['elm_id'] . " and c.is_visible=1 ;";
+                        //echo $sql6."<br>";
+                        $exec6 = $db->query($sql6);
+                        $datageneral6 = $exec6->fetchAll();
+                        foreach ($datageneral6 as $datageneral6) {
+                            //print_r($datageneral6);break;
+                            $sql7 = "SELECT * FROM  metadata_element_value WHERE record_id=" . $metadatarecord['id'] . " and element_hierarchy=" . $datageneral6['id'] . " and multi=" . $datageneral8['multi'] . " ORDER BY parent_indexer ASC ;";
+                            //echo $sql7; break;
+                            $exec7 = $db->query($sql7);
+                            $datageneral5 = $exec7->fetchAll();
+                            $count_results5 = count($datageneral5);
+
+                            if ($count_results5 > 0) {
+
+
+
+                                foreach ($datageneral5 as $datageneral5) {
+
+                                    if ($datageneral5['element_hierarchy'] == 87) {  /////ontology  element_id=85 
+                                        //echo $datageneral5['vocabulary_record_id']."<br>";
+                                        if (strlen($datageneral5['vocabulary_record_id']) > 0) {
+                                            $sql_ont = "SELECT * FROM  metadata_vocabulary_record WHERE id=" . $datageneral5['vocabulary_record_id'] . " ;";
+                                            //echo $sql_ont."<br>";
+                                            $exec_ont = $db->query($sql_ont);
+                                            $datageneral_ont = $exec_ont->fetch();
+                                            $ontology1 = $datageneral_ont['value'];
+                                            $selectvaluesvalue2 = explode(' ', $ontology1);
+                                            $ontology1 = '';
+                                            foreach ($selectvaluesvalue2 as $selectvaluesvalue2) {
+                                                $ontology1.=ucfirst($selectvaluesvalue2);
+                                            }
+                                        }
+                                    }
+                                    if ($datageneral5['element_hierarchy'] == 80) {  /////ontology  element_id=80
+                                        if (strlen($datageneral5['value']) > 0) {
+
+                                            $ontology2 = $datageneral5['value'];
+                                            $selectvaluesvalue2 = explode(' ', $ontology2);
+                                            $ontology2 = '';
+                                            foreach ($selectvaluesvalue2 as $selectvaluesvalue2) {
+                                                $ontology2.=ucfirst($selectvaluesvalue2);
+                                            }
+                                        }
+                                    }
+                                }//foreach($datageneral5 as $datageneral5){
+                            }//if($count_results5>0){
+                        }//foreach($datageneral6 as $datageneral6){
+                        ////////////////view the ontology like organic-edunet schema//////////
+                        $taxon_id_value = "http://www.cc.uah.es/ie/ont/OE-Predicates#" . $ontology1 . " :: http://www.cc.uah.es/ie/ont/OE-OAAE#" . $ontology2 . "";
+                        $taxon_entry = $ontology1 . " :: " . $ontology2 . "";
+
+                        $thereturnonto .= '<taxonPath>' . "\n";
+                        $thereturnonto .= '<source>' . "\n";
+                        $thereturnonto .= xmlformat('Organic.Edunet Ontology', 'string', ' language="en"', $indent);
+                        $thereturnonto .= '</source>' . "\n";
+                        $thereturnonto .= '<taxon>' . "\n";
+                        $thereturnonto .= xmlformat($taxon_id_value, 'id', '', $indent);
+                        $thereturnonto .= '<entry>' . "\n";
+                        $thereturnonto .= xmlformat($taxon_entry, 'string', '', $indent);
+                        $thereturnonto .= '</entry>' . "\n";
+                        $thereturnonto .= '</taxon>' . "\n";
+                        $thereturnonto .= '</taxonPath>' . "\n";
+                    }//foreach($datageneral8 as $datageneral8){
+                }//if($count_results8>0){
+            }//foreach datageneral4
+            if (strlen($thereturnonto) > 0) {
+                $thereturn .= '<purpose>' . "\n";
+                $thereturn .= xmlformat('LOMv1.0', 'source', '', $indent);
+                $thereturn .= xmlformat('discipline', 'value', '', $indent);
+                $thereturn .= '</purpose>' . "\n";
+            }
+            $thereturn .=$thereturnonto;
+        } elseif ($datageneral3['machine_name'] == 'relation') { ///////if RELATION
+            foreach ($datageneral4 as $datageneral4) {
+                $sql5 = "SELECT * FROM  metadata_element_value WHERE record_id=" . $metadatarecord['id'] . " and element_hierarchy=" . $datageneral4['id'] . " ORDER BY multi ASC;";
+                //echo $sql4."<br>";
+                $exec5 = $db->query($sql5);
+                $datageneral5 = $exec5->fetchAll();
+                $count_results = count($datageneral5);
+
+                if ($count_results > 0) {
+                    $thereturn.=show_metadata_info_preview_elements_from_datatype($datageneral4, $datageneral5, $metadatarecord, NULL, $language);
+                }
+            }
+        } elseif ($datageneral3['machine_name'] == 'general') { ///////if general
+            $thereturn = show_metadata_info_preview_elements_from_datatype($datageneral4, $datageneral5, $metadatarecord, NULL, $language);
+        } elseif ($datageneral3['machine_name'] == 'lifeCycle') { ///////if lifeCycle
+            $thereturn = show_metadata_info_preview_elements_from_datatype($datageneral4, $datageneral5, $metadatarecord, NULL, $language);
+        } elseif ($datageneral3['machine_name'] == 'technical') { ///////if technical
+            $thereturn = show_metadata_info_preview_elements_from_datatype($datageneral4, $datageneral5, $metadatarecord, NULL, $language);
+        } elseif ($datageneral3['machine_name'] == 'educational') { ///////if educational
+            $thereturn = show_metadata_info_preview_elements_from_datatype($datageneral4, $datageneral5, $metadatarecord, NULL, $language);
+        } elseif ($datageneral3['machine_name'] == 'annotation') { ///////if annotation
+            $thereturn = show_metadata_info_preview_elements_from_datatype($datageneral4, $datageneral5, $metadatarecord, NULL, $language);
+        } elseif ($datageneral3['machine_name'] == 'metaMetadata') { ///////if metaMetadata
+            $thereturn = show_metadata_info_preview_elements_from_datatype($datageneral4, $datageneral5, $metadatarecord, NULL, $language);
+        } else {
+            $thereturn = show_metadata_info_preview_elements_from_datatype($datageneral4, $datageneral5, $metadatarecord, NULL, $language);
+        }
+
+        return $thereturn;
+    }
+
+    function show_metadata_info_langstring($machine_name, $datageneral5, $multi, $previousmulti, $language, $datageneral4) {
+        require_once 'Omeka/Core.php';
+        $core = new Omeka_Core;
+
+        try {
+            $db = $core->getDb();
+
+            //Force the Zend_Db to make the connection and catch connection errors
+            try {
+                $mysqli = $db->getConnection()->getConnection();
+            } catch (Exception $e) {
+                throw new Exception("<h1>MySQL connection error: [" . mysqli_connect_errno() . "]</h1>" . "<p>" . $e->getMessage() . '</p>');
+            }
+        } catch (Exception $e) {
+            die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
+        }
+        
+        $sqltr = "SELECT * FROM metadata_element_label WHERE element_id=" . $datageneral4['elm_id'] . " and language_id='" . $language . "'";
+        $execrecordtr = $db->query($sqltr);
+        $metadatarecordtr = $execrecordtr->fetch();
+
+        $thereturn_lnstr = '';
+        //$thereturn_lnstr.= ''.$metadatarecordtr['labal_name'].': ';
+        //echo $language;
+        $final_langstring='';
+        $langstring_en='';
+        $multi = 0;
+        $previousmulti = 0;
+        $final_langstring_table=  array();
+        foreach ($datageneral5 as $datageneral51) {
+            $multi = $datageneral51['multi'];
+            $langstring='';
+            if(!strlen($final_langstring)>0){$final_langstring=$datageneral51['value'];}
+            if($datageneral51['language_id']==$language){$langstring=$datageneral51['value'];}
+            if($datageneral51['language_id']=='en'){$langstring_en=$datageneral51['value'];}
+            if(strlen($langstring)>0){$final_langstring_table[$multi]['lanstring']=$langstring;}
+            if(strlen($langstring_en)>0){$final_langstring_table[$multi]['english']=$langstring_en;}
+            $final_langstring_table[$multi]['general']=$final_langstring;
+        }  
+            
+        foreach ($datageneral5 as $datageneral51) {
+            $final_langstring='';
+            $multi = $datageneral51['multi'];
+            if ($multi != $previousmulti) {
+                if(strlen($final_langstring_table[$multi]['lanstring'])>0){
+                    $final_langstring=$final_langstring_table[$multi]['lanstring'];
+                }elseif(strlen($final_langstring_table[$multi]['english'])>0){
+                    $final_langstring=$final_langstring_table[$multi]['english'];
+                }else{
+                    $final_langstring=$final_langstring_table[$multi]['general'];
+                }
+                $thereturn_lnstr.= $metadatarecordtr['labal_name'].': '.$final_langstring.'<br>';
+            }
+            
+            $previousmulti = $datageneral51['multi'];
+        }
+        
+
+        
+
+        
+        return $thereturn_lnstr;
+    }
+
+    function show_metadata_info_preview_elements_from_datatype($datageneral4, $datageneral5, $metadatarecord, $parent_machine_name = NULL, $language) {
+        require_once 'Omeka/Core.php';
+        $core = new Omeka_Core;
+
+        try {
+            $db = $core->getDb();
+
+            //Force the Zend_Db to make the connection and catch connection errors
+            try {
+                $mysqli = $db->getConnection()->getConnection();
+            } catch (Exception $e) {
+                throw new Exception("<h1>MySQL connection error: [" . mysqli_connect_errno() . "]</h1>" . "<p>" . $e->getMessage() . '</p>');
+            }
+        } catch (Exception $e) {
+            die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
+        }
+
+//////get the machine name
+        if (strlen($datageneral4['machine_name']) > 0) {
+            $machine_name = $datageneral4['machine_name'];
+        } else {
+            $machine_name = 'no_machine_name';
+        }
+
+        $multi = 0;
+        $previousmulti = 0;
+
+
+
+
+        if ($datageneral4['datatype_id'] == 1) {
+
+            $output.=show_metadata_info_langstring($machine_name, $datageneral5, $multi, $previousmulti, $language, $datageneral4);
+            ///////////////////Parent Element///////////////////////
+        } elseif ($datageneral4['datatype_id'] == 2) {
+
+            $sql8 = "SELECT * FROM  metadata_element_value WHERE record_id=" . $metadatarecord['id'] . " and element_hierarchy=" . $datageneral4['id'] . " ORDER BY multi ASC ;";
+            //echo $sql8."<br>"; break;
+            $exec8 = $db->query($sql8);
+            $datageneral8 = $exec8->fetchAll();
+            $count_results8 = count($datageneral8);
+            if ($count_results8 > 0) {
+
+                //print_r($datageneral8);break;
+                foreach ($datageneral8 as $datageneral8) {
+                    $output2 = '';
+                    $sql6 = "SELECT c.*,b.machine_name,b.id as elm_id FROM  metadata_element b  LEFT JOIN metadata_element_hierarchy c 
+			ON c.element_id = b.id  WHERE c.pelement_id=" . $datageneral4['elm_id'] . " and c.is_visible=1 ;";
+                    //echo $sql6."<br>";
+                    $exec6 = $db->query($sql6);
+                    $datageneral6 = $exec6->fetchAll();
+
+                    foreach ($datageneral6 as $datageneral6) {
+                        //print_r($datageneral6);break;
+                        $sql7 = "SELECT * FROM  metadata_element_value WHERE record_id=" . $metadatarecord['id'] . " and element_hierarchy=" . $datageneral6['id'] . " and multi=" . $datageneral8['multi'] . " ORDER BY parent_indexer ASC ;";
+                        //echo $sql7; break;
+                        $exec7 = $db->query($sql7);
+                        $datageneral7 = $exec7->fetchAll();
+                        $count_results2 = count($datageneral7);
+
+                        if ($count_results2 > 0) {
+
+                            $output2.=show_metadata_info_preview_elements_from_datatype($datageneral6, $datageneral7, $metadatarecord, NULL, $language);
+                        }///if($count_results2>0){
+                    }///foreach datageneral6
+                    if (strlen($output2) > 0) {
+                $sqltr = "SELECT * FROM metadata_element_label WHERE element_id=" . $datageneral4['elm_id'] . " and language_id='" . $language . "'";
+                $execrecordtr = $db->query($sqltr);
+                $metadatarecordtr = $execrecordtr->fetch();
+                $output.= '<strong>' . $metadatarecordtr['labal_name'] . '</strong><br>';
+
+                        $output.= $output2.'<br>';
+                        
+                    }
+                }///foreach datageneral6
+            }///if($count_results8>0){
+            ///////////////////vcard///////////////////////			
+        } elseif ($datageneral4['datatype_id'] == 3) {
+
+            foreach ($datageneral5 as $datageneral5) {
+                $sql10 = "SELECT * FROM  metadata_vcard WHERE id=" . $datageneral5['vcard_id'] . ";";
+                //echo $sql10;break;
+                $exec10 = $db->query($sql10);
+                $datageneral10 = $exec10->fetch();
+
+                if (strlen($datageneral10['name']) > 0 or strlen($datageneral10['surname']) > 0) {
+                    $fullname = "<br>&nbsp;&nbsp;Full Name: " . $datageneral10['name'] . " " . $datageneral10['surname'] . "";
+                } else {
+                    $fullname = '';
+                }
+                if (strlen($datageneral10['email']) > 0) {
+                    $email = "<br>&nbsp;&nbsp;Email: " . $datageneral10['email'] . "";
+                } else {
+                    $email = '';
+                }
+
+                if (strlen($datageneral10['organization']) > 0) {
+                    $organization = "<br>&nbsp;&nbsp;Organization: " . $datageneral10['organization'] . "";
+                } else {
+                    $organization = '';
+                }
+                if (strlen($datageneral10['name']) > 0 or strlen($datageneral10['surname']) > 0) {
+                    if (strlen($datageneral10['surname']) > 0) {
+                        $surname = $datageneral10['surname'] . ';';
+                    } else {
+                        $surname = '';
+                    }
+                    if (strlen($datageneral10['name']) > 0) {
+                        $name = $datageneral10['name'];
+                    } else {
+                        $name = '';
+                    }
+                    $name = "<br>&nbsp;&nbsp;Name:" . $surname . "" . $datageneral10['name'] . "";
+                } else {
+                    $name = '';
+                }
+
+                $sqltr = "SELECT * FROM metadata_element_label WHERE element_id=" . $datageneral4['elm_id'] . " and language_id='" . $language . "'";
+                $execrecordtr = $db->query($sqltr);
+                $metadatarecordtr = $execrecordtr->fetch();
+                
+                $output.= '' . $metadatarecordtr['labal_name'] . ': ';
+                //$output.="" . $fullname . "" . $email . "" . $organization . "" . $name . "<br>";
+                $output.="" . $fullname . "" . $email . "" . $organization . "<br>";
+
+            }
+
+            ///////////////////vocabulary///////////////////////			
+        } elseif ($datageneral4['datatype_id'] == 6) {
+$sqltr = "SELECT * FROM metadata_element_label WHERE element_id=" . $datageneral4['elm_id'] . " and language_id='" . $language . "'";
+$execrecordtr = $db->query($sqltr);
+$metadatarecordtr = $execrecordtr->fetch();
+
+            foreach ($datageneral5 as $datageneral5) {
+                if ($datageneral5['vocabulary_record_id'] > 0) {
+                    $sql10 = "SELECT * FROM  metadata_vocabulary_record WHERE id=" . $datageneral5['vocabulary_record_id'] . ";";
+                    //echo $sql10;break;
+                    $exec10 = $db->query($sql10);
+                    $datageneral101 = $exec10->fetch();
+                    $sql10 = "SELECT * FROM  metadata_vocabulary_value WHERE vocabulary_rid=" . $datageneral101['id'] . " and language_id='".$language."';";
+                    //echo $sql10;break;
+                    $exec10 = $db->query($sql10);
+                    $datageneral10 = $exec10->fetch();
+
+                    if (strlen($datageneral10['source']) > 0) {
+                        $output.= '' . $metadatarecordtr['labal_name'] . ': ';
+                        $output.=$datageneral10['label'].'<br>';
+
+                    } else {
+                        $output.= '' . $metadatarecordtr['labal_name'] . ': ';
+                        $output.=$datageneral10['label'].'<br>';
+                    }
+                }//if($datageneral5['vocabulary_record_id']>0){
+            }//foreach($datageneral5 as $datageneral5){
+            ///////////////////$datetime///////////////////////
+        } elseif ($datageneral4['form_type_id'] == 5) {
+$sqltr = "SELECT * FROM metadata_element_label WHERE element_id=" . $datageneral4['elm_id'] . " and language_id='" . $language . "'";
+$execrecordtr = $db->query($sqltr);
+$metadatarecordtr = $execrecordtr->fetch();
+            foreach ($datageneral5 as $datageneral5) {
+                $datetime = $datageneral5['value'];
+
+                $output.= '' . $metadatarecordtr['labal_name'] . ': ';
+                $output.=$datetime.'<br>';
+
+
+            }
+
+            ///////////////////Nothing///////////////////////
+        } else {
+
+$sqltr = "SELECT * FROM metadata_element_label WHERE element_id=" . $datageneral4['elm_id'] . " and language_id='" . $language . "'";
+$execrecordtr = $db->query($sqltr);
+$metadatarecordtr = $execrecordtr->fetch();
+            foreach ($datageneral5 as $datageneral5) {
+                $datetime = $datageneral5['value'];
+
+                $output.= '' . $metadatarecordtr['labal_name'] . ': ';
+                $output.=$datetime.'<br>';
+
+
+            }
+        }
+
+        return $output;
+    }

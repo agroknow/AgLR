@@ -36,7 +36,7 @@
     <h2><?php echo __('Recently Added Items'); ?></h2>
     <ul>
     <?php while (loop_items_in_collection(10)): ?>
-        <li><span class="date"><?php echo format_date(item('Date Added')); ?></span><span class="title"> <?php echo link_to_item(item('Dublin Core', 'Title'), array(), 'edit'); ?></span></li>
+        <li><span class="date"><?php echo format_date(item('Date Added')); ?></span><span class="title"> <?php echo link_to_item(item('Dublin Core', 'Title'), array(), 'show'); ?></span></li>
     <?php endwhile;?>
     </ul>
     <h2><?php echo __('Total Number of Items'); ?></h2>
