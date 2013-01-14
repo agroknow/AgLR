@@ -2677,7 +2677,7 @@ jQuery(function () {
             if ($datageneral3['machine_name'] == 'rights') { ///////if RIGHTS
                 $output2.= show_metadata_info_elements($datageneral4, NULL, $metadatarecord, $datageneral3, $language);
             } elseif ($datageneral3['machine_name'] == 'classification') { ///////if CLASSIFICATION
-                // $output2.= show_metadata_info_elements($datageneral4, NULL, $metadatarecord, $datageneral3,$language);
+                 $output2.= show_metadata_info_elements($datageneral4, NULL, $metadatarecord, $datageneral3,$language);
             } elseif ($datageneral3['machine_name'] == 'relation') { ///////if RELATION
                 //$output2.= show_metadata_info_elements($datageneral4, NULL, $metadatarecord, $datageneral3,$language);
             } else { ///the rest parent elements///////////////////////////////
@@ -2844,17 +2844,17 @@ jQuery(function () {
             if (strlen($right3) > 0) {
                 $thereturn.=show_metadata_info_preview_elements_from_datatype($datageneral4, $datageneral5, $metadatarecord, NULL, $language);
             } elseif ($right1 == 'yes' and $right2 == 'yes') {
-                $thereturn.= '<br><a href="http://www.creativecommons.org/licenses/by/3.0" target="_blank"><img src="' . uri('themes/natural/images/cc/cc-by.png') . '"></a>';
+                $thereturn.= '<br><a href="http://www.creativecommons.org/licenses/by/3.0" target="_blank"><img src="' . uri('themes/default/images/cc/cc-by.png') . '"></a>';
             } elseif ($right1 == 'yes' and $right2 == 'no') {
-                $thereturn.= '<br><a href="http://www.creativecommons.org/licenses/by-nd/3.0" target="_blank"><img src="' . uri('themes/natural/images/cc/cc-by-nd.png') . '"></a>';
+                $thereturn.= '<br><a href="http://www.creativecommons.org/licenses/by-nd/3.0" target="_blank"><img src="' . uri('themes/default/images/cc/cc-by-nd.png') . '"></a>';
             } elseif ($right1 == 'yes' and $right2 == 'Yes, if others share alike') {
-                $thereturn.= '<br><a href="http://www.creativecommons.org/licenses/by-sa/3.0" target="_blank"><img src="' . uri('themes/natural/images/cc/cc-by-sa.png') . '"></a>';
+                $thereturn.= '<br><a href="http://www.creativecommons.org/licenses/by-sa/3.0" target="_blank"><img src="' . uri('themes/default/images/cc/cc-by-sa.png') . '"></a>';
             } elseif ($right1 == 'no' and $right2 == 'yes') {
-                $thereturn.= '<br><a href="http://www.creativecommons.org/licenses/by-nc/3.0" target="_blank"><img src="' . uri('themes/natural/images/cc/cc-by-nc.png') . '"></a>';
+                $thereturn.= '<br><a href="http://www.creativecommons.org/licenses/by-nc/3.0" target="_blank"><img src="' . uri('themes/default/images/cc/cc-by-nc.png') . '"></a>';
             } elseif ($right1 == 'no' and $right2 == 'no') {
-                $thereturn.= '<br><a href="http://www.creativecommons.org/licenses/by-nc-nd/3.0" target="_blank"><img src="' . uri('themes/natural/images/cc/cc-by-nc-nd.png') . '"></a>';
+                $thereturn.= '<br><a href="http://www.creativecommons.org/licenses/by-nc-nd/3.0" target="_blank"><img src="' . uri('themes/default/images/cc/cc-by-nc-nd.png') . '"></a>';
             } elseif ($right1 == 'no' and $right2 == 'Yes, if others share alike') {
-                $thereturn.= '<br><a href="http://www.creativecommons.org/licenses/by-nc-sa/3.0" target="_blank"><img src="' . uri('themes/natural/images/cc/cc-by-nc-sa.png') . '"></a>';
+                $thereturn.= '<br><a href="http://www.creativecommons.org/licenses/by-nc-sa/3.0" target="_blank"><img src="' . uri('themes/default/images/cc/cc-by-nc-sa.png') . '"></a>';
             }
         } elseif ($datageneral3['machine_name'] == 'classification') { ///////if CLASSIFICATION
             $thereturn = '';
@@ -2898,22 +2898,22 @@ jQuery(function () {
                                             $exec_ont = $db->query($sql_ont);
                                             $datageneral_ont = $exec_ont->fetch();
                                             $ontology1 = $datageneral_ont['value'];
-                                            $selectvaluesvalue2 = explode(' ', $ontology1);
-                                            $ontology1 = '';
-                                            foreach ($selectvaluesvalue2 as $selectvaluesvalue2) {
-                                                $ontology1.=ucfirst($selectvaluesvalue2);
-                                            }
+                                            //$selectvaluesvalue2 = explode(' ', $ontology1);
+                                            //$ontology1 = '';
+                                            //foreach ($selectvaluesvalue2 as $selectvaluesvalue2) {
+                                            //    $ontology1.=ucfirst($selectvaluesvalue2);
+                                           // }
                                         }
                                     }
                                     if ($datageneral5['element_hierarchy'] == 80) {  /////ontology  element_id=80
                                         if (strlen($datageneral5['value']) > 0) {
 
                                             $ontology2 = $datageneral5['value'];
-                                            $selectvaluesvalue2 = explode(' ', $ontology2);
-                                            $ontology2 = '';
-                                            foreach ($selectvaluesvalue2 as $selectvaluesvalue2) {
-                                                $ontology2.=ucfirst($selectvaluesvalue2);
-                                            }
+                                            //$selectvaluesvalue2 = explode(' ', $ontology2);
+                                            //$ontology2 = '';
+                                            //foreach ($selectvaluesvalue2 as $selectvaluesvalue2) {
+                                             //   $ontology2.=ucfirst($selectvaluesvalue2);
+                                           // }
                                         }
                                     }
                                 }//foreach($datageneral5 as $datageneral5){
@@ -2923,25 +2923,18 @@ jQuery(function () {
                         $taxon_id_value = "http://www.cc.uah.es/ie/ont/OE-Predicates#" . $ontology1 . " :: http://www.cc.uah.es/ie/ont/OE-OAAE#" . $ontology2 . "";
                         $taxon_entry = $ontology1 . " :: " . $ontology2 . "";
 
-                        $thereturnonto .= '<taxonPath>' . "\n";
-                        $thereturnonto .= '<source>' . "\n";
-                        $thereturnonto .= xmlformat('Organic.Edunet Ontology', 'string', ' language="en"', $indent);
-                        $thereturnonto .= '</source>' . "\n";
-                        $thereturnonto .= '<taxon>' . "\n";
-                        $thereturnonto .= xmlformat($taxon_id_value, 'id', '', $indent);
-                        $thereturnonto .= '<entry>' . "\n";
-                        $thereturnonto .= xmlformat($taxon_entry, 'string', '', $indent);
-                        $thereturnonto .= '</entry>' . "\n";
-                        $thereturnonto .= '</taxon>' . "\n";
-                        $thereturnonto .= '</taxonPath>' . "\n";
+                        $thereturnonto .= '<br><strong>Puprose.Discipline</strong><br>';
+                        $thereturnonto .= '&nbsp;&nbsp;'.$ontology1.'<br>';
+                        $thereturnonto .= '&nbsp;&nbsp;'.$ontology2.'<br>';
+
                     }//foreach($datageneral8 as $datageneral8){
                 }//if($count_results8>0){
             }//foreach datageneral4
             if (strlen($thereturnonto) > 0) {
-                $thereturn .= '<purpose>' . "\n";
-                $thereturn .= xmlformat('LOMv1.0', 'source', '', $indent);
-                $thereturn .= xmlformat('discipline', 'value', '', $indent);
-                $thereturn .= '</purpose>' . "\n";
+                // $thereturn.= '<strong>Puprose</strong><br>';
+               // $thereturn .= 'source: LOMv1.0<br>';
+               // $thereturn .= 'value: discipline<br>';
+
             }
             $thereturn .=$thereturnonto;
         } elseif ($datageneral3['machine_name'] == 'relation') { ///////if RELATION

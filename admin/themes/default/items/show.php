@@ -133,11 +133,15 @@ $dataformatfromvoc = $exec2->fetch();
 		   echo '<a href="'.$data51['value'].'" target="_blank">'.$data51['value'].'</a><br>';
 		   	
 		   }elseif(stripos($data51['value'],".html")>0 or stripos($data51['value'],".htm")>0 or stripos($data51['value'],".asp")>0 or stripos($dataformatfromvoc['value'],"HTML")>0 or stripos($dataformatfromvoc['value'],"Html")>0 or $dataformatfromvoc['value']=='html' or $dataformatfromvoc['value']=='html/text' or $dataformatfromvoc['value']=='text/html' or $dataformatfromvoc['value']=='HTML'){
-		  
+		  if(!(strrpos('1'.$data51['value'], 'http://'))){
+                      $data51['value']='http://'.$data51['value'];
+                  }
 		   echo '<a href="'.$data51['value'].'" target="_blank"><img src="http://open.thumbshots.org/image.aspx?url='.$data51['value'].'"/></a><br>';
 		   //echo '<a href="'.$data51['value'].'" target="_blank">'.$data51['value'].'</a><br>';
 		   } else{ 
-		   
+		   if(!(strrpos('1'.$data51['value'], 'http://'))){
+                      $data51['value']='http://'.$data51['value'];
+                  }
 		   echo '<a href="'.$data51['value'].'" target="_blank"><img src="http://open.thumbshots.org/image.aspx?url='.$data51['value'].'"/></a><br>';
 		   	//echo '<a href="'.$data51['value'].'" target="_blank">'.$data51['value'].'</a><br>';
 		   
