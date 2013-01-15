@@ -392,10 +392,10 @@ function createlomlabel($name, $extra = NULL, $min_occurs = NULL, $element_id = 
     return $label;
 }
 
-function createlomelement($type, $name, $value = NULL, $extra = NULL, $selectvalues = NULL, $selectvalueswhich = NULL, $selectalter = NULL, $langstringparams = NULL, $is_editable = NULL) {
+function createlomelement($type, $name, $value = NULL, $extra = NULL, $selectvalues = NULL, $selectvalueswhich = NULL, $selectalter = NULL, $langstringparams = NULL, $is_editable = NULL, $view_mode = NULL) {
     $readonly = '';
     $disabled = '';
-    if ($is_editable === 0) {
+    if ($is_editable === 0 or $view_mode===1) {
         $readonly = 'readonly="readonly"';
         $disabled = 'disabled="disabled"';
     } else {
@@ -474,7 +474,7 @@ function createlomelement($type, $name, $value = NULL, $extra = NULL, $selectval
     return $element;
 }
 
-function lomradioform($data6, $dataform) {
+function lomradioform($data6, $dataform, $view_mode=NULL) {
     require_once 'Omeka/Core.php';
     $core = new Omeka_Core;
 
@@ -490,8 +490,8 @@ function lomradioform($data6, $dataform) {
     } catch (Exception $e) {
         die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
     }
-
-
+    $disable='';
+    if($view_mode==1){$disable='disabled="disabled"';}
     foreach ($data6 as $datarecord) {
         if ($datarecord['element_hierarchy'] === $dataform['id']) {
             $datarecordvalue = $datarecord['value'];
@@ -499,19 +499,19 @@ function lomradioform($data6, $dataform) {
     }//select the value for more than one foreach
     $dataform['labal_name'] = return_multi_language_label_name($dataform['element_id']);
     $output = createlomlabel($dataform['labal_name'], 'for="theme"', $dataform['min_occurs'], $dataform['element_id']);
-    $output.='<input type="radio" name="' . $dataform['id'] . '_1_1" ';
+    $output.='<input type="radio" '.$disable.' name="' . $dataform['id'] . '_1_1" ';
     if ($datarecordvalue === 'yes') {
         $output.= 'checked=checked ';
     }
     $output.= 'value="yes"> Yes &nbsp;&nbsp;';
-    $output.= '<input type="radio" name="' . $dataform['id'] . '_1_1" ';
+    $output.= '<input type="radio" '.$disable.' name="' . $dataform['id'] . '_1_1" ';
     if ($datarecordvalue === 'no') {
         $output.= 'checked=checked ';
     }
     $output.= 'value="no"> No ';
 
     if ($dataform['id'] === 23) {
-        $output.= '<input type="radio" name="' . $dataform['id'] . '_1_1" ';
+        $output.= '<input type="radio" '.$disable.' name="' . $dataform['id'] . '_1_1" ';
         if ($datarecordvalue === 'Yes, if others share alike') {
             $output.= 'checked=checked ';
         }
@@ -523,7 +523,7 @@ function lomradioform($data6, $dataform) {
     return $output;
 }
 
-function lomontology($data6, $dataform, $datalan, $extra, $parent_multi = NULL, $record = NULL) {
+function lomontology($data6, $dataform, $datalan, $extra, $parent_multi = NULL, $record = NULL, $view_mode=NULL) {
     require_once 'Omeka/Core.php';
     $core = new Omeka_Core;
 
@@ -602,20 +602,22 @@ function lomontology($data6, $dataform, $datalan, $extra, $parent_multi = NULL, 
                 $xml = @simplexml_load_file($xmlvoc, NULL, LIBXML_NOERROR | LIBXML_NOWARNING);
                 $xml = objecttosortedarray($xml);
                 //print_r($datarecordvalue);
-                $output.= createlomelement('selectxml', '' . $dataform['id'] . '_' . $formmulti . '', $datarecordvalue, 'id="' . $dataform['id'] . '_' . $formmulti . '" style="width:300px;float:left;" ' . $extra . '', $xml, 'term', 'term', NULL, NULL, '' . $dataform['id'] . '');
+                $output.= createlomelement('selectxml', '' . $dataform['id'] . '_' . $formmulti . '', $datarecordvalue, 'id="' . $dataform['id'] . '_' . $formmulti . '" style="width:300px;float:left;" ' . $extra . '', $xml, 'term', 'term', NULL, NULL, $view_mode);
+                if($view_mode!=1){
                 $output.= '<a href="javascript:void(0)" onclick="toggletree(\'' . $dataform['id'] . '_' . $multi . '_tree\');" style="float:left;margin-left:2px;" id="' . $dataform['id'] . '_' . $multi . '">Browse</a>';
-
                 $output.=organic_ontology('' . $dataform['id'] . '_' . $multi . '_tree', '' . $datavocele['value'] . '_tree');
-
-
+                }
+                
+                if($view_mode!=1){
                 //if($dataform['max_occurs']>1){
                 $output.= '<a class="lom-remove" alt="Remove ' . $dataform['labal_name'] . '" title="Remove ' . $dataform['labal_name'] . '" href="#" onClick="removeFormFieldExisted(\'' . $dataform['id'] . '_' . $formmulti . '_field\',\'' . $dataform['id'] . '\',\'' . $datarecord['language_id'] . '\',\'' . $datarecord['record_id'] . '\',\'' . $datarecord['multi'] . '\'); return false;" 
                 style="position:relative; left:5px; top:2px;float:left;">Remove</a>';
                 //}//maxoccurs>1
+                } ///if view_mode not display
                 $output.= '<br style="clear:both"><br>';
             } //select and isset vocabulary
             else {
-                $output.= createlomelement('select', '' . $dataform['id'] . '_' . $formcount . '', $datarecordvalue, 'style="width:300px;" ' . $extra . '', $datalan, 'id', 'locale_name', NULL, $datarecoreditable);
+                $output.= createlomelement('select', '' . $dataform['id'] . '_' . $formcount . '', $datarecordvalue, 'style="width:300px;" ' . $extra . '', $datalan, 'id', 'locale_name', NULL, $datarecoreditable, $view_mode);
                 $output.= '<br style="clear:both"><br>';
             }//end else select and isset vocabulary
 
@@ -623,7 +625,7 @@ function lomontology($data6, $dataform, $datalan, $extra, $parent_multi = NULL, 
         }
     }//select the value for more than one foreach
     //an den uparxei eggrafh create one empty //////////////////////////////////////////////////////
-    if ($formcount === 0) {
+    if ($formcount === 0 and $view_mode!=1) {
         $formmulti = 1;
         if ($parent_multi > 0) {
             $multi = $parent_multi;
@@ -660,7 +662,7 @@ function lomontology($data6, $dataform, $datalan, $extra, $parent_multi = NULL, 
     $output.= "</div>";
 
 
-    if ($dataform['max_occurs'] > 1) {
+    if ($dataform['max_occurs'] > 1  and $view_mode!=1) {
         $output.='<input name="hdnLine_' . $dataform['id'] . '" id="hdnLine_' . $dataform['id'] . '" type="hidden" value="' . $formmulti . '">
         <div style="position:relative;clear:both;"><a alt="Add ' . $dataform['labal_name'] . '" title="Add ' . $dataform['labal_name'] . '" style="float:left;" class="lom-add-new" href="#" 
        onClick="addFormFieldSelectXmlOntology(\'' . $formmulti . '\',\'' . $dataform['id'] . '\',\'hdnLine_' . $dataform['id'] . '\',\'' . $dataform['vocabulary_id'] . '\'); return false;">Add ' . $dataform['labal_name'] . '</a></div>';
@@ -803,7 +805,7 @@ function lomselectformfromXml($data6, $dataform, $datalan, $extra, $parent_multi
     return $output;
 }
 
-function lomselectform($data6, $dataform, $datalan, $extra, $parent_multi = NULL, $record = NULL) {
+function lomselectform($data6, $dataform, $datalan, $extra, $parent_multi = NULL, $record = NULL, $view_mode = NULL) {
     require_once 'Omeka/Core.php';
     $core = new Omeka_Core;
 
@@ -819,6 +821,7 @@ function lomselectform($data6, $dataform, $datalan, $extra, $parent_multi = NULL
     } catch (Exception $e) {
         die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
     }
+    
     $output = '';
     if ($dataform['min_occurs'] > 0) {
         $output = '<div style="float:left;border-bottom:1px solid #d7d5c4;padding-right:9px; margin-right:5px;padding-bottom:9px; margin-bottom:5px; width:100%;"  id="' . $dataform['id'] . '" class="mandatory_element">';
@@ -861,12 +864,12 @@ function lomselectform($data6, $dataform, $datalan, $extra, $parent_multi = NULL
 					metadata_vocabulary_value f ON f.vocabulary_rid = e.id WHERE d.id=" . $dataform['vocabulary_id'] . " and e.public=1  and f.language_id='" . get_language_for_switch() . "' ORDER BY (case WHEN e.sequence IS NULL THEN '99999' END),e.sequence,f.label ASC";
                 $execvocele = $db->query($sqlvocelem);
                 $datavocele = $execvocele->fetchAll();
-                $output.= createlomelement('select', '' . $dataform['id'] . '_' . $formmulti . '', $datarecordvalue, 'style="width:300px;float:left;" ' . $extra . '', $datavocele, 'vov_rec_id', 'label', NULL, $datarecoreditable);
+                $output.= createlomelement('select', '' . $dataform['id'] . '_' . $formmulti . '', $datarecordvalue, 'style="width:300px;float:left;" ' . $extra . '', $datavocele, 'vov_rec_id', 'label', NULL, $datarecoreditable, $view_mode);
 
 
 
                 //if($dataform['max_occurs']>1){
-                if ($datarecoreditable === 0) {
+                if ($datarecoreditable === 0 or $view_mode==1) {
                     
                 } else {
                     $output.= '<a class="lom-remove" alt="Remove ' . $dataform['labal_name'] . '" title="Remove ' . $dataform['labal_name'] . '" href="#" onClick="removeFormFieldExisted(\'' . $dataform['id'] . '_' . $formmulti . '_field\',\'' . $dataform['id'] . '\',\'' . $datarecord['language_id'] . '\',\'' . $datarecord['record_id'] . '\',\'' . $datarecord['multi'] . '\'); return false;" 
@@ -884,7 +887,7 @@ function lomselectform($data6, $dataform, $datalan, $extra, $parent_multi = NULL
         }
     }//select the value for more than one foreach
     //an den uparxei eggrafh create one empty //////////////////////////////////////////////////////
-    if ($formcount === 0) {
+    if ($formcount === 0 and $view_mode!=1) {
         $formmulti = 1;
         if ($parent_multi > 0) {
             $multi = $parent_multi;
@@ -909,7 +912,7 @@ function lomselectform($data6, $dataform, $datalan, $extra, $parent_multi = NULL
     $output.= "</div>";
 
 
-    if ($dataform['max_occurs'] > 1) {
+    if ($dataform['max_occurs'] > 1 and $view_mode!=1) {
         $output.='<input name="hdnLine_' . $dataform['id'] . '" id="hdnLine_' . $dataform['id'] . '" type="hidden" value="' . $formmulti . '">
         <div style="position:relative;clear:both;">
 		<a href="#" alt="Add ' . $dataform['labal_name'] . '" title="Add ' . $dataform['labal_name'] . '" class="lom-add-new" style="float:left;"
@@ -922,7 +925,7 @@ function lomselectform($data6, $dataform, $datalan, $extra, $parent_multi = NULL
     return $output;
 }
 
-function lomtextareaform($data6, $dataform, $datalan, $parent_multi = NULL, $record = NULL, $for_translation = NULL) {
+function lomtextareaform($data6, $dataform, $datalan, $parent_multi = NULL, $record = NULL, $for_translation = NULL, $view_mode=NULL) {
     require_once 'Omeka/Core.php';
     $core = new Omeka_Core;
 
@@ -1128,7 +1131,7 @@ function lomtextareaform($data6, $dataform, $datalan, $parent_multi = NULL, $rec
         $multi = 0;
         $formcounttotal = 0;
 
-        if ($dataform['max_occurs'] > 1) {
+        if ($dataform['max_occurs'] > 1 and $view_mode!=1) {
             $output.='<br><a class="lom-add-new" href="#" alt="Add ' . $dataform['labal_name'] . '" title="Add ' . $dataform['labal_name'] . '" style="float:left;" onClick="addFormTotalField(\'' . $formcount . '\',\'' . $dataform['id'] . '\',\'hdnLine_group_total_' . $dataform['id'] . '\',\'' . $dataform['labal_name'] . '\'); return false;">Add ' . $dataform['labal_name'] . '</a>';
         }
         $output.= "</div>";
@@ -1156,10 +1159,10 @@ function lomtextareaform($data6, $dataform, $datalan, $parent_multi = NULL, $rec
                         $output.="<hr style='clear:both;'>";
                     }
                     //if hierarchy type= langstring
-                    if ($dataform['datatype_id'] === 1) {
+                    if ($dataform['datatype_id'] === 1  and $view_mode!=1) {
                         $output.='<a alt="Add Language" title="Add Language" class="lom-add-new" style="float:left;" href="#" onClick="addFormField(\'' . $formcount . '\',\'' . $dataform['id'] . '_' . $datarecord['multi'] . '\',\'hdnLine_' . $dataform['id'] . '_' . $datarecord['multi'] . '\'); return false;">Add Language</a>&nbsp;&nbsp;';
                     }
-                    if ($dataform['max_occurs'] > 1) {
+                    if ($dataform['max_occurs'] > 1  and $view_mode!=1) {
                         $output.='<a alt="Remove ' . $dataform['labal_name'] . '" title="Remove ' . $dataform['labal_name'] . '" class="lom-remove" href="#" onClick="removeFormFieldTotalExisted(\'' . $dataform['id'] . '_' . $datarecord['multi'] . '\',\'' . $dataform['id'] . '\',\'' . $datarecord['record_id'] . '\',\'' . $datarecord['multi'] . '\',\'1\'); return false;" style="">Remove ' . $dataform['labal_name'] . '</a>';
                     }
                     $output.= '<br><br>';
@@ -1168,20 +1171,22 @@ function lomtextareaform($data6, $dataform, $datalan, $parent_multi = NULL, $rec
                 $formcount+=1;
                 $formcounttotal+=1;
                 $output.='<div id="' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_field" style="clear:both;">';
-                $output.= createlomelement('textarea', '' . $dataform['id'] . '_' . $multi . '_' . $formcount . '', '' . stripslashes($datarecordvalue) . '', 'rows="4" cols="60" class="textinput" id="' . $dataform['id'] . '_' . $multi . '_' . $formcount . '" style="float:left;"', NULL, NULL, NULL, NULL, $datarecoreditable) . '&nbsp;&nbsp';
+                $output.= createlomelement('textarea', '' . $dataform['id'] . '_' . $multi . '_' . $formcount . '', '' . stripslashes($datarecordvalue) . '', 'rows="4" cols="60" class="textinput" id="' . $dataform['id'] . '_' . $multi . '_' . $formcount . '" style="float:left;"', NULL, NULL, NULL, NULL, $datarecoreditable, $view_mode) . '&nbsp;&nbsp';
                 $output.='<div style="position:relative; left:5px; top:2px; float:left;"> ';
                 //if hierarchy type= langstring/////////////////////////////////////////////
                 if ($dataform['datatype_id'] === 1) {
                     $langstringparams = array('element_hierarchy' => $datarecord['element_hierarchy'], "record_id" => $datarecord['record_id'], "multi" => $datarecord['multi']);
                     $output.= createlomelement('selectlanstr', '' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_lan', $datarecordvaluelan, 'class="combo" 
-					style="vertical-align:top;"', $datalan, 'id', 'locale_name', $langstringparams);
+					style="vertical-align:top;"', $datalan, 'id', 'locale_name', $langstringparams, NULL, $view_mode);
                 }//langstring
-                //$output.='<br>';           
+                //$output.='<br>';  
+                if($view_mode!=1){
                 if ($dataform['datatype_id'] === 1) {
                     $output.='<br><a alt="Remove Language" title="Remove Language" class="lom-remove" href="#" onClick="removeFormFieldExisted(\'' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_field\',\'' . $dataform['id'] . '\',\'' . $datarecord['language_id'] . '\',\'' . $datarecord['record_id'] . '\',\'' . $datarecord['multi'] . '\'); return false;" style="float:right;">Remove Language</a><br>';
                 } else {
                     $output.='<a alt="Remove ' . $dataform['labal_name'] . '" title="Remove ' . $dataform['labal_name'] . '" class="lom-remove" href="#" onClick="removeFormFieldExisted(\'' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_field\',\'' . $dataform['id'] . '\',\'' . $datarecord['language_id'] . '\',\'' . $datarecord['record_id'] . '\',\'' . $datarecord['multi'] . '\'); return false;" style="">Remove ' . $dataform['labal_name'] . '</a><br>';
                 }
+                }// if not view_mode
                 $output.= '</div>'; /////////////////div tou add remove
                 $output.= '</div>';
             }
@@ -1193,7 +1198,7 @@ function lomtextareaform($data6, $dataform, $datalan, $parent_multi = NULL, $rec
 
 
         //an den uparxei eggrafh create one empty
-        if ($formcount === 0) {
+        if ($formcount === 0  and $view_mode!=1) {
             $formcount+=1;
             if ($parent_multi > 0) {
                 $multi = $parent_multi;
@@ -1228,7 +1233,7 @@ function lomtextareaform($data6, $dataform, $datalan, $parent_multi = NULL, $rec
     return $output;
 }
 
-function lomtextformdate($data6, $dataform, $datalan, $parent_multi = NULL, $record = NULL) {
+function lomtextformdate($data6, $dataform, $datalan, $parent_multi = NULL, $record = NULL, $view_mode=NULL) {
     require_once 'Omeka/Core.php';
     $core = new Omeka_Core;
 
@@ -1273,7 +1278,7 @@ function lomtextformdate($data6, $dataform, $datalan, $parent_multi = NULL, $rec
     $multi = 0;
     $formcounttotal = 0;
 
-    if ($dataform['max_occurs'] > 1) {
+    if ($dataform['max_occurs'] > 1 and $view_mode!=1) {
         if ($dataform['datatype_id'] === 1) {
             $output.='<br><a class="lom-add-new" href="#" style="float:left;" onClick="addFormTotalFieldText(\'' . $formcount . '\',\'' . $dataform['id'] . '\',\'hdnLine_group_total_' . $dataform['id'] . '\',\'' . $dataform['labal_name'] . '\'); return false;">Add ' . $dataform['labal_name'] . '</a>';
         } else {
@@ -1302,11 +1307,11 @@ function lomtextformdate($data6, $dataform, $datalan, $parent_multi = NULL, $rec
                 $output.= '</div><div style="" id="' . $dataform['id'] . '_' . $datarecord['multi'] . '_inputs">';
                 //$output.="<hr style='clear:both;'>";
                 //if hierarchy type= langstring
-                if ($dataform['datatype_id'] === 1) {
+                if ($dataform['datatype_id'] === 1  and $view_mode!=1) {
                     $output.='<a class="lom-add-new" href="#" onClick="addFormFieldText(\'' . $formcount . '\',\'' . $dataform['id'] . '_' . $datarecord['multi'] . '\',\'hdnLine_' . $dataform['id'] . '_' . $datarecord['multi'] . '\'); return false;">Add Language</a>&nbsp;&nbsp;';
                 }
-                if ($dataform['max_occurs'] > 1) {
-                    if ($datarecoreditable === 0) {
+                if ($dataform['max_occurs'] > 1  and $view_mode!=1) {
+                    if ($datarecoreditable === 0  or $view_mode==1) {
                         
                     } else {
                         $output.='<a class="lom-remove" href="#" onClick="removeFormFieldTotalExisted(\'' . $dataform['id'] . '_' . $datarecord['multi'] . '\',\'' . $dataform['id'] . '\',\'' . $datarecord['record_id'] . '\',\'' . $datarecord['multi'] . '\',\'1\'); return false;" style="">Remove ' . $dataform['labal_name'] . '</a>';
@@ -1318,7 +1323,7 @@ function lomtextformdate($data6, $dataform, $datalan, $parent_multi = NULL, $rec
             $formcount+=1;
             $formcounttotal+=1;
             $output.='<div id="' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_field" style="margin-top:0px;">';
-            if ($datarecord['is_editable'] === 0) {
+            if ($datarecord['is_editable'] === 0  and $view_mode==1) {
                 
             } else {
                 ?>
@@ -1329,18 +1334,18 @@ function lomtextformdate($data6, $dataform, $datalan, $parent_multi = NULL, $rec
                 </script>	 <?php
             }//not editable
             $output.= createlomelement('text', '' . $dataform['id'] . '_' . $multi . '_' . $formcount . '', '' . stripslashes($datarecordvalue) . '', 'class="textinput" 
-					id="' . $dataform['id'] . '_' . $multi . '_' . $formcount . '" style="float:left;width:200px;"', NULL, NULL, NULL, NULL, $datarecoreditable) . '&nbsp;&nbsp';
+					id="' . $dataform['id'] . '_' . $multi . '_' . $formcount . '" style="float:left;width:200px;"', NULL, NULL, NULL, NULL, $datarecoreditable, $view_mode) . '&nbsp;&nbsp';
             $output.='<div style="position:relative; left:5px; top:0px; float:left;"> ';
             //if hierarchy type= langstring/////////////////////////////////////////////
             if ($dataform['datatype_id'] === 1) {
                 $langstringparams = array('element_hierarchy' => $datarecord['element_hierarchy'], "record_id" => $datarecord['record_id'], "multi" => $datarecord['multi']);
                 $output.= createlomelement('selectlanstr', '' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_lan', $datarecordvaluelan, 'class="combo" 
-					style="vertical-align:top;"', $datalan, 'id', 'locale_name', $langstringparams);
+					style="vertical-align:top;"', $datalan, 'id', 'locale_name', $langstringparams, NULL, $view_mode);
             }//langstring
-            if ($dataform['datatype_id'] === 1) {
+            if ($dataform['datatype_id'] === 1  and $view_mode!=1) {
                 $output.='<a class="lom-remove" href="#" onClick="removeFormFieldExisted(\'' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_field\',\'' . $dataform['id'] . '\',\'' . $datarecord['language_id'] . '\',\'' . $datarecord['record_id'] . '\',\'' . $datarecord['multi'] . '\'); return false;" style="">Remove Language</a><br>';
             } else {
-                if ($datarecord['is_editable'] != 0) {
+                if ($datarecord['is_editable'] != 0  and $view_mode!=1) {
                     $output.='<a class="lom-remove" href="#" onClick="removeFormFieldExisted(\'' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_field\',\'' . $dataform['id'] . '\',\'' . $datarecord['language_id'] . '\',\'' . $datarecord['record_id'] . '\',\'' . $datarecord['multi'] . '\'); return false;" style="float:right;">Remove</a><br>';
                 }//is editable
             }
@@ -1355,7 +1360,7 @@ function lomtextformdate($data6, $dataform, $datalan, $parent_multi = NULL, $rec
 
 
     //an den uparxei eggrafh create one empty
-    if ($formcount === 0) {
+    if ($formcount === 0  and $view_mode!=1) {
         $formcount+=1;
         if ($parent_multi > 0) {
             $multi = $parent_multi;
@@ -1394,7 +1399,7 @@ function lomtextformdate($data6, $dataform, $datalan, $parent_multi = NULL, $rec
     return $output;
 }
 
-function lomtextform($data6, $dataform, $datalan, $parent_multi = NULL, $record = NULL, $for_translation = NULL) {
+function lomtextform($data6, $dataform, $datalan, $parent_multi = NULL, $record = NULL, $for_translation = NULL, $view_mode) {
     require_once 'Omeka/Core.php';
     $core = new Omeka_Core;
 
@@ -1606,7 +1611,7 @@ function lomtextform($data6, $dataform, $datalan, $parent_multi = NULL, $record 
         $multi = 0;
         $formcounttotal = 0;
 
-        if ($dataform['max_occurs'] > 1) {
+        if ($dataform['max_occurs'] > 1 and $view_mode!=1) {
             if ($dataform['datatype_id'] === 1) {
                 $output.='<br><a class="lom-add-new" href="#" style="float:left;" onClick="addFormTotalFieldText(\'' . $formcount . '\',\'' . $dataform['id'] . '\',\'hdnLine_group_total_' . $dataform['id'] . '\',\'' . $dataform['labal_name'] . '\'); return false;">Add ' . $dataform['labal_name'] . '</a>';
             } else {
@@ -1638,11 +1643,11 @@ function lomtextform($data6, $dataform, $datalan, $parent_multi = NULL, $record 
                         $output.="<hr style='clear:both;'>";
                     }
                     //if hierarchy type= langstring
-                    if ($dataform['datatype_id'] === 1) {
+                    if ($dataform['datatype_id'] === 1 and $view_mode!=1) {
                         $output.='<a class="lom-add-new" style="float:left;"  href="#" onClick="addFormFieldText(\'' . $formcount . '\',\'' . $dataform['id'] . '_' . $datarecord['multi'] . '\',\'hdnLine_' . $dataform['id'] . '_' . $datarecord['multi'] . '\'); return false;">Add Language</a>&nbsp;&nbsp;';
                     }
-                    if ($dataform['max_occurs'] > 1) {
-                        if ($datarecoreditable === 0) {
+                    if ($dataform['max_occurs'] > 1 and $view_mode!=1) {
+                        if ($datarecoreditable === 0 or $view_mode==1) {
                             
                         } else {
                             $output.='<a class="lom-remove" href="#" onClick="removeFormFieldTotalExisted(\'' . $dataform['id'] . '_' . $datarecord['multi'] . '\',\'' . $dataform['id'] . '\',\'' . $datarecord['record_id'] . '\',\'' . $datarecord['multi'] . '\',\'1\'); return false;" style="">Remove ' . $dataform['labal_name'] . '</a>';
@@ -1655,18 +1660,18 @@ function lomtextform($data6, $dataform, $datalan, $parent_multi = NULL, $record 
                 $formcounttotal+=1;
                 $output.='<div id="' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_field" style="clear:both;">';
                 $output.= createlomelement('text', '' . $dataform['id'] . '_' . $multi . '_' . $formcount . '', '' . stripslashes($datarecordvalue) . '', 'class="textinput" 
-					id="' . $dataform['id'] . '_' . $multi . '_' . $formcount . '" style="float:left;width:200px;"', NULL, NULL, NULL, NULL, $datarecoreditable) . '&nbsp;&nbsp';
+					id="' . $dataform['id'] . '_' . $multi . '_' . $formcount . '" style="float:left;width:200px;"', NULL, NULL, NULL, NULL, $datarecoreditable, $view_mode) . '&nbsp;&nbsp';
                 $output.='<div style="position:relative; left:5px; top:0px; float:left;"> ';
                 //if hierarchy type= langstring/////////////////////////////////////////////
                 if ($dataform['datatype_id'] === 1) {
                     $langstringparams = array('element_hierarchy' => $datarecord['element_hierarchy'], "record_id" => $datarecord['record_id'], "multi" => $datarecord['multi']);
                     $output.= createlomelement('selectlanstr', '' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_lan', $datarecordvaluelan, 'class="combo" 
-					style="vertical-align:top;"', $datalan, 'id', 'locale_name', $langstringparams);
+					style="vertical-align:top;"', $datalan, 'id', 'locale_name', $langstringparams, NULL, $view_mode);
                 }//langstring
-                if ($dataform['datatype_id'] === 1) {
+                if ($dataform['datatype_id'] === 1 and $view_mode!=1) {
                     $output.='<a class="lom-remove" href="#" onClick="removeFormFieldExisted(\'' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_field\',\'' . $dataform['id'] . '\',\'' . $datarecord['language_id'] . '\',\'' . $datarecord['record_id'] . '\',\'' . $datarecord['multi'] . '\'); return false;" style="float:right;">Remove Language</a><br>';
                 } else {
-                    if ($datarecord['is_editable'] != 0) {
+                    if ($datarecord['is_editable'] != 0  and $view_mode!=1) {
                         $output.='<a class="lom-remove" href="#" onClick="removeFormFieldExisted(\'' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_field\',\'' . $dataform['id'] . '\',\'' . $datarecord['language_id'] . '\',\'' . $datarecord['record_id'] . '\',\'' . $datarecord['multi'] . '\'); return false;" style="float:left;">Remove</a><br>';
                     }//is editable
                 }
@@ -1681,7 +1686,7 @@ function lomtextform($data6, $dataform, $datalan, $parent_multi = NULL, $record 
 
 
         //an den uparxei eggrafh create one empty
-        if ($formcount === 0) {
+        if ($formcount === 0  and $view_mode!=1) {
             $formcount+=1;
             if ($parent_multi > 0) {
                 $multi = $parent_multi;
@@ -1715,7 +1720,7 @@ function lomtextform($data6, $dataform, $datalan, $parent_multi = NULL, $record 
     return $output;
 }
 
-function lomvcardform($data6, $dataform, $datalan, $record, $parent_multi = NULL) {
+function lomvcardform($data6, $dataform, $datalan, $record, $parent_multi = NULL, $view_mode) {
     require_once 'Omeka/Core.php';
     $core = new Omeka_Core;
 
@@ -1747,7 +1752,7 @@ function lomvcardform($data6, $dataform, $datalan, $record, $parent_multi = NULL
     echo '<div style="float:left;border-bottom:1px solid #d7d5c4;padding-right:9px; margin-right:5px;padding-bottom:9px; margin-bottom:5px; 
 			width:100%; " id="' . $dataform['id'] . '_' . $parent_multi . '">';
 
-    if ($dataform['max_occurs'] > 1) {
+    if ($dataform['max_occurs'] > 1 and $view_mode!=1) {
         echo '<a class="lom-add-new" href="#" onClick="addFormvcard(\'0\',\'' . $dataform['id'] . '_' . $parent_multi . '\',\'hdnLine_group_vcard_' . $dataform['id'] . '_' . $parent_multi . '\',\'' . $dataform['labal_name'] . '\'); return false;">Add new ' . $dataform['labal_name'] . '</a><br><br>';
     }
     $vcardcount = 0;
@@ -1791,7 +1796,7 @@ function lomvcardform($data6, $dataform, $datalan, $record, $parent_multi = NULL
                     echo '<input name="vcard_general_' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '" id="vcard_general_' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '" type="hidden" value="">';
                     $dataform['labal_name'] = return_multi_language_label_name($dataform['element_id']);
                     $labalname = $dataform['labal_name'];
-                    if ($datarecoreditable === 0) {
+                    if ($datarecoreditable === 0 or $view_mode==1) {
                         
                     } else {
                         $labalname.= '&nbsp;&nbsp;<a class="lom-remove" href="#" onClick="removeFormvcardExisted(\'' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '\',\'' . $dataform['id'] . '\',\'' . $datarecord['record_id'] . '\',\'' . $multi . '\',\'1\',\'' . $datarecordparent_indexer . '\'); return false;">Remove</a>';
@@ -1801,10 +1806,10 @@ function lomvcardform($data6, $dataform, $datalan, $record, $parent_multi = NULL
                     echo '<div style="float:left;">' . createlomlabel($labalname, 'for=' . $dataform['id'] . ' style="width:158px;"', NULL, $dataform['element_id']) . '</div><br>';
 
                     echo '<div style="float:left;">';
-                    echo '<span style="float:left; width:70px;">Name: </span>' . createlomelement('text', 'vcard_name_' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '', '' . stripslashes($childelements['name']) . '', 'class="textinput" id="' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '" style="float:left;width:200px;"', NULL, NULL, NULL, NULL, $datarecoreditable) . '<br><br>';
-                    echo '<span style="float:left; width:70px;">Surname: </span>' . createlomelement('text', 'vcard_surname_' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '', '' . stripslashes($childelements['surname']) . '', 'class="textinput" id="' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '" style="float:left;width:200px;"', NULL, NULL, NULL, NULL, $datarecoreditable) . '<br><br>';
-                    echo '<span style="float:left; width:70px;">Email: </span>' . createlomelement('text', 'vcard_email_' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '', '' . stripslashes($childelements['email']) . '', 'class="textinput" id="' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '" style="float:left;width:200px;"', NULL, NULL, NULL, NULL, $datarecoreditable) . '<br><br>';
-                    echo '<span style="float:left; width:70px;">Organization: </span>' . createlomelement('text', 'vcard_organization_' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '', '' . stripslashes($childelements['organization']) . '', 'class="textinput" id="' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '" style="float:left;width:200px;"', NULL, NULL, NULL, NULL, $datarecoreditable) . '<br><br>';
+                    echo '<span style="float:left; width:70px;">Name: </span>' . createlomelement('text', 'vcard_name_' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '', '' . stripslashes($childelements['name']) . '', 'class="textinput" id="' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '" style="float:left;width:200px;"', NULL, NULL, NULL, NULL, $datarecoreditable, $view_mode) . '<br><br>';
+                    echo '<span style="float:left; width:70px;">Surname: </span>' . createlomelement('text', 'vcard_surname_' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '', '' . stripslashes($childelements['surname']) . '', 'class="textinput" id="' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '" style="float:left;width:200px;"', NULL, NULL, NULL, NULL, $datarecoreditable, $view_mode) . '<br><br>';
+                    echo '<span style="float:left; width:70px;">Email: </span>' . createlomelement('text', 'vcard_email_' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '', '' . stripslashes($childelements['email']) . '', 'class="textinput" id="' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '" style="float:left;width:200px;"', NULL, NULL, NULL, NULL, $datarecoreditable, $view_mode) . '<br><br>';
+                    echo '<span style="float:left; width:70px;">Organization: </span>' . createlomelement('text', 'vcard_organization_' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '', '' . stripslashes($childelements['organization']) . '', 'class="textinput" id="' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '" style="float:left;width:200px;"', NULL, NULL, NULL, NULL, $datarecoreditable, $view_mode) . '<br><br>';
                     echo '</div>';
 
                     echo '</div>';
@@ -1812,6 +1817,7 @@ function lomvcardform($data6, $dataform, $datalan, $record, $parent_multi = NULL
             }//if hierarchy=dataform[id]
         }//foreach data6 
     } else {  //an den uparxei data6 alliws nea eggrafh
+        
         if ($parent_multi > 0) {
             $multi = $parent_multi;
         } else {
@@ -1827,22 +1833,23 @@ function lomvcardform($data6, $dataform, $datalan, $record, $parent_multi = NULL
         $labalname = $dataform['labal_name'];
 
         echo '<div style="float:left;">' . createlomlabel($labalname, 'for=' . $dataform['id'] . ' style="width:158px;"', NULL, $dataform['element_id']) . '</div><br>';
-
+            if($view_mode!=1){ //if view_mode not display empty
         echo '<div style="float:left;">';
         echo '<span style="float:left; width:70px;">Name: </span>' . createlomelement('text', 'vcard_name_' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '', '' . stripslashes($childelements['name']) . '', 'class="textinput" id="' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '" style="float:left;width:200px;"') . '<br><br>';
         echo '<span style="float:left; width:70px;">Surname: </span>' . createlomelement('text', 'vcard_surname_' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '', '' . stripslashes($childelements['surname']) . '', 'class="textinput" id="' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '" style="float:left;width:200px;"') . '<br><br>';
         echo '<span style="float:left; width:70px;">Email: </span>' . createlomelement('text', 'vcard_email_' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '', '' . stripslashes($childelements['email']) . '', 'class="textinput" id="' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '" style="float:left;width:200px;"') . '<br><br>';
         echo '<span style="float:left; width:70px;">Organization: </span>' . createlomelement('text', 'vcard_organization_' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '', '' . stripslashes($childelements['organization']) . '', 'class="textinput" id="' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '" style="float:left;width:200px;"') . '<br><br>';
         echo '</div>';
-
+            }//if view_mode not display empty
         echo '</div>';
+        
     }
     echo '<input name="hdnLine_group_vcard_' . $dataform['id'] . '_' . $multi . '" id="hdnLine_group_vcard_' . $dataform['id'] . '_' . $multi . '" type="hidden" value="' . $datarecordparent_indexer . '">';
     echo '</div>';
     return $output;
 }
 
-function lomparentform($data6, $dataform, $datalan, $record, $depth) {
+function lomparentform($data6, $dataform, $datalan, $record, $depth, $view_mode) {
     require_once 'Omeka/Core.php';
     $core = new Omeka_Core;
 
@@ -1899,9 +1906,9 @@ function lomparentform($data6, $dataform, $datalan, $record, $depth) {
                 if ($dataform['min_occurs'] > 0) {
                     $labalname.='*';
                 }
-                if ($dataform['max_occurs'] > 1) {
+                if ($dataform['max_occurs'] > 1 and $view_mode!=1) {
                     $labalname.= '&nbsp;&nbsp;<a class="lom-add-new" href="#" onClick="addFormmultiParent(\'0\',\'' . $dataform['id'] . '\',\'hdnLine_group_total_parent_' . $dataform['id'] . '\',\'' . $dataform['labal_name'] . '\'); return false;">Add ' . $dataform['labal_name'] . ' </a>&nbsp;&nbsp;';
-                    if ($datarecoreditablepar === 0) {
+                    if ($datarecoreditablepar === 0 or $view_mode==1) {
                         
                     } else {
                         $labalname.= '<a class="lom-remove" href="#" onClick="removeFormmultiParent(\'' . $dataform['id'] . '_' . $parent_multi . '\',\'' . $dataform['id'] . '\',\'' . $data6['record_id'] . '\',\'' . $parent_multi . '\',\'1\'); return false;">Remove ' . $dataform['labal_name'] . '</a>';
@@ -1921,7 +1928,7 @@ function lomparentform($data6, $dataform, $datalan, $record, $depth) {
                     if ($childelements['element_id'] === 48) {
                         $extra = "onchange='change49(this.value)'";
                     }
-                    checkelement($childelements, $datalan, $record, $depth, $extra, $parent_multi);
+                    checkelement($childelements, $datalan, $record, $depth, $extra, $parent_multi,NULL,$view_mode);
                 }
                 echo'</div>';
 
@@ -1952,7 +1959,7 @@ function lomparentform($data6, $dataform, $datalan, $record, $depth) {
             if ($dataform['min_occurs'] > 0) {
                 $labalname.='*';
             }
-            if ($dataform['max_occurs'] > 1) {
+            if ($dataform['max_occurs'] > 1 and $view_mode!=1) {
                 $labalname.= '&nbsp;&nbsp;<a class="lom-add-new" href="#" onClick="addFormmultiParent(\'0\',\'' . $dataform['id'] . '\',\'hdnLine_group_total_parent_' . $dataform['id'] . '\',\'' . $dataform['labal_name'] . '\'); return false;">Add ' . $dataform['labal_name'] . ' </a>';
             }
             echo '<input name="' . $dataform['id'] . '_' . $parent_multi . '" id="' . $dataform['id'] . '_' . $parent_multi . '" type="hidden" value="">';
@@ -1969,7 +1976,7 @@ function lomparentform($data6, $dataform, $datalan, $record, $depth) {
                 if ($childelements['element_id'] === 48) {
                     $extra = "onchange='change49(this.value)'";
                 }
-                checkelement($childelements, $datalan, $record, $depth, $extra, $parent_multi);
+                checkelement($childelements, $datalan, $record, $depth, $extra, $parent_multi,NULL,$view_mode);
             }
             echo'</div>';
 
@@ -1982,7 +1989,7 @@ function lomparentform($data6, $dataform, $datalan, $record, $depth) {
     return $output;
 }
 
-function checkelement($dataform, $datalan, $record, $depth = 0, $extra = NULL, $parent_multi = NULL, $for_translation = NULL) {
+function checkelement($dataform, $datalan, $record, $depth = 0, $extra = NULL, $parent_multi = NULL, $for_translation = NULL, $view_mode = NULL) {
 
     require_once 'Omeka/Core.php';
     $core = new Omeka_Core;
@@ -2011,49 +2018,49 @@ function checkelement($dataform, $datalan, $record, $depth = 0, $extra = NULL, $
     ////////////////////////////////if hierarchy type= parent////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     if ($dataform['datatype_id'] === 2) {
-        lomparentform($data6, $dataform, $datalan, $record, $depth);
+        lomparentform($data6, $dataform, $datalan, $record, $depth, $view_mode);
     } //end form name = parent
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////if hierarchy tyoe = vcard////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     elseif ($dataform['datatype_id'] === 3) {
-        echo lomvcardform($data6, $dataform, $datalan, $record, $parent_multi);
+        echo lomvcardform($data6, $dataform, $datalan, $record, $parent_multi, $view_mode);
     } //end form name = vcard
     elseif ($dataform['datatype_id'] === 4) {
         //echo lomselectformfromXml($data6,$dataform,$datalan,$extra,$parent_multi,$record);
     } //end form name = select from xml//////////////////////////////////////////
     elseif ($dataform['datatype_id'] === 5) {
-        echo lomontology($data6, $dataform, $datalan, $extra, $parent_multi, $record);
+        echo lomontology($data6, $dataform, $datalan, $extra, $parent_multi, $record, $view_mode);
     } //end form name = select from ontology//////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////if hierarchy form name = radio////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     elseif ($dataform['form_type_id'] === 4) {
-        echo lomradioform($data6, $dataform, $datalan);
+        echo lomradioform($data6, $dataform, $view_mode);
     } //end form name = radio
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////if hierarchy form name = select///////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     elseif ($dataform['datatype_id'] === 6) {
-        echo lomselectform($data6, $dataform, $datalan, $extra, $parent_multi, $record);
+        echo lomselectform($data6, $dataform, $datalan, $extra, $parent_multi, $record, $view_mode);
     } //end form name = select//////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////if hierarchy form name = text///////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     elseif ($dataform['form_type_id'] === 2) {
-        echo lomtextform($data6, $dataform, $datalan, $parent_multi, $record, $for_translation);
+        echo lomtextform($data6, $dataform, $datalan, $parent_multi, $record, $for_translation, $view_mode);
     } //end form name = text//////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////if hierarchy form name = date///////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     elseif ($dataform['form_type_id'] === 5) {
-        echo lomtextformdate($data6, $dataform, $datalan, $parent_multi, $record);
+        echo lomtextformdate($data6, $dataform, $datalan, $parent_multi, $record, $view_mode);
     } //end form name = date//////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////type=textarea////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     else {
-        echo lomtextareaform($data6, $dataform, $datalan, $parent_multi, $record, $for_translation);
+        echo lomtextareaform($data6, $dataform, $datalan, $parent_multi, $record, $for_translation, $view_mode);
     }
 }
 
@@ -2631,590 +2638,4 @@ jQuery(function () {
         </form>
 
         <?php
-    }
-    function show_metadata_info($object_id, $object_type, $language = 'en') {
-
-        require_once 'Omeka/Core.php';
-        $core = new Omeka_Core;
-
-        try {
-            $db = $core->getDb();
-
-            //Force the Zend_Db to make the connection and catch connection errors
-            try {
-                $mysqli = $db->getConnection()->getConnection();
-            } catch (Exception $e) {
-                throw new Exception("<h1>MySQL connection error: [" . mysqli_connect_errno() . "]</h1>" . "<p>" . $e->getMessage() . '</p>');
-            }
-        } catch (Exception $e) {
-            die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
-        }
-
-        //query for all values
-        $sql = "SELECT * FROM metadata_record WHERE object_id=" . $object_id . " and object_type='" . $object_type . "'";
-        $execrecord = $db->query($sql);
-        $metadatarecord = $execrecord->fetch();
-//foreach($datarecord as $datarecord){$datarecord['id']=$datarecord['id'];}
-//query for creating general elements pelement=0		 
-        $sql3 = "SELECT c.*,b.machine_name,b.id as elm_id2 FROM  metadata_element b  LEFT JOIN metadata_element_hierarchy c 
-			ON c.element_id = b.id WHERE c.pelement_id=0 and c.is_visible=1  ORDER BY (case WHEN c.sequence IS NULL THEN '9999' ELSE c.sequence END) ASC;";
-        $exec3 = $db->query($sql3);
-        $datageneral3 = $exec3->fetchAll();
-
-
-/////////////////////////
-
-        foreach ($datageneral3 as $datageneral3) {
-
-            $output2 = '';
-            $sql4 = "SELECT c.*,b.machine_name,b.id as elm_id FROM  metadata_element b  LEFT JOIN metadata_element_hierarchy c 
-			ON c.element_id = b.id  WHERE c.pelement_id=" . $datageneral3['elm_id2'] . " and c.is_visible=1 ORDER BY (case WHEN c.sequence IS NULL THEN '9999' ELSE c.sequence END) ASC;";
-            //echo $sql4;break;
-            $exec4 = $db->query($sql4);
-            $datageneral4 = $exec4->fetchAll();
-
-
-            if ($datageneral3['machine_name'] == 'rights') { ///////if RIGHTS
-                $output2.= show_metadata_info_elements($datageneral4, NULL, $metadatarecord, $datageneral3, $language);
-            } elseif ($datageneral3['machine_name'] == 'classification') { ///////if CLASSIFICATION
-                 $output2.= show_metadata_info_elements($datageneral4, NULL, $metadatarecord, $datageneral3,$language);
-            } elseif ($datageneral3['machine_name'] == 'relation') { ///////if RELATION
-                //$output2.= show_metadata_info_elements($datageneral4, NULL, $metadatarecord, $datageneral3,$language);
-            } else { ///the rest parent elements///////////////////////////////
-                foreach ($datageneral4 as $datageneral4) {
-
-
-
-                    $sql5 = "SELECT * FROM  metadata_element_value WHERE record_id=" . $metadatarecord['id'] . " and element_hierarchy=" . $datageneral4['id'] . " ORDER BY multi ASC;";
-                    //echo $sql4."<br>";
-                    $exec5 = $db->query($sql5);
-                    $datageneral5 = $exec5->fetchAll();
-                    $count_results = count($datageneral5);
-
-                    if ($count_results > 0) {
-
-                        if ($datageneral3['machine_name'] == 'general') { ///////if GENERAL
-                            $output2.= show_metadata_info_elements($datageneral4, $datageneral5, $metadatarecord, $datageneral3, $language);
-                        } elseif ($datageneral3['machine_name'] == 'educational') { ///////if EDUCATIONAL
-                            $output2.= show_metadata_info_elements($datageneral4, $datageneral5, $metadatarecord, $datageneral3, $language);
-                        } elseif ($datageneral3['machine_name'] == 'technical') { ///////if TECHNICAL
-                            $output2.= show_metadata_info_elements($datageneral4, $datageneral5, $metadatarecord, $datageneral3, $language);
-                        } elseif ($datageneral3['machine_name'] == 'lifeCycle') { ///////if LIFECYCLE
-                            $output2.= show_metadata_info_elements($datageneral4, $datageneral5, $metadatarecord, $datageneral3, $language);
-                        } elseif ($datageneral3['machine_name'] == 'metaMetadata') { ///////if META-METADATA
-                            $output2.= show_metadata_info_elements($datageneral4, $datageneral5, $metadatarecord, $datageneral3, $language);
-                        } elseif ($datageneral3['machine_name'] == 'annotation') { ///////if ANNOTATION
-                            $output2.= show_metadata_info_elements($datageneral4, $datageneral5, $metadatarecord, $datageneral3, $language);
-                        } else {
-                            $output2.= show_metadata_info_elements($datageneral4, $datageneral5, $metadatarecord, NULL, $language);
-                        }
-                    }//if count_results
-                }//datageneral4
-            } ///the rest parent elements///////////////////////////////	
-            ////////////////echo the result of all parent element if exist
-
-            if (strlen($output2) > 0) {
-                $sqltr = "SELECT * FROM metadata_element_label WHERE element_id=" . $datageneral3['elm_id2'] . " and language_id='" . $language . "'";
-                $execrecordtr = $db->query($sqltr);
-                $metadatarecordtr = $execrecordtr->fetch();
-                $output.= '<strong><u>' . $metadatarecordtr['labal_name'] . '</u></strong>:<br>';
-                $output.= $output2;
-                $output.= "<br>";
-            }
-        }//datageneral3
-
-
-
-
-        /*
-          $sql="SELECT a.*,c.labal_name FROM metadata_element_value a join metadata_element_hierarchy b ON b.id=a.element_hierarchy join metadata_element_label c ON b.element_id=c.element_id WHERE a.record_id=".$datarecord['id']." ORDER BY b.pelement_id ASC, b.sequence ASC";
-          $exec5=$db->query($sql);
-          $data51=$exec5->fetchAll();
-
-          $output='';
-          foreach($data51 as $data5){
-
-          if($data5['labal_name']=='Are commercial uses of this resource allowed?'){
-
-          $right1=$data5['value'];
-          }
-
-          elseif($data5['labal_name']=='Are modifications of your work of this resource by other people allowed?'){
-
-          $right2=$data5['value'];
-          }
-          else{
-
-
-          if($data5['language_id']=='en' or $data5['language_id']=='none'){
-          if(strlen($data5['value'])>1){
-          if($data5['labal_name']=='Please elaborate'){
-          $output.= $data5['value']." , ";
-          } else{
-          $output.= "<strong>".$data5['labal_name']."</strong> : ".$data5['value']." , ";}
-          }
-          }
-          }
-
-          }
-          $output2='';
-          if($right1=='yes' and $right2=='yes'){$output2.= '<br><a href="http://www.creativecommons.org/licenses/by/3.0" target="_blank"><img src="'.uri('themes/natural/images/cc/cc-by.png').'"></a>';}
-          elseif($right1=='yes' and $right2=='no'){$output2.= '<br><a href="http://www.creativecommons.org/licenses/by-nd/3.0" target="_blank"><img src="'.uri('themes/natural/images/cc/cc-by-nd.png').'"></a>';}
-          elseif($right1=='yes' and $right2=='Yes, if others share alike'){$output2.= '<br><a href="http://www.creativecommons.org/licenses/by-sa/3.0" target="_blank"><img src="'.uri('themes/natural/images/cc/cc-by-sa.png').'"></a>';}
-          elseif($right1=='no' and $right2=='yes'){$output2.= '<br><a href="http://www.creativecommons.org/licenses/by-nc/3.0" target="_blank"><img src="'.uri('themes/natural/images/cc/cc-by-nc.png').'"></a>';}
-          elseif($right1=='no' and $right2=='no'){$output2.= '<br><a href="http://www.creativecommons.org/licenses/by-nc-nd/3.0" target="_blank"><img src="'.uri('themes/natural/images/cc/cc-by-nc-nd.png').'"></a>';}
-          elseif($right1=='no' and $right2=='Yes, if others share alike'){$output2.= '<br><a href="http://www.creativecommons.org/licenses/by-nc-sa/3.0" target="_blank"><img src="'.uri('themes/natural/images/cc/cc-by-nc-sa.png').'"></a>';}
-          else{echo ' ';}
-
-          $len=strlen($output);
-          $test=substr($output,0,($len-2));
-          echo $test;
-          echo $output2;
-          //end
-         * 
-         */
-        echo $output;
-    }
-
-    function show_metadata_info_elements($datageneral4, $datageneral5, $metadatarecord, $datageneral3, $language) {
-
-        require_once 'Omeka/Core.php';
-        $core = new Omeka_Core;
-
-        try {
-            $db = $core->getDb();
-
-            //Force the Zend_Db to make the connection and catch connection errors
-            try {
-                $mysqli = $db->getConnection()->getConnection();
-            } catch (Exception $e) {
-                throw new Exception("<h1>MySQL connection error: [" . mysqli_connect_errno() . "]</h1>" . "<p>" . $e->getMessage() . '</p>');
-            }
-        } catch (Exception $e) {
-            die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
-        }
-
-        $thereturn = '';
-
-
-
-        if ($datageneral3['machine_name'] == 'rights') { ///////if RIGHTS
-            foreach ($datageneral4 as $datageneral4) {
-                $sqltr = "SELECT * FROM metadata_element_label WHERE element_id=" . $datageneral4['elm_id'] . " and language_id='" . $language . "'";
-                $execrecordtr = $db->query($sqltr);
-                $metadatarecordtr = $execrecordtr->fetch();
-                $sql5 = "SELECT * FROM  metadata_element_value WHERE record_id=" . $metadatarecord['id'] . " and element_hierarchy=" . $datageneral4['id'] . " ORDER BY multi ASC;";
-                //echo $sql4."<br>";
-                $exec5 = $db->query($sql5);
-                $datageneral5 = $exec5->fetchAll();
-                $exec_right = $db->query($sql5);
-                $datageneral_right = $exec_right->fetch();
-                $count_results = count($datageneral5);
-
-                if ($count_results > 0) {
-                    //echo $datageneral_right['element_hierarchy']."123";
-                    if ($datageneral_right['element_hierarchy'] == 22) {  /////rights for creative commons  element_id=22
-                        if (strlen($datageneral_right['value']) > 0) {
-                            $right1 = $datageneral_right['value'];
-                        }
-                    } elseif ($datageneral_right['element_hierarchy'] == 23) {  /////rights for creative commons element_id=23
-                        if (strlen($datageneral_right['value']) > 0) {
-                            $right2 = $datageneral_right['value'];
-                        }
-                    } elseif ($datageneral_right['element_hierarchy'] == 9) {  /////rights for adding source value element_id=9
-                        if (strlen($datageneral_right['value']) > 0) {
-
-                            $thereturn.= '' . $metadatarecordtr['labal_name'] . ':' . $datageneral_right['value'] . '<br>';
-                        }
-                    } elseif ($datageneral_right['element_hierarchy'] == 24) {  /////rights for adding source value element_id=24
-                        if (strlen($datageneral_right['value']) > 0) {
-
-                            $thereturn.= '' . $metadatarecordtr['labal_name'] . ':' . $datageneral_right['value'] . '<br>';
-                        }
-                    } elseif ($datageneral_right['element_hierarchy'] == 81) {  ////if isset description instead of creative commons
-                        if (strlen($datageneral_right['value']) > 0) {
-                            $right3 = $datageneral_right['value'];
-                        }
-                    } else {
-                        $thereturn.=show_metadata_info_preview_elements_from_datatype($datageneral4, $datageneral5, $metadatarecord, NULL, $language); //else echo the element
-                    }
-                }///if($count_results>0){ 
-            }//foreach datageneral4 afou exei perasei oles tis times...
-            //////////////diadikasia gia echo to creative commons h to description an uparxei auto.////////////////
-            if (strlen($right3) > 0) {
-                $thereturn.=show_metadata_info_preview_elements_from_datatype($datageneral4, $datageneral5, $metadatarecord, NULL, $language);
-            } elseif ($right1 == 'yes' and $right2 == 'yes') {
-                $thereturn.= '<br><a href="http://www.creativecommons.org/licenses/by/3.0" target="_blank"><img src="' . uri('themes/default/images/cc/cc-by.png') . '"></a>';
-            } elseif ($right1 == 'yes' and $right2 == 'no') {
-                $thereturn.= '<br><a href="http://www.creativecommons.org/licenses/by-nd/3.0" target="_blank"><img src="' . uri('themes/default/images/cc/cc-by-nd.png') . '"></a>';
-            } elseif ($right1 == 'yes' and $right2 == 'Yes, if others share alike') {
-                $thereturn.= '<br><a href="http://www.creativecommons.org/licenses/by-sa/3.0" target="_blank"><img src="' . uri('themes/default/images/cc/cc-by-sa.png') . '"></a>';
-            } elseif ($right1 == 'no' and $right2 == 'yes') {
-                $thereturn.= '<br><a href="http://www.creativecommons.org/licenses/by-nc/3.0" target="_blank"><img src="' . uri('themes/default/images/cc/cc-by-nc.png') . '"></a>';
-            } elseif ($right1 == 'no' and $right2 == 'no') {
-                $thereturn.= '<br><a href="http://www.creativecommons.org/licenses/by-nc-nd/3.0" target="_blank"><img src="' . uri('themes/default/images/cc/cc-by-nc-nd.png') . '"></a>';
-            } elseif ($right1 == 'no' and $right2 == 'Yes, if others share alike') {
-                $thereturn.= '<br><a href="http://www.creativecommons.org/licenses/by-nc-sa/3.0" target="_blank"><img src="' . uri('themes/default/images/cc/cc-by-nc-sa.png') . '"></a>';
-            }
-        } elseif ($datageneral3['machine_name'] == 'classification') { ///////if CLASSIFICATION
-            $thereturn = '';
-            $thereturnonto = '';
-            foreach ($datageneral4 as $datageneral4) {
-
-                $sql8 = "SELECT * FROM  metadata_element_value WHERE record_id=" . $metadatarecord['id'] . " and element_hierarchy=" . $datageneral4['id'] . " ORDER BY multi ASC ;";
-                //echo $sql8."<br>"; break;
-                $exec8 = $db->query($sql8);
-                $datageneral8 = $exec8->fetchAll();
-                $count_results8 = count($datageneral8);
-                if ($count_results8 > 0) {
-
-                    //print_r($datageneral8);break;
-                    foreach ($datageneral8 as $datageneral8) {
-
-                        $sql6 = "SELECT c.*,b.machine_name,b.id as elm_id FROM  metadata_element b  LEFT JOIN metadata_element_hierarchy c 
-			ON c.element_id = b.id  WHERE c.pelement_id=" . $datageneral4['elm_id'] . " and c.is_visible=1 ;";
-                        //echo $sql6."<br>";
-                        $exec6 = $db->query($sql6);
-                        $datageneral6 = $exec6->fetchAll();
-                        foreach ($datageneral6 as $datageneral6) {
-                            //print_r($datageneral6);break;
-                            $sql7 = "SELECT * FROM  metadata_element_value WHERE record_id=" . $metadatarecord['id'] . " and element_hierarchy=" . $datageneral6['id'] . " and multi=" . $datageneral8['multi'] . " ORDER BY parent_indexer ASC ;";
-                            //echo $sql7; break;
-                            $exec7 = $db->query($sql7);
-                            $datageneral5 = $exec7->fetchAll();
-                            $count_results5 = count($datageneral5);
-
-                            if ($count_results5 > 0) {
-
-
-
-                                foreach ($datageneral5 as $datageneral5) {
-
-                                    if ($datageneral5['element_hierarchy'] == 87) {  /////ontology  element_id=85 
-                                        //echo $datageneral5['vocabulary_record_id']."<br>";
-                                        if (strlen($datageneral5['vocabulary_record_id']) > 0) {
-                                            $sql_ont = "SELECT * FROM  metadata_vocabulary_record WHERE id=" . $datageneral5['vocabulary_record_id'] . " ;";
-                                            //echo $sql_ont."<br>";
-                                            $exec_ont = $db->query($sql_ont);
-                                            $datageneral_ont = $exec_ont->fetch();
-                                            $ontology1 = $datageneral_ont['value'];
-                                            //$selectvaluesvalue2 = explode(' ', $ontology1);
-                                            //$ontology1 = '';
-                                            //foreach ($selectvaluesvalue2 as $selectvaluesvalue2) {
-                                            //    $ontology1.=ucfirst($selectvaluesvalue2);
-                                           // }
-                                        }
-                                    }
-                                    if ($datageneral5['element_hierarchy'] == 80) {  /////ontology  element_id=80
-                                        if (strlen($datageneral5['value']) > 0) {
-
-                                            $ontology2 = $datageneral5['value'];
-                                            //$selectvaluesvalue2 = explode(' ', $ontology2);
-                                            //$ontology2 = '';
-                                            //foreach ($selectvaluesvalue2 as $selectvaluesvalue2) {
-                                             //   $ontology2.=ucfirst($selectvaluesvalue2);
-                                           // }
-                                        }
-                                    }
-                                }//foreach($datageneral5 as $datageneral5){
-                            }//if($count_results5>0){
-                        }//foreach($datageneral6 as $datageneral6){
-                        ////////////////view the ontology like organic-edunet schema//////////
-                        $taxon_id_value = "http://www.cc.uah.es/ie/ont/OE-Predicates#" . $ontology1 . " :: http://www.cc.uah.es/ie/ont/OE-OAAE#" . $ontology2 . "";
-                        $taxon_entry = $ontology1 . " :: " . $ontology2 . "";
-
-                        $thereturnonto .= '<br><strong>Puprose.Discipline</strong><br>';
-                        $thereturnonto .= '&nbsp;&nbsp;'.$ontology1.'<br>';
-                        $thereturnonto .= '&nbsp;&nbsp;'.$ontology2.'<br>';
-
-                    }//foreach($datageneral8 as $datageneral8){
-                }//if($count_results8>0){
-            }//foreach datageneral4
-            if (strlen($thereturnonto) > 0) {
-                // $thereturn.= '<strong>Puprose</strong><br>';
-               // $thereturn .= 'source: LOMv1.0<br>';
-               // $thereturn .= 'value: discipline<br>';
-
-            }
-            $thereturn .=$thereturnonto;
-        } elseif ($datageneral3['machine_name'] == 'relation') { ///////if RELATION
-            foreach ($datageneral4 as $datageneral4) {
-                $sql5 = "SELECT * FROM  metadata_element_value WHERE record_id=" . $metadatarecord['id'] . " and element_hierarchy=" . $datageneral4['id'] . " ORDER BY multi ASC;";
-                //echo $sql4."<br>";
-                $exec5 = $db->query($sql5);
-                $datageneral5 = $exec5->fetchAll();
-                $count_results = count($datageneral5);
-
-                if ($count_results > 0) {
-                    $thereturn.=show_metadata_info_preview_elements_from_datatype($datageneral4, $datageneral5, $metadatarecord, NULL, $language);
-                }
-            }
-        } elseif ($datageneral3['machine_name'] == 'general') { ///////if general
-            $thereturn = show_metadata_info_preview_elements_from_datatype($datageneral4, $datageneral5, $metadatarecord, NULL, $language);
-        } elseif ($datageneral3['machine_name'] == 'lifeCycle') { ///////if lifeCycle
-            $thereturn = show_metadata_info_preview_elements_from_datatype($datageneral4, $datageneral5, $metadatarecord, NULL, $language);
-        } elseif ($datageneral3['machine_name'] == 'technical') { ///////if technical
-            $thereturn = show_metadata_info_preview_elements_from_datatype($datageneral4, $datageneral5, $metadatarecord, NULL, $language);
-        } elseif ($datageneral3['machine_name'] == 'educational') { ///////if educational
-            $thereturn = show_metadata_info_preview_elements_from_datatype($datageneral4, $datageneral5, $metadatarecord, NULL, $language);
-        } elseif ($datageneral3['machine_name'] == 'annotation') { ///////if annotation
-            $thereturn = show_metadata_info_preview_elements_from_datatype($datageneral4, $datageneral5, $metadatarecord, NULL, $language);
-        } elseif ($datageneral3['machine_name'] == 'metaMetadata') { ///////if metaMetadata
-            $thereturn = show_metadata_info_preview_elements_from_datatype($datageneral4, $datageneral5, $metadatarecord, NULL, $language);
-        } else {
-            $thereturn = show_metadata_info_preview_elements_from_datatype($datageneral4, $datageneral5, $metadatarecord, NULL, $language);
-        }
-
-        return $thereturn;
-    }
-
-    function show_metadata_info_langstring($machine_name, $datageneral5, $multi, $previousmulti, $language, $datageneral4) {
-        require_once 'Omeka/Core.php';
-        $core = new Omeka_Core;
-
-        try {
-            $db = $core->getDb();
-
-            //Force the Zend_Db to make the connection and catch connection errors
-            try {
-                $mysqli = $db->getConnection()->getConnection();
-            } catch (Exception $e) {
-                throw new Exception("<h1>MySQL connection error: [" . mysqli_connect_errno() . "]</h1>" . "<p>" . $e->getMessage() . '</p>');
-            }
-        } catch (Exception $e) {
-            die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
-        }
-        
-        $sqltr = "SELECT * FROM metadata_element_label WHERE element_id=" . $datageneral4['elm_id'] . " and language_id='" . $language . "'";
-        $execrecordtr = $db->query($sqltr);
-        $metadatarecordtr = $execrecordtr->fetch();
-
-        $thereturn_lnstr = '';
-        //$thereturn_lnstr.= ''.$metadatarecordtr['labal_name'].': ';
-        //echo $language;
-        $final_langstring='';
-        $langstring_en='';
-        $multi = 0;
-        $previousmulti = 0;
-        $final_langstring_table=  array();
-        foreach ($datageneral5 as $datageneral51) {
-            $multi = $datageneral51['multi'];
-            $langstring='';
-            if(!strlen($final_langstring)>0){$final_langstring=$datageneral51['value'];}
-            if($datageneral51['language_id']==$language){$langstring=$datageneral51['value'];}
-            if($datageneral51['language_id']=='en'){$langstring_en=$datageneral51['value'];}
-            if(strlen($langstring)>0){$final_langstring_table[$multi]['lanstring']=$langstring;}
-            if(strlen($langstring_en)>0){$final_langstring_table[$multi]['english']=$langstring_en;}
-            $final_langstring_table[$multi]['general']=$final_langstring;
-        }  
-            
-        foreach ($datageneral5 as $datageneral51) {
-            $final_langstring='';
-            $multi = $datageneral51['multi'];
-            if ($multi != $previousmulti) {
-                if(strlen($final_langstring_table[$multi]['lanstring'])>0){
-                    $final_langstring=$final_langstring_table[$multi]['lanstring'];
-                }elseif(strlen($final_langstring_table[$multi]['english'])>0){
-                    $final_langstring=$final_langstring_table[$multi]['english'];
-                }else{
-                    $final_langstring=$final_langstring_table[$multi]['general'];
-                }
-                $thereturn_lnstr.= $metadatarecordtr['labal_name'].': '.$final_langstring.'<br>';
-            }
-            
-            $previousmulti = $datageneral51['multi'];
-        }
-        
-
-        
-
-        
-        return $thereturn_lnstr;
-    }
-
-    function show_metadata_info_preview_elements_from_datatype($datageneral4, $datageneral5, $metadatarecord, $parent_machine_name = NULL, $language) {
-        require_once 'Omeka/Core.php';
-        $core = new Omeka_Core;
-
-        try {
-            $db = $core->getDb();
-
-            //Force the Zend_Db to make the connection and catch connection errors
-            try {
-                $mysqli = $db->getConnection()->getConnection();
-            } catch (Exception $e) {
-                throw new Exception("<h1>MySQL connection error: [" . mysqli_connect_errno() . "]</h1>" . "<p>" . $e->getMessage() . '</p>');
-            }
-        } catch (Exception $e) {
-            die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
-        }
-
-//////get the machine name
-        if (strlen($datageneral4['machine_name']) > 0) {
-            $machine_name = $datageneral4['machine_name'];
-        } else {
-            $machine_name = 'no_machine_name';
-        }
-
-        $multi = 0;
-        $previousmulti = 0;
-
-
-
-
-        if ($datageneral4['datatype_id'] == 1) {
-
-            $output.=show_metadata_info_langstring($machine_name, $datageneral5, $multi, $previousmulti, $language, $datageneral4);
-            ///////////////////Parent Element///////////////////////
-        } elseif ($datageneral4['datatype_id'] == 2) {
-
-            $sql8 = "SELECT * FROM  metadata_element_value WHERE record_id=" . $metadatarecord['id'] . " and element_hierarchy=" . $datageneral4['id'] . " ORDER BY multi ASC ;";
-            //echo $sql8."<br>"; break;
-            $exec8 = $db->query($sql8);
-            $datageneral8 = $exec8->fetchAll();
-            $count_results8 = count($datageneral8);
-            if ($count_results8 > 0) {
-
-                //print_r($datageneral8);break;
-                foreach ($datageneral8 as $datageneral8) {
-                    $output2 = '';
-                    $sql6 = "SELECT c.*,b.machine_name,b.id as elm_id FROM  metadata_element b  LEFT JOIN metadata_element_hierarchy c 
-			ON c.element_id = b.id  WHERE c.pelement_id=" . $datageneral4['elm_id'] . " and c.is_visible=1 ;";
-                    //echo $sql6."<br>";
-                    $exec6 = $db->query($sql6);
-                    $datageneral6 = $exec6->fetchAll();
-
-                    foreach ($datageneral6 as $datageneral6) {
-                        //print_r($datageneral6);break;
-                        $sql7 = "SELECT * FROM  metadata_element_value WHERE record_id=" . $metadatarecord['id'] . " and element_hierarchy=" . $datageneral6['id'] . " and multi=" . $datageneral8['multi'] . " ORDER BY parent_indexer ASC ;";
-                        //echo $sql7; break;
-                        $exec7 = $db->query($sql7);
-                        $datageneral7 = $exec7->fetchAll();
-                        $count_results2 = count($datageneral7);
-
-                        if ($count_results2 > 0) {
-
-                            $output2.=show_metadata_info_preview_elements_from_datatype($datageneral6, $datageneral7, $metadatarecord, NULL, $language);
-                        }///if($count_results2>0){
-                    }///foreach datageneral6
-                    if (strlen($output2) > 0) {
-                $sqltr = "SELECT * FROM metadata_element_label WHERE element_id=" . $datageneral4['elm_id'] . " and language_id='" . $language . "'";
-                $execrecordtr = $db->query($sqltr);
-                $metadatarecordtr = $execrecordtr->fetch();
-                $output.= '<strong>' . $metadatarecordtr['labal_name'] . '</strong><br>';
-
-                        $output.= $output2.'<br>';
-                        
-                    }
-                }///foreach datageneral6
-            }///if($count_results8>0){
-            ///////////////////vcard///////////////////////			
-        } elseif ($datageneral4['datatype_id'] == 3) {
-
-            foreach ($datageneral5 as $datageneral5) {
-                $sql10 = "SELECT * FROM  metadata_vcard WHERE id=" . $datageneral5['vcard_id'] . ";";
-                //echo $sql10;break;
-                $exec10 = $db->query($sql10);
-                $datageneral10 = $exec10->fetch();
-
-                if (strlen($datageneral10['name']) > 0 or strlen($datageneral10['surname']) > 0) {
-                    $fullname = "<br>&nbsp;&nbsp;Full Name: " . $datageneral10['name'] . " " . $datageneral10['surname'] . "";
-                } else {
-                    $fullname = '';
-                }
-                if (strlen($datageneral10['email']) > 0) {
-                    $email = "<br>&nbsp;&nbsp;Email: " . $datageneral10['email'] . "";
-                } else {
-                    $email = '';
-                }
-
-                if (strlen($datageneral10['organization']) > 0) {
-                    $organization = "<br>&nbsp;&nbsp;Organization: " . $datageneral10['organization'] . "";
-                } else {
-                    $organization = '';
-                }
-                if (strlen($datageneral10['name']) > 0 or strlen($datageneral10['surname']) > 0) {
-                    if (strlen($datageneral10['surname']) > 0) {
-                        $surname = $datageneral10['surname'] . ';';
-                    } else {
-                        $surname = '';
-                    }
-                    if (strlen($datageneral10['name']) > 0) {
-                        $name = $datageneral10['name'];
-                    } else {
-                        $name = '';
-                    }
-                    $name = "<br>&nbsp;&nbsp;Name:" . $surname . "" . $datageneral10['name'] . "";
-                } else {
-                    $name = '';
-                }
-
-                $sqltr = "SELECT * FROM metadata_element_label WHERE element_id=" . $datageneral4['elm_id'] . " and language_id='" . $language . "'";
-                $execrecordtr = $db->query($sqltr);
-                $metadatarecordtr = $execrecordtr->fetch();
-                
-                $output.= '' . $metadatarecordtr['labal_name'] . ': ';
-                //$output.="" . $fullname . "" . $email . "" . $organization . "" . $name . "<br>";
-                $output.="" . $fullname . "" . $email . "" . $organization . "<br>";
-
-            }
-
-            ///////////////////vocabulary///////////////////////			
-        } elseif ($datageneral4['datatype_id'] == 6) {
-$sqltr = "SELECT * FROM metadata_element_label WHERE element_id=" . $datageneral4['elm_id'] . " and language_id='" . $language . "'";
-$execrecordtr = $db->query($sqltr);
-$metadatarecordtr = $execrecordtr->fetch();
-
-            foreach ($datageneral5 as $datageneral5) {
-                if ($datageneral5['vocabulary_record_id'] > 0) {
-                    $sql10 = "SELECT * FROM  metadata_vocabulary_record WHERE id=" . $datageneral5['vocabulary_record_id'] . ";";
-                    //echo $sql10;break;
-                    $exec10 = $db->query($sql10);
-                    $datageneral101 = $exec10->fetch();
-                    $sql10 = "SELECT * FROM  metadata_vocabulary_value WHERE vocabulary_rid=" . $datageneral101['id'] . " and language_id='".$language."';";
-                    //echo $sql10;break;
-                    $exec10 = $db->query($sql10);
-                    $datageneral10 = $exec10->fetch();
-
-                    if (strlen($datageneral10['source']) > 0) {
-                        $output.= '' . $metadatarecordtr['labal_name'] . ': ';
-                        $output.=$datageneral10['label'].'<br>';
-
-                    } else {
-                        $output.= '' . $metadatarecordtr['labal_name'] . ': ';
-                        $output.=$datageneral10['label'].'<br>';
-                    }
-                }//if($datageneral5['vocabulary_record_id']>0){
-            }//foreach($datageneral5 as $datageneral5){
-            ///////////////////$datetime///////////////////////
-        } elseif ($datageneral4['form_type_id'] == 5) {
-$sqltr = "SELECT * FROM metadata_element_label WHERE element_id=" . $datageneral4['elm_id'] . " and language_id='" . $language . "'";
-$execrecordtr = $db->query($sqltr);
-$metadatarecordtr = $execrecordtr->fetch();
-            foreach ($datageneral5 as $datageneral5) {
-                $datetime = $datageneral5['value'];
-
-                $output.= '' . $metadatarecordtr['labal_name'] . ': ';
-                $output.=$datetime.'<br>';
-
-
-            }
-
-            ///////////////////Nothing///////////////////////
-        } else {
-
-$sqltr = "SELECT * FROM metadata_element_label WHERE element_id=" . $datageneral4['elm_id'] . " and language_id='" . $language . "'";
-$execrecordtr = $db->query($sqltr);
-$metadatarecordtr = $execrecordtr->fetch();
-            foreach ($datageneral5 as $datageneral5) {
-                $datetime = $datageneral5['value'];
-
-                $output.= '' . $metadatarecordtr['labal_name'] . ': ';
-                $output.=$datetime.'<br>';
-
-
-            }
-        }
-
-        return $output;
     }

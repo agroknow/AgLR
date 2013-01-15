@@ -11,9 +11,9 @@
 <?php head(array('title' => $fileTitle, 'bodyclass'=>'files show primary-secondary')); ?>
 
 <h1><?php echo $fileTitle; ?></h1>
-<?php if (has_permission('Files', 'edit') or $file->getItem()->wasAddedBy(current_user())): ?>
+<?php /*if (has_permission('Files', 'edit') or $file->getItem()->wasAddedBy(current_user())): ?>
     <p id="edit-file" class="edit-button"><?php echo link_to($file, 'edit', __('Edit this File'), array('class'=>'edit')); ?></p>
-<?php endif; ?>
+<?php endif; */?>
 <div id="primary">
     <div id="fullsize-file">
         <?php echo display_file($file, array('imageSize' => 'fullsize')); ?>
@@ -49,14 +49,14 @@
     <dt><?php echo __('File Type / OS'); ?>:</dt> <dd><?php echo item_file('File Type OS'); ?></dd>
     </dl>
     </div>
-
+<?php /*
     <div class="info-panel">
         <h2><?php echo __('Output Formats'); ?></h2>
         <div>
             <?php echo output_format_list(); ?>
         </div>
     </div>
-    
+    */?>
     <?php fire_plugin_hook('admin_append_to_files_show_secondary', $file); ?>
 </div>
 <?php foot();?>

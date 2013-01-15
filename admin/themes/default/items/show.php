@@ -16,6 +16,7 @@ try {
 	die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
 }
 ?>
+
 <?php    
     $itemTitle = strip_formatting(item('Dublin Core', 'Title'));
     if ($itemTitle != '' && $itemTitle != __('[Untitled]')) {
@@ -23,11 +24,16 @@ try {
     } else {
         $itemTitle = '';
     }
-    $itemTitle = __('Item #%s', item('id')) . $itemTitle;
+    $itemTitle = __('View Item #%s', item('id')) . $itemTitle;
 ?>
-<?php head(array('title' => $itemTitle, 'bodyclass'=>'items show primary-secondary')); ?>
+<?php //head(array('title' => $itemTitle, 'bodyclass'=>'items show primary-secondary')); ?>
+<?php head(array('title' => $itemTitle, 'bodyclass'=>'items primary','content_class' => 'vertical-nav'));?>
 
 <?php echo js('items'); ?>
+<?php echo js('jquery.jstree'); ?>
+<?php echo js('prototype'); ?>
+<?php echo js('scriptaculous'); ?>
+<?php echo js('tooltip'); ?>
 
 <h1 id="item-title"><?php echo $itemTitle; ?></h1>
 
@@ -53,6 +59,81 @@ jQuery(document).ready(function () {
 });
 //]]>     
 </script>
+  <script type="text/javascript">
+
+jQuery(function(){
+         jQuery('#show_optional').click(function(){
+			 var value=jQuery('.optional_element').css("display");
+			 if(value=='none'){
+				 jQuery('.optional_element').css("display", "block"); 
+				  jQuery('#show_optional').css("background-color", "#FFFFFF");
+                                   jQuery('#show_optional').text("Only recommended");
+
+ 
+			 }else{
+				 jQuery('.optional_element').css("display", "none"); 
+				  jQuery('#show_optional').css("background-color", "#F4F3EB");
+                                   jQuery('#show_optional').text("Enrich Metadata");
+
+
+			 }
+              
+
+
+        });
+
+
+});
+
+</script>
+<script type="text/javascript" charset="utf-8">
+    //<![CDATA[
+    // TinyMCE hates document.ready.
+    jQuery(window).load(function () {
+        Omeka.Items.initializeTabs();
+
+        var addImage = <?php echo js_escape(img('silk-icons/add.png')); ?>;
+        var deleteImage = <?php echo js_escape(img('silk-icons/delete.png')); ?>;
+        Omeka.Items.tagDelimiter = <?php echo js_escape(get_option('tag_delimiter')); ?>;
+        Omeka.Items.enableTagRemoval(addImage, deleteImage);
+        Omeka.Items.makeFileWindow();
+        Omeka.Items.tagChoices('#tags', <?php echo js_escape(uri(array('controller' => 'tags', 'action' => 'autocomplete'), 'default', array(), true)); ?>);
+
+        // Must run the element form scripts AFTER reseting textarea ids.
+        jQuery(document).trigger('omeka:elementformload');
+
+        Omeka.Items.enableAddFiles();
+        Omeka.Items.changeItemType(<?php echo js_escape(uri("items/change-type")) ?><?php if ($id = item('id')) echo ', ' . $id; ?>);
+    });
+
+    jQuery(document).bind('omeka:elementformload', function () {
+        Omeka.Items.makeElementControls(<?php echo js_escape(uri('items/element-form')); ?><?php if ($id = item('id')) echo ', ' . $id; ?>);
+    });
+    //]]>   
+</script>
+<style>
+        [disabled] {
+        background-color: #ffffff !important;
+        border-color: #ccc !important;
+        color: #000000 !important;
+    }
+	
+	[readonly] {
+        background-color: #ffffff !important;
+		border: 1px solid #ccc !important;
+                color: #000000 !important;
+    font-family: "Lucida Grande",sans-serif;
+    font-size: 1.2em;
+    padding: 3px;
+
+    }
+    </style>
+
+<div>
+<a style="position:relative; float:right; right:0px;" id="show_optional">Enrich Metadata</a>
+</div>
+<br style="clear:both;">
+    <?php include 'form-tabs.php'; // Definitions for all the tabs for the form. ?>
 <div id="primary">
 <?php echo flash(); ?>
 
@@ -62,7 +143,168 @@ jQuery(document).ready(function () {
 </div>
      * 
      */ ?>
-<div id="itemfiles" class="element">
+    
+    
+    <div id="item-metadata">
+
+    <?php if (isset($item['id'])) { ?>
+          <?php
+        //query for creating general elements pelement=0		 
+        $sql2 = "SELECT a.*,c.*,b.* FROM metadata_element_label a LEFT JOIN metadata_element b ON a.element_id = b.id LEFT JOIN metadata_element_hierarchy c 
+			ON c.element_id = b.id WHERE c.pelement_id=0 and c.is_visible=1 GROUP BY a.element_id ORDER BY (case WHEN c.sequence IS NULL THEN '9999' ELSE c.sequence END) ASC;";
+        $exec2 = $db->query($sql2);
+        $step = 0;
+        $exec3 = $db->query($sql2);
+        //end
+
+
+
+
+        $data2 = $exec3->fetchAll(); //again to query gia ola ta parent =0 gia create step div
+//query for all elements without asking pelement
+        $sql = "SELECT f.*,e.vocabulary_id,e.id as elm_id FROM  metadata_element e  RIGHT JOIN metadata_element_hierarchy f ON f.element_id = e.id WHERE f.is_visible=1 GROUP BY e.id  ORDER BY (case WHEN f.sequence IS NULL THEN '9999' ELSE f.sequence END) ASC";
+/////////////////query for translate specific elements//////////
+        if (isset($_POST['submit_language'])) {
+            $sql = "SELECT f.*,e.vocabulary_id,e.id as elm_id FROM  metadata_element e  RIGHT JOIN metadata_element_hierarchy f ON f.element_id = e.id WHERE (f.id=6 or f.id=8 or f.id=35) and f.is_visible=1 GROUP BY e.id  ORDER BY (case WHEN f.sequence IS NULL THEN '9999' ELSE f.sequence END) ASC";
+        }
+        $exec4 = $db->query($sql);
+        $data4 = $exec4->fetchAll();
+//end
+//query for all values
+        $sql = "SELECT * FROM metadata_record WHERE object_id=" . $item->id . " and object_type='item'";
+        $execrecord = $db->query($sql);
+        $record = $execrecord->fetch();
+
+        $record_id = $record['id'];
+        $sql = "SELECT * FROM metadata_element_value WHERE record_id=" . $record_id . " ";
+/////////////////query for translate specific elements//////////
+        if (isset($_POST['submit_language'])) {
+            $sql = "SELECT * FROM metadata_element_value WHERE  (element_hierarchy=6 or element_hierarchy=8 or element_hierarchy=35) and record_id=" . $record_id . " ";
+        }
+//echo $sql;
+        $exec5 = $db->query($sql);
+        $data5 = $exec5->fetchAll();
+//end
+//query for all languages
+        $sqllan = "SELECT * FROM metadata_language WHERE is_active=1 ORDER BY (case WHEN id='en' THEN 1 ELSE 2 END) ASC";
+        $execlan = $db->query($sqllan);
+        $datalan = $execlan->fetchAll();
+        libxml_use_internal_errors(false);
+        $uri = WEB_ROOT;
+        $xmlvoc = '' . $uri . '/archive/xmlvoc/iso_languages.xml';
+        $datalan = @simplexml_load_file($xmlvoc, NULL, LIBXML_NOERROR | LIBXML_NOWARNING);
+//end
+//query for selecting vocabulary
+        $sqlvoc = "SELECT e.value,d.id,f.label,e.id as vov_rec_id FROM metadata_vocabulary d JOIN metadata_vocabulary_record e ON d.id = e.vocabulary_id JOIN metadata_vocabulary_value f ON f.vocabulary_rid = e.id and e.public=1  and f.language_id='".get_language_for_switch()."' where e.public=1  ORDER BY (case WHEN e.sequence IS NULL THEN '99999' END),e.sequence,f.label ASC";
+        $execvoc = $db->query($sqlvoc);
+        $datavoc = $execvoc->fetchAll();
+//end query for selecting vocabulary
+
+
+
+
+
+
+
+
+
+        foreach ($data2 as $data) {  //for every element general
+            $step+=1;
+            echo '<div class="toggle" id="step' . $step . '">'; //create div for toggle
+//if($step==9){echo createlomlabel('Under Construction!','style="width:158px;"');}
+//
+/////////////////if translation no central description//////////
+            if (!isset($_POST['submit_language'])) {
+                $label_description = return_label_description($data['element_id']);
+            }
+
+            if (strlen($label_description) > 0) {
+                echo "<p style='padding:2px;border:solid 1px #76BB5F; color: #76BB5F;'><strong><i>" . $label_description . "</i></strong></p>";
+            }
+            foreach ($data4 as $dataform) {  //for every element under general
+                if ($data['element_id'] === $dataform['pelement_id']) { //if pelement tou hierarchy = element general
+                   
+                        checkelement($dataform, $datalan, $record, 0, NULL, NULL, NULL, 1);
+
+                }//if $data['element_id']===$dataform['pelement_id']
+            }//if pelement tou hierarchy = element general (dataform)
+
+            echo '</div>';  //close div general
+        }//end for every element general  (data)
+        ?>
+        
+        
+<div id="stepbuttoncollection">
+        <?php include('collection-form.php'); ?> 
+        </div>
+    <?php
+        if (isset($item['id'])) {
+            if (($item['item_type_id'] === 6 or $item['item_type_id'] === 20) and !(stripos($itemsource['value'], "europeana.eu/portal/") > 0 or $itemsource['value'] == 'Ariadne' or $itemsource['value'] == 'Natural_Europe_TUC')) {
+                ?>
+            <div id="stepfile">
+            <?php include('files-form.php'); ?> 
+            </div>
+        <?php } elseif ($item['item_type_id'] === 6 or $item['item_type_id'] === 20) { ?>
+
+            <div id="stepurl">
+            <?php
+            $sql = "SELECT * FROM metadata_element_value WHERE record_id=" . $record_id . " and element_hierarchy=32";
+
+            $exec5 = $db->query($sql);
+            $data5 = $exec5->fetch();
+            //echo $data5['value'];
+            echo '<div style="float:left;"><label for=32 style="width:158px;">Url</label></div>';
+
+            echo '<textarea rows="4" cols="60" class="textinput" name="32_1" id="32_1" readonly="readonly">' . $data5['value'] . '</textarea>&nbsp;&nbsp';
+            ?>
+            </div>
+
+        <?php } else { ?>
+            <div id="stepurl">
+                <?php
+                $sql = "SELECT * FROM metadata_element_value WHERE record_id=" . $record_id . " and element_hierarchy=32";
+
+                $exec5 = $db->query($sql);
+                $data5 = $exec5->fetch();
+                //echo $data5['value'];
+                echo '<div style="float:left;"><label for=32 style="width:158px;">Url</label></div>';
+
+                echo '<textarea rows="4" cols="60" class="textinput" name="item_url" id="item_url" readonly="readonly">' . $data5['value'] . '</textarea>&nbsp;&nbsp';
+                ?>
+            </div>
+            <?php
+            }
+        }//if isset item
+        else {
+            ?>
+        <div id="stepfile">
+        <?php include('files-form.php'); ?> 
+        </div>
+        <?php
+    } ?>
+       
+
+<?php } //is isset item ?>
+    </div><br style="clear:both;">
+    
+    
+
+
+    
+
+
+<?php fire_plugin_hook('admin_append_to_items_show_primary', $item); ?>
+
+</div>
+
+ 
+<?php foot();?>
+
+
+
+<?php  /*
+ * 
+ <div id="itemfiles" class="element">
 	    <?php echo '<br><h2 style="color:#90A886; font-size:13px;">'.__('Access the Resource').':</h2>'; ?>
 		<div class="element-text"><?php //echo display_files_for_item(); ?></div>
         
@@ -154,23 +396,20 @@ $dataformatfromvoc = $exec2->fetch();
           </div>
           <br style="clear:both;">
           <?php } ?>
-	</div>
-    <?php show_metadata_info(item('id'),'item',$_SESSION['get_language']);  ?>
-
-
-<?php fire_plugin_hook('admin_append_to_items_show_primary', $item); ?>
-
-</div>
+	</div> 
+ <?php show_metadata_info(item('id'),'item',$_SESSION['get_language']);  ?>
+ */?>
+<?php /*
 <div id="secondary">
     
    
 
-<?php /*
+
     <div class="info-panel">
         <h2><?php echo __('Output Formats'); ?></h2>
         <div><?php echo output_format_list(); ?></div>
     </div>
-    */ ?>
+    
     <?php fire_plugin_hook('admin_append_to_items_show_secondary', $item); ?>
 </div>
-<?php foot();?>
+*/ ?>

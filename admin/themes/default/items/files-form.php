@@ -70,7 +70,12 @@ if (empty($pathToConvert) && has_permission('Settings', 'edit')): ?>
             <tr>
                 <th>File Name</th>
                 <!-- <th>Edit File Metadata</th> -->
+                <?php
+                $action123 = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
+                if($action123!='show'){
+                ?>
                 <th>Delete?</th>
+                <?php } ?>
             </tr>
         </thead>
         <tbody>
@@ -80,9 +85,13 @@ if (empty($pathToConvert) && has_permission('Settings', 'edit')): ?>
             <!-- <td class="file-link">
                 <?php //echo link_to($file, 'edit', 'Edit', array('class'=>'edit')); ?>
             </td>  -->
+            <?php
+                if($action123!='show'){
+                ?>
             <td class="delete-link">
                 <?php echo checkbox(array('name'=>'delete_files[]'),false,$file->id); ?>
             </td>   
+             <?php } ?>
         </tr>
 
     <?php endforeach; ?>
@@ -90,6 +99,9 @@ if (empty($pathToConvert) && has_permission('Settings', 'edit')): ?>
     </table>
     </div>
 <?php }else{ ?>
+    <?php
+                if($action123!='show'){
+                ?>
 <h3 style="font-weight:bold;"><?php echo __('Upload a File'); ?></h3>
 
 <!--<div id="add-more-files">
@@ -112,6 +124,7 @@ if (empty($pathToConvert) && has_permission('Settings', 'edit')): ?>
     </div>
     <?php //endfor; ?>
 </div>
+<?php } //if action = show ?>
 <?php fire_plugin_hook('admin_append_to_items_form_files', $item); ?>
 <?php } ?>
 
