@@ -1,355 +1,355 @@
 <oe_ontology_hierrarchy>
-<Activity>
-	<food_activity>
-		<animal_production_activity>
-			<animal_husbandry></animal_husbandry>
-			<apiculture></apiculture>
-			<aquaculture></aquaculture>
-			<breeding></breeding>
-			<dairy_production></dairy_production>
-			<disease_control></disease_control>
-			<disease_prevention></disease_prevention>
-			<disease_treatment></disease_treatment>
-			<egg_production></egg_production>
-			<feather_production></feather_production>
-			<feeding></feeding>
-			<fodder_management></fodder_management>
-			<livestock_housing></livestock_housing>
-			<meat_production></meat_production>
-			<milk_production></milk_production>
-		</animal_production_activity>
-		<plant_production_activity>
-			<crop_rotation></crop_rotation>
-			<cultivation_of_cereals></cultivation_of_cereals>
-			<energy_crops_cultivation></energy_crops_cultivation>
-			<fertilizing></fertilizing>
-			<field_crops_cultivation></field_crops_cultivation>
-			<floriculture></floriculture>
-			<fruit_production></fruit_production>
-			<gardening></gardening>
-			<herb_cultivation></herb_cultivation>
-			<horticulture></horticulture>
-			<multicropping></multicropping>
-			<pest_control></pest_control>
-			<plowing></plowing>
-			<post_harvest></post_harvest>
-			<sowing></sowing>
-			<tillage></tillage>
-			<viticulture></viticulture>
-		</plant_production_activity>
-		<processing_activity>
-			<animal_feed_processing></animal_feed_processing>
-			<dairy_processing></dairy_processing>
-			<food_processing></food_processing>
-			<meat_processing></meat_processing>
-		</processing_activity>
-	</food_activity>
-	<non_production_activity>
-		<educational_activity>
-			<green_care></green_care>
-			<learning></learning>
-			<research></research>
-			<teaching></teaching>
-			<training></training>
-		</educational_activity>
-		<service_oriented_activity>
-			<community_service></community_service>
-			<ecotourism></ecotourism>
-		</service_oriented_activity>
-	</non_production_activity>
-</Activity>
-<Entity>
-	<natural_person>
-		<consumer></consumer>
-		<distributor></distributor>
-		<farmer></farmer>
-		<land_owner></land_owner>
-		<learner></learner>
-		<processor></processor>
-		<teacher></teacher>
-		<trader></trader>
-	</natural_person>
-	<juridical_entity>
-		<certification_agency></certification_agency>
-		<commercial_enterprise></commercial_enterprise>
-		<educational_establishment></educational_establishment>
-		<farm></farm>
-		<government_body></government_body>
-	</juridical_entity>
-</Entity>
-<Issue>
-	<consumption_issue>
-		<consumer_attitudes></consumer_attitudes>
-		<consumer_knowledge></consumer_knowledge>
-		<quality_perception></quality_perception>
-		<traceability></traceability>
-	</consumption_issue>
-	<distribution_issue>
-		<alternative_distribution></alternative_distribution>
-		<farm_sale></farm_sale>
-		<food_shed></food_shed>
-		<import-export_issue></import-export_issue>
-		<local_market></local_market>
-		<market></market>
-		<traceability></traceability>
-	</distribution_issue>
-	<environmental_issue>
-		<biodiversity></biodiversity>
-		<climate_change_mitigation></climate_change_mitigation>
-		<cultural_landscapes></cultural_landscapes>
-		<ecological_footprint></ecological_footprint>
-		<energy_efficiency></energy_efficiency>
-		<environmental_impact></environmental_impact>
-		<pollution></pollution>
-		<recycling></recycling>
-		<renewable_resources></renewable_resources>
-		<sustainability></sustainability>
-		<water_quality></water_quality>
-	</environmental_issue>
-	<ethical_issue>
-		<poverty_alleviation></poverty_alleviation>
-		<rural_livelihoods></rural_livelihoods>
-		<sustainability></sustainability>
-	</ethical_issue>
-	<food_issue>
-		<food_availability></food_availability>
-		<food_nutrition></food_nutrition>
-		<food_quality></food_quality>
-		<food_safety></food_safety>
-		<food_security></food_security>
-		<food_sufficiency></food_sufficiency>
-		<food_system></food_system>
-		<natural_food></natural_food>
-		<poverty_alleviation></poverty_alleviation>
-	</food_issue>
-	<health_issue>
-		<animal_health></animal_health>
-		<human_health></human_health>
-		<plant_health></plant_health>
-		<well_being></well_being>
-	</health_issue>
-	<learning_issue>
-		<action_learning></action_learning>
-		<action_research></action_research>
-		<school_garden></school_garden>
-	</learning_issue>
-	<marketing_issue>
-		<direct_marketing></direct_marketing>
-		<market_trend></market_trend>
-	</marketing_issue>
-	<processing_issue>
-		<post_harvest_handling></post_harvest_handling>
-		<pre_cooling></pre_cooling>
-		<pre_storage></pre_storage>
-		<storage></storage>
-	</processing_issue>
-	<benefits_of_organic_agriculture>
-		<benefits_of_organic_agriculture></benefits_of_organic_agriculture>
-		<organic-conventional_agriculture_comparison></organic-conventional_agriculture_comparison>
-		<organic_principle></organic_principle>
-	</benefits_of_organic_agriculture>
-	<production_issue>
-		<genetically_modified_organism></genetically_modified_organism>
-		<local_production></local_production>
-		<local_resources></local_resources>
-		<product_origin></product_origin>
-		<rural_livelihoods></rural_livelihoods>
-		<animal_production_issue>
-			<animal_behavior></animal_behavior>
-			<animal_diet></animal_diet>
-			<animal_ethics></animal_ethics>
-			<animal_nutrition></animal_nutrition>
-			<animal_welfare></animal_welfare>
-			<housing></housing>
-			<local_breeds></local_breeds>
-			<outdoor_keeping></outdoor_keeping>
-		</animal_production_issue>
-		<plant_production_issue>
-			<alternative_crop></alternative_crop>
-			<crop_ecology></crop_ecology>
-			<diversity></diversity>
-			<genetic_resistance></genetic_resistance>
-			<plant_nutrition></plant_nutrition>
-			<plant_protection></plant_protection>
-		</plant_production_issue>
-	</production_issue>
-	<soil_issue>
-		<diminution_of_humus></diminution_of_humus>
-		<humus></humus>
-		<nitrogen_fixation></nitrogen_fixation>
-		<nutrient_deficiency></nutrient_deficiency>
-		<nutrient_recycling></nutrient_recycling>
-		<organic_matter></organic_matter>
-		<soil_acidification></soil_acidification>
-		<soil_biological_activity></soil_biological_activity>
-		<soil_compaction></soil_compaction>
-		<soil_conservation></soil_conservation>
-		<soil_degradation></soil_degradation>
-		<soil_erosion></soil_erosion>
-		<soil_fertility></soil_fertility>
-		<soil_health></soil_health>
-		<soil_husbandry></soil_husbandry>
-		<soil_structure></soil_structure>
-	</soil_issue>
-	<transport_issue>
-		<transport_of_animals></transport_of_animals>
-		<transport_of_products></transport_of_products>
-	</transport_issue>
-	<waste_management_issue>
-		<biosolids></biosolids>
-		<recycling></recycling>
-		<slaughter_house_waste></slaughter_house_waste>
-	</waste_management_issue>
-</Issue>
-<Method>
-	<agricultural_method>
-		<alternative_farming></alternative_farming>
-		<companion_planting></companion_planting>
-		<extensive_farming></extensive_farming>
-		<intensive_farming></intensive_farming>
-		<intercropping></intercropping>
-		<monoculture></monoculture>
-		<pasture_management></pasture_management>
-		<permaculture></permaculture>
-		<polyculture></polyculture>
-		<soiless_culture></soiless_culture>
-		<subsistence_farming></subsistence_farming>
-		<sustainable_farming></sustainable_farming>
-	</agricultural_method>
-	<pest_control_technique>
-		<biological_pest_control></biological_pest_control>
-		<chemical_pest_control></chemical_pest_control>
-		<direct_pest_control></direct_pest_control>
-		<preventive_pest_control></preventive_pest_control>
-		<weed_control></weed_control>
-		<weed_control_technique></weed_control_technique>
-	</pest_control_technique>
-</Method>
-<Policy>
-	<regulation>
-		<certification></certification>
-		<certification_of_organic_agriculture></certification_of_organic_agriculture>
-		<labeling></labeling>
-		<legislation></legislation>
-		<legislation_on_organic_agriculture></legislation_on_organic_agriculture>
-	</regulation>
-	<standard>
-		<organic_standard></organic_standard>
-	</standard>
-</Policy>
-<Process>
-	<accreditation></accreditation>
-	<certification_process></certification_process>
-	<organic_conversion></organic_conversion>
-	<recycling></recycling>
-</Process>
-<Product>
-	<animal_origin_product>
-		<animal_origin_processed_product>
-			<dairy_product></dairy_product>
-			<leather></leather>
-			<meat_product></meat_product>
-		</animal_origin_processed_product>
-		<animal_origin_unprocessed_product>
-			<egg></egg>
-			<feather></feather>
-			<fish></fish>
-			<honey></honey>
-			<meat></meat>
-			<milk></milk>
-			<shellfish></shellfish>
-			<wool></wool>
-		</animal_origin_unprocessed_product>
-	</animal_origin_product>
-	<fertilizer>
-		<biological_fertilizer>
-			<manure-animal></manure-animal>
-			<compost></compost>
-			<green_manure></green_manure>
-			<manure></manure>
-			<peat></peat>
-			<commercial_biological_fertilizer>
-				<bone_meal></bone_meal>
-				<meal_fertilizer></meal_fertilizer>
-				<pellets></pellets>
-			</commercial_biological_fertilizer>
-		</biological_fertilizer>
-		<chemical_compound>
-			<nitrogen></nitrogen>
-			<phosphorus></phosphorus>
-			<potassium></potassium>
-			<salt></salt>
-			<urea></urea>
-		</chemical_compound>
-		<mineral_fertilizer></mineral_fertilizer>
-	</fertilizer>
-	<plant_origin_unprocessed_product>
-		<crop_residue></crop_residue>
-		<plant_origin_processed_product>
-			<beer></beer>
-			<fodder></fodder>
-			<olive_oil></olive_oil>
-			<wine></wine>
-		</plant_origin_processed_product>
-		<plant_origin_unprocessed_product>
-			<energy_crop>
-				<rape></rape>
-				<sugar_beet></sugar_beet>
-			</energy_crop>
-			<feed_crop>
-				<alfalfa></alfalfa>
-				<clover></clover>
-				<festuca></festuca>
-				<ryegrass></ryegrass>
-				<vetch></vetch>
-				<grass></grass>
-				<pulse></pulse>
-			</feed_crop>
-			<fibre_crop>
-				<cotton></cotton>
-				<fiber_flax></fiber_flax>
-				<hemp></hemp>
-			</fibre_crop>
-			<food_crop>
-				<berry></berry>
-				<cereal>
-					<barley></barley>
-					<bread_cereal></bread_cereal>
-					<fodder_cereal></fodder_cereal>
-					<maize></maize>
-					<pseudocereal></pseudocereal>
-					<rice></rice>
-					<rye></rye>
-					<spelt></spelt>
-					<wheat></wheat>
-				</cereal>
-				<fruit>
-					<apple></apple>
-					<citrus_species>
-						<lemon></lemon>
-						<orange></orange>
-						<pomelo></pomelo>
-						<tangerine></tangerine>
-					</citrus_species>
-				</fruit>
-				<herb></herb>
-				<oil_crop>
-					<olive></olive>
-					<rape></rape>
-					<soybean></soybean>
-					<sunflower></sunflower>
-				</oil_crop>
-				<pulse>
-					<beans></beans>
-					<lentil></lentil>
-					<pea></pea>
-					<vetch></vetch>
-				</pulse>
-				<vegetable>
-					<potato></potato>
-				</vegetable>
-			</food_crop>
-		</plant_origin_unprocessed_product>
-	</plant_origin_unprocessed_product>
-</Product>
+<term>activity end;
+	<term>food_activity end;
+		<term>animal_production_activity end;
+			<term>animal_husbandry end;</term>
+			<term>apiculture end;</term>
+			<term>aquaculture end;</term>
+			<term>breeding end;</term>
+			<term>dairy_production end;</term>
+			<term>disease_control end;</term>
+			<term>disease_prevention end;</term>
+			<term>disease_treatment end;</term>
+			<term>egg_production end;</term>
+			<term>feather_production end;</term>
+			<term>feeding end;</term>
+			<term>fodder_management end;</term>
+			<term>livestock_housing end;</term>
+			<term>meat_production end;</term>
+			<term>milk_production end;</term>
+		</term>
+		<term>plant_production_activity end;
+			<term>crop_rotation end;</term>
+			<term>cultivation_of_cereals end;</term>
+			<term>energy_crops_cultivation end;</term>
+			<term>fertilizing end;</term>
+			<term>field_crops_cultivation end;</term>
+			<term>floriculture end;</term>
+			<term>fruit_production end;</term>
+			<term>gardening end;</term>
+			<term>herb_cultivation end;</term>
+			<term>horticulture end;</term>
+			<term>multicropping end;</term>
+			<term>pest_control end;</term>
+			<term>plowing end;</term>
+			<term>post_harvest end;</term>
+			<term>sowing end;</term>
+			<term>tillage end;</term>
+			<term>viticulture end;</term>
+		</term>
+		<term>processing_activity end;
+			<term>animal_feed_processing end;</term>
+			<term>dairy_processing end;</term>
+			<term>food_processing end;</term>
+			<term>meat_processing end;</term>
+		</term>
+	</term>
+	<term>non_production_activity end;
+		<term>educational_activity end;
+			<term>green_care end;</term>
+			<term>learning end;</term>
+			<term>research end;</term>
+			<term>teaching end;</term>
+			<term>training end;</term>
+		</term>
+		<term>service_oriented_activity end;
+			<term>community_service end;</term>
+			<term>ecotourism end;</term>
+		</term>
+	</term>
+</term>
+<term>entity end;
+	<term>natural_person end;
+		<term>consumer end;</term>
+		<term>distributor end;</term>
+		<term>farmer end;</term>
+		<term>land_owner end;</term>
+		<term>learner end;</term>
+		<term>processor end;</term>
+		<term>teacher end;</term>
+		<term>trader end;</term>
+	</term>
+	<term>juridical_entity end;
+		<term>certification_agency end;</term>
+		<term>commercial_enterprise end;</term>
+		<term>educational_establishment end;</term>
+		<term>farm end;</term>
+		<term>government_body end;</term>
+	</term>
+</term>
+<term>issue end;
+	<term>consumption_issue end;
+		<term>consumer_attitudes end;</term>
+		<term>consumer_knowledge end;</term>
+		<term>quality_perception end;</term>
+		<term>traceability end;</term>
+	</term>
+	<term>distribution_issue end;
+		<term>alternative_distribution end;</term>
+		<term>farm_sale end;</term>
+		<term>food_shed end;</term>
+		<term>import-export_issue end;</term>
+		<term>local_market end;</term>
+		<term>market end;</term>
+		<term>traceability end;</term>
+	</term>
+	<term>environmental_issue end;
+		<term>biodiversity end;</term>
+		<term>climate_change_mitigation end;</term>
+		<term>cultural_landscapes end;</term>
+		<term>ecological_footprint end;</term>
+		<term>energy_efficiency end;</term>
+		<term>environmental_impact end;</term>
+		<term>pollution end;</term>
+		<term>recycling end;</term>
+		<term>renewable_resources end;</term>
+		<term>sustainability end;</term>
+		<term>water_quality end;</term>
+	</term>
+	<term>ethical_issue end;
+		<term>poverty_alleviation end;</term>
+		<term>rural_livelihoods end;</term>
+		<term>sustainability end;</term>
+	</term>
+	<term>food_issue end;
+		<term>food_availability end;</term>
+		<term>food_nutrition end;</term>
+		<term>food_quality end;</term>
+		<term>food_safety end;</term>
+		<term>food_security end;</term>
+		<term>food_sufficiency end;</term>
+		<term>food_system end;</term>
+		<term>natural_food end;</term>
+		<term>poverty_alleviation end;</term>
+	</term>
+	<term>health_issue end;
+		<term>animal_health end;</term>
+		<term>human_health end;</term>
+		<term>plant_health end;</term>
+		<term>well_being end;</term>
+	</term>
+	<term>learning_issue end;
+		<term>action_learning end;</term>
+		<term>action_research end;</term>
+		<term>school_garden end;</term>
+	</term>
+	<term>marketing_issue end;
+		<term>direct_marketing end;</term>
+		<term>market_trend end;</term>
+	</term>
+	<term>processing_issue end;
+		<term>post_harvest_handling end;</term>
+		<term>pre_cooling end;</term>
+		<term>pre_storage end;</term>
+		<term>storage end;</term>
+	</term>
+	<term>benefits_of_organic_agriculture end;
+		<term>benefits_of_organic_agriculture end;</term>
+		<term>organic-conventional_agriculture_comparison end;</term>
+		<term>organic_principle end;</term>
+	</term>
+	<term>production_issue end;
+		<term>genetically_modified_organism end;</term>
+		<term>local_production end;</term>
+		<term>local_resources end;</term>
+		<term>product_origin end;</term>
+		<term>rural_livelihoods end;</term>
+		<term>animal_production_issue end;
+			<term>animal_behavior end;</term>
+			<term>animal_diet end;</term>
+			<term>animal_ethics end;</term>
+			<term>animal_nutrition end;</term>
+			<term>animal_welfare end;</term>
+			<term>housing end;</term>
+			<term>local_breeds end;</term>
+			<term>outdoor_keeping end;</term>
+		</term>
+		<term>plant_production_issue end;
+			<term>alternative_crop end;</term>
+			<term>crop_ecology end;</term>
+			<term>diversity end;</term>
+			<term>genetic_resistance end;</term>
+			<term>plant_nutrition end;</term>
+			<term>plant_protection end;</term>
+		</term>
+	</term>
+	<term>soil_issue end;
+		<term>diminution_of_humus end;</term>
+		<term>humus end;</term>
+		<term>nitrogen_fixation end;</term>
+		<term>nutrient_deficiency end;</term>
+		<term>nutrient_recycling end;</term>
+		<term>organic_matter end;</term>
+		<term>soil_acidification end;</term>
+		<term>soil_biological_activity end;</term>
+		<term>soil_compaction end;</term>
+		<term>soil_conservation end;</term>
+		<term>soil_degradation end;</term>
+		<term>soil_erosion end;</term>
+		<term>soil_fertility end;</term>
+		<term>soil_health end;</term>
+		<term>soil_husbandry end;</term>
+		<term>soil_structure end;</term>
+	</term>
+	<term>transport_issue end;
+		<term>transport_of_animals end;</term>
+		<term>transport_of_products end;</term>
+	</term>
+	<term>waste_management_issue end;
+		<term>biosolids end;</term>
+		<term>recycling end;</term>
+		<term>slaughter_house_waste end;</term>
+	</term>
+</term>
+<term>method end;
+	<term>agricultural_method end;
+		<term>alternative_farming end;</term>
+		<term>companion_planting end;</term>
+		<term>extensive_farming end;</term>
+		<term>intensive_farming end;</term>
+		<term>intercropping end;</term>
+		<term>monoculture end;</term>
+		<term>pasture_management end;</term>
+		<term>permaculture end;</term>
+		<term>polyculture end;</term>
+		<term>soiless_culture end;</term>
+		<term>subsistence_farming end;</term>
+		<term>sustainable_farming end;</term>
+	</term>
+	<term>pest_control_technique end;
+		<term>biological_pest_control end;</term>
+		<term>chemical_pest_control end;</term>
+		<term>direct_pest_control end;</term>
+		<term>preventive_pest_control end;</term>
+		<term>weed_control end;</term>
+		<term>weed_control_technique end;</term>
+	</term>
+</term>
+<term>policy end;
+	<term>regulation end;
+		<term>certification end;</term>
+		<term>certification_of_organic_agriculture end;</term>
+		<term>labeling end;</term>
+		<term>legislation end;</term>
+		<term>legislation_on_organic_agriculture end;</term>
+	</term>
+	<term>standard end;
+		<term>organic_standard end;</term>
+	</term>
+</term>
+<term>process end;
+	<term>accreditation end;</term>
+	<term>certification_process end;</term>
+	<term>organic_conversion end;</term>
+	<term>recycling end;</term>
+</term>
+<term>product end;
+	<term>animal_origin_product end;
+		<term>animal_origin_processed_product end;
+			<term>dairy_product end;</term>
+			<term>leather end;</term>
+			<term>meat_product end;</term>
+		</term>
+		<term>animal_origin_unprocessed_product end;
+			<term>egg end;</term>
+			<term>feather end;</term>
+			<term>fish end;</term>
+			<term>honey end;</term>
+			<term>meat end;</term>
+			<term>milk end;</term>
+			<term>shellfish end;</term>
+			<term>wooltermwool end;</term>
+		</term>
+	</term>
+	<term>fertilizer end;
+		<term>biological_fertilizer end;
+			<term>manure-animal end;</term>
+			<term>compost end;</term>
+			<term>green_manure end;</term>
+			<term>manure end;</term>
+			<term>peat end;</term>
+			<term>commercial_biological_fertilizer end;
+				<term>bone_meal end;</term>
+				<term>meal_fertilizer end;</term>
+				<term>pellets end;</term>
+			</term>
+		</term>
+		<term>chemical_compound end;
+			<term>nitrogen end;</term>
+			<term>phosphorus end;</term>
+			<term>potassium end;</term>
+			<term>salt end;</term>
+			<term>urea end;</term>
+		</term>
+		<term>mineral_fertilizer end;</term>
+	</term>
+	<term>plant_origin_unprocessed_product end;
+		<term>crop_residue end;</term>
+		<term>plant_origin_processed_product end;
+			<term>beer end;</term>
+			<term>fodder end;</term>
+			<term>olive_oil end;</term>
+			<term>wine end;</term>
+		</term>
+		<term>plant_origin_unprocessed_product end;
+			<term>energy_crop end;
+				<term>rape end;</term>
+				<term>sugar_beet end;</term>
+			</term>
+			<term>feed_crop end;
+				<term>alfalfa end;</term>
+				<term>clover end;</term>
+				<term>festuca end;</term>
+				<term>ryegrass end;</term>
+				<term>vetch end;</term>
+				<term>grass end;</term>
+				<term>pulse end;</term>
+			</term>
+			<term>fibre_crop end;
+				<term>cotton end;</term>
+				<term>fiber_flax end;</term>
+				<term>hemp end;</term>
+			</term>
+			<term>food_crop end;
+				<term>berry end;</term>
+				<term>cereal end;
+					<term>barley end;</term>
+					<term>bread_cereal end;</term>
+					<term>fodder_cereal end;</term>
+					<term>maize end;</term>
+					<term>pseudocereal end;</term>
+					<term>rice end;</term>
+					<term>rye end;</term>
+					<term>spelt end;</term>
+					<term>wheat end;</term>
+				</term>
+				<term>fruit end;
+					<term>apple end;</term>
+					<term>citrus_species end;
+						<term>lemon end;</term>
+						<term>orange end;</term>
+						<term>pomelo end;</term>
+						<term>tangerine end;</term>
+					</term>
+				</term>
+				<term>herb end;</term>
+				<term>oil_crop end;
+					<term>olive end;</term>
+					<term>rape end;</term>
+					<term>soybean end;</term>
+					<term>sunflower end;</term>
+				</term>
+				<term>pulse end;
+					<term>beans end;</term>
+					<term>lentil end;</term>
+					<term>pea end;</term>
+					<term>vetch end;</term>
+				</term>
+				<term>vegetable end;
+					<term>potato end;</term>
+				</term>
+			</term>
+		</term>
+	</term>
+</term>
 </oe_ontology_hierrarchy>

@@ -49,8 +49,8 @@ $sql="SELECT * FROM metadata_element_hierarchy WHERE id=".$_POST['element_hierar
 			$dataform=$exec->fetch();
 			$exec=NULL;
 
-$sqlchele="SELECT c.*,b.* FROM  metadata_element b  LEFT JOIN metadata_element_hierarchy c 
-			ON c.element_id = b.id WHERE c.pelement_id=".$dataform['id']."";
+$sqlchele="SELECT c.* FROM  metadata_element b  LEFT JOIN metadata_element_hierarchy c 
+			ON c.element_id = b.id WHERE c.pelement_id=".$dataform['element_id']."";
 			$execchele=$db->query($sqlchele); 
 			$childelements=$execchele->fetchAll();
 			$execchele=NULL;

@@ -12,6 +12,7 @@ head(array('title'=>$pageTitle,'content_class' => 'horizontal-nav', 'bodyclass'=
 <div id="primary">
     <?php echo flash(); ?>
     <?php if ( total_results() ): ?>
+    <?php /* ?>
     <script type="text/javascript">
         jQuery(window).load(function() {
             var toggleText = <?php echo js_escape(__('Toggle')); ?>;
@@ -54,12 +55,12 @@ head(array('title'=>$pageTitle,'content_class' => 'horizontal-nav', 'bodyclass'=
             /**
              * Disable the batch submit button first, will be enabled once item
              * checkboxes are checked.
-             */
+             * /
             batchEditSubmit.prop('disabled', true);
 
             /**
              * Check all the itemCheckboxes if the globalCheckbox is checked.
-             */
+             * /
             globalCheckbox.change(function() {
                 itemCheckboxes.prop('checked', !!this.checked);
                 checkBatchEditSubmitButton();
@@ -68,7 +69,7 @@ head(array('title'=>$pageTitle,'content_class' => 'horizontal-nav', 'bodyclass'=
             /**
              * Unchecks the global checkbox if any of the itemCheckboxes are
              * unchecked.
-             */
+             * /
             itemCheckboxes.change(function(){
                 if (!this.checked) {
                     globalCheckbox.prop('checked', false);
@@ -80,7 +81,7 @@ head(array('title'=>$pageTitle,'content_class' => 'horizontal-nav', 'bodyclass'=
              * Function to check whether the batchEditSubmit button should be
              * enabled. If any of the itemCheckboxes is checked, the
              * batchEditSubmit button is enabled.
-             */
+             * /
             function checkBatchEditSubmitButton() {
                 var checked = false;
                 itemCheckboxes.each(function() {
@@ -94,6 +95,7 @@ head(array('title'=>$pageTitle,'content_class' => 'horizontal-nav', 'bodyclass'=
             }
         });
     </script>
+     * */?>
     <div id="browse-meta" class="group">
         <div id="browse-meta-lists">
             <ul id="items-sort" class="navigation">
@@ -157,6 +159,7 @@ head(array('title'=>$pageTitle,'content_class' => 'horizontal-nav', 'bodyclass'=
         <td class="item-info">
             <span class="title"><?php echo link_to_item(item('Dublin Core', 'Title'), array(), 'show'); ?></span>
             <ul class="action-links group">
+            <li><?php echo link_to_item(__('View'), array(), 'show'); ?></li>
             <li><?php $uri=WEB_ROOT; $uri=explode('http://',$uri);	echo '<a href="http://'.$uri[1].'/oai?verb=GetRecordOnlyLom&metadataPrefix=oai_lom&identifier=oai:'.$uri[1].'/:'.$item->id.'" target="_blank">XML</a>'; ?></li>
             <?php
             #
@@ -205,7 +208,7 @@ jQuery.post("<?php echo uri('items/translatexerox'); ?>", { name: name, item_id:
                 <?php endif; ?>
             </ul>
             <?php fire_plugin_hook('admin_append_to_items_browse_simple_each'); ?>
-            <div class="item-details">
+            <?php /*?><div class="item-details">
                 <?php
                 if (item_has_thumbnail()) {
                     //echo link_to_item(item_square_thumbnail(), array('class'=>'square-thumbnail'));
@@ -214,11 +217,11 @@ jQuery.post("<?php echo uri('items/translatexerox'); ?>", { name: name, item_id:
                 ?>
                 <?php echo snippet_by_word_count(strip_formatting(item('Dublin Core', 'Description')), 40); ?>
                 <ul>
-                   <?php /*?> <li><strong><?php echo __('Collection'); ?>:</strong> <?php if (item_belongs_to_collection()) echo link_to_collection_for_item(); else echo __('No Collection'); ?></li>
-                    <li><strong><?php echo __('Tags'); ?>:</strong> <?php if ($tags = item_tags_as_string()) echo $tags; else echo __('No Tags'); ?></li><?php */?>
+                    <li><strong><?php echo __('Collection'); ?>:</strong> <?php if (item_belongs_to_collection()) echo link_to_collection_for_item(); else echo __('No Collection'); ?></li>
+                    <li><strong><?php echo __('Tags'); ?>:</strong> <?php if ($tags = item_tags_as_string()) echo $tags; else echo __('No Tags'); ?></li>
                 </ul>
                 <?php fire_plugin_hook('admin_append_to_items_browse_detailed_each'); ?>
-            </div>
+            </div><?php */?>
         </td>
         <?php /*?><td><?php echo strip_formatting(item('Dublin Core', 'Creator')); ?></td><?php */?>
         <td><?php echo ($typeName = __(item('Item Type Name')))

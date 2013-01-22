@@ -2179,37 +2179,50 @@ function createnew_xml_selectbox($id, $divid, $vocabulary_id, $ontology = NULL) 
         $output.='<ul>';
 
 
-        foreach ($xml as $xml2) {
-            $xml2name = $xml2->getName();
+        foreach ($xml as $key=>$xml2) {
+            //echo $xml2;
+            $xml2name = $xml2;
+            $xml2name = explode(' end;', $xml2name);
+            $xml2name=$xml2name[0];
             $xml2name = str_replace("_", " ", $xml2name);
             $xml2nameid = ontology_space_upcs($xml2name);
             $output.='<li id="' . $xml2nameid . '" class="jstree-closed"><a href="#">' . $xml2name . '</a>';
-            foreach ($xml2 as $xml3) {
-                $xml3name = $xml3->getName();
+            foreach ($xml2 as $key=>$xml3) {
+                $xml3name = $xml3;
+                $xml3name = explode(' end;', $xml3name);
+                $xml3name=$xml3name[0];
                 $xml3name = str_replace("_", " ", $xml3name);
                 $xml3nameid = ontology_space_upcs($xml3name);
                 $output.='<ul>';
                 $output.='<li id="' . $xml3nameid . '"><a href="#">' . $xml3name . '</a>';
-                foreach ($xml3 as $xml4) {
-                    $xml4name = $xml4->getName();
+                foreach ($xml3 as $key=>$xml4) {
+                    $xml4name = $xml4;
+                    $xml4name = explode(' end;', $xml4name);
+                    $xml4name=$xml4name[0];
                     $xml4name = str_replace("_", " ", $xml4name);
                     $xml4nameid = ontology_space_upcs($xml4name);
                     $output.='<ul>';
                     $output.='<li id="' . $xml4nameid . '"><a href="#">' . $xml4name . '</a>';
-                    foreach ($xml4 as $xml5) {
-                        $xml5name = $xml5->getName();
+                    foreach ($xml4 as $key=>$xml5) {
+                        $xml5name = $xml5;
+                        $xml5name = explode(' end;', $xml5name);
+                        $xml5name=$xml5name[0];
                         $xml5name = str_replace("_", " ", $xml5name);
                         $xml5nameid = ontology_space_upcs($xml5name);
                         $output.='<ul>';
                         $output.='<li id="' . $xml5nameid . '"><a href="#">' . $xml5name . '</a>';
-                        foreach ($xml5 as $xml6) {
-                            $xml6name = $xml6->getName();
+                        foreach ($xml5 as $key=>$xml6) {
+                            $xml6name = $xml6;
+                            $xml6name = explode(' end;', $xml6name);
+                            $xml6name=$xml6name[0];
                             $xml6name = str_replace("_", " ", $xml6name);
                             $xml6nameid = ontology_space_upcs($xml6name);
                             $output.='<ul>';
                             $output.='<li id="' . $xml6nameid . '"><a href="#">' . $xml6name . '</a>';
-                            foreach ($xml6 as $xml7) {
-                                $xml7name = $xml7->getName();
+                            foreach ($xml6 as $key=>$xml7) {
+                                $xml7name = $xml7;
+                                $xml7name = explode(' end;', $xml7name);
+                                $xml7name=$xml7name[0];
                                 $xml7name = str_replace("_", " ", $xml7name);
                                 $xml7nameid = ontology_space_upcs($xml7name);
                                 $output.='<ul>';

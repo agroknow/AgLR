@@ -117,7 +117,7 @@ function oai_close() {
 
 function date2UTCdatestamp($date) {
     global $granularity;
-    $granularity='YYYY-MM-DDThh:mm:ssZ';
+    $granularity = 'YYYY-MM-DDThh:mm:ssZ';
     if ($date == '')
         return '';
 
@@ -337,9 +337,8 @@ function preview_elements($datageneral4, $datageneral5, $metadatarecord, $datage
         }
     } elseif ($datageneral3['machine_name'] == 'classification') { ///////if CLASSIFICATION
         $thereturn = '';
-        $thereturnonto='';
-        foreach ($datageneral4 as $datageneral4) {
-
+        $thereturnonto = '';
+        foreach ($datageneral4 as $datageneral4) { ////foreach element_hierarchy under classification
             $sql8 = "SELECT * FROM  metadata_element_value WHERE record_id=" . $metadatarecord['id'] . " and element_hierarchy=" . $datageneral4['id'] . " ORDER BY multi ASC ;";
             //echo $sql8."<br>"; break;
             $exec8 = $db->query($sql8);
@@ -347,7 +346,9 @@ function preview_elements($datageneral4, $datageneral5, $metadatarecord, $datage
             $count_results8 = count($datageneral8);
             if ($count_results8 > 0) {
 
+
                 //print_r($datageneral8);break;
+                $thereturnonto = '';
                 foreach ($datageneral8 as $datageneral8) {
 
                     $sql6 = "SELECT c.*,b.machine_name,b.id as elm_id FROM  metadata_element b  LEFT JOIN metadata_element_hierarchy c 
@@ -355,6 +356,8 @@ function preview_elements($datageneral4, $datageneral5, $metadatarecord, $datage
                     //echo $sql6."<br>";
                     $exec6 = $db->query($sql6);
                     $datageneral6 = $exec6->fetchAll();
+                    $ontology1 = '';
+                    $ontology2 = '';
                     foreach ($datageneral6 as $datageneral6) {
                         //print_r($datageneral6);break;
                         $sql7 = "SELECT * FROM  metadata_element_value WHERE record_id=" . $metadatarecord['id'] . " and element_hierarchy=" . $datageneral6['id'] . " and multi=" . $datageneral8['multi'] . " ORDER BY parent_indexer ASC ;";
@@ -369,60 +372,97 @@ function preview_elements($datageneral4, $datageneral5, $metadatarecord, $datage
 
                             foreach ($datageneral5 as $datageneral5) {
 
-                                if ($datageneral5['element_hierarchy'] == 87) {  /////ontology  element_id=85 
-                                    //echo $datageneral5['vocabulary_record_id']."<br>";
+                                if ($datageneral6['datatype_id'] == 5) {
+                                    if (strlen($datageneral5['value']) > 0) {
+
+                                        $ontology2 = $datageneral5['value'];
+                                    }
+                                }
+
+                                if ($datageneral6['datatype_id'] == 6) {
                                     if (strlen($datageneral5['vocabulary_record_id']) > 0) {
                                         $sql_ont = "SELECT * FROM  metadata_vocabulary_record WHERE id=" . $datageneral5['vocabulary_record_id'] . " ;";
                                         //echo $sql_ont."<br>";
                                         $exec_ont = $db->query($sql_ont);
                                         $datageneral_ont = $exec_ont->fetch();
                                         $ontology1 = $datageneral_ont['value'];
-                                        $selectvaluesvalue2 = explode(' ', $ontology1);
-                                        $ontology1 = '';
-                                        foreach ($selectvaluesvalue2 as $selectvaluesvalue2) {
-                                            $ontology1.=ucfirst($selectvaluesvalue2);
-                                        }
-                                    }
-                                }
-                                if ($datageneral5['element_hierarchy'] == 80) {  /////ontology  element_id=80
-                                    if (strlen($datageneral5['value']) > 0) {
-
-                                        $ontology2 = $datageneral5['value'];
-                                        $selectvaluesvalue2 = explode(' ', $ontology2);
-                                        $ontology2 = '';
-                                        foreach ($selectvaluesvalue2 as $selectvaluesvalue2) {
-                                            $ontology2.=ucfirst($selectvaluesvalue2);
-                                        }
                                     }
                                 }
                             }//foreach($datageneral5 as $datageneral5){
                         }//if($count_results5>0){
                     }//foreach($datageneral6 as $datageneral6){
-                    ////////////////view the ontology like organic-edunet schema//////////
-                    $taxon_id_value = "http://www.cc.uah.es/ie/ont/OE-Predicates#" . $ontology1 . " :: http://www.cc.uah.es/ie/ont/OE-OAAE#" . $ontology2 . "";
-                    $taxon_entry = $ontology1 . " :: " . $ontology2 . "";
+                    $sqlschema = "SELECT * FROM  metadata_schema WHERE id=1";
+                    $execschema = $db->query($sqlschema);
+                    $schema = $execschema->fetch();
 
-                    $thereturnonto .= '<taxonPath>' . "\n";
-                    $thereturnonto .= '<source>' . "\n";
-                    $thereturnonto .= xmlformat('Organic.Edunet Ontology', 'string', ' language="en"', $indent);
-                    $thereturnonto .= '</source>' . "\n";
-                    $thereturnonto .= '<taxon>' . "\n";
-                    $thereturnonto .= xmlformat($taxon_id_value, 'id', '', $indent);
-                    $thereturnonto .= '<entry>' . "\n";
-                    $thereturnonto .= xmlformat($taxon_entry, 'string', '', $indent);
-                    $thereturnonto .= '</entry>' . "\n";
-                    $thereturnonto .= '</taxon>' . "\n";
-                    $thereturnonto .= '</taxonPath>' . "\n";
+                    if ($schema['name'] == 'organic_lingua') {
+                        ////////////////view the ontology like organic-edunet schema//////////
+                        ////////////for organic-lingua/////////////////
+                        $selectvaluesvalue2 = explode(' ', $ontology2);
+                        $ontology2 = '';
+                        foreach ($selectvaluesvalue2 as $selectvaluesvalue2) {
+                            $ontology2.=ucfirst($selectvaluesvalue2);
+                        }
+
+                        $selectvaluesvalue2 = explode(' ', $ontology1);
+                        $ontology1 = '';
+                        foreach ($selectvaluesvalue2 as $selectvaluesvalue2) {
+                            $ontology1.=ucfirst($selectvaluesvalue2);
+                        }
+                        $taxon_id_value = "http://www.cc.uah.es/ie/ont/OE-Predicates#" . $ontology1 . " :: http://www.cc.uah.es/ie/ont/OE-OAAE#" . $ontology2 . "";
+                        $taxon_entry = $ontology1 . " :: " . $ontology2 . "";
+                        $class_source = 'Organic.Edunet Ontology';
+                    }
+                    ////////////for organic-lingua/////////////////
+
+                    if ($schema['name'] == 'CoE') {
+                        ////////////for CoE/////////////////
+                        $taxon_entry = $ontology1 . "" . $ontology2 . "";
+                        $taxon_id_value = ' ';
+                        if ($datageneral4['machine_name'] == 'purpose_educational_level') {
+                            $class_source = 'UNESCO';
+                        } elseif ($datageneral4['machine_name'] == 'purpose_discipline') {
+                            $class_source = 'huridocs';
+                        } else {
+                            $class_source = '';
+                        }
+                    }
+                    ////////////for CoE/////////////////
+                    ////////////////////create puprose value from element machine name//////////////////////
+                    $for_purpose = $datageneral4['machine_name'];
+                    $for_purpose = explode('purpose_', $for_purpose);
+                    $for_purpose = $for_purpose[1];
+                    $for_purpose = str_replace("_", " ", $for_purpose);
+                    ////////////////////create puprose value from element machine name//////////////////////
+
+
+                    if (strlen($ontology1) > 0 or strlen($ontology2) > 0) {
+                        $thereturnonto .= '<taxonPath>' . "\n";
+                        $thereturnonto .= '<source>' . "\n";
+                        $thereturnonto .= xmlformat($class_source, 'string', ' language="en"', $indent);
+                        $thereturnonto .= '</source>' . "\n";
+                        $thereturnonto .= '<taxon>' . "\n";
+                        $thereturnonto .= xmlformat($taxon_id_value, 'id', '', $indent);
+                        $thereturnonto .= '<entry>' . "\n";
+                        $thereturnonto .= xmlformat($taxon_entry, 'string', '', $indent);
+                        $thereturnonto .= '</entry>' . "\n";
+                        $thereturnonto .= '</taxon>' . "\n";
+                        $thereturnonto .= '</taxonPath>' . "\n";
+                    }
                 }//foreach($datageneral8 as $datageneral8){
+
+
+                if (strlen($thereturnonto) > 0) {
+                    $thereturn .= '<classification>' . "\n";
+                    $thereturn .= '<purpose>' . "\n";
+                    $thereturn .= xmlformat('LOMv1.0', 'source', '', $indent);
+                    $thereturn .= xmlformat($for_purpose, 'value', '', $indent);
+                    $thereturn .= '</purpose>' . "\n";
+                    $thereturn .=$thereturnonto;
+                    $thereturn .= '</classification>' . "\n";
+                }
             }//if($count_results8>0){
         }//foreach datageneral4
-        if(strlen($thereturnonto)>0){
-        $thereturn .= '<purpose>' . "\n";
-        $thereturn .= xmlformat('LOMv1.0', 'source', '', $indent);
-        $thereturn .= xmlformat('discipline', 'value', '', $indent);
-        $thereturn .= '</purpose>' . "\n";
-        }
-        $thereturn .=$thereturnonto;
     } elseif ($datageneral3['machine_name'] == 'relation') { ///////if RELATION
         foreach ($datageneral4 as $datageneral4) {
             $sql5 = "SELECT * FROM  metadata_element_value WHERE record_id=" . $metadatarecord['id'] . " and element_hierarchy=" . $datageneral4['id'] . " ORDER BY multi ASC;";
@@ -432,11 +472,11 @@ function preview_elements($datageneral4, $datageneral5, $metadatarecord, $datage
             $count_results = count($datageneral5);
 
             if ($count_results > 0) {
-                if($datageneral4['machine_name']=='identifier'){
+                if ($datageneral4['machine_name'] == 'identifier') {
                     $thereturn.= '<resource>' . "\n";
                 }
                 $thereturn.=preview_elements_from_datatype($datageneral4, $datageneral5, $metadatarecord);
-                if($datageneral4['machine_name']=='identifier'){
+                if ($datageneral4['machine_name'] == 'identifier') {
                     $thereturn.= '</resource>' . "\n";
                 }
             }
@@ -578,8 +618,16 @@ function preview_elements_from_datatype($datageneral4, $datageneral5, $metadatar
                 $organization = '';
             }
             if (strlen($datageneral10['name']) > 0 or strlen($datageneral10['surname']) > 0) {
-                if(strlen($datageneral10['surname'])>0){$surname=$datageneral10['surname'].';';}else{$surname='';}
-                if(strlen($datageneral10['name'])>0){$name=$datageneral10['name'];}else{$name='';}
+                if (strlen($datageneral10['surname']) > 0) {
+                    $surname = $datageneral10['surname'] . ';';
+                } else {
+                    $surname = '';
+                }
+                if (strlen($datageneral10['name']) > 0) {
+                    $name = $datageneral10['name'];
+                } else {
+                    $name = '';
+                }
                 $name = "N:" . $surname . "" . $datageneral10['name'] . "\r\n";
             } else {
                 $name = '';
@@ -607,10 +655,10 @@ function preview_elements_from_datatype($datageneral4, $datageneral5, $metadatar
                     $output.=xmlformat($datageneral10['source'], 'source', '', $indent);
                     $output.=xmlformat($datageneral10['value'], 'value', '', $indent);
                     $output.= '</' . $machine_name . '>' . "\n";
-                } elseif($datageneral4['id']==78){ ////////////////////coverage which is string
+                } elseif ($datageneral4['id'] == 78) { ////////////////////coverage which is string
                     $output.= '<' . $machine_name . '>' . "\n";
                     $output.=xmlformat($datageneral10['value'], 'string', 'language="en" ', $indent);
-                    $output.= '</' . $machine_name . '>' . "\n";                    
+                    $output.= '</' . $machine_name . '>' . "\n";
                 } else {
                     $output.=xmlformat($datageneral10['value'], $machine_name, '', $indent);
                 }
@@ -620,8 +668,8 @@ function preview_elements_from_datatype($datageneral4, $datageneral5, $metadatar
     } elseif ($datageneral4['form_type_id'] == 5) {
 
         foreach ($datageneral5 as $datageneral5) {
-            $datetime =returndatetime($datageneral5['value']);
-            
+            $datetime = returndatetime($datageneral5['value']);
+
             $output.= '<' . $machine_name . '>' . "\n";
             $output.=xmlformat($datetime, 'dateTime', '', $indent);
             $output.= '</' . $machine_name . '>' . "\n";
@@ -643,21 +691,22 @@ function onlyNumbers($string) {
     $string = preg_replace("/[^0-9]/", "", $string);
     return (int) $string;
 }
-function returndatetime($date){
+
+function returndatetime($date) {
     $datetime = $date;
-            $selectvaluesvalue2 = explode(' ', $datetime);
-            $datetime = '';
-            //$selectvaluesvalue2[0]=date2UTCdatestamp($selectvaluesvalue2[0]);
-            //$selectvaluesvalue2[0] = date("YYYY-mm-dd", strtotime($selectvaluesvalue2[0]));
-            $datetime.=$selectvaluesvalue2[0];
-            $datetime.='T';
-            if(strlen($selectvaluesvalue2[1])>0){
-            $datetime.=$selectvaluesvalue2[1];
-            }else{
-             $datetime.='00:00:00';   
-            }
-            $datetime.='.00Z';
-            $datetime=date2UTCdatestamp($datetime);
+    $selectvaluesvalue2 = explode(' ', $datetime);
+    $datetime = '';
+    //$selectvaluesvalue2[0]=date2UTCdatestamp($selectvaluesvalue2[0]);
+    //$selectvaluesvalue2[0] = date("YYYY-mm-dd", strtotime($selectvaluesvalue2[0]));
+    $datetime.=$selectvaluesvalue2[0];
+    $datetime.='T';
+    if (strlen($selectvaluesvalue2[1]) > 0) {
+        $datetime.=$selectvaluesvalue2[1];
+    } else {
+        $datetime.='00:00:00';
+    }
+    $datetime.='.00Z';
+    $datetime = date2UTCdatestamp($datetime);
     return $datetime;
 }
 
