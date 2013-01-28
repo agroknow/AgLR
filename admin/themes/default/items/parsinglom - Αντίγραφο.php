@@ -986,6 +986,7 @@ function findidsfromxmlname($xmlelementname, $xmlparentelementhierarchyid = NULL
 
     if ($xmlparentelementhierarchyid > 0) {
         $chechvcardnew2 = "select b.* from metadata_element_hierarchy a JOIN metadata_element b on b.id=a.element_id WHERE a.id='" . $xmlparentelementhierarchyid . "' ";
+        echo $chechvcardnew2."<br>";
         $chechvcardnewres2 = $db->query($chechvcardnew2);
         $resultforfunc2 = $chechvcardnewres2->fetch();
 

@@ -7,7 +7,7 @@ head(array('title' => $pageTitle, 'content_class' => 'horizontal-nav', 'bodyclas
 if(isset($_GET['url'])){
 if ($handle = opendir('/var/www/html/xmls_for_ingest/'.$_GET['url'].'/')) { 
 //if ($handle = opendir('C:/Program Files (x86)/EasyPHP-12.1/www/xmls_for_ingest/'.$_GET['url'].'/')) { 
-    //echo '123';
+    echo '123'; 
     /* This is the correct way to loop over the directory. */
     while (false !== ($entry = readdir($handle))) {
         if ($entry != '.' and $entry != '..') {
@@ -29,6 +29,7 @@ $xml = @simplexml_load_file('http://aglr.agroknow.gr/xmls_for_ingest/'.$_GET['ur
 //$xml = simplexml_load_file('http://ariadne.cs.kuleuven.be/ariadne-partners/api/sqitarget?query=learning&start='.$startPage.'&size=12&lang=plql1&format=lom', NULL, LIBXML_NOERROR | LIBXML_NOWARNING);
         
             if ($xml) {
+                
                 global $item_id;
                 $item_id = insertnewitemfromxml($xml);
                 $xml->getName();
@@ -568,6 +569,7 @@ function create_the_query_for_ingest($xmlname_gelement, $xmlname_element, $getge
             //print_r($getgeneral);
             foreach ($getgeneral->value as $string) {
                 $i+=1;
+                $string=  strtolower($string);
                 savelomelementforxmlparsing($xmlname_element['id'], $string, $item_id, 'none', $i, $multi);
                 //echo $string."-".$string['language']."<br>";
             }
@@ -579,6 +581,7 @@ function create_the_query_for_ingest($xmlname_gelement, $xmlname_element, $getge
             //print_r($getgeneral);
             foreach ($getgeneral->value as $string) {
                 $i+=1;
+                $string=  strtolower($string);
                 savelomelementforxmlparsing($xmlname_element['id'], $string, $item_id, 'none', $i, $multi);
                 //echo $string."-".$string['language']."<br>";
             }
@@ -804,7 +807,13 @@ function insertnewitemfromxml($xml) {
         die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
     }
     global $collection_id;
+    if(isset($_GET['collection_id']) and $_GET['collection_id']>0){
     $collection_id = $_GET['collection_id']; //test collection id
+    }else{
+    $collection_id = 'NULL'; //test collection id  
+    }
+    //echo "234".$collection_id; break;
+    
     $user_entity_id = $_GET['entity_id'];; ///$user_entity_id
 
     $itemtdb = $db->Items;
@@ -1044,6 +1053,7 @@ function findidsfromxmlname($xmlelementname, $xmlparentelementhierarchyid = NULL
 
     if ($xmlparentelementhierarchyid > 0) {
         $chechvcardnew2 = "select b.* from metadata_element_hierarchy a JOIN metadata_element b on b.id=a.element_id WHERE a.id='" . $xmlparentelementhierarchyid . "' ";
+        //echo $chechvcardnew2."<br>";
         $chechvcardnewres2 = $db->query($chechvcardnew2);
         $resultforfunc2 = $chechvcardnewres2->fetch();
 
