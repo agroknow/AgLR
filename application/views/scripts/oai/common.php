@@ -124,8 +124,15 @@ $exec_collection = $db->query($collections_query);
 $row_collections = $exec_collection->fetchAll();
 $string_collections = "";
 $SETS = array();
+$set_prefix="aglr_collection_";
 foreach ($row_collections as $value) {
-    $SETS[] = array('setSpec' => 'aglr_collection_' . $value['id'], 'setName' => $value['name'] . '');
+    $SETS[] = array('setSpec' => $set_prefix.'' . $value['id'], 'setName' => $value['name'] . '');
+}
+$exhibit_collections_query = "select * from omeka_exhibits where public=1";
+$exec_exhibit_collection = $db->query($exhibit_collections_query);
+$row_exhibit_collecction = $exec_exhibit_collection->fetch();
+if($row_exhibit_collecction['id']>0){
+    $SETS[] = array('setSpec' => $set_prefix.'exhibits', 'setName' => 'Educational Pathways');
 }
 //$SETS = 	array ( 
 //array('setSpec'=>'phdthesis', 'setName'=>'PHD Thesis', 'setDescription'=>'') ,

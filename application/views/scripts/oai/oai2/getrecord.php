@@ -127,7 +127,7 @@ if (empty($errors)) { //if no errors
     $output .= '</datestamp>' . "\n";
     if (strlen($oai_collection['id']) > 0) {
         $output .= '<setSpec>';
-        $output .='aglr_collection_' . $oai_collection['id'];
+        $output .=$set_prefix.'' . $oai_collection['id'];
         $output .= '</setSpec>' . "\n";
     }
 

@@ -180,7 +180,7 @@ if (isset($_GET['resumptionToken'])) { ///////yyyymmdd:offset:metadataprefix:set
 
 if (isset($_GET['set'])) {
     $getset = $_GET['set'];
-    $getset = explode('aglr_collection_', $getset);
+    $getset = explode($set_prefix, $getset);
     $getsetn = onlyNumbers($getset[1]);
     if ($getsetn > 0) {
         $getset = " and collection_id=" . $getsetn . "";
@@ -270,7 +270,7 @@ if (empty($errors)) { //if no errors
         $output .= '</datestamp>' . "\n";
         if (strlen($oai_collection['id']) > 0) {
             $output .= '<setSpec>';
-            $output .='aglr_collection_' . $oai_collection['id'];
+            $output .=$set_prefix.''. $oai_collection['id'];
             $output .= '</setSpec>' . "\n";
         }
         $output .= '</header>' . "\n";
