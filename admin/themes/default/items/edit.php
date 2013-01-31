@@ -11,7 +11,7 @@
 <h1><?php echo $itemTitle; ?></h1>
 <?php echo delete_button(null, 'delete-item', __('Delete this Item'), array(), 'delete-record-form'); ?>
 <div>
-<a style="position:relative; float:right; right:0px;" id="show_optional">Enrich Metadata</a>
+<a style="position:relative; float:right; right:0px;cursor: hand; cursor: pointer;" id="show_optional">Enrich Metadata</a>
 </div>
 <br style="clear:both;">
 
