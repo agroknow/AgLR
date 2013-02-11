@@ -104,7 +104,7 @@ head(array('title'=>$pageTitle,'content_class' => 'horizontal-nav', 'bodyclass'=
 			
 			echo nav(array(
                     __('All') => uri('items'),
-                    __('Public') => uri('items/browse?public=1'),
+                    __('Validate') => uri('items/browse?public=1'),
                     __('Private') => uri('items/browse?public=0'),
                 ));
 			
