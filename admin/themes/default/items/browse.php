@@ -160,7 +160,7 @@ head(array('title'=>$pageTitle,'content_class' => 'horizontal-nav', 'bodyclass'=
             <span class="title"><?php echo link_to_item(item('Dublin Core', 'Title'), array(), 'show'); ?></span>
             <ul class="action-links group">
             <li><?php echo link_to_item(__('View'), array(), 'show'); ?></li>
-            <li><?php $uri=WEB_ROOT; $uri=explode('http://',$uri);	echo '<a href="http://'.$uri[1].'/oai?verb=GetRecordOnlyLom&metadataPrefix=oai_lom&identifier=oai:'.$uri[1].'/:'.$item->id.'" target="_blank">XML</a>'; ?></li>
+            <li><?php $uri=WEB_ROOT; $uri=explode('http://',$uri);	echo '<a href="http://'.$uri[1].'/oai?verb=GetRecordOnlyLom&metadataPrefix=oai_lom&identifier=oai:'.$uri[1].'/:'.$item->id.':item" target="_blank">XML</a>'; ?></li>
             <?php
             #
             #
