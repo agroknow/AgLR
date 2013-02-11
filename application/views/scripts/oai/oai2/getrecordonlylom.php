@@ -65,11 +65,19 @@ if (!isset($args['metadataPrefix'])) {
 
 ///////explode identifier for use/////////////
 $identifier = explode('oai:' . $repositoryIdentifier . ':', $identifier);
-$identifier = $identifier[1];
-$identifier=  onlyNumbers($identifier);
+$identifier2 = explode(':', $identifier[1]);
+
+$identifier = $identifier2[0];
+$identifier = onlyNumbers($identifier);
+$object_type = $identifier2[1];
+if ($object_type == 'exhibit' or $object_type == 'item') {
+    $object_type = $object_type;
+} else {
+    $object_type = 'Nothing';
+}
 
 ////////////query if exist metadata record in the db!!!!//////////////////////////////
-$sqlmetadatarecord = "select * from metadata_record where object_id=" . $identifier . " and object_type='item'";
+$sqlmetadatarecord = "select * from metadata_record where object_id=" . $identifier . " and object_type='" . $object_type . "'";
 //echo $sqlmetadatarecord; //break;
 $exec2 = $db->query($sqlmetadatarecord);
 $metadatarecord = $exec2->fetch();
@@ -81,20 +89,18 @@ if (!isset($metadatarecord['id'])) {
 if (empty($errors)) { //if no errors
     
 
-    
-    $sqlomekaitem = "select * from omeka_items where id=" . $identifier . " ";
+    if ($metadatarecord['object_type'] == 'item') {
+        $sqlomekaitem = "select * from omeka_items where id=" . $identifier . " ";
 //echo $sqlmetadatarecord; //break;
-    $execomekaitem = $db->query($sqlomekaitem);
-    $omekaitem = $execomekaitem->fetch();
-
-    if (strlen($omekaitem['collection_id']) > 0) {
-        $sqlcollection = "select * from omeka_collections where id=" . $omekaitem['collection_id'] . " ";
-//echo $sqlmetadatarecord; //break;
-        $execcollection = $db->query($sqlcollection);
-        $oai_collection = $execcollection->fetch();
+        $execomekaitem = $db->query($sqlomekaitem);
+        $omekaitem = $execomekaitem->fetch();
     } else {
-        $oai_collection['id'] = '';
+        $sqlomekaitem = "select * from omeka_exhibits where id=" . $identifier . " ";
+//echo $sqlmetadatarecord; //break;
+        $execomekaitem = $db->query($sqlomekaitem);
+        $omekaitem = $execomekaitem->fetch();
     }
+
 
 
     $sqlmetadatarecordvalue = "select * from metadata_element_value where record_id=" . $metadatarecord['id'] . " ORDER BY element_hierarchy ASC";
@@ -145,7 +151,7 @@ if (empty($errors)) { //if no errors
         if ($datageneral3['machine_name'] == 'rights') { ///////if RIGHTS
             $output2.= preview_elements($datageneral4, NULL, $metadatarecord, $datageneral3);
         } elseif ($datageneral3['machine_name'] == 'classification') { ///////if CLASSIFICATION
-            $output.= preview_elements($datageneral4, NULL, $metadatarecord, $datageneral3);
+            //$output.= preview_elements($datageneral4, NULL, $metadatarecord, $datageneral3);
         } elseif ($datageneral3['machine_name'] == 'relation') { ///////if RELATION
             $output2.= preview_elements($datageneral4, NULL, $metadatarecord, $datageneral3);
         } else { ///the rest parent elements///////////////////////////////

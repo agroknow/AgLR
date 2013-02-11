@@ -65,36 +65,65 @@ if (!isset($args['metadataPrefix'])) {
 
 ///////explode identifier for use/////////////
 $identifier = explode('oai:' . $repositoryIdentifier . ':', $identifier);
-$identifier = $identifier[1];
-$identifier=  onlyNumbers($identifier);
+$identifier2 = explode(':', $identifier[1]);
+
+$identifier = $identifier2[0];
+$identifier = onlyNumbers($identifier);
+$object_type = $identifier2[1];
+if ($object_type == 'exhibit' or $object_type == 'item') {
+    $object_type = $object_type;
+} else {
+    $object_type = 'Nothing';
+}
 
 ////////////query if exist metadata record in the db!!!!//////////////////////////////
-$sqlmetadatarecord = "select * from metadata_record where object_id=" . $identifier . " and object_type='item'";
+$sqlmetadatarecord = "select * from metadata_record where object_id=" . $identifier . " and object_type='" . $object_type . "' and validate=1";
 //echo $sqlmetadatarecord; //break;
 $exec2 = $db->query($sqlmetadatarecord);
 $metadatarecord = $exec2->fetch();
 
 if (!isset($metadatarecord['id'])) {
-    $errors .= oai_error('idDoesNotExist',NULL,$identifier);
+    $errors .= oai_error('idDoesNotExist', NULL, $identifier);
 }
 
 if (empty($errors)) { //if no errors
     $output .= "<GetRecord>\n";
 
-    
-    $sqlomekaitem = "select * from omeka_items where id=" . $identifier . " ";
+    if ($metadatarecord['object_type'] == 'item') {
+        $sqlomekaitem = "select * from omeka_items where id=" . $identifier . " ";
 //echo $sqlmetadatarecord; //break;
-    $execomekaitem = $db->query($sqlomekaitem);
-    $omekaitem = $execomekaitem->fetch();
-
-    if (strlen($omekaitem['collection_id']) > 0) {
-        $sqlcollection = "select * from omeka_collections where id=" . $omekaitem['collection_id'] . " ";
-//echo $sqlmetadatarecord; //break;
-        $execcollection = $db->query($sqlcollection);
-        $oai_collection = $execcollection->fetch();
+        $execomekaitem = $db->query($sqlomekaitem);
+        $omekaitem = $execomekaitem->fetch();
     } else {
-        $oai_collection['id'] = '';
+        $sqlomekaitem = "select * from omeka_exhibits where id=" . $identifier . " ";
+//echo $sqlmetadatarecord; //break;
+        $execomekaitem = $db->query($sqlomekaitem);
+        $omekaitem = $execomekaitem->fetch();
     }
+
+
+    if ($metadatarecord['object_type'] == 'item') {
+        $oai_collection_general = $set_prefix . 'resources';
+
+        $sqlmetadatarecordfromomeka = "select * from omeka_items where id=" . $metadatarecord['object_id'] . " ";
+//echo $sqlmetadatarecord; //break;
+        $execfromomeka = $db->query($sqlmetadatarecordfromomeka);
+        $metadatarecordfromomeka = $execfromomeka->fetch();
+
+        if (strlen($metadatarecordfromomeka['collection_id']) > 0) {
+            $sqlcollection = "select * from omeka_collections where id=" . $metadatarecordfromomeka['collection_id'] . " ";
+//echo $sqlmetadatarecord; //break;
+            $execcollection = $db->query($sqlcollection);
+            $oai_collection = $execcollection->fetch();
+        } else {
+            $oai_collection['id'] = '';
+        }
+    } else {
+
+        $oai_collection_general = $set_prefix . 'pathways';
+    }
+
+
 
 
     $sqlmetadatarecordvalue = "select * from metadata_element_value where record_id=" . $metadatarecord['id'] . " ORDER BY element_hierarchy ASC";
@@ -109,11 +138,11 @@ if (empty($errors)) { //if no errors
     $datestamp = '';
     $datestamp.=$selectvaluesvalue2[0];
     $datestamp.='T';
-    if(strlen($selectvaluesvalue2[1])>0){
-            $datestamp.=$selectvaluesvalue2[1];
-            }else{
-             $datestamp.='00:00:00';   
-            }
+    if (strlen($selectvaluesvalue2[1]) > 0) {
+        $datestamp.=$selectvaluesvalue2[1];
+    } else {
+        $datestamp.='00:00:00';
+    }
     $datestamp.='.00Z';
 
 
@@ -125,9 +154,12 @@ if (empty($errors)) { //if no errors
     $output .= '<datestamp>';
     $output .= $datestamp;
     $output .= '</datestamp>' . "\n";
+    $output .= '<setSpec>';
+    $output .=$oai_collection_general;
+    $output .= '</setSpec>' . "\n";
     if (strlen($oai_collection['id']) > 0) {
         $output .= '<setSpec>';
-        $output .=$set_prefix.'' . $oai_collection['id'];
+        $output .=$set_prefix . '' . $oai_collection['id'];
         $output .= '</setSpec>' . "\n";
     }
 

@@ -132,7 +132,13 @@ $exhibit_collections_query = "select * from omeka_exhibits where public=1";
 $exec_exhibit_collection = $db->query($exhibit_collections_query);
 $row_exhibit_collecction = $exec_exhibit_collection->fetch();
 if($row_exhibit_collecction['id']>0){
-    $SETS[] = array('setSpec' => $set_prefix.'exhibits', 'setName' => 'Educational Pathways');
+    $SETS[] = array('setSpec' => $set_prefix.'pathways', 'setName' => 'Educational Pathways');
+}
+$exhibit_collections_query = "select * from omeka_items where public=1";
+$exec_exhibit_collection = $db->query($exhibit_collections_query);
+$row_exhibit_collecction = $exec_exhibit_collection->fetch();
+if($row_exhibit_collecction['id']>0){
+    $SETS[] = array('setSpec' => $set_prefix.'resources', 'setName' => 'All Educational Resources');
 }
 //$SETS = 	array ( 
 //array('setSpec'=>'phdthesis', 'setName'=>'PHD Thesis', 'setDescription'=>'') ,

@@ -137,19 +137,46 @@ if (isset($_GET['resumptionToken'])) { ///////yyyymmdd:offset:metadataprefix:set
     $resumptionTokenoffset = onlyNumbers($resumptionToken[1]);
     $resumptionTokenoffsetn = onlyNumbers($resumptionToken[1]);
     $resumptionTokenmetadataprefix = $resumptionToken[2];
-    $resumptionTokensetSpec = onlyNumbers($resumptionToken[3]);
+    $resumptionTokensetSpec = $resumptionToken[3];
     $resumptionTokensetSpecforno = $resumptionToken[3];
 
-    if ($resumptionTokensetSpec > 0) {
-        $query_spec = "select * from omeka_collections where id=" . $resumptionTokensetSpec . " ";
-        $execspec = $db->query($query_spec);
-        $row_spec = $execspec->fetch();
-        $specSize = count($row_spec);
-    }  else {
-        $specSize=0;
+
+
+
+    if (strlen($resumptionTokensetSpec) > 0) {
+
+        if ($resumptionTokensetSpec == 'resources') {
+            $query_spec = "select * from metadata_record where object_type='item' and validate=1 ";
+            $execspec = $db->query($query_spec);
+            $row_spec = $execspec->fetch();
+            $specSize = count($row_spec);
+        } elseif ($resumptionTokensetSpec == 'pathways') {
+            $query_spec = "select * from metadata_record where object_type='exhibit' and validate=1 ";
+            $execspec = $db->query($query_spec);
+            $row_spec = $execspec->fetch();
+            $specSize = count($row_spec);
+            } elseif ($resumptionTokensetSpec == 'no') {
+            $query_spec = "select * from metadata_record where validate=1 ";
+            $execspec = $db->query($query_spec);
+            $row_spec = $execspec->fetch();
+            $specSize = count($row_spec);
+        } else {
+            $resumptionTokensetSpec = onlyNumbers($resumptionTokensetSpec);
+            if ($resumptionTokensetSpec > 0) {
+                $query_spec = "select * from omeka_collections where id=" . $resumptionTokensetSpec . " ";
+                $execspec = $db->query($query_spec);
+                $row_spec = $execspec->fetch();
+                $specSize = count($row_spec);
+            } else {
+                $specSize = 0;
+            }
+        }
+    } else {
+        $specSize = 0;
     }
-    
-    
+
+
+
     $testdivoffset = $resumptionTokenoffset % $MAXIDS;
     $val = $resumptionTokenmetadataprefix;
 
@@ -158,7 +185,7 @@ if (isset($_GET['resumptionToken'])) { ///////yyyymmdd:offset:metadataprefix:set
         $errors .= oai_error('badResumptionToken', '', $_GET['resumptionToken']);
     } elseif ((!$resumptionTokenoffset > 0) or $testdivoffset != 0) {
         $errors .= oai_error('badResumptionToken', '', $_GET['resumptionToken']);
-    } elseif (((!$resumptionTokensetSpec > 0)  or (!$specSize > 0)) and $resumptionTokensetSpecforno=='no') {
+    } elseif ((($resumptionTokensetSpec != 'resources' and $resumptionTokensetSpec != 'pathways') or (!$resumptionTokensetSpec > 0) or (!$specSize > 0)) and $resumptionTokensetSpecforno != 'no') {
         $errors .= oai_error('badResumptionToken', '', $_GET['resumptionToken']);
     } elseif (strlen($val) > 0) {
         if (is_array($METADATAFORMATS[$val])
@@ -177,32 +204,64 @@ if (isset($_GET['resumptionToken'])) { ///////yyyymmdd:offset:metadataprefix:set
 }
 
 ///////////////////////////setSpecs///////////////////////
-
+$getsetcol = '';
+$getset = '';
 if (isset($_GET['set'])) {
     $getset = $_GET['set'];
     $getset = explode($set_prefix, $getset);
-    $getsetn = onlyNumbers($getset[1]);
-    if ($getsetn > 0) {
-        $getset = " and collection_id=" . $getsetn . "";
+    $getsetn = $getset[1];
+    if ($getsetn == 'resources') {
+        $getset = " and a.object_type='item'";
+    } elseif ($getsetn == 'pathways') {
+        $getset = " and a.object_type='exhibit'";
     } else {
-        $getset = " and collection_id=0";
+        $getsetn = onlyNumbers($getset[1]);
+        if ($getsetn > 0) {
+            $getsetcol = " and b.collection_id=" . $getsetn . "";
+            $getset = '';
+        } else {
+            $getsetcol = " and b.collection_id=0";
+            $getset = " and a.object_type='nothing'";
+        }
     }
-} elseif ($resumptionTokensetSpec > 0) {
-    $getsetn = onlyNumbers($resumptionTokensetSpec);
-    if ($getsetn > 0) {
-        $getset = " and collection_id=" . $getsetn . "";
+} elseif (strlen($resumptionTokensetSpec) > 0) {
+    $getsetn = $resumptionTokensetSpec;
+    if ($getsetn == 'resources') {
+        $getset = " and a.object_type='item'";
+    } elseif ($getsetn == 'pathways') {
+        $getset = " and a.object_type='exhibit'";
+    } elseif ($getsetn == 'no') {
+        $getset = "";
     } else {
-        $getset = " and collection_id=0";
+        $getsetn = onlyNumbers($resumptionTokensetSpec);
+        if ($getsetn > 0) {
+            $getsetcol = " and b.collection_id=" . $getsetn . "";
+            $getset = '';
+        } else {
+            $getsetcol = " and b.collection_id=0";
+            $getset = " and a.object_type='nothing'";
+        }
     }
 } else {
     $getset = "";
     $getsetn = "no";
 }
 
-$query_itemtotal = "select * from omeka_items where public=1 " . $getset . " ";
-$exectotal = $db->query($query_itemtotal);
-$row_itemtotal = $exectotal->fetchAll();
+if (isset($_GET['set']) or strlen($resumptionTokensetSpec) > 0) {
+
+    if ($getsetn == 'resources' or $getsetn == 'pathways' or $getsetn == 'no') {
+        $sqlmetadatarecord = "select a.* from metadata_record as a where a.validate=1 " . $getset . "";
+    } else {
+        $sqlmetadatarecord = "select a.* from metadata_record as a join omeka_items as b on a.object_id=b.id where a.validate=1 and a.object_type='item' " . $getsetcol . "";
+    }
+} else {
+    $sqlmetadatarecord = "select a.* from metadata_record as a where a.validate=1 ";
+}
+//echo $sqlmetadatarecord; break;
+$exec2 = $db->query($sqlmetadatarecord);
+$row_itemtotal = $exec2->fetchAll();
 $completeListSize = count($row_itemtotal);
+
 
 
 if ($resumptionTokenoffset > 0 and $testdivoffset == 0) {
@@ -210,10 +269,17 @@ if ($resumptionTokenoffset > 0 and $testdivoffset == 0) {
 } else {
     $resumptionTokenoffset = " OFFSET 0";
 }
-$query_item = "select * from omeka_items where public=1 " . $getset . " ORDER BY id ASC LIMIT " . $MAXIDS . " " . $resumptionTokenoffset . " ";
-$exec = $db->query($query_item);
-$row_item = $exec->fetchAll();
-$count_results = count($row_item);
+
+$sqlmetadatarecord.= " ORDER BY a.id ASC LIMIT " . $MAXIDS . " " . $resumptionTokenoffset . " ";
+//echo $sqlmetadatarecord; break;
+$exec2 = $db->query($sqlmetadatarecord);
+$metadatarecord = $exec2->fetchAll();
+
+/* $query_item = "select * from omeka_items where public=1 " . $getset . " ORDER BY id ASC LIMIT " . $MAXIDS . " " . $resumptionTokenoffset . " ";
+  $exec = $db->query($query_item);
+  $row_item = $exec->fetchAll(); */
+
+$count_results = count($metadatarecord);
 if (!$count_results > 0) {
     $errors .= oai_error('noRecordsMatch');
 }
@@ -222,22 +288,31 @@ if (empty($errors)) { //if no errors
     $output .= "<ListIdentifiers>\n";
 
 
-    foreach ($row_item as $row_item) {
+    foreach ($metadatarecord as $metadatarecord) {
 
 
-        if (strlen($row_item['collection_id']) > 0) {
-            $sqlcollection = "select * from omeka_collections where id=" . $row_item['collection_id'] . " ";
+        if ($metadatarecord['object_type'] == 'item') {
+            $oai_collection_general = $set_prefix . 'resources';
+            $varforidentfiobject='item';
+
+            $sqlmetadatarecordfromomeka = "select * from omeka_items where id=" . $metadatarecord['object_id'] . " ";
 //echo $sqlmetadatarecord; //break;
-            $execcollection = $db->query($sqlcollection);
-            $oai_collection = $execcollection->fetch();
+            $execfromomeka = $db->query($sqlmetadatarecordfromomeka);
+            $metadatarecordfromomeka = $execfromomeka->fetch();
+
+            if (strlen($metadatarecordfromomeka['collection_id']) > 0) {
+                $sqlcollection = "select * from omeka_collections where id=" . $metadatarecordfromomeka['collection_id'] . " ";
+//echo $sqlmetadatarecord; //break;
+                $execcollection = $db->query($sqlcollection);
+                $oai_collection = $execcollection->fetch();
+            } else {
+                $oai_collection['id'] = '';
+            }
         } else {
-            $oai_collection['id'] = '';
-        }
 
-        $sqlmetadatarecord = "select * from metadata_record where object_id=" . $row_item['id'] . " and object_type='item'";
-//echo $sqlmetadatarecord; //break;
-        $exec2 = $db->query($sqlmetadatarecord);
-        $metadatarecord = $exec2->fetch();
+            $oai_collection_general = $set_prefix . 'pathways';
+            $varforidentfiobject='exhibit';
+        }
 
 
         $sqlmetadatarecordvalue = "select * from metadata_element_value where record_id=" . $metadatarecord['id'] . " ORDER BY element_hierarchy ASC";
@@ -252,25 +327,28 @@ if (empty($errors)) { //if no errors
         $datestamp = '';
         $datestamp.=$selectvaluesvalue2[0];
         $datestamp.='T';
-        if(strlen($selectvaluesvalue2[1])>0){
+        if (strlen($selectvaluesvalue2[1]) > 0) {
             $datestamp.=$selectvaluesvalue2[1];
-            }else{
-             $datestamp.='00:00:00';   
-            }
+        } else {
+            $datestamp.='00:00:00';
+        }
         $datestamp.='Z';
 
 
         $output .= '<record>' . "\n";
         $output .= '<header>' . "\n";
         $output .= '<identifier>';
-        $output .= 'oai:' . $repositoryIdentifier . ':' . $metadatarecord['object_id'];
+        $output .= 'oai:' . $repositoryIdentifier . ':' . $metadatarecord['object_id'].':'.$varforidentfiobject;
         $output .= '</identifier>' . "\n";
         $output .= '<datestamp>';
         $output .= $datestamp;
         $output .= '</datestamp>' . "\n";
+        $output .= '<setSpec>';
+        $output .=$oai_collection_general;
+        $output .= '</setSpec>' . "\n";
         if (strlen($oai_collection['id']) > 0) {
             $output .= '<setSpec>';
-            $output .=$set_prefix.''. $oai_collection['id'];
+            $output .=$set_prefix . '' . $oai_collection['id'];
             $output .= '</setSpec>' . "\n";
         }
         $output .= '</header>' . "\n";
@@ -284,7 +362,7 @@ if (empty($errors)) { //if no errors
 
     $newresumptionTokenoffset = $resumptionTokenoffsetn + $MAXIDS;
     if ($completeListSize - $newresumptionTokenoffset > 0) {
-        $output .= '<resumptionToken expirationDate="' . $datetime_resum2 . 'T24:59:59Z" completeListSize="' . $completeListSize . '" cursor="' . $MAXIDS . '">';
+        $output .= '<resumptionToken expirationDate="' . $datetime_resum2 . 'T23:59:59Z" completeListSize="' . $completeListSize . '" cursor="' . $MAXIDS . '">';
         $output .=$datetime_resum . ':' . $newresumptionTokenoffset . ':' . $metadataPrefix . ':' . $getsetn;
         $output .= '</resumptionToken>' . "\n";
     }
