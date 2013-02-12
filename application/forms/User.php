@@ -133,10 +133,12 @@ class Omeka_Form_User extends Omeka_Form
             )
         ));
         
+        if ($this->_hasInstitutionElement) {
         $this->addElement('text', 'institution', array(
             'label' => __('Institution'),
             'size' => '30'
         ));
+        }
         
         if ($this->_hasRoleElement) {
             $this->addElement('select', 'role', array(
@@ -160,6 +162,11 @@ class Omeka_Form_User extends Omeka_Form
     public function setHasRoleElement($flag)
     {
         $this->_hasRoleElement = (boolean)$flag;
+    }
+    
+    public function setHasInstitutionElement($flag)
+    {
+        $this->_hasInstitutionElement = (boolean)$flag;
     }
         
     public function setHasActiveElement($flag)

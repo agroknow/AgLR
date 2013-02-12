@@ -415,6 +415,7 @@ class UsersController extends Omeka_Controller_Action
 
         $form = new Omeka_Form_User(array(
             'hasRoleElement'    => $this->_helper->acl->isAllowed('change-role', $user),
+            'hasInstitutionElement'    => $this->_helper->acl->isAllowed('changeInstitution', $user),
             'hasActiveElement'  => $hasActiveElement,
             'user'              => $user
         ));

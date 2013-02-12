@@ -24,7 +24,7 @@ $resources = array(
     'ItemTypes' => array('add', 'edit', 'delete', 'browse', 'delete-element', 'add-element'),
     // 'makeSuperUser' should be deprecated, since it can only be called if non-super users can choose the roles for user accounts.
     // 'changeRole' determines whether the role of a user account can be changed.  only super users can do this.
-    'Users' => array('browse', 'show', 'add', 'edit', 'delete', 'makeSuperUser', 'changeRole')
+    'Users' => array('browse', 'show', 'add', 'edit', 'delete', 'makeSuperUser', 'changeRole', 'changeInstitution')
 );
 
 //Each entry in this array is the set of the values passed to $acl->allow()
