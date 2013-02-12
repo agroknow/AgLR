@@ -182,7 +182,9 @@ if (isset($_GET['resumptionToken'])) { ///////yyyymmdd:offset:metadataprefix:set
         $errors .= oai_error('badResumptionToken', '', $_GET['resumptionToken']);
     } elseif ((!$resumptionTokenoffset > 0) or $testdivoffset != 0) {
         $errors .= oai_error('badResumptionToken', '', $_GET['resumptionToken']);
-    } elseif ((($resumptionTokensetSpec != 'resources' and $resumptionTokensetSpec != 'pathways') or (!$resumptionTokensetSpec > 0) or (!$specSize > 0)) and $resumptionTokensetSpecforno != 'no') {
+    } elseif (!$specSize > 0) {
+        $errors .= oai_error('badResumptionToken', '', $_GET['resumptionToken']);
+    } elseif ($resumptionTokensetSpec != 'resources' and $resumptionTokensetSpec != 'pathways' and $resumptionTokensetSpec != 'no' and !$resumptionTokensetSpec > 0)  {
         $errors .= oai_error('badResumptionToken', '', $_GET['resumptionToken']);
     } elseif (strlen($val) > 0) {
         if (is_array($METADATAFORMATS[$val])
