@@ -710,4 +710,10 @@ function returndatetime($date) {
     return $datetime;
 }
 
+function usersFromInstitution($institution) {
+    if (strlen($institution) > 0) {
+        //echo $institution = mysql_real_escape_string($institution);
+        return get_db()->getTable('Entity')->findBySql('institution="' . addslashes($institution) . '" ');
+    }
+}
 ?>

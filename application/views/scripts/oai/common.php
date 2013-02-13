@@ -140,6 +140,15 @@ $row_exhibit_collecction = $exec_exhibit_collection->fetch();
 if($row_exhibit_collecction['id']>0){
     $SETS[] = array('setSpec' => $set_prefix.'resources', 'setName' => 'All Educational Resources');
 }
+$exhibit_collections_query = "select DISTINCT institution from omeka_entities where 1";
+$exec_exhibit_collection = $db->query($exhibit_collections_query);
+$row_exhibit_collecction = $exec_exhibit_collection->fetchAll();
+foreach ($row_exhibit_collecction as $row_exhibit_collecction) {
+    if (strlen($row_exhibit_collecction['institution']) > 0) {
+        $row_exhibit_collecction1 = str_replace(' ', '_', $row_exhibit_collecction['institution']);
+        $SETS[] = array('setSpec' => $set_prefix . 'institution_' . $row_exhibit_collecction1, 'setName' => '' . $row_exhibit_collecction['institution'] . '');
+    }
+}
 //$SETS = 	array ( 
 //array('setSpec'=>'phdthesis', 'setName'=>'PHD Thesis', 'setDescription'=>'') ,
 //array('setSpec'=>'math', 'setName'=>'Mathematics') //,
