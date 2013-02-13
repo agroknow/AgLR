@@ -14,6 +14,8 @@ class Omeka_Form_User extends Omeka_Form
 {
     private $_hasRoleElement;
     
+    private $_hasInstitutionElement;
+    
     private $_hasActiveElement;
     
     private $_submitButtonText;
