@@ -146,7 +146,7 @@ $row_exhibit_collecction = $exec_exhibit_collection->fetchAll();
 foreach ($row_exhibit_collecction as $row_exhibit_collecction) {
     if (strlen($row_exhibit_collecction['institution']) > 0) {
         $row_exhibit_collecction1 = str_replace(' ', '_', $row_exhibit_collecction['institution']);
-        $SETS[] = array('setSpec' => $set_prefix . 'institution_' . $row_exhibit_collecction1, 'setName' => '' . $row_exhibit_collecction['institution'] . '');
+        $SETS[] = array('setSpec' => $set_prefix . 'institution_' . $row_exhibit_collecction1, 'setName' => 'Full Sets of Organization: ' . $row_exhibit_collecction['institution'] . '');
     }
 }
 //$SETS = 	array ( 
