@@ -156,7 +156,8 @@ class ItemSearch
         */
         
         $searchQuery  = (string) $this->_getElementsQuery($terms) . " UNION ";
-        $searchQuery .= (string) $this->_getTagsQuery($terms);
+        $searchQuery .= (string) $this->_getElementsFromMetadata($terms) . " ";
+        //$searchQuery .= (string) $this->_getTagsQuery($terms);
                 
         // INNER JOIN to the main SQL query and then ORDER BY rank DESC
         $select->joinInner(array('s'=>new Zend_Db_Expr('('. $searchQuery . ')')), 's.item_id = i.id', array())
@@ -179,6 +180,44 @@ class ItemSearch
             WHERE MATCH (etx.text) AGAINST ($quotedTerms)";
         
         return $query;
+    }
+    
+        protected function _getElementsFromMetadata($terms)
+    {
+        $db = $this->_getDb();
+        $quotedTerms = $db->quote($terms);
+              $rank = 1;  
+        // This doesn't really need to use a Select object because this query
+        // is not dynamic.  
+//        $query = "
+//            SELECT i.id as item_id, 'rank'=>new Zend_Db_Expr($rank)
+//            FROM $db->Item i 
+//            INNER JOIN metadata_record rec ON rec.object_id = i.id and rec.object_type='item'
+//            INNER JOIN metadata_element_value etx ON etx.record_id = rec.id WHERE ";
+//            
+//        
+        $tagList = preg_split('/\s+/', $terms);
+        //Also make sure the tag list contains the whole search string, just in case that is found
+        $tagList[] = $terms; 
+        
+        $select = new Omeka_Db_Select;
+        $select->from( array('i'=>$db->Item), array('item_id'=>'i.id', 'rank'=>'ROUND((LENGTH(etx.value) - LENGTH(REPLACE(etx.value, "'.$terms.'", ""))) / LENGTH("'.$terms.'"),0)!=0'))
+            ->joinInner( array('rec'=>metadata_record), 'rec.object_id = i.id and rec.object_type="item" ', array())
+            ->joinInner( array('etx'=>metadata_element_value), 'etx.record_id = rec.id', array());
+            
+        foreach ($tagList as $tag) {
+            $select->orWhere('etx.value LIKE ?', '%'.$tag.'%');
+            //$select->orWhere('etx.value LIKE ?', $tag);
+        }
+        
+        
+//        
+//        $query .= " etx.value LIKE '%".$terms."%'";
+//            foreach ($tagList as $tag) {
+//            $query .= " or etx.value LIKE '%".$tag."%'";
+//        }
+//        
+        return $select;
     }
     
     protected function _getTagsQuery($terms)
