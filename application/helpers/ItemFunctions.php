@@ -799,7 +799,7 @@ $exec=null;
 }//end not get in if is language name at form 
 }
 }
-$sqllan="SELECT * FROM metadata_element_value WHERE record_id=".$record_id." and element_hierarchy=7"; //echo $sqllan; break;
+$sqllan="SELECT b.value FROM metadata_element_value as a inner join metadata_vocabulary_record as b on b.id=a.vocabulary_record_id WHERE a.record_id=".$record_id." and element_hierarchy=7  "; //echo $sqllan; break;
 $execlan=$db->query($sqllan);
 $result_multi=$execlan->fetch();
 $execlan=null;
