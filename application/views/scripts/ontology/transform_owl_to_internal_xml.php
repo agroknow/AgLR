@@ -77,8 +77,8 @@ ob_end_flush();
 //echo "http://".$_SERVER['SERVER_NAME']."".uri('archive/xmlvoc')."/output.xml";
 
 $xmlname="new_oe_ontology_hierrarchy.xml";
-//$fp = fopen("/var/www/html/".uri('archive/xmlvoc')."/new_oe_ontology_hierrarchy.xml","w");
-$fp = fopen("C:/Program Files (x86)/EasyPHP-12.1/www/".uri('archive/xmlvoc')."/".$xmlname."","w");
+$fp = fopen("/var/www/html/".uri('archive/xmlvoc')."/new_oe_ontology_hierrarchy.xml","w");
+//$fp = fopen("C:/Program Files (x86)/EasyPHP-12.1/www/".uri('archive/xmlvoc')."/".$xmlname."","w");
 fwrite($fp,$output);
 fclose($fp);
 if($fp){
