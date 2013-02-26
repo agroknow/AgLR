@@ -783,10 +783,11 @@ $maxIdSQL_check_if_voc="select * from metadata_element_hierarchy where id=".$var
 //echo "<br><br>".$maxIdSQL_check_if_voc."<br>"; 
 $exec_check_if_voc=$db->query($maxIdSQL_check_if_voc);
 $result_check_if_voc=$exec_check_if_voc->fetch(); //echo $result_check_if_voc['datatype_id']."<br>";
-if($result_check_if_voc['datatype_id']==6){ $vocabulary_record_id=$value; $value='NULL'; }
-else{$vocabulary_record_id='NULL'; $value=$value; $value=htmlspecialchars($value); $value=addslashes($value);}
+if($result_check_if_voc['datatype_id']==6){ $vocabulary_record_id=$value; $value='NULL';$classification_id='NULL'; }
+elseif($result_check_if_voc['datatype_id']==5){ $vocabulary_record_id='NULL'; $classification_id=$value; $value='NULL'; }
+else{$vocabulary_record_id='NULL';$classification_id='NULL'; $value=$value; $value=htmlspecialchars($value); $value=addslashes($value);}
 
-$maxIdSQL="insert into metadata_element_value SET element_hierarchy=".$var.",value='".$value."',language_id='".$language."',record_id=".$record_id.",multi=".$varmulti.",parent_indexer=".$parent_indexer.",vocabulary_record_id=".$vocabulary_record_id." ON DUPLICATE KEY UPDATE value='".$value."',vocabulary_record_id=".$vocabulary_record_id."";
+$maxIdSQL="insert into metadata_element_value SET element_hierarchy=".$var.",value='".$value."',language_id='".$language."',record_id=".$record_id.",multi=".$varmulti.",parent_indexer=".$parent_indexer.",vocabulary_record_id=".$vocabulary_record_id.",classification_id='".$classification_id."' ON DUPLICATE KEY UPDATE value='".$value."',vocabulary_record_id=".$vocabulary_record_id.",classification_id='".$classification_id."'";
 
 //echo $maxIdSQL."<br>"; 
 $exec=$db->query($maxIdSQL);

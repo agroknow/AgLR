@@ -27,6 +27,7 @@ session_start();
 //echo $locale = Zend_Registry::get('Zend_Locale');
 $_SESSION['get_language']=get_language_for_switch();
 $_SESSION['get_language_omeka']=get_language_for_omeka_switch();
+$_SESSION['get_language_for_internal_xml']=get_language_for_internal_xml();
 ?>
 <?php echo body_tag(array('id' => @$bodyid, 'class' => @$bodyclass)); ?>
     <div class="hide"><a href="#content"><?php echo __('Skip Navigation'); ?></a></div>

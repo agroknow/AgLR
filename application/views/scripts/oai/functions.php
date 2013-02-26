@@ -351,7 +351,7 @@ function preview_elements($datageneral4, $datageneral5, $metadatarecord, $datage
                 $thereturnonto = '';
                 foreach ($datageneral8 as $datageneral8) {
 
-                    $sql6 = "SELECT c.*,b.machine_name,b.id as elm_id FROM  metadata_element b  LEFT JOIN metadata_element_hierarchy c 
+                    $sql6 = "SELECT c.*,b.machine_name,b.id as elm_id,b.vocabulary_id as vocabulary_id FROM  metadata_element b  LEFT JOIN metadata_element_hierarchy c 
 			ON c.element_id = b.id  WHERE c.pelement_id=" . $datageneral4['elm_id'] . " and c.is_visible=1 ;";
                     //echo $sql6."<br>";
                     $exec6 = $db->query($sql6);
@@ -373,9 +373,21 @@ function preview_elements($datageneral4, $datageneral5, $metadatarecord, $datage
                             foreach ($datageneral5 as $datageneral5) {
 
                                 if ($datageneral6['datatype_id'] == 5) {
-                                    if (strlen($datageneral5['value']) > 0) {
-
-                                        $ontology2 = $datageneral5['value'];
+                                    if (strlen($datageneral5['classification_id']) > 0) {
+                                        
+                                        $sqlfindxml = "SELECT * FROM  metadata_vocabulary_record WHERE vocabulary_id=" . $datageneral6['vocabulary_id'] . "";
+                                        //echo $sqlfindxml;
+                                        $execfindxml = $db->query($sqlfindxml);
+                                        $findxml = $execfindxml->fetch();
+                                        libxml_use_internal_errors(false);
+                                        $uri = WEB_ROOT;
+                                        $file=$findxml['value'];
+                                        $xmlvoc = '' . $uri . '/archive/xmlvoc/' . $file . '.xml';
+                                        $xml = @simplexml_load_file($xmlvoc, NULL, LIBXML_NOERROR | LIBXML_NOWARNING);
+                                        $resultnewval = $xml->xpath("instances/instance[@instanceOf='" . $datageneral5['classification_id'] . "' and @lang='en']");
+                                        
+                                        $ontology2_en_value_string=$resultnewval[0];
+                                        $ontology2 = $datageneral5['classification_id'];
                                     }
                                 }
 
@@ -409,15 +421,16 @@ function preview_elements($datageneral4, $datageneral5, $metadatarecord, $datage
                         foreach ($selectvaluesvalue2 as $selectvaluesvalue2) {
                             $ontology1.=ucfirst($selectvaluesvalue2);
                         }
-                        $taxon_id_value = "http://www.cc.uah.es/ie/ont/OE-Predicates#" . $ontology1 . " :: http://www.cc.uah.es/ie/ont/OE-OAAE#" . $ontology2 . "";
+                        $taxon_id_value = "http://www.cc.uah.es/ie/ont/OE-Predicates#" . $ontology1 . " :: http://www.cc.uah.es/ie/ont/OE-OAAE" . $ontology2 . "";
+                        $ontology2 = substr($ontology2, 1); ///to clean '#' for entry
                         $taxon_entry = $ontology1 . " :: " . $ontology2 . "";
                         $class_source = 'Organic.Edunet Ontology';
                     }
                     ////////////for organic-lingua/////////////////
-
                     if ($schema['name'] == 'CoE') {
                         ////////////for CoE/////////////////
-                        $taxon_entry = $ontology1 . "" . $ontology2 . "";
+
+                        $taxon_entry = $ontology1 . "" . $ontology2_en_value_string . "";
                         $taxon_id_value = ' ';
                         if ($datageneral4['machine_name'] == 'purpose_educational_level') {
                             $class_source = 'UNESCO';
@@ -717,4 +730,5 @@ function usersFromInstitution($institution) {
         return get_db()->getTable('Entity')->findBySql('institution="' . addslashes($institution) . '" ');
     }
 }
+
 ?>

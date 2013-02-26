@@ -395,7 +395,7 @@ function createlomlabel($name, $extra = NULL, $min_occurs = NULL, $element_id = 
 function createlomelement($type, $name, $value = NULL, $extra = NULL, $selectvalues = NULL, $selectvalueswhich = NULL, $selectalter = NULL, $langstringparams = NULL, $is_editable = NULL, $view_mode = NULL) {
     $readonly = '';
     $disabled = '';
-    if ($is_editable === 0 or $view_mode===1) {
+    if ($is_editable === 0 or $view_mode === 1) {
         $readonly = 'readonly="readonly"';
         $disabled = 'disabled="disabled"';
     } else {
@@ -447,11 +447,11 @@ function createlomelement($type, $name, $value = NULL, $extra = NULL, $selectval
         $element = '<select ' . $extra . ' ' . $disabled . '  name="' . $name . '">';
         $element.='<option value="">Select </option>';
         foreach ($selectvalues as $selectvalues) {
-            $element.='<option value="' . $selectvalues . '" ';
-            if ($value == $selectvalues) {
+            $element.='<option value="' . $selectvalues[$selectvalueswhich] . '" ';
+            if ($value == $selectvalues[$selectvalueswhich]) {
                 $element.= 'selected=selected';
             }
-            $element.='>' . $selectvalues . '</option>';
+            $element.='>' . $selectvalues[$selectalter] . '</option>';
         }
         $element.='</select>';
     } elseif ($type == 'selectlanstr') {
@@ -474,7 +474,7 @@ function createlomelement($type, $name, $value = NULL, $extra = NULL, $selectval
     return $element;
 }
 
-function lomradioform($data6, $dataform, $view_mode=NULL) {
+function lomradioform($data6, $dataform, $view_mode = NULL) {
     require_once 'Omeka/Core.php';
     $core = new Omeka_Core;
 
@@ -490,8 +490,10 @@ function lomradioform($data6, $dataform, $view_mode=NULL) {
     } catch (Exception $e) {
         die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
     }
-    $disable='';
-    if($view_mode==1){$disable='disabled="disabled"';}
+    $disable = '';
+    if ($view_mode == 1) {
+        $disable = 'disabled="disabled"';
+    }
     foreach ($data6 as $datarecord) {
         if ($datarecord['element_hierarchy'] === $dataform['id']) {
             $datarecordvalue = $datarecord['value'];
@@ -499,19 +501,19 @@ function lomradioform($data6, $dataform, $view_mode=NULL) {
     }//select the value for more than one foreach
     $dataform['labal_name'] = return_multi_language_label_name($dataform['element_id']);
     $output = createlomlabel($dataform['labal_name'], 'for="theme"', $dataform['min_occurs'], $dataform['element_id']);
-    $output.='<input type="radio" '.$disable.' name="' . $dataform['id'] . '_1_1" ';
+    $output.='<input type="radio" ' . $disable . ' name="' . $dataform['id'] . '_1_1" ';
     if ($datarecordvalue === 'yes') {
         $output.= 'checked=checked ';
     }
     $output.= 'value="yes"> Yes &nbsp;&nbsp;';
-    $output.= '<input type="radio" '.$disable.' name="' . $dataform['id'] . '_1_1" ';
+    $output.= '<input type="radio" ' . $disable . ' name="' . $dataform['id'] . '_1_1" ';
     if ($datarecordvalue === 'no') {
         $output.= 'checked=checked ';
     }
     $output.= 'value="no"> No ';
 
     if ($dataform['id'] === 23) {
-        $output.= '<input type="radio" '.$disable.' name="' . $dataform['id'] . '_1_1" ';
+        $output.= '<input type="radio" ' . $disable . ' name="' . $dataform['id'] . '_1_1" ';
         if ($datarecordvalue === 'Yes, if others share alike') {
             $output.= 'checked=checked ';
         }
@@ -523,7 +525,7 @@ function lomradioform($data6, $dataform, $view_mode=NULL) {
     return $output;
 }
 
-function lomontology($data6, $dataform, $datalan, $extra, $parent_multi = NULL, $record = NULL, $view_mode=NULL) {
+function lomontology($data6, $dataform, $datalan, $extra, $parent_multi = NULL, $record = NULL, $view_mode = NULL) {
     require_once 'Omeka/Core.php';
     $core = new Omeka_Core;
 
@@ -584,7 +586,7 @@ function lomontology($data6, $dataform, $datalan, $extra, $parent_multi = NULL, 
     }
     foreach ($data6 as $datarecord) {
         if ($datarecord['element_hierarchy'] === $dataform['id']) { //select the value for more than one foreach
-            $datarecordvalue = $datarecord['value'];
+            $datarecordvalue = $datarecord['classification_id'];
             $formmulti = $datarecord['multi'];
             $multi = $datarecord['multi'];
             $datarecoreditable = $datarecord['is_editable'];
@@ -600,19 +602,19 @@ function lomontology($data6, $dataform, $datalan, $extra, $parent_multi = NULL, 
                 $uri = WEB_ROOT;
                 $xmlvoc = '' . $uri . '/archive/xmlvoc/' . $datavocele['value'] . '.xml';
                 $xml = @simplexml_load_file($xmlvoc, NULL, LIBXML_NOERROR | LIBXML_NOWARNING);
-                $xml = objecttosortedarray($xml);
+                $xml = internal_xml('' . $dataform['id'] . '_' . $multi . '_tree', '' . $datavocele['value'] . '', $_SESSION['get_language_for_internal_xml'], $drop_down = 1);
                 //print_r($datarecordvalue);
-                $output.= createlomelement('selectxml', '' . $dataform['id'] . '_' . $formmulti . '', $datarecordvalue, 'id="' . $dataform['id'] . '_' . $formmulti . '" style="width:300px;float:left;" ' . $extra . '', $xml, 'term', 'term', NULL, NULL, $view_mode);
-                if($view_mode!=1){
-                $output.= '<a href="javascript:void(0)" onclick="toggletree(\'' . $dataform['id'] . '_' . $multi . '_tree\');" style="float:left;margin-left:2px;" id="' . $dataform['id'] . '_' . $multi . '">Browse</a>';
-                $output.=organic_ontology('' . $dataform['id'] . '_' . $multi . '_tree', '' . $datavocele['value'] . '_tree');
+                $output.= createlomelement('selectxml', '' . $dataform['id'] . '_' . $formmulti . '', $datarecordvalue, 'id="' . $dataform['id'] . '_' . $formmulti . '" style="width:300px;float:left;" ' . $extra . '', $xml, 'id', 'value', NULL, NULL, $view_mode);
+                if ($view_mode != 1) {
+                    $output.= '<a href="javascript:void(0)" onclick="toggletree(\'' . $dataform['id'] . '_' . $multi . '_tree\');" style="float:left;margin-left:2px;" id="' . $dataform['id'] . '_' . $multi . '">Browse</a>';
+                    $output.=internal_xml('' . $dataform['id'] . '_' . $multi . '_tree', '' . $datavocele['value'] . '', $_SESSION['get_language_for_internal_xml'], NULL);
                 }
-                
-                if($view_mode!=1){
-                //if($dataform['max_occurs']>1){
-                $output.= '<a class="lom-remove" alt="Remove ' . $dataform['labal_name'] . '" title="Remove ' . $dataform['labal_name'] . '" href="#" onClick="removeFormFieldExisted(\'' . $dataform['id'] . '_' . $formmulti . '_field\',\'' . $dataform['id'] . '\',\'' . $datarecord['language_id'] . '\',\'' . $datarecord['record_id'] . '\',\'' . $datarecord['multi'] . '\'); return false;" 
+
+                if ($view_mode != 1) {
+                    //if($dataform['max_occurs']>1){
+                    $output.= '<a class="lom-remove" alt="Remove ' . $dataform['labal_name'] . '" title="Remove ' . $dataform['labal_name'] . '" href="#" onClick="removeFormFieldExisted(\'' . $dataform['id'] . '_' . $formmulti . '_field\',\'' . $dataform['id'] . '\',\'' . $datarecord['language_id'] . '\',\'' . $datarecord['record_id'] . '\',\'' . $datarecord['multi'] . '\'); return false;" 
                 style="position:relative; left:5px; top:2px;float:left;">Remove</a>';
-                //}//maxoccurs>1
+                    //}//maxoccurs>1
                 } ///if view_mode not display
                 $output.= '<br style="clear:both"><br>';
             } //select and isset vocabulary
@@ -625,7 +627,7 @@ function lomontology($data6, $dataform, $datalan, $extra, $parent_multi = NULL, 
         }
     }//select the value for more than one foreach
     //an den uparxei eggrafh create one empty //////////////////////////////////////////////////////
-    if ($formcount === 0 and $view_mode!=1) {
+    if ($formcount === 0 and $view_mode != 1) {
         $formmulti = 1;
         if ($parent_multi > 0) {
             $multi = $parent_multi;
@@ -643,14 +645,14 @@ function lomontology($data6, $dataform, $datalan, $extra, $parent_multi = NULL, 
             $uri = WEB_ROOT;
             $xmlvoc = '' . $uri . '/archive/xmlvoc/' . $datavocele['value'] . '.xml';
             $xml = @simplexml_load_file($xmlvoc, NULL, LIBXML_NOERROR | LIBXML_NOWARNING);
-            $xml = objecttosortedarray($xml);
+            $xml = internal_xml('' . $dataform['id'] . '_' . $multi . '_tree', '' . $datavocele['value'] . '', $_SESSION['get_language_for_internal_xml'], 1);
             //foreach ($sortedxml as $sortedxml) { echo $sortedxml; }
             //print_r($sortedxml);
             //print_r($xml->term);
-            $output.= createlomelement('selectxml', '' . $dataform['id'] . '_' . $multi . '', '', 'id="' . $dataform['id'] . '_' . $multi . '" style="width:300px;float:left;" ' . $extra . '', $xml, 'term', 'term', NULL, NULL, '' . $dataform['id'] . '');
+            $output.= createlomelement('selectxml', '' . $dataform['id'] . '_' . $multi . '', '', 'id="' . $dataform['id'] . '_' . $multi . '" style="width:300px;float:left;" ' . $extra . '', $xml, 'id', 'value', NULL, NULL, '' . $dataform['id'] . '');
             $output.= '<a href="javascript:void(0)" onclick="toggletree(\'' . $dataform['id'] . '_' . $multi . '_tree\');" style="float:left;margin-left:2px;" id="' . $dataform['id'] . '_' . $multi . '">Browse</a>';
 
-            $output.=organic_ontology('' . $dataform['id'] . '_' . $multi . '_tree', '' . $datavocele['value'] . '_tree');
+            $output.=internal_xml('' . $dataform['id'] . '_' . $multi . '_tree', '' . $datavocele['value'] . '', $_SESSION['get_language_for_internal_xml'], NULL);
             $output.= '<br style="clear:both"><br>';
         } //select and isset vocabulary
         else {
@@ -662,7 +664,7 @@ function lomontology($data6, $dataform, $datalan, $extra, $parent_multi = NULL, 
     $output.= "</div>";
 
 
-    if ($dataform['max_occurs'] > 1  and $view_mode!=1) {
+    if ($dataform['max_occurs'] > 1 and $view_mode != 1) {
         $output.='<input name="hdnLine_' . $dataform['id'] . '" id="hdnLine_' . $dataform['id'] . '" type="hidden" value="' . $formmulti . '">
         <div style="position:relative;clear:both;"><a alt="Add ' . $dataform['labal_name'] . '" title="Add ' . $dataform['labal_name'] . '" style="float:left;" class="lom-add-new" href="#" 
        onClick="addFormFieldSelectXmlOntology(\'' . $formmulti . '\',\'' . $dataform['id'] . '\',\'hdnLine_' . $dataform['id'] . '\',\'' . $dataform['vocabulary_id'] . '\'); return false;">Add ' . $dataform['labal_name'] . '</a></div>';
@@ -821,11 +823,11 @@ function lomselectform($data6, $dataform, $datalan, $extra, $parent_multi = NULL
     } catch (Exception $e) {
         die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
     }
-    
+
     $output = '';
     if ($dataform['min_occurs'] > 0) {
         $output = '<div style="float:left;border-bottom:1px solid #d7d5c4;padding-right:9px; margin-right:5px;padding-bottom:9px; margin-bottom:5px; width:100%;"  id="' . $dataform['id'] . '" class="mandatory_element">';
-    } elseif ($dataform['is_recommented'] == 1  or $parent_multi>0) {
+    } elseif ($dataform['is_recommented'] == 1 or $parent_multi > 0) {
         $output = '<div style="float:left;border-bottom:1px solid #d7d5c4;padding-right:9px; margin-right:5px;padding-bottom:9px; margin-bottom:5px; width:100%;"  id="' . $dataform['id'] . '" class="recommented_element">';
     } else {
         $output = '<div style="float:left;border-bottom:1px solid #d7d5c4;padding-right:9px; margin-right:5px;padding-bottom:9px; margin-bottom:5px; width:100%;"  id="' . $dataform['id'] . '" class="optional_element">';
@@ -869,7 +871,7 @@ function lomselectform($data6, $dataform, $datalan, $extra, $parent_multi = NULL
 
 
                 //if($dataform['max_occurs']>1){
-                if ($datarecoreditable === 0 or $view_mode==1) {
+                if ($datarecoreditable === 0 or $view_mode == 1) {
                     
                 } else {
                     $output.= '<a class="lom-remove" alt="Remove ' . $dataform['labal_name'] . '" title="Remove ' . $dataform['labal_name'] . '" href="#" onClick="removeFormFieldExisted(\'' . $dataform['id'] . '_' . $formmulti . '_field\',\'' . $dataform['id'] . '\',\'' . $datarecord['language_id'] . '\',\'' . $datarecord['record_id'] . '\',\'' . $datarecord['multi'] . '\'); return false;" 
@@ -887,7 +889,7 @@ function lomselectform($data6, $dataform, $datalan, $extra, $parent_multi = NULL
         }
     }//select the value for more than one foreach
     //an den uparxei eggrafh create one empty //////////////////////////////////////////////////////
-    if ($formcount === 0 and $view_mode!=1) {
+    if ($formcount === 0 and $view_mode != 1) {
         $formmulti = 1;
         if ($parent_multi > 0) {
             $multi = $parent_multi;
@@ -912,7 +914,7 @@ function lomselectform($data6, $dataform, $datalan, $extra, $parent_multi = NULL
     $output.= "</div>";
 
 
-    if ($dataform['max_occurs'] > 1 and $view_mode!=1) {
+    if ($dataform['max_occurs'] > 1 and $view_mode != 1) {
         $output.='<input name="hdnLine_' . $dataform['id'] . '" id="hdnLine_' . $dataform['id'] . '" type="hidden" value="' . $formmulti . '">
         <div style="position:relative;clear:both;">
 		<a href="#" alt="Add ' . $dataform['labal_name'] . '" title="Add ' . $dataform['labal_name'] . '" class="lom-add-new" style="float:left;"
@@ -925,7 +927,7 @@ function lomselectform($data6, $dataform, $datalan, $extra, $parent_multi = NULL
     return $output;
 }
 
-function lomtextareaform($data6, $dataform, $datalan, $parent_multi = NULL, $record = NULL, $for_translation = NULL, $view_mode=NULL) {
+function lomtextareaform($data6, $dataform, $datalan, $parent_multi = NULL, $record = NULL, $for_translation = NULL, $view_mode = NULL) {
     require_once 'Omeka/Core.php';
     $core = new Omeka_Core;
 
@@ -1107,7 +1109,7 @@ function lomtextareaform($data6, $dataform, $datalan, $parent_multi = NULL, $rec
         if ($dataform['min_occurs'] > 0) {
             $output = '<div style="float:left;border-bottom:1px solid #d7d5c4;padding-right:9px; margin-right:5px;padding-bottom:9px; margin-bottom:5px; 
 			width:100%;"  id="' . $dataform['id'] . '" class="mandatory_element">';
-        } elseif ($dataform['is_recommented'] == 1  or $parent_multi>0) {
+        } elseif ($dataform['is_recommented'] == 1 or $parent_multi > 0) {
             $output = '<div style="float:left;border-bottom:1px solid #d7d5c4;padding-right:9px; margin-right:5px;padding-bottom:9px; margin-bottom:5px; 
 			width:100%;"  id="' . $dataform['id'] . '" class="recommented_element">';
         } else {
@@ -1131,7 +1133,7 @@ function lomtextareaform($data6, $dataform, $datalan, $parent_multi = NULL, $rec
         $multi = 0;
         $formcounttotal = 0;
 
-        if ($dataform['max_occurs'] > 1 and $view_mode!=1) {
+        if ($dataform['max_occurs'] > 1 and $view_mode != 1) {
             $output.='<br><a class="lom-add-new" href="#" alt="Add ' . $dataform['labal_name'] . '" title="Add ' . $dataform['labal_name'] . '" style="float:left;" onClick="addFormTotalField(\'' . $formcount . '\',\'' . $dataform['id'] . '\',\'hdnLine_group_total_' . $dataform['id'] . '\',\'' . $dataform['labal_name'] . '\'); return false;">Add ' . $dataform['labal_name'] . '</a>';
         }
         $output.= "</div>";
@@ -1159,10 +1161,10 @@ function lomtextareaform($data6, $dataform, $datalan, $parent_multi = NULL, $rec
                         $output.="<hr style='clear:both;'>";
                     }
                     //if hierarchy type= langstring
-                    if ($dataform['datatype_id'] === 1  and $view_mode!=1) {
+                    if ($dataform['datatype_id'] === 1 and $view_mode != 1) {
                         $output.='<a alt="Add Language" title="Add Language" class="lom-add-new" style="float:left;" href="#" onClick="addFormField(\'' . $formcount . '\',\'' . $dataform['id'] . '_' . $datarecord['multi'] . '\',\'hdnLine_' . $dataform['id'] . '_' . $datarecord['multi'] . '\'); return false;">Add Language</a>&nbsp;&nbsp;';
                     }
-                    if ($dataform['max_occurs'] > 1  and $view_mode!=1) {
+                    if ($dataform['max_occurs'] > 1 and $view_mode != 1) {
                         $output.='<a alt="Remove ' . $dataform['labal_name'] . '" title="Remove ' . $dataform['labal_name'] . '" class="lom-remove" href="#" onClick="removeFormFieldTotalExisted(\'' . $dataform['id'] . '_' . $datarecord['multi'] . '\',\'' . $dataform['id'] . '\',\'' . $datarecord['record_id'] . '\',\'' . $datarecord['multi'] . '\',\'1\'); return false;" style="">Remove ' . $dataform['labal_name'] . '</a>';
                     }
                     $output.= '<br><br>';
@@ -1180,12 +1182,12 @@ function lomtextareaform($data6, $dataform, $datalan, $parent_multi = NULL, $rec
 					style="vertical-align:top;"', $datalan, 'id', 'locale_name', $langstringparams, NULL, $view_mode);
                 }//langstring
                 //$output.='<br>';  
-                if($view_mode!=1){
-                if ($dataform['datatype_id'] === 1) {
-                    $output.='<br><a alt="Remove Language" title="Remove Language" class="lom-remove" href="#" onClick="removeFormFieldExisted(\'' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_field\',\'' . $dataform['id'] . '\',\'' . $datarecord['language_id'] . '\',\'' . $datarecord['record_id'] . '\',\'' . $datarecord['multi'] . '\'); return false;" style="float:right;">Remove Language</a><br>';
-                } else {
-                    $output.='<a alt="Remove ' . $dataform['labal_name'] . '" title="Remove ' . $dataform['labal_name'] . '" class="lom-remove" href="#" onClick="removeFormFieldExisted(\'' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_field\',\'' . $dataform['id'] . '\',\'' . $datarecord['language_id'] . '\',\'' . $datarecord['record_id'] . '\',\'' . $datarecord['multi'] . '\'); return false;" style="">Remove ' . $dataform['labal_name'] . '</a><br>';
-                }
+                if ($view_mode != 1) {
+                    if ($dataform['datatype_id'] === 1) {
+                        $output.='<br><a alt="Remove Language" title="Remove Language" class="lom-remove" href="#" onClick="removeFormFieldExisted(\'' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_field\',\'' . $dataform['id'] . '\',\'' . $datarecord['language_id'] . '\',\'' . $datarecord['record_id'] . '\',\'' . $datarecord['multi'] . '\'); return false;" style="float:right;">Remove Language</a><br>';
+                    } else {
+                        $output.='<a alt="Remove ' . $dataform['labal_name'] . '" title="Remove ' . $dataform['labal_name'] . '" class="lom-remove" href="#" onClick="removeFormFieldExisted(\'' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_field\',\'' . $dataform['id'] . '\',\'' . $datarecord['language_id'] . '\',\'' . $datarecord['record_id'] . '\',\'' . $datarecord['multi'] . '\'); return false;" style="">Remove ' . $dataform['labal_name'] . '</a><br>';
+                    }
                 }// if not view_mode
                 $output.= '</div>'; /////////////////div tou add remove
                 $output.= '</div>';
@@ -1198,7 +1200,7 @@ function lomtextareaform($data6, $dataform, $datalan, $parent_multi = NULL, $rec
 
 
         //an den uparxei eggrafh create one empty
-        if ($formcount === 0  and $view_mode!=1) {
+        if ($formcount === 0 and $view_mode != 1) {
             $formcount+=1;
             if ($parent_multi > 0) {
                 $multi = $parent_multi;
@@ -1233,7 +1235,7 @@ function lomtextareaform($data6, $dataform, $datalan, $parent_multi = NULL, $rec
     return $output;
 }
 
-function lomtextformdate($data6, $dataform, $datalan, $parent_multi = NULL, $record = NULL, $view_mode=NULL) {
+function lomtextformdate($data6, $dataform, $datalan, $parent_multi = NULL, $record = NULL, $view_mode = NULL) {
     require_once 'Omeka/Core.php';
     $core = new Omeka_Core;
 
@@ -1278,7 +1280,7 @@ function lomtextformdate($data6, $dataform, $datalan, $parent_multi = NULL, $rec
     $multi = 0;
     $formcounttotal = 0;
 
-    if ($dataform['max_occurs'] > 1 and $view_mode!=1) {
+    if ($dataform['max_occurs'] > 1 and $view_mode != 1) {
         if ($dataform['datatype_id'] === 1) {
             $output.='<br><a class="lom-add-new" href="#" style="float:left;" onClick="addFormTotalFieldText(\'' . $formcount . '\',\'' . $dataform['id'] . '\',\'hdnLine_group_total_' . $dataform['id'] . '\',\'' . $dataform['labal_name'] . '\'); return false;">Add ' . $dataform['labal_name'] . '</a>';
         } else {
@@ -1307,11 +1309,11 @@ function lomtextformdate($data6, $dataform, $datalan, $parent_multi = NULL, $rec
                 $output.= '</div><div style="" id="' . $dataform['id'] . '_' . $datarecord['multi'] . '_inputs">';
                 //$output.="<hr style='clear:both;'>";
                 //if hierarchy type= langstring
-                if ($dataform['datatype_id'] === 1  and $view_mode!=1) {
+                if ($dataform['datatype_id'] === 1 and $view_mode != 1) {
                     $output.='<a class="lom-add-new" href="#" onClick="addFormFieldText(\'' . $formcount . '\',\'' . $dataform['id'] . '_' . $datarecord['multi'] . '\',\'hdnLine_' . $dataform['id'] . '_' . $datarecord['multi'] . '\'); return false;">Add Language</a>&nbsp;&nbsp;';
                 }
-                if ($dataform['max_occurs'] > 1  and $view_mode!=1) {
-                    if ($datarecoreditable === 0  or $view_mode==1) {
+                if ($dataform['max_occurs'] > 1 and $view_mode != 1) {
+                    if ($datarecoreditable === 0 or $view_mode == 1) {
                         
                     } else {
                         $output.='<a class="lom-remove" href="#" onClick="removeFormFieldTotalExisted(\'' . $dataform['id'] . '_' . $datarecord['multi'] . '\',\'' . $dataform['id'] . '\',\'' . $datarecord['record_id'] . '\',\'' . $datarecord['multi'] . '\',\'1\'); return false;" style="">Remove ' . $dataform['labal_name'] . '</a>';
@@ -1323,7 +1325,7 @@ function lomtextformdate($data6, $dataform, $datalan, $parent_multi = NULL, $rec
             $formcount+=1;
             $formcounttotal+=1;
             $output.='<div id="' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_field" style="margin-top:0px;">';
-            if ($datarecord['is_editable'] === 0  and $view_mode==1) {
+            if ($datarecord['is_editable'] === 0 and $view_mode == 1) {
                 
             } else {
                 ?>
@@ -1342,10 +1344,10 @@ function lomtextformdate($data6, $dataform, $datalan, $parent_multi = NULL, $rec
                 $output.= createlomelement('selectlanstr', '' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_lan', $datarecordvaluelan, 'class="combo" 
 					style="vertical-align:top;"', $datalan, 'id', 'locale_name', $langstringparams, NULL, $view_mode);
             }//langstring
-            if ($dataform['datatype_id'] === 1  and $view_mode!=1) {
+            if ($dataform['datatype_id'] === 1 and $view_mode != 1) {
                 $output.='<a class="lom-remove" href="#" onClick="removeFormFieldExisted(\'' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_field\',\'' . $dataform['id'] . '\',\'' . $datarecord['language_id'] . '\',\'' . $datarecord['record_id'] . '\',\'' . $datarecord['multi'] . '\'); return false;" style="">Remove Language</a><br>';
             } else {
-                if ($datarecord['is_editable'] != 0  and $view_mode!=1) {
+                if ($datarecord['is_editable'] != 0 and $view_mode != 1) {
                     $output.='<a class="lom-remove" href="#" onClick="removeFormFieldExisted(\'' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_field\',\'' . $dataform['id'] . '\',\'' . $datarecord['language_id'] . '\',\'' . $datarecord['record_id'] . '\',\'' . $datarecord['multi'] . '\'); return false;" style="float:right;">Remove</a><br>';
                 }//is editable
             }
@@ -1360,7 +1362,7 @@ function lomtextformdate($data6, $dataform, $datalan, $parent_multi = NULL, $rec
 
 
     //an den uparxei eggrafh create one empty
-    if ($formcount === 0  and $view_mode!=1) {
+    if ($formcount === 0 and $view_mode != 1) {
         $formcount+=1;
         if ($parent_multi > 0) {
             $multi = $parent_multi;
@@ -1588,7 +1590,7 @@ function lomtextform($data6, $dataform, $datalan, $parent_multi = NULL, $record 
         if ($dataform['min_occurs'] > 0) {
             $output = '<div style="float:left;border-bottom:1px solid #d7d5c4;padding-right:9px; margin-right:5px;padding-bottom:9px; margin-bottom:5px; 
 			width:100%;"  id="' . $dataform['id'] . '" class="mandatory_element">';
-        } elseif ($dataform['is_recommented'] == 1 or $parent_multi>0) {
+        } elseif ($dataform['is_recommented'] == 1 or $parent_multi > 0) {
             $output = '<div style="float:left;border-bottom:1px solid #d7d5c4;padding-right:9px; margin-right:5px;padding-bottom:9px; margin-bottom:5px; 
 			width:100%;"  id="' . $dataform['id'] . '" class="recommented_element">';
         } else {
@@ -1611,7 +1613,7 @@ function lomtextform($data6, $dataform, $datalan, $parent_multi = NULL, $record 
         $multi = 0;
         $formcounttotal = 0;
 
-        if ($dataform['max_occurs'] > 1 and $view_mode!=1) {
+        if ($dataform['max_occurs'] > 1 and $view_mode != 1) {
             if ($dataform['datatype_id'] === 1) {
                 $output.='<br><a class="lom-add-new" href="#" style="float:left;" onClick="addFormTotalFieldText(\'' . $formcount . '\',\'' . $dataform['id'] . '\',\'hdnLine_group_total_' . $dataform['id'] . '\',\'' . $dataform['labal_name'] . '\'); return false;">Add ' . $dataform['labal_name'] . '</a>';
             } else {
@@ -1643,11 +1645,11 @@ function lomtextform($data6, $dataform, $datalan, $parent_multi = NULL, $record 
                         $output.="<hr style='clear:both;'>";
                     }
                     //if hierarchy type= langstring
-                    if ($dataform['datatype_id'] === 1 and $view_mode!=1) {
+                    if ($dataform['datatype_id'] === 1 and $view_mode != 1) {
                         $output.='<a class="lom-add-new" style="float:left;"  href="#" onClick="addFormFieldText(\'' . $formcount . '\',\'' . $dataform['id'] . '_' . $datarecord['multi'] . '\',\'hdnLine_' . $dataform['id'] . '_' . $datarecord['multi'] . '\'); return false;">Add Language</a>&nbsp;&nbsp;';
                     }
-                    if ($dataform['max_occurs'] > 1 and $view_mode!=1) {
-                        if ($datarecoreditable === 0 or $view_mode==1) {
+                    if ($dataform['max_occurs'] > 1 and $view_mode != 1) {
+                        if ($datarecoreditable === 0 or $view_mode == 1) {
                             
                         } else {
                             $output.='<a class="lom-remove" href="#" onClick="removeFormFieldTotalExisted(\'' . $dataform['id'] . '_' . $datarecord['multi'] . '\',\'' . $dataform['id'] . '\',\'' . $datarecord['record_id'] . '\',\'' . $datarecord['multi'] . '\',\'1\'); return false;" style="">Remove ' . $dataform['labal_name'] . '</a>';
@@ -1668,10 +1670,10 @@ function lomtextform($data6, $dataform, $datalan, $parent_multi = NULL, $record 
                     $output.= createlomelement('selectlanstr', '' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_lan', $datarecordvaluelan, 'class="combo" 
 					style="vertical-align:top;"', $datalan, 'id', 'locale_name', $langstringparams, NULL, $view_mode);
                 }//langstring
-                if ($dataform['datatype_id'] === 1 and $view_mode!=1) {
+                if ($dataform['datatype_id'] === 1 and $view_mode != 1) {
                     $output.='<a class="lom-remove" href="#" onClick="removeFormFieldExisted(\'' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_field\',\'' . $dataform['id'] . '\',\'' . $datarecord['language_id'] . '\',\'' . $datarecord['record_id'] . '\',\'' . $datarecord['multi'] . '\'); return false;" style="float:right;">Remove Language</a><br>';
                 } else {
-                    if ($datarecord['is_editable'] != 0  and $view_mode!=1) {
+                    if ($datarecord['is_editable'] != 0 and $view_mode != 1) {
                         $output.='<a class="lom-remove" href="#" onClick="removeFormFieldExisted(\'' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_field\',\'' . $dataform['id'] . '\',\'' . $datarecord['language_id'] . '\',\'' . $datarecord['record_id'] . '\',\'' . $datarecord['multi'] . '\'); return false;" style="float:left;">Remove</a><br>';
                     }//is editable
                 }
@@ -1686,7 +1688,7 @@ function lomtextform($data6, $dataform, $datalan, $parent_multi = NULL, $record 
 
 
         //an den uparxei eggrafh create one empty
-        if ($formcount === 0  and $view_mode!=1) {
+        if ($formcount === 0 and $view_mode != 1) {
             $formcount+=1;
             if ($parent_multi > 0) {
                 $multi = $parent_multi;
@@ -1752,7 +1754,7 @@ function lomvcardform($data6, $dataform, $datalan, $record, $parent_multi = NULL
     echo '<div style="float:left;border-bottom:1px solid #d7d5c4;padding-right:9px; margin-right:5px;padding-bottom:9px; margin-bottom:5px; 
 			width:100%; " id="' . $dataform['id'] . '_' . $parent_multi . '">';
 
-    if ($dataform['max_occurs'] > 1 and $view_mode!=1) {
+    if ($dataform['max_occurs'] > 1 and $view_mode != 1) {
         echo '<a class="lom-add-new" href="#" onClick="addFormvcard(\'0\',\'' . $dataform['id'] . '_' . $parent_multi . '\',\'hdnLine_group_vcard_' . $dataform['id'] . '_' . $parent_multi . '\',\'' . $dataform['labal_name'] . '\'); return false;">Add new ' . $dataform['labal_name'] . '</a><br><br>';
     }
     $vcardcount = 0;
@@ -1796,7 +1798,7 @@ function lomvcardform($data6, $dataform, $datalan, $record, $parent_multi = NULL
                     echo '<input name="vcard_general_' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '" id="vcard_general_' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '" type="hidden" value="">';
                     $dataform['labal_name'] = return_multi_language_label_name($dataform['element_id']);
                     $labalname = $dataform['labal_name'];
-                    if ($datarecoreditable === 0 or $view_mode==1) {
+                    if ($datarecoreditable === 0 or $view_mode == 1) {
                         
                     } else {
                         $labalname.= '&nbsp;&nbsp;<a class="lom-remove" href="#" onClick="removeFormvcardExisted(\'' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '\',\'' . $dataform['id'] . '\',\'' . $datarecord['record_id'] . '\',\'' . $multi . '\',\'1\',\'' . $datarecordparent_indexer . '\'); return false;">Remove</a>';
@@ -1817,7 +1819,6 @@ function lomvcardform($data6, $dataform, $datalan, $record, $parent_multi = NULL
             }//if hierarchy=dataform[id]
         }//foreach data6 
     } else {  //an den uparxei data6 alliws nea eggrafh
-        
         if ($parent_multi > 0) {
             $multi = $parent_multi;
         } else {
@@ -1833,16 +1834,15 @@ function lomvcardform($data6, $dataform, $datalan, $record, $parent_multi = NULL
         $labalname = $dataform['labal_name'];
 
         echo '<div style="float:left;">' . createlomlabel($labalname, 'for=' . $dataform['id'] . ' style="width:158px;"', NULL, $dataform['element_id']) . '</div><br>';
-            if($view_mode!=1){ //if view_mode not display empty
-        echo '<div style="float:left;">';
-        echo '<span style="float:left; width:70px;">Name: </span>' . createlomelement('text', 'vcard_name_' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '', '' . stripslashes($childelements['name']) . '', 'class="textinput" id="' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '" style="float:left;width:200px;"') . '<br><br>';
-        echo '<span style="float:left; width:70px;">Surname: </span>' . createlomelement('text', 'vcard_surname_' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '', '' . stripslashes($childelements['surname']) . '', 'class="textinput" id="' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '" style="float:left;width:200px;"') . '<br><br>';
-        echo '<span style="float:left; width:70px;">Email: </span>' . createlomelement('text', 'vcard_email_' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '', '' . stripslashes($childelements['email']) . '', 'class="textinput" id="' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '" style="float:left;width:200px;"') . '<br><br>';
-        echo '<span style="float:left; width:70px;">Organization: </span>' . createlomelement('text', 'vcard_organization_' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '', '' . stripslashes($childelements['organization']) . '', 'class="textinput" id="' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '" style="float:left;width:200px;"') . '<br><br>';
+        if ($view_mode != 1) { //if view_mode not display empty
+            echo '<div style="float:left;">';
+            echo '<span style="float:left; width:70px;">Name: </span>' . createlomelement('text', 'vcard_name_' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '', '' . stripslashes($childelements['name']) . '', 'class="textinput" id="' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '" style="float:left;width:200px;"') . '<br><br>';
+            echo '<span style="float:left; width:70px;">Surname: </span>' . createlomelement('text', 'vcard_surname_' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '', '' . stripslashes($childelements['surname']) . '', 'class="textinput" id="' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '" style="float:left;width:200px;"') . '<br><br>';
+            echo '<span style="float:left; width:70px;">Email: </span>' . createlomelement('text', 'vcard_email_' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '', '' . stripslashes($childelements['email']) . '', 'class="textinput" id="' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '" style="float:left;width:200px;"') . '<br><br>';
+            echo '<span style="float:left; width:70px;">Organization: </span>' . createlomelement('text', 'vcard_organization_' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '', '' . stripslashes($childelements['organization']) . '', 'class="textinput" id="' . $dataform['id'] . '_' . $multi . '_' . $datarecordparent_indexer . '" style="float:left;width:200px;"') . '<br><br>';
+            echo '</div>';
+        }//if view_mode not display empty
         echo '</div>';
-            }//if view_mode not display empty
-        echo '</div>';
-        
     }
     echo '<input name="hdnLine_group_vcard_' . $dataform['id'] . '_' . $multi . '" id="hdnLine_group_vcard_' . $dataform['id'] . '_' . $multi . '" type="hidden" value="' . $datarecordparent_indexer . '">';
     echo '</div>';
@@ -1906,9 +1906,9 @@ function lomparentform($data6, $dataform, $datalan, $record, $depth, $view_mode)
                 if ($dataform['min_occurs'] > 0) {
                     $labalname.='*';
                 }
-                if ($dataform['max_occurs'] > 1 and $view_mode!=1) {
+                if ($dataform['max_occurs'] > 1 and $view_mode != 1) {
                     $labalname.= '&nbsp;&nbsp;<a class="lom-add-new" href="#" onClick="addFormmultiParent(\'0\',\'' . $dataform['id'] . '\',\'hdnLine_group_total_parent_' . $dataform['id'] . '\',\'' . $dataform['labal_name'] . '\'); return false;">Add ' . $dataform['labal_name'] . ' </a>&nbsp;&nbsp;';
-                    if ($datarecoreditablepar === 0 or $view_mode==1) {
+                    if ($datarecoreditablepar === 0 or $view_mode == 1) {
                         
                     } else {
                         $labalname.= '<a class="lom-remove" href="#" onClick="removeFormmultiParent(\'' . $dataform['id'] . '_' . $parent_multi . '\',\'' . $dataform['id'] . '\',\'' . $data6['record_id'] . '\',\'' . $parent_multi . '\',\'1\'); return false;">Remove ' . $dataform['labal_name'] . '</a>';
@@ -1928,7 +1928,7 @@ function lomparentform($data6, $dataform, $datalan, $record, $depth, $view_mode)
                     if ($childelements['element_id'] === 48) {
                         $extra = "onchange='change49(this.value)'";
                     }
-                    checkelement($childelements, $datalan, $record, $depth, $extra, $parent_multi,NULL,$view_mode);
+                    checkelement($childelements, $datalan, $record, $depth, $extra, $parent_multi, NULL, $view_mode);
                 }
                 echo'</div>';
 
@@ -1959,7 +1959,7 @@ function lomparentform($data6, $dataform, $datalan, $record, $depth, $view_mode)
             if ($dataform['min_occurs'] > 0) {
                 $labalname.='*';
             }
-            if ($dataform['max_occurs'] > 1 and $view_mode!=1) {
+            if ($dataform['max_occurs'] > 1 and $view_mode != 1) {
                 $labalname.= '&nbsp;&nbsp;<a class="lom-add-new" href="#" onClick="addFormmultiParent(\'0\',\'' . $dataform['id'] . '\',\'hdnLine_group_total_parent_' . $dataform['id'] . '\',\'' . $dataform['labal_name'] . '\'); return false;">Add ' . $dataform['labal_name'] . ' </a>';
             }
             echo '<input name="' . $dataform['id'] . '_' . $parent_multi . '" id="' . $dataform['id'] . '_' . $parent_multi . '" type="hidden" value="">';
@@ -1976,7 +1976,7 @@ function lomparentform($data6, $dataform, $datalan, $record, $depth, $view_mode)
                 if ($childelements['element_id'] === 48) {
                     $extra = "onchange='change49(this.value)'";
                 }
-                checkelement($childelements, $datalan, $record, $depth, $extra, $parent_multi,NULL,$view_mode);
+                checkelement($childelements, $datalan, $record, $depth, $extra, $parent_multi, NULL, $view_mode);
             }
             echo'</div>';
 
@@ -2102,25 +2102,25 @@ function createnew_xml_selectbox($id, $divid, $vocabulary_id, $ontology = NULL) 
     $uri = WEB_ROOT;
     $xmlvocnew = '' . $uri . '/archive/xmlvoc/' . $datavocelenew['value'] . '.xml';
     $xmlnew = @simplexml_load_file($xmlvocnew, NULL, LIBXML_NOERROR | LIBXML_NOWARNING);
-    $xmlnew = objecttosortedarray($xmlnew);
+    $xmlnew = internal_xml(NULL, NULL, $_SESSION['get_language_for_internal_xml'], 1);
 
     foreach ($xmlnew as $xmlnew) {
-        ?>
-
-        <option value='<?php echo $xmlnew; ?>'><?php echo $xmlnew; ?></option>
-    <?php } ?>
+        echo '<option value="' . $xmlnew['id'] . '" ';
+        echo '>' . $xmlnew['value'] . '</option>';
+    }
+    ?>
     </select> 
     <?php
     if ($ontology > 0) {
 
-        echo '<a href="javascript:void(0)" onclick="toggletree(\'' . $_POST['divid'] . '_' . $_POST['id'] . '_tree\');" style="float:left;margin-left:2px;" id="' . $_POST['divid'] . '_' . $_POST['id'] . '">Browse</a>';
+        echo '<a href="javascript:void(0)" onclick="toggletree(\'' . $divid . '_' . $id . '_tree\');" style="float:left;margin-left:2px;" id="' . $divid . '_' . $id . '">Browse</a>';
     }
     ?>
     <a class='lom-remove' style='float:left;' href='#' onClick='removeFormField("#row<?php echo $_POST['id']; ?>"); return false;'>Remove</a><div><br>
         <?php
         if ($ontology > 0) {
 
-            echo organic_ontology('' . $_POST['divid'] . '_' . $_POST['id'] . '_tree', '' . $datavocelenew['value'] . '_tree');
+            echo internal_xml('' . $_POST['divid'] . '_' . $_POST['id'] . '_tree', NULL, $_SESSION['get_language_for_internal_xml'], NULL);
         }
         ?>
 
@@ -2164,7 +2164,7 @@ function createnew_xml_selectbox($id, $divid, $vocabulary_id, $ontology = NULL) 
         return $data['id'];
     }
 
-    function organic_ontology($id, $file) {
+    function internal_xml($id, $file, $lang, $drop_down) {
 
         libxml_use_internal_errors(false);
         $uri = WEB_ROOT;
@@ -2174,82 +2174,79 @@ function createnew_xml_selectbox($id, $divid, $vocabulary_id, $ontology = NULL) 
         //print_r($xml);
         ?>
         <?php
-        $output = '<div id="' . $id . '"  style="clear:both;height:auto;display:none;">';
+        if ($drop_down == 1) {
+            $result = $xml->xpath("hierarchy/class");
+            //print_r($result); break;
+            $sortedxml = array();
 
-        $output.='<ul>';
+            foreach ($result as $result2) {
 
-
-        foreach ($xml as $key=>$xml2) {
-            //echo $xml2;
-            $xml2name = $xml2;
-            $xml2name = explode(' end;', $xml2name);
-            $xml2name=$xml2name[0];
-            $xml2name = str_replace("_", " ", $xml2name);
-            $xml2nameid = ontology_space_upcs($xml2name);
-            $output.='<li id="' . $xml2nameid . '" class="jstree-closed"><a href="#">' . $xml2name . '</a>';
-            foreach ($xml2 as $key=>$xml3) {
-                $xml3name = $xml3;
-                $xml3name = explode(' end;', $xml3name);
-                $xml3name=$xml3name[0];
-                $xml3name = str_replace("_", " ", $xml3name);
-                $xml3nameid = ontology_space_upcs($xml3name);
-                $output.='<ul>';
-                $output.='<li id="' . $xml3nameid . '"><a href="#">' . $xml3name . '</a>';
-                foreach ($xml3 as $key=>$xml4) {
-                    $xml4name = $xml4;
-                    $xml4name = explode(' end;', $xml4name);
-                    $xml4name=$xml4name[0];
-                    $xml4name = str_replace("_", " ", $xml4name);
-                    $xml4nameid = ontology_space_upcs($xml4name);
-                    $output.='<ul>';
-                    $output.='<li id="' . $xml4nameid . '"><a href="#">' . $xml4name . '</a>';
-                    foreach ($xml4 as $key=>$xml5) {
-                        $xml5name = $xml5;
-                        $xml5name = explode(' end;', $xml5name);
-                        $xml5name=$xml5name[0];
-                        $xml5name = str_replace("_", " ", $xml5name);
-                        $xml5nameid = ontology_space_upcs($xml5name);
-                        $output.='<ul>';
-                        $output.='<li id="' . $xml5nameid . '"><a href="#">' . $xml5name . '</a>';
-                        foreach ($xml5 as $key=>$xml6) {
-                            $xml6name = $xml6;
-                            $xml6name = explode(' end;', $xml6name);
-                            $xml6name=$xml6name[0];
-                            $xml6name = str_replace("_", " ", $xml6name);
-                            $xml6nameid = ontology_space_upcs($xml6name);
-                            $output.='<ul>';
-                            $output.='<li id="' . $xml6nameid . '"><a href="#">' . $xml6name . '</a>';
-                            foreach ($xml6 as $key=>$xml7) {
-                                $xml7name = $xml7;
-                                $xml7name = explode(' end;', $xml7name);
-                                $xml7name=$xml7name[0];
-                                $xml7name = str_replace("_", " ", $xml7name);
-                                $xml7nameid = ontology_space_upcs($xml7name);
-                                $output.='<ul>';
-                                $output.='<li id="' . $xml7nameid . '"><a href="#">' . $xml7name . '</a>';
-                                $output.='</li>';
-                                $output.='</ul>';
-                            }
-                            $output.='</li>';
-                            $output.='</ul>';
-                        }
-                        $output.='</li>';
-                        $output.='</ul>';
-                    }
-                    $output.='</li>';
-                    $output.='</ul>';
+                $result3 = (string) $result2->attributes()->id;
+                $result4 = $xml->xpath("instances/instance[@instanceOf='" . $result3 . "' and @lang='" . $lang . "']");
+                if (!strlen($result4[0]) > 0) {
+                    $result4 = $xml->xpath("instances/instance[@instanceOf='" . $result3 . "' and @lang='en']");
                 }
+                if (!strlen($result4[0]) > 0) {
+                    $result4 = $xml->xpath("instances/instance[@instanceOf='" . $result3 . "']");
+                    foreach ($result4 as $result4) {
+                        if (strlen($result4) > 0) {
+                            $result4[0] = $result4;
+                            break;
+                        }
+                    }
+                }
+                //print_r($result4); break;
+                $sortedxml[] = array('value' => (string) $result4[0], 'id' => $result3);
+            }
+
+
+            foreach ($sortedxml as $key => $row) {
+                $volume[$key] = $row['value'];
+            }
+
+// Sort the data with volume descending, edition ascending
+// Add $data as the last parameter, to sort by the common key
+            array_multisort($volume, SORT_ASC, $sortedxml);
+
+            return $sortedxml;
+        } else {
+            
+            ///////find the root element where all the classes are childs!
+            $resultrootelement2 = $xml->xpath("hierarchy[@rootElement]");
+            foreach ($resultrootelement2 as $c) {
+                $resultrootelement = (string) $c->attributes()->rootElement;
+            }
+
+            $result = $xml->xpath("hierarchy/class[@subClassOf='" . $resultrootelement . "']");
+            $output = '<div id="' . $id . '"  style="clear:both;height:auto;display:none;">';
+            $output.='<ul>';
+
+
+            foreach ($result as $result2) {
+                $result3 = (string) $result2->attributes()->id;
+                $result4 = $xml->xpath("instances/instance[@instanceOf='" . $result3 . "' and @lang='" . $lang . "']");
+                if (!strlen($result4[0]) > 0) {
+                    $result4 = $xml->xpath("instances/instance[@instanceOf='" . $result3 . "' and @lang='en']");
+                }
+                if (!strlen($result4[0]) > 0) {
+                    $result4 = $xml->xpath("instances/instance[@instanceOf='" . $result3 . "']");
+                    foreach ($result4 as $result4) {
+                        if (strlen($result4) > 0) {
+                            $result4[0] = $result4;
+                            break;
+                        }
+                    }
+                }
+                $output.='<li id="' . $result3 . '"><a href="#">' . $result4[0] . '</a>';
+                $output.= ontology_depth_elements($xml, $result3, $lang);
 
                 $output.='</li>';
-                $output.='</ul>';
             }
-            $output.='</li>';
-        }
-        $output.='</ul>';
-        $output.='</div>';
+            $output.='</ul>';
+            $output.='</div>';
 
-        $select_id = str_replace('_tree', '', $id);
-        $output.=' <script type="text/javascript" class="source below">
+            $select_id = str_replace('_tree', '', $id);
+            $output.=' <script type="text/javascript" class="source below">
 jQuery(function () {
 	jQuery("#' . $id . '")
 		.jstree({ "plugins" : ["themes","html_data","ui"] })
@@ -2266,8 +2263,37 @@ jQuery(function () {
 		.delegate("a", "click", function (event, data) { event.preventDefault(); })
 });
 </script>';
+            return $output;
+        }
+    }
 
-        return $output;
+    function ontology_depth_elements($xml, $result3, $lang) {
+        $output2 = '';
+        $resultnew = $xml->xpath("hierarchy/class[@subClassOf='" . $result3 . "']");
+        if ($resultnew) {
+            foreach ($resultnew as $resultnew) {
+                $resultnewid = (string) $resultnew->attributes()->id;
+                $resultnewval = $xml->xpath("instances/instance[@instanceOf='" . $resultnewid . "' and @lang='" . $lang . "']");
+                if (!strlen($resultnewval[0]) > 0) {
+                    $resultnewval = $xml->xpath("instances/instance[@instanceOf='" . $resultnewid . "' and @lang='en']");
+                }
+                if (!strlen($resultnewval[0]) > 0) {
+                    $resultnewval = $xml->xpath("instances/instance[@instanceOf='" . $resultnewid . "']");
+                    foreach ($resultnewval as $resultnewval) {
+                        if (strlen($resultnewval) > 0) {
+                            $resultnewval[0] = $resultnewval;
+                            break;
+                        }
+                    }
+                }
+                $output2.='<ul>';
+                $output2.='<li id="' . $resultnewid . '" class="jstree-leaf"><a href="#">' . $resultnewval[0] . '</a>';
+                $output2.= ontology_depth_elements($xml, $resultnewid, $lang);
+                $output2.='</li>';
+                $output2.='</ul>';
+            }
+        }
+        return $output2;
     }
 
     function ontology_space_upcs($string) {
@@ -2441,6 +2467,31 @@ jQuery(function () {
         return $type;
     }
 
+    function get_language_for_internal_xml() {
+        if (isset($_GET['lang'])) {
+            $get_language = transform_language_id_for_internal_xml($_GET['lang']);
+        } elseif (isset($_SESSION['get_language'])) {
+            $get_language = $_SESSION['get_language'];
+        } else {
+            $get_language = 'en';
+        }
+        //echo $_GET['lang'];
+        return $get_language;
+    }
+
+    function transform_language_id_for_internal_xml($language_id) {
+
+
+        $omekatypearray = array("en" => "en", "de" => "de", "el" => "el", "es" => "es", "fr" => "fr", "it" => "it", "tr" => "tr", "ee" => "et", "lv" => "lv", "ru" => "ru");
+
+        foreach ($omekatypearray as $key => $omekatypearray) {
+            if ($key == $language_id) {
+                $type = $omekatypearray;
+            }
+        }
+        return $type;
+    }
+
     function get_language_for_omeka_switch() {
         if (isset($_GET['lang'])) {
             $get_language = transform_language_id_for_omeka($_GET['lang']);
@@ -2561,7 +2612,6 @@ jQuery(function () {
 //            $page = file_get_contents("https://services.open.xerox.com/Auth.svc/OAuth2", false, $context);
 //            $obj = json_decode($page);
 //            $token = $obj->access_token;
-
             //$token = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name=gkista&http://open.xerox.com/LLTokenId=41&Issuer=https://open.xerox.com&Audience=https://open.xerox.com&ExpiresOn=1355443200&HMACSHA256=EbgxS4cjiu2uCugubzyn64MO9nsrOV%2byPNG2SmiEzw0%3d";
             /////until february 2015!!!!!!
             $token = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name=gkista&http://open.xerox.com/LLTokenId=50&Issuer=https://open.xerox.com&Audience=https://open.xerox.com&ExpiresOn=1425081600&HMACSHA256=eWdmtuu%2b6o2XjPb9lxm3Gh52Fny0NEWu6YxGltvgtJI%3d";
@@ -2612,15 +2662,15 @@ jQuery(function () {
     function change_interface_language($language) {
 
         $link = $_SERVER['REQUEST_URI'];
-        $linkparamsurl = explode('?', $_SERVER['REQUEST_URI']); 
+        $linkparamsurl = explode('?', $_SERVER['REQUEST_URI']);
         // natural_europe_new/items/show/3803?eidteaser=348?lang=el
-        $linkparams=$linkparamsurl[1];
+        $linkparams = $linkparamsurl[1];
         $search = Array();
         if (strlen($linkparams) > 0) {
-            $linkparams='?'.$linkparams;
+            $linkparams = '?' . $linkparams;
             if (stripos($linkparams, 'lang=') > 0) {
-                $paramlanguage=$_GET['lang'];
-                $link1 = str_replace('lang='.$paramlanguage, 'lang='.$language, $link);
+                $paramlanguage = $_GET['lang'];
+                $link1 = str_replace('lang=' . $paramlanguage, 'lang=' . $language, $link);
             } else {
 
                 $link1 = $link . '&lang=' . $language . '';
@@ -2632,25 +2682,26 @@ jQuery(function () {
     }
 
     function language_switcher() {
-        
-             ?>
+        ?>
         <form>
-        <select style="width:190px; font-size: 12px;" name="my_languages" id="my_languages" onchange="top.location.href='<?php change_interface_language('\'+this.form.my_languages.options[this.form.my_languages.selectedIndex].value+\''); ?>' ">
-            
-             <?php $chooselang='Choose language'; ?>
-            <option value="<?php echo $_SESSION['get_language']; ?>"><?php echo __($chooselang); ?></option>
-            <option value="el">Ελληνικά</option>
-            <option value="en">English</option>
-            <option value="it">Italiano</option>
-            <option value="de">Deutsch</option>
-            <option value="ee">Eesti</option>
-            <option value="ru">Russian</option>
-            <option value="lv">Latviešu</option>
-            <option value="es">Español</option>
-            <option value="fr">Français</option>
-            <option value="tr">Türkçe</option>
-        </select>
+            <select style="width:190px; font-size: 12px;" name="my_languages" id="my_languages" onchange="top.location.href='<?php change_interface_language('\'+this.form.my_languages.options[this.form.my_languages.selectedIndex].value+\''); ?>' ">
+
+                <?php $chooselang = 'Choose language'; ?>
+                <option value="<?php echo $_SESSION['get_language']; ?>"><?php echo __($chooselang); ?></option>
+                <option value="el">Ελληνικά</option>
+                <option value="en">English</option>
+                <option value="it">Italiano</option>
+                <option value="de">Deutsch</option>
+                <option value="ee">Eesti</option>
+                <option value="ru">Russian</option>
+                <option value="lv">Latviešu</option>
+                <option value="es">Español</option>
+                <option value="fr">Français</option>
+                <option value="tr">Türkçe</option>
+            </select>
         </form>
 
         <?php
     }
+
+    
