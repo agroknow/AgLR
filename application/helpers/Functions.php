@@ -2211,7 +2211,7 @@ function createnew_xml_selectbox($id, $divid, $vocabulary_id, $ontology = NULL) 
             $sortedxml = array_map("unserialize", array_unique(array_map("serialize", $sortedxml)));
             return $sortedxml;
         } else {
-            
+
             ///////find the root element where all the classes are childs!
             $resultrootelement2 = $xml->xpath("hierarchy[@rootElement]");
             foreach ($resultrootelement2 as $c) {
