@@ -2207,7 +2207,8 @@ function createnew_xml_selectbox($id, $divid, $vocabulary_id, $ontology = NULL) 
 // Sort the data with volume descending, edition ascending
 // Add $data as the last parameter, to sort by the common key
             array_multisort($volume, SORT_ASC, $sortedxml);
-
+            ////dinstinct values for multi dimensions arrays instead of unique array
+            $sortedxml = array_map("unserialize", array_unique(array_map("serialize", $sortedxml)));
             return $sortedxml;
         } else {
             
