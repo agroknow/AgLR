@@ -102,6 +102,281 @@
 <class id="#WeedControlPreventiveControl" className="#WeedControlPreventiveControl" subClassOf="#WeedControl" />
 <class id="#WeedControlTechnique" className="#WeedControlTechnique" subClassOf="#WeedControl" />
 <class id="#WeedControlWeedsIdentifying" className="#WeedControlWeedsIdentifying" subClassOf="#WeedControl" />
+<class id="#Accreditation" className="#Accreditation" subClassOf="#Process" />
+<class id="#ActionLearning" className="#ActionLearning" subClassOf="#LearningIssue" />
+<class id="#ActionResearch" className="#ActionResearch" subClassOf="#LearningIssue" />
+<class id="#Alfalfa" className="#Alfalfa" subClassOf="#FeedCrop" />
+<class id="#AlgalCulture" className="#AlgalCulture" subClassOf="#Aquaculture_activity" />
+<class id="#AlternativeCrop" className="#AlternativeCrop" subClassOf="#PlantProductionIssue" />
+<class id="#AlternativeDistribution" className="#AlternativeDistribution" subClassOf="#DistributionIssue" />
+<class id="#AlternativeFarming" className="#AlternativeFarming" subClassOf="#AgriculturalMethod" />
+<class id="#AnimalBehaviour" className="#AnimalBehaviour" subClassOf="#AnimalProductionIssue" />
+<class id="#AnimalDiet" className="#AnimalDiet" subClassOf="#AnimalProductionIssue" />
+<class id="#AnimalEthics" className="#AnimalEthics" subClassOf="#AnimalProductionIssue" />
+<class id="#AnimalFeedProcessing" className="#AnimalFeedProcessing" subClassOf="#ProcessingActivity" />
+<class id="#AnimalHealth" className="#AnimalHealth" subClassOf="#HealthIssue" />
+<class id="#AnimalHusbandry" className="#AnimalHusbandry" subClassOf="#AnimalProductionActivity" />
+<class id="#AnimalManure" className="#AnimalManure" subClassOf="#BiologicalFertilizer" />
+<class id="#AnimalNutrition" className="#AnimalNutrition" subClassOf="#AnimalProductionIssue" />
+<class id="#AnimalWelfare" className="#AnimalWelfare" subClassOf="#AnimalProductionIssue" />
+<class id="#Apiculture" className="#Apiculture" subClassOf="#AnimalProductionActivity" />
+<class id="#Apple" className="#Apple" subClassOf="#Pomes" />
+<class id="#AquaCulture" className="#AquaCulture" subClassOf="#AnimalProductionActivity" />
+<class id="#Barley" className="#Barley" subClassOf="#Cereal" />
+<class id="#Beans" className="#Beans" subClassOf="#Pulse" />
+<class id="#Beer" className="#Beer" subClassOf="#PlantOriginProcessedProduct" />
+<class id="#BenefitsOfOrganicAgriculture" className="#BenefitsOfOrganicAgriculture" subClassOf="#OrganicBenefitsIssue" />
+<class id="#Biodiversity" className="#Biodiversity" subClassOf="#EnvironmentIssue" />
+<class id="#BiologicalPestControl" className="#BiologicalPestControl" subClassOf="#PestControlTechnique" />
+<class id="#Biosolids" className="#Biosolids" subClassOf="#WasteManagementIssue" />
+<class id="#BoneMeal" className="#BoneMeal" subClassOf="#CommercialBiologicalFertilizer" />
+<class id="#BreadCereal" className="#BreadCereal" subClassOf="#Cereal" />
+<class id="#Breeding" className="#Breeding" subClassOf="#AnimalProductionActivity" />
+<class id="#CattleFarming" className="#CattleFarming" subClassOf="#AnimalProductionActivity" />
+<class id="#Certification" className="#Certification" subClassOf="#Regulation" />
+<class id="#CertificationAgency" className="#CertificationAgency" subClassOf="#JuridicalEntity" />
+<class id="#CertificationOfOrganicAgriculture" className="#CertificationOfOrganicAgriculture" subClassOf="#Regulation" />
+<class id="#CertificationProcess" className="#CertificationProcess" subClassOf="#Process" />
+<class id="#ChemicalPestControl" className="#ChemicalPestControl" subClassOf="#PestControlTechnique" />
+<class id="#ClimateChangeMitigation" className="#ClimateChangeMitigation" subClassOf="#EnvironmentIssue" />
+<class id="#Clover" className="#Clover" subClassOf="#FeedCrop" />
+<class id="#CommercialEnterprise" className="#CommercialEnterprise" subClassOf="#JuridicalEntity" />
+<class id="#CommunityService" className="#CommunityService" subClassOf="#ServiceOrientedActivity" />
+<class id="#CompanionPlanting" className="#CompanionPlanting" subClassOf="#AgriculturalMethod" />
+<class id="#Compost" className="#Compost" subClassOf="#BiologicalFertilizer" />
+<class id="#Consumer" className="#Consumer" subClassOf="#IndividualEntity" />
+<class id="#ConsumerAttitudes" className="#ConsumerAttitudes" subClassOf="#ConsumptionIssue" />
+<class id="#ConsumerKnowledge" className="#ConsumerKnowledge" subClassOf="#ConsumptionIssue" />
+<class id="#Cotton" className="#Cotton" subClassOf="#FibreCrop" />
+<class id="#CoverCropping" className="#CoverCropping" subClassOf="#SoilManagement" />
+<class id="#CropEcology" className="#CropEcology" subClassOf="#PlantProductionIssue" />
+<class id="#CropResidue" className="#CropResidue" subClassOf="#PlantOriginProduct" />
+<class id="#CropRotation" className="#CropRotation" subClassOf="#SoilManagement" />
+<class id="#Crustacean_culture" className="#Crustacean_culture" subClassOf="#Aquaculture_activity" />
+<class id="#CultivationOfCereals" className="#CultivationOfCereals" subClassOf="#PlantProductionActivity" />
+<class id="#CulturalLandscapes" className="#CulturalLandscapes" subClassOf="#EnvironmentIssue" />
+<class id="#DairyProcessing" className="#DairyProcessing" subClassOf="#ProcessingActivity" />
+<class id="#DairyProduct" className="#DairyProduct" subClassOf="#AnimalOriginProcessedProduct" />
+<class id="#DairyProduction" className="#DairyProduction" subClassOf="#AnimalProductionActivity" />
+<class id="#DiminutionOfHumus" className="#DiminutionOfHumus" subClassOf="#SoilIssue" />
+<class id="#DirectMarketing" className="#DirectMarketing" subClassOf="#MarketingIssue" />
+<class id="#DirectPestControl" className="#DirectPestControl" subClassOf="#PestControlTechnique" />
+<class id="#DiseaseControl" className="#DiseaseControl" subClassOf="#AnimalProductionActivity" />
+<class id="#DiseasePrevention" className="#DiseasePrevention" subClassOf="#AnimalProductionActivity" />
+<class id="#DiseaseTreatment" className="#DiseaseTreatment" subClassOf="#AnimalProductionActivity" />
+<class id="#Distributor" className="#Distributor" subClassOf="#IndividualEntity" />
+<class id="#Diversity" className="#Diversity" subClassOf="#PlantProductionIssue" />
+<class id="#EcologicalFootprint" className="#EcologicalFootprint" subClassOf="#EnvironmentIssue" />
+<class id="#Ecotourism" className="#Ecotourism" subClassOf="#ServiceOrientedActivity" />
+<class id="#EducationalEstablishment" className="#EducationalEstablishment" subClassOf="#JuridicalEntity" />
+<class id="#Egg" className="#Egg" subClassOf="#AnimalOriginUnprocessedProduct" />
+<class id="#EggProduct" className="#EggProduct" subClassOf="#Undefined" />
+<class id="#EggProduction" className="#EggProduction" subClassOf="#AnimalProductionActivity" />
+<class id="#Endangered_species" className="#Endangered_species" subClassOf="#PlantProductionIssue" />
+<class id="#EnergyCropsCultivation" className="#EnergyCropsCultivation" subClassOf="#PlantProductionActivity" />
+<class id="#EnergyEfficiency" className="#EnergyEfficiency" subClassOf="#EnvironmentIssue" />
+<class id="#EnvironmentalImpact" className="#EnvironmentalImpact" subClassOf="#EnvironmentIssue" />
+<class id="#Excursion" className="#Excursion" subClassOf="#EducationalActivity" />
+<class id="#ExtensiveFarming" className="#ExtensiveFarming" subClassOf="#AgriculturalMethod" />
+<class id="#Farm" className="#Farm" subClassOf="#JuridicalEntity" />
+<class id="#FarmSale" className="#FarmSale" subClassOf="#DistributionIssue" />
+<class id="#Farmer" className="#Farmer" subClassOf="#IndividualEntity" />
+<class id="#Feather" className="#Feather" subClassOf="#AnimalOriginUnprocessedProduct" />
+<class id="#FeatherProduction" className="#FeatherProduction" subClassOf="#AnimalProductionActivity" />
+<class id="#Feeding" className="#Feeding" subClassOf="#AnimalProductionActivity" />
+<class id="#Fertilizing" className="#Fertilizing" subClassOf="#PlantProductionActivity" />
+<class id="#Festuca" className="#Festuca" subClassOf="#FeedCrop" />
+<class id="#FiberFlax" className="#FiberFlax" subClassOf="#FibreCrop" />
+<class id="#FieldCropsCultivation" className="#FieldCropsCultivation" subClassOf="#PlantProductionActivity" />
+<class id="#Fish" className="#Fish" subClassOf="#AnimalOriginUnprocessedProduct" />
+<class id="#Fish_cages" className="#Fish_cages" subClassOf="#AgriculturalMethod" />
+<class id="#Fish_disease" className="#Fish_disease" subClassOf="#HealthIssue" />
+<class id="#Fish_farming" className="#Fish_farming" subClassOf="#AnimalProductionActivity" />
+<class id="#Fish_feeding" className="#Fish_feeding" subClassOf="#Aquaculture_activity" />
+<class id="#Fish_hatcheries" className="#Fish_hatcheries" subClassOf="#AnimalProductionActivity" />
+<class id="#Fish_health" className="#Fish_health" subClassOf="#HealthIssue" />
+<class id="#Fish_ponds" className="#Fish_ponds" subClassOf="#AgriculturalMethod" />
+<class id="#Fish_processing" className="#Fish_processing" subClassOf="#ProcessingIssue" />
+<class id="#Fish_production" className="#Fish_production" subClassOf="#AnimalProductionActivity" />
+<class id="#Floriculture" className="#Floriculture" subClassOf="#PlantProductionActivity" />
+<class id="#Fodder" className="#Fodder" subClassOf="#PlantOriginProcessedProduct" />
+<class id="#FodderCereal" className="#FodderCereal" subClassOf="#Cereal" />
+<class id="#FodderManagement" className="#FodderManagement" subClassOf="#AnimalProductionActivity" />
+<class id="#FoodAvailability" className="#FoodAvailability" subClassOf="#FoodIssue" />
+<class id="#FoodNutrition" className="#FoodNutrition" subClassOf="#FoodIssue" />
+<class id="#FoodProcessing" className="#FoodProcessing" subClassOf="#ProcessingActivity" />
+<class id="#FoodQuality" className="#FoodQuality" subClassOf="#FoodIssue" />
+<class id="#FoodSafety" className="#FoodSafety" subClassOf="#FoodIssue" />
+<class id="#FoodSecurity" className="#FoodSecurity" subClassOf="#FoodIssue" />
+<class id="#FoodShed" className="#FoodShed" subClassOf="#DistributionIssue" />
+<class id="#FoodSufficiency" className="#FoodSufficiency" subClassOf="#FoodIssue" />
+<class id="#FoodSystem" className="#FoodSystem" subClassOf="#FoodIssue" />
+<class id="#Freshwater_fish_culture" className="#Freshwater_fish_culture" subClassOf="#Aquaculture_activity" />
+<class id="#FruitProduction" className="#FruitProduction" subClassOf="#PlantProductionActivity" />
+<class id="#GMO" className="#GMO" subClassOf="#ProductionIssue" />
+<class id="#Gardening" className="#Gardening" subClassOf="#PlantProductionActivity" />
+<class id="#GeneticResistance" className="#GeneticResistance" subClassOf="#PlantProductionIssue" />
+<class id="#Goat_farming" className="#Goat_farming" subClassOf="#AnimalProductionActivity" />
+<class id="#GovernmentBody" className="#GovernmentBody" subClassOf="#JuridicalEntity" />
+<class id="#Grapefruit" className="#Grapefruit" subClassOf="#CitrusSpecies" />
+<class id="#GreenCare" className="#GreenCare" subClassOf="#EducationalActivity" />
+<class id="#GreenManure" className="#GreenManure" subClassOf="#BiologicalFertilizer" />
+<class id="#Hemp" className="#Hemp" subClassOf="#FibreCrop" />
+<class id="#HerbCultivation" className="#HerbCultivation" subClassOf="#PlantProductionActivity" />
+<class id="#Hoeing" className="#Hoeing" subClassOf="#WeedControlTechnique" />
+<class id="#Honey" className="#Honey" subClassOf="#AnimalOriginUnprocessedProduct" />
+<class id="#Horticulture" className="#Horticulture" subClassOf="#PlantProductionActivity" />
+<class id="#Housing" className="#Housing" subClassOf="#AnimalProductionIssue" />
+<class id="#HumanHealth" className="#HumanHealth" subClassOf="#HealthIssue" />
+<class id="#Humus" className="#Humus" subClassOf="#SoilIssue" />
+<class id="#Import-ExportIssue" className="#Import-ExportIssue" subClassOf="#DistributionIssue" />
+<class id="#IntensiveFarming" className="#IntensiveFarming" subClassOf="#AgriculturalMethod" />
+<class id="#InterCropping" className="#InterCropping" subClassOf="#AgriculturalMethod" />
+<class id="#Jellyfish" className="#Jellyfish" subClassOf="#AnimalOriginUnprocessedProduct" />
+<class id="#Jute_fiber" className="#Jute_fiber" subClassOf="#FibreCrop" />
+<class id="#Kumquat" className="#Kumquat" subClassOf="#CitrusSpecies" />
+<class id="#Labeling" className="#Labeling" subClassOf="#Regulation" />
+<class id="#LandOwner" className="#LandOwner" subClassOf="#IndividualEntity" />
+<class id="#Learner" className="#Learner" subClassOf="#IndividualEntity" />
+<class id="#Learning" className="#Learning" subClassOf="#EducationalActivity" />
+<class id="#Leather" className="#Leather" subClassOf="#AnimalOriginProcessedProduct" />
+<class id="#Legislation" className="#Legislation" subClassOf="#Regulation" />
+<class id="#LegislationOnOrganicAgriculture" className="#LegislationOnOrganicAgriculture" subClassOf="#Regulation" />
+<class id="#Lemon" className="#Lemon" subClassOf="#CitrusSpecies" />
+<class id="#Lentil" className="#Lentil" subClassOf="#Pulse" />
+<class id="#LivestockHousing" className="#LivestockHousing" subClassOf="#AnimalProductionActivity" />
+<class id="#LocalBreeds" className="#LocalBreeds" subClassOf="#AnimalProductionIssue" />
+<class id="#LocalMarket" className="#LocalMarket" subClassOf="#DistributionIssue" />
+<class id="#LocalProduction" className="#LocalProduction" subClassOf="#ProductionIssue" />
+<class id="#LocalResources" className="#LocalResources" subClassOf="#ProductionIssue" />
+<class id="#Maize" className="#Maize" subClassOf="#Cereal" />
+<class id="#Manure" className="#Manure" subClassOf="#BiologicalFertilizer" />
+<class id="#Mariculture" className="#Mariculture" subClassOf="#Aquaculture_activity" />
+<class id="#Market" className="#Market" subClassOf="#DistributionIssue" />
+<class id="#MarketTrend" className="#MarketTrend" subClassOf="#MarketingIssue" />
+<class id="#Meal" className="#Meal" subClassOf="#CommercialBiologicalFertilizer" />
+<class id="#Meat" className="#Meat" subClassOf="#AnimalOriginUnprocessedProduct" />
+<class id="#MeatProcessing" className="#MeatProcessing" subClassOf="#ProcessingActivity" />
+<class id="#MeatProduct" className="#MeatProduct" subClassOf="#AnimalOriginProcessedProduct" />
+<class id="#MeatProduction" className="#MeatProduction" subClassOf="#AnimalProductionActivity" />
+<class id="#Milk" className="#Milk" subClassOf="#AnimalOriginUnprocessedProduct" />
+<class id="#MilkProduction" className="#MilkProduction" subClassOf="#AnimalProductionActivity" />
+<class id="#Mollusc_culture" className="#Mollusc_culture" subClassOf="#Aquaculture_activity" />
+<class id="#Monoculture" className="#Monoculture" subClassOf="#AgriculturalMethod" />
+<class id="#Mulching" className="#Mulching" subClassOf="#WeedControlTechnique" />
+<class id="#MultiCropping" className="#MultiCropping" subClassOf="#PlantProductionActivity" />
+<class id="#N-Fixation" className="#N-Fixation" subClassOf="#SoilIssue" />
+<class id="#NaturalFood" className="#NaturalFood" subClassOf="#FoodIssue" />
+<class id="#Nitrogen" className="#Nitrogen" subClassOf="#ChemicalCompound" />
+<class id="#NonGovernmentalOrganization" className="#NonGovernmentalOrganization" subClassOf="#JuridicalEntity" />
+<class id="#NutrientDeficiency" className="#NutrientDeficiency" subClassOf="#SoilIssue" />
+<class id="#NutrientRecycling" className="#NutrientRecycling" subClassOf="#SoilIssue" />
+<class id="#Olive" className="#Olive" subClassOf="#OilCrop" />
+<class id="#OliveOil" className="#OliveOil" subClassOf="#PlantOriginProcessedProduct" />
+<class id="#Orange" className="#Orange" subClassOf="#CitrusSpecies" />
+<class id="#OrganicConventionalAgricultureComparison" className="#OrganicConventionalAgricultureComparison" subClassOf="#OrganicBenefitsIssue" />
+<class id="#OrganicConversion" className="#OrganicConversion" subClassOf="#Process" />
+<class id="#OrganicMatter" className="#OrganicMatter" subClassOf="#SoilIssue" />
+<class id="#OrganicPrinciple" className="#OrganicPrinciple" subClassOf="#OrganicBenefitsIssue" />
+<class id="#OrganicStandard" className="#OrganicStandard" subClassOf="#Standard" />
+<class id="#OutdoorKeeping" className="#OutdoorKeeping" subClassOf="#AnimalProductionIssue" />
+<class id="#Oyster_farming" className="#Oyster_farming" subClassOf="#Aquaculture_activity" />
+<class id="#PastureManagement" className="#PastureManagement" subClassOf="#AgriculturalMethod" />
+<class id="#Pea" className="#Pea" subClassOf="#Pulse" />
+<class id="#Peat" className="#Peat" subClassOf="#BiologicalFertilizer" />
+<class id="#Pellets" className="#Pellets" subClassOf="#CommercialBiologicalFertilizer" />
+<class id="#Permaculture" className="#Permaculture" subClassOf="#AgriculturalMethod" />
+<class id="#PestControl" className="#PestControl" subClassOf="#PlantProductionActivity" />
+<class id="#Phosphorus" className="#Phosphorus" subClassOf="#ChemicalCompound" />
+<class id="#PlantHealth" className="#PlantHealth" subClassOf="#HealthIssue" />
+<class id="#PlantNutrition" className="#PlantNutrition" subClassOf="#PlantProductionIssue" />
+<class id="#PlantProtection" className="#PlantProtection" subClassOf="#PlantProductionIssue" />
+<class id="#Plowing" className="#Plowing" subClassOf="#PlantProductionActivity" />
+<class id="#Pollution" className="#Pollution" subClassOf="#EnvironmentIssue" />
+<class id="#Polyculture" className="#Polyculture" subClassOf="#AgriculturalMethod" />
+<class id="#Pomelo" className="#Pomelo" subClassOf="#CitrusSpecies" />
+<class id="#PostHarvest" className="#PostHarvest" subClassOf="#PlantProductionActivity" />
+<class id="#PostHarvestHandling" className="#PostHarvestHandling" subClassOf="#ProcessingIssue" />
+<class id="#Potassium" className="#Potassium" subClassOf="#ChemicalCompound" />
+<class id="#Potato" className="#Potato" subClassOf="#Vegetable" />
+<class id="#Poultry_farming" className="#Poultry_farming" subClassOf="#AnimalProductionActivity" />
+<class id="#PovertyAlleviation" className="#PovertyAlleviation" subClassOf="#EthicalIssue" />
+<class id="#PovertyAlleviation" className="#PovertyAlleviation" subClassOf="#FoodIssue" />
+<class id="#PreCooling" className="#PreCooling" subClassOf="#ProcessingIssue" />
+<class id="#PreStorage" className="#PreStorage" subClassOf="#ProcessingIssue" />
+<class id="#PreventivePestControl" className="#PreventivePestControl" subClassOf="#PestControlTechnique" />
+<class id="#Processor" className="#Processor" subClassOf="#IndividualEntity" />
+<class id="#ProductOrigin" className="#ProductOrigin" subClassOf="#ProductionIssue" />
+<class id="#Pseudocereal" className="#Pseudocereal" subClassOf="#Cereal" />
+<class id="#QualityPerception" className="#QualityPerception" subClassOf="#ConsumptionIssue" />
+<class id="#Rape" className="#Rape" subClassOf="#EnergyCrop" />
+<class id="#Rape" className="#Rape" subClassOf="#OilCrop" />
+<class id="#Recycling" className="#Recycling" subClassOf="#EnvironmentIssue" />
+<class id="#Recycling" className="#Recycling" subClassOf="#Process" />
+<class id="#Recycling" className="#Recycling" subClassOf="#WasteManagementIssue" />
+<class id="#RenewableResources" className="#RenewableResources" subClassOf="#EnvironmentIssue" />
+<class id="#Research" className="#Research" subClassOf="#EducationalActivity" />
+<class id="#Retailer" className="#Retailer" subClassOf="#IndividualEntity" />
+<class id="#Rice" className="#Rice" subClassOf="#Cereal" />
+<class id="#RuralLivelihoods" className="#RuralLivelihoods" subClassOf="#EthicalIssue" />
+<class id="#RuralLivelihoods" className="#RuralLivelihoods" subClassOf="#ProductionIssue" />
+<class id="#Rye" className="#Rye" subClassOf="#Cereal" />
+<class id="#Ryegrass" className="#Ryegrass" subClassOf="#FeedCrop" />
+<class id="#Salt" className="#Salt" subClassOf="#ChemicalCompound" />
+<class id="#SchoolGarden" className="#SchoolGarden" subClassOf="#LearningIssue" />
+<class id="#Sheep_farming" className="#Sheep_farming" subClassOf="#AnimalProductionActivity" />
+<class id="#ShellFish" className="#ShellFish" subClassOf="#AnimalOriginUnprocessedProduct" />
+<class id="#Shrimp_farming" className="#Shrimp_farming" subClassOf="#Aquaculture_activity" />
+<class id="#SilkProduction" className="#SilkProduction" subClassOf="#AnimalProductionActivity" />
+<class id="#SlaughterHouseWaste" className="#SlaughterHouseWaste" subClassOf="#WasteManagementIssue" />
+<class id="#SoilAcidification" className="#SoilAcidification" subClassOf="#SoilIssue" />
+<class id="#SoilBiologicalActivity" className="#SoilBiologicalActivity" subClassOf="#SoilIssue" />
+<class id="#SoilCompaction" className="#SoilCompaction" subClassOf="#SoilIssue" />
+<class id="#SoilConservation" className="#SoilConservation" subClassOf="#SoilIssue" />
+<class id="#SoilDegradation" className="#SoilDegradation" subClassOf="#SoilIssue" />
+<class id="#SoilErosion" className="#SoilErosion" subClassOf="#SoilIssue" />
+<class id="#SoilFertility" className="#SoilFertility" subClassOf="#SoilIssue" />
+<class id="#SoilHealth" className="#SoilHealth" subClassOf="#SoilIssue" />
+<class id="#SoilHusbandry" className="#SoilHusbandry" subClassOf="#SoilIssue" />
+<class id="#SoilStructure" className="#SoilStructure" subClassOf="#SoilIssue" />
+<class id="#SoilessCulture" className="#SoilessCulture" subClassOf="#AgriculturalMethod" />
+<class id="#Solarization" className="#Solarization" subClassOf="#WeedControlTechnique" />
+<class id="#Sorghum" className="#Sorghum" subClassOf="#FeedCrop" />
+<class id="#Sowing" className="#Sowing" subClassOf="#PlantProductionActivity" />
+<class id="#SoyBean" className="#SoyBean" subClassOf="#OilCrop" />
+<class id="#Spelt" className="#Spelt" subClassOf="#Cereal" />
+<class id="#Storage" className="#Storage" subClassOf="#ProcessingIssue" />
+<class id="#SubsistenceFarming" className="#SubsistenceFarming" subClassOf="#AgriculturalMethod" />
+<class id="#SugarBeet" className="#SugarBeet" subClassOf="#EnergyCrop" />
+<class id="#Sunflower" className="#Sunflower" subClassOf="#OilCrop" />
+<class id="#Sustainability" className="#Sustainability" subClassOf="#EthicalIssue" />
+<class id="#Sustainability" className="#Sustainability" subClassOf="#EnvironmentIssue" />
+<class id="#SustainableFarming" className="#SustainableFarming" subClassOf="#AgriculturalMethod" />
+<class id="#Switchgrass" className="#Switchgrass" subClassOf="#FeedCrop" />
+<class id="#Tangerine" className="#Tangerine" subClassOf="#CitrusSpecies" />
+<class id="#Teacher" className="#Teacher" subClassOf="#IndividualEntity" />
+<class id="#Teaching" className="#Teaching" subClassOf="#EducationalActivity" />
+<class id="#Tillage" className="#Tillage" subClassOf="#SoilManagement" />
+<class id="#Traceability" className="#Traceability" subClassOf="#ConsumptionIssue" />
+<class id="#Traceability" className="#Traceability" subClassOf="#DistributionIssue" />
+<class id="#Trader" className="#Trader" subClassOf="#IndividualEntity" />
+<class id="#Training" className="#Training" subClassOf="#EducationalActivity" />
+<class id="#TransportOfAnimals" className="#TransportOfAnimals" subClassOf="#TransportIssue" />
+<class id="#TransportOfProducts" className="#TransportOfProducts" subClassOf="#TransportIssue" />
+<class id="#Urea" className="#Urea" subClassOf="#ChemicalCompound" />
+<class id="#Vetch" className="#Vetch" subClassOf="#FeedCrop" />
+<class id="#Vetch" className="#Vetch" subClassOf="#Pulse" />
+<class id="#Viticulture" className="#Viticulture" subClassOf="#PlantProductionActivity" />
+<class id="#WaterQuality" className="#WaterQuality" subClassOf="#EnvironmentIssue" />
+<class id="#WeedControlWeedsIdentifyingAnnualWeed" className="#WeedControlWeedsIdentifyingAnnualWeed" subClassOf="#WeedControlWeedsIdentifying" />
+<class id="#WeedControlWeedsIdentifyingBiennialWeed" className="#WeedControlWeedsIdentifyingBiennialWeed" subClassOf="#WeedControlWeedsIdentifying" />
+<class id="#WeedControlWeedsIdentifyingPerennialWeed" className="#WeedControlWeedsIdentifyingPerennialWeed" subClassOf="#WeedControlWeedsIdentifying" />
+<class id="#WeedControlWeedsIdentifyingVolunteerWeed" className="#WeedControlWeedsIdentifyingVolunteerWeed" subClassOf="#WeedControlWeedsIdentifying" />
+<class id="#WellBeing" className="#WellBeing" subClassOf="#HealthIssue" />
+<class id="#Wheat" className="#Wheat" subClassOf="#Cereal" />
+<class id="#Wholesaler" className="#Wholesaler" subClassOf="#IndividualEntity" />
+<class id="#Wine" className="#Wine" subClassOf="#PlantOriginProcessedProduct" />
+<class id="#Wool" className="#Wool" subClassOf="#AnimalOriginUnprocessedProduct" />
 </hierarchy>
 <instances>
 <instance instanceOf="#Activity" lang="sl"></instance>
@@ -175,7 +450,7 @@
 <instance instanceOf="#AnimalOriginProduct" lang="it">prodotto di origine animale</instance>
 <instance instanceOf="#AnimalOriginProduct" lang="tr">hayvansal kökenli ürün</instance>
 <instance instanceOf="#AnimalOriginProduct" lang="ru">продукты животного происхождения</instance>
-<instance instanceOf="#AnimalOriginProduct" lang="lv"></instance>
+<instance instanceOf="#AnimalOriginProduct" lang="lv">dzīvnieku izcelsmes produkti</instance>
 <instance instanceOf="#AnimalOriginUnprocessedProduct" lang="et">loomset päritolu töötlemata toode</instance>
 <instance instanceOf="#AnimalOriginUnprocessedProduct" lang="sl">neobdelan proizvod živalskega izvora</instance>
 <instance instanceOf="#AnimalOriginUnprocessedProduct" lang="ro">produs de origine animala neprocesat</instance>
@@ -193,7 +468,7 @@
 <instance instanceOf="#AnimalOriginUnprocessedProduct" lang="no">uforedlet produkt fra dyr</instance>
 <instance instanceOf="#AnimalOriginUnprocessedProduct" lang="it">prodotto grezzo di origine animale</instance>
 <instance instanceOf="#AnimalOriginUnprocessedProduct" lang="ru">необработанные продукты животного происхождения</instance>
-<instance instanceOf="#AnimalOriginUnprocessedProduct" lang="lv"></instance>
+<instance instanceOf="#AnimalOriginUnprocessedProduct" lang="lv">dzīvnieku izcelsmes neapstrādāti produkti</instance>
 <instance instanceOf="#AnimalProductionActivity" lang="sl">živalska proizvodnja</instance>
 <instance instanceOf="#AnimalProductionActivity" lang="ro">activitate de productie animala</instance>
 <instance instanceOf="#AnimalProductionActivity" lang="tr">hayvancılıkta üretim faaliyetleri</instance>
@@ -211,7 +486,7 @@
 <instance instanceOf="#AnimalProductionActivity" lang="it">produzione prodotti animali</instance>
 <instance instanceOf="#AnimalProductionActivity" lang="et">loomakasvatustegevus</instance>
 <instance instanceOf="#AnimalProductionActivity" lang="ru">разведение сельскохозяйственных животных</instance>
-<instance instanceOf="#AnimalProductionActivity" lang="lv"></instance>
+<instance instanceOf="#AnimalProductionActivity" lang="lv">lauksaimniecības dzīvnieku audzēšana</instance>
 <instance instanceOf="#AnimalProductionIssue" lang="sl">vprašanje živalske proizvodnje</instance>
 <instance instanceOf="#AnimalProductionIssue" lang="ro">probleme de productie animala</instance>
 <instance instanceOf="#AnimalProductionIssue" lang="tr">hayvancılıkta üretim sorunları</instance>
@@ -229,7 +504,7 @@
 <instance instanceOf="#AnimalProductionIssue" lang="it">problematica produzione prodotti animali</instance>
 <instance instanceOf="#AnimalProductionIssue" lang="et">loomakasvatusküsimus</instance>
 <instance instanceOf="#AnimalProductionIssue" lang="ru">продукция животноводства</instance>
-<instance instanceOf="#AnimalProductionIssue" lang="lv"></instance>
+<instance instanceOf="#AnimalProductionIssue" lang="lv">mājlopu produkcija</instance>
 <instance instanceOf="#Aquaculture_activity" lang="sl"></instance>
 <instance instanceOf="#Aquaculture_activity" lang="ro"></instance>
 <instance instanceOf="#Aquaculture_activity" lang="tr">su ürünleri yetiştiriciliği faaliyeti</instance>
@@ -1022,14 +1297,16 @@
 <instance instanceOf="#MarketingIssue" lang="et">turustamise küsimus</instance>
 <instance instanceOf="#MarketingIssue" lang="es">cuestiones sobre marketing</instance>
 <instance instanceOf="#MarketingIssue" lang="lv"></instance>
+<instance instanceOf="#Method" lang="et">meetod</instance>
 <instance instanceOf="#Method" lang="sl"></instance>
 <instance instanceOf="#Method" lang="ro"></instance>
 <instance instanceOf="#Method" lang="tr">Yöntemler</instance>
-<instance instanceOf="#Method" lang="en"></instance>
+<instance instanceOf="#Method" lang="en">method</instance>
 <instance instanceOf="#Method" lang="es">método</instance>
-<instance instanceOf="#Method" lang="el">Μέθοδος</instance>
+<instance instanceOf="#Method" lang="el">μέθοδος</instance>
 <instance instanceOf="#Method" lang="de"></instance>
 <instance instanceOf="#Method" lang="hu"></instance>
+<instance instanceOf="#Method" lang="ru">методика</instance>
 <instance instanceOf="#Method" lang="bg"></instance>
 <instance instanceOf="#Method" lang="hi"></instance>
 <instance instanceOf="#Method" lang="fr">méthode</instance>
@@ -1037,8 +1314,6 @@
 <instance instanceOf="#Method" lang="nl"></instance>
 <instance instanceOf="#Method" lang="no"></instance>
 <instance instanceOf="#Method" lang="it">metodo</instance>
-<instance instanceOf="#Method" lang="ru">методика</instance>
-<instance instanceOf="#Method" lang="et">meetod</instance>
 <instance instanceOf="#Method" lang="lv"></instance>
 <instance instanceOf="#MineralFertilizer" lang="sl">mineralno gnojilo</instance>
 <instance instanceOf="#MineralFertilizer" lang="ro">ingrasamant mineral</instance>
@@ -1346,13 +1621,16 @@
 <instance instanceOf="#PlantProductionIssue" lang="et">taimekasvatuse teema</instance>
 <instance instanceOf="#PlantProductionIssue" lang="es">cuestiones sobre la producción de plantas</instance>
 <instance instanceOf="#PlantProductionIssue" lang="lv"></instance>
+<instance instanceOf="#Policy" lang="et">Tegevuskava</instance>
 <instance instanceOf="#Policy" lang="sl"></instance>
 <instance instanceOf="#Policy" lang="ro"></instance>
 <instance instanceOf="#Policy" lang="tr">Politikalar</instance>
-<instance instanceOf="#Policy" lang="en"></instance>
+<instance instanceOf="#Policy" lang="en">policy</instance>
+<instance instanceOf="#Policy" lang="es">política</instance>
 <instance instanceOf="#Policy" lang="el">Πολιτική</instance>
 <instance instanceOf="#Policy" lang="de"></instance>
 <instance instanceOf="#Policy" lang="hu"></instance>
+<instance instanceOf="#Policy" lang="ru">политика</instance>
 <instance instanceOf="#Policy" lang="bg"></instance>
 <instance instanceOf="#Policy" lang="hi"></instance>
 <instance instanceOf="#Policy" lang="fr">politique</instance>
@@ -1360,9 +1638,6 @@
 <instance instanceOf="#Policy" lang="nl"></instance>
 <instance instanceOf="#Policy" lang="no"></instance>
 <instance instanceOf="#Policy" lang="it">politica</instance>
-<instance instanceOf="#Policy" lang="ru">политика</instance>
-<instance instanceOf="#Policy" lang="et">Tegevuskava</instance>
-<instance instanceOf="#Policy" lang="es">política</instance>
 <instance instanceOf="#Policy" lang="lv"></instance>
 <instance instanceOf="#PolicyMaking" lang="sl"></instance>
 <instance instanceOf="#PolicyMaking" lang="ro"></instance>
@@ -6331,6 +6606,60 @@
 <instance instanceOf="#Sustainability" lang="es">sostenibilidad</instance>
 <instance instanceOf="#Sustainability" lang="it">sustainability</instance>
 <instance instanceOf="#Sustainability" lang="tr">sürdürülebilirlik</instance>
+<instance instanceOf="#Sustainability" lang="lv"></instance>
+<instance instanceOf="#Sustainability" lang="et">jätkusuutlikkus</instance>
+<instance instanceOf="#Sustainability" lang="sl">trajnost</instance>
+<instance instanceOf="#Sustainability" lang="ro">durabilitate</instance>
+<instance instanceOf="#Sustainability" lang="tr">sürdürülebilirlik</instance>
+<instance instanceOf="#Sustainability" lang="en">sustainability</instance>
+<instance instanceOf="#Sustainability" lang="es">sostenibilidad</instance>
+<instance instanceOf="#Sustainability" lang="el">βιωσιμότητα</instance>
+<instance instanceOf="#Sustainability" lang="de">nachhaltigkeit</instance>
+<instance instanceOf="#Sustainability" lang="hu">fenntarthatóság</instance>
+<instance instanceOf="#Sustainability" lang="ru">устойчивость</instance>
+<instance instanceOf="#Sustainability" lang="bg">устойчивост</instance>
+<instance instanceOf="#Sustainability" lang="hi">स्थिरता </instance>
+<instance instanceOf="#Sustainability" lang="fr">durabilité</instance>
+<instance instanceOf="#Sustainability" lang="ar">الاستدامة</instance>
+<instance instanceOf="#Sustainability" lang="nl">duurzaamheid</instance>
+<instance instanceOf="#Sustainability" lang="no">bærekraft</instance>
+<instance instanceOf="#Sustainability" lang="it">sustainability</instance>
+<instance instanceOf="#Sustainability" lang="lv"></instance>
+<instance instanceOf="#Sustainability" lang="et">jätkusuutlikkus</instance>
+<instance instanceOf="#Sustainability" lang="sl">trajnost</instance>
+<instance instanceOf="#Sustainability" lang="ro">durabilitate</instance>
+<instance instanceOf="#Sustainability" lang="tr">sürdürülebilirlik</instance>
+<instance instanceOf="#Sustainability" lang="en">sustainability</instance>
+<instance instanceOf="#Sustainability" lang="es">sostenibilidad</instance>
+<instance instanceOf="#Sustainability" lang="el">βιωσιμότητα</instance>
+<instance instanceOf="#Sustainability" lang="de">nachhaltigkeit</instance>
+<instance instanceOf="#Sustainability" lang="hu">fenntarthatóság</instance>
+<instance instanceOf="#Sustainability" lang="ru">устойчивость</instance>
+<instance instanceOf="#Sustainability" lang="bg">устойчивост</instance>
+<instance instanceOf="#Sustainability" lang="hi">स्थिरता </instance>
+<instance instanceOf="#Sustainability" lang="fr">durabilité</instance>
+<instance instanceOf="#Sustainability" lang="ar">الاستدامة</instance>
+<instance instanceOf="#Sustainability" lang="nl">duurzaamheid</instance>
+<instance instanceOf="#Sustainability" lang="no">bærekraft</instance>
+<instance instanceOf="#Sustainability" lang="it">sustainability</instance>
+<instance instanceOf="#Sustainability" lang="lv"></instance>
+<instance instanceOf="#Sustainability" lang="et">jätkusuutlikkus</instance>
+<instance instanceOf="#Sustainability" lang="sl">trajnost</instance>
+<instance instanceOf="#Sustainability" lang="ro">durabilitate</instance>
+<instance instanceOf="#Sustainability" lang="tr">sürdürülebilirlik</instance>
+<instance instanceOf="#Sustainability" lang="en">sustainability</instance>
+<instance instanceOf="#Sustainability" lang="es">sostenibilidad</instance>
+<instance instanceOf="#Sustainability" lang="el">βιωσιμότητα</instance>
+<instance instanceOf="#Sustainability" lang="de">nachhaltigkeit</instance>
+<instance instanceOf="#Sustainability" lang="hu">fenntarthatóság</instance>
+<instance instanceOf="#Sustainability" lang="ru">устойчивость</instance>
+<instance instanceOf="#Sustainability" lang="bg">устойчивост</instance>
+<instance instanceOf="#Sustainability" lang="hi">स्थिरता </instance>
+<instance instanceOf="#Sustainability" lang="fr">durabilité</instance>
+<instance instanceOf="#Sustainability" lang="ar">الاستدامة</instance>
+<instance instanceOf="#Sustainability" lang="nl">duurzaamheid</instance>
+<instance instanceOf="#Sustainability" lang="no">bærekraft</instance>
+<instance instanceOf="#Sustainability" lang="it">sustainability</instance>
 <instance instanceOf="#Sustainability" lang="lv"></instance>
 <instance instanceOf="#SustainableFarming" lang="ru">экономичное сельское хозяйство</instance>
 <instance instanceOf="#SustainableFarming" lang="ar">الزراعة المستديمة</instance>
