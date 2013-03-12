@@ -1386,7 +1386,7 @@ function lomtextform($data6, $dataform, $datalan, $parent_multi = NULL, $record 
             $madatory = $dataform['min_occurs'];
         }
         $dataform['labal_name'] = return_multi_language_label_name($dataform['element_id']);
-        $output.= '<div style="float:left;width:160px;">' . createlomlabel($dataform['labal_name'], 'for=' . $dataform['id'] . ' style="width:158px;"', $madatory, $dataform['element_id']) . '';
+        $output.= '<div style="float:left;min-width:160px;">' . createlomlabel($dataform['labal_name'], 'for=' . $dataform['id'] . ' style="min-width:158px;"', $madatory, $dataform['element_id']) . '';
         $formcount = 0;
         $multi = 0;
         $formcounttotal = 0;
