@@ -1,19 +1,5 @@
 <?php
-require_once 'Omeka/Core.php';
-$core = new Omeka_Core;
-
-try {
-    $db = $core->getDb();
-    
-    //Force the Zend_Db to make the connection and catch connection errors
-    try {
-        $mysqli = $db->getConnection()->getConnection();
-    } catch (Exception $e) {
-        throw new Exception("<h1>MySQL connection error: [" . mysqli_connect_errno() . "]</h1>" . "<p>" . $e->getMessage() . '</p>');
-    }
-} catch (Exception $e) {
-	die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
-}	
+$db = Zend_Registry::get('db');	
 
 ?>
 

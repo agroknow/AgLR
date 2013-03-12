@@ -54,4 +54,4 @@ $_SESSION['get_language_for_internal_xml']=get_language_for_internal_xml();
             
         </div>
         <div id="content"<?php echo isset($content_class) ? ' class="'.$content_class.'"' : ''; ?>>
-            
+         

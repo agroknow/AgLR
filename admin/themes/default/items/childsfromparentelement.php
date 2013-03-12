@@ -53,7 +53,7 @@ $sqlchele="SELECT c.*,b.vocabulary_id,b.id as elm_id FROM  metadata_element b JO
 			//echo $childelements['labal_name'];
 			$extra='style="font-weight:normal;"';
 			if($childelements['element_id']===48){$extra="onchange='change49(this.value)'";}
-			checkelement($childelements,$datalan,$record,$depth,$extra,$parent_multi);
+			checkelement($childelements,$datalan,$record,$depth,$extra,$parent_multi,NULL,NULL,$xml_general);
 			}
 			echo'</div>';
 			

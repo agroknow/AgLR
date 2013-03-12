@@ -13,7 +13,7 @@ try {
     }
 } catch (Exception $e) {
 	die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
-}	
+}
 $user = current_user();
 $sqllan="SELECT * FROM metadata_record WHERE id=".$_POST['record_id']."";
 $execrec=$db->query($sqllan);

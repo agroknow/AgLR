@@ -1,8 +1,8 @@
 <?php
 
 ob_start();
-$output = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
-$output .= '<classification>' . "\n";
+$output = '<?xml version="1.0" encoding="UTF-8"?>';
+$output .= '<classification>';
 
 ///////get the OWL file////////////////
 libxml_use_internal_errors(false);
@@ -13,7 +13,7 @@ if ($xmlobj === false)
     die('Bad XML response!');
 
 
-$output .= '<hierarchy rootElement="#OAAEConcept">' . "\n";
+$output .= '<hierarchy rootElement="#OAAEConcept">';
 
 /////get all elements with the name:'owl:Class'
 $result = $xmlobj->xpath("owl:Class");
@@ -44,14 +44,14 @@ foreach ($result2 as $c2) {
         foreach ($owl_elements2 as $owl_elements2) {
             $attofsubelement = $owl_elements2->attributes('rdf', true);
             //print '. Element: '.$attofelement['about'].' - Subclass: '.$attofsubelement['about'];
-            $output .= '<class id="'.$attofelement['about'].'" className="'.$attofelement['about'].'" subClassOf="'.$attofsubelement['about'].'" />' . "\n";
+            $output .= '<class id="'.$attofelement['about'].'" className="'.$attofelement['about'].'" subClassOf="'.$attofsubelement['about'].'" />';
         }
     }
 }
 
 
-$output .= '</hierarchy>' . "\n";
-$output .= '<instances>' . "\n";
+$output .= '</hierarchy>';
+$output .= '<instances>';
 
 foreach ($result as $c) {
 
@@ -68,14 +68,16 @@ foreach ($result as $c) {
         $attofelement2 = $owl_elements->attributes();
         //echo $attofelement2['lang'].' - ';
         //print($owl_elements);
+        
         $output .= '<instance instanceOf="' . $attofelement['about'] . '" lang="' . $attofelement2['lang'] . '">' . "";
         $output .= '' . $owl_elements . '' . "";
-        $output .= '</instance>' . "\n";
+        $output .= '</instance>';
+        
     }
 }
-$output .= '</instances>' . "\n";
+$output .= '</instances>';
 
-$output .= '</classification>' . "\n";
+$output .= '</classification>';
 //echo $output;
 /*
   print_r($c->children('owl',true));
@@ -91,6 +93,7 @@ $output .= '</classification>' . "\n";
 //print_r($xmlobj->children('rdf',true));
 //print_r($xmlobj->asXML());
 //$page = ob_get_contents();
+
 ob_end_flush();
 //echo "http://".$_SERVER['SERVER_NAME']."".uri('archive/xmlvoc')."/output.xml";
 
@@ -102,4 +105,5 @@ fclose($fp);
 if ($fp) {
     echo "<a href='http://" . $_SERVER['SERVER_NAME'] . "" . uri('archive/xmlvoc') . "/" . $xmlname . "' target='_blank'> New Internal Xml from API ontology</a>";
 }
+
 ?>

@@ -374,19 +374,19 @@ function preview_elements($datageneral4, $datageneral5, $metadatarecord, $datage
 
                                 if ($datageneral6['datatype_id'] == 5) {
                                     if (strlen($datageneral5['classification_id']) > 0) {
-                                        
+
                                         $sqlfindxml = "SELECT * FROM  metadata_vocabulary_record WHERE vocabulary_id=" . $datageneral6['vocabulary_id'] . "";
                                         //echo $sqlfindxml;
                                         $execfindxml = $db->query($sqlfindxml);
                                         $findxml = $execfindxml->fetch();
                                         libxml_use_internal_errors(false);
                                         $uri = WEB_ROOT;
-                                        $file=$findxml['value'];
+                                        $file = $findxml['value'];
                                         $xmlvoc = '' . $uri . '/archive/xmlvoc/' . $file . '.xml';
                                         $xml = @simplexml_load_file($xmlvoc, NULL, LIBXML_NOERROR | LIBXML_NOWARNING);
                                         $resultnewval = $xml->xpath("instances/instance[@instanceOf='" . $datageneral5['classification_id'] . "' and @lang='en']");
-                                        
-                                        $ontology2_en_value_string=$resultnewval[0];
+
+                                        $ontology2_en_value_string = $resultnewval[0];
                                         $ontology2 = $datageneral5['classification_id'];
                                     }
                                 }
@@ -450,6 +450,11 @@ function preview_elements($datageneral4, $datageneral5, $metadatarecord, $datage
 
 
                     if (strlen($ontology1) > 0 or strlen($ontology2) > 0) {
+                        $thereturnonto .= '<classification>' . "\n";
+                        $thereturnonto .= '<purpose>' . "\n";
+                        $thereturnonto .= xmlformat('LOMv1.0', 'source', '', $indent);
+                        $thereturnonto .= xmlformat($for_purpose, 'value', '', $indent);
+                        $thereturnonto .= '</purpose>' . "\n";
                         $thereturnonto .= '<taxonPath>' . "\n";
                         $thereturnonto .= '<source>' . "\n";
                         $thereturnonto .= xmlformat($class_source, 'string', ' language="en"', $indent);
@@ -461,18 +466,19 @@ function preview_elements($datageneral4, $datageneral5, $metadatarecord, $datage
                         $thereturnonto .= '</entry>' . "\n";
                         $thereturnonto .= '</taxon>' . "\n";
                         $thereturnonto .= '</taxonPath>' . "\n";
+                        $thereturnonto .= '</classification>' . "\n";
                     }
                 }//foreach($datageneral8 as $datageneral8){
 
 
                 if (strlen($thereturnonto) > 0) {
-                    $thereturn .= '<classification>' . "\n";
-                    $thereturn .= '<purpose>' . "\n";
-                    $thereturn .= xmlformat('LOMv1.0', 'source', '', $indent);
-                    $thereturn .= xmlformat($for_purpose, 'value', '', $indent);
-                    $thereturn .= '</purpose>' . "\n";
+                    //$thereturn .= '<classification>' . "\n";
+                    //$thereturn .= '<purpose>' . "\n";
+                    //$thereturn .= xmlformat('LOMv1.0', 'source', '', $indent);
+                    //$thereturn .= xmlformat($for_purpose, 'value', '', $indent);
+                    //$thereturn .= '</purpose>' . "\n";
                     $thereturn .=$thereturnonto;
-                    $thereturn .= '</classification>' . "\n";
+                    // $thereturn .= '</classification>' . "\n";
                 }
             }//if($count_results8>0){
         }//foreach datageneral4
@@ -481,16 +487,76 @@ function preview_elements($datageneral4, $datageneral5, $metadatarecord, $datage
             $sql5 = "SELECT * FROM  metadata_element_value WHERE record_id=" . $metadatarecord['id'] . " and element_hierarchy=" . $datageneral4['id'] . " ORDER BY multi ASC;";
             //echo $sql4."<br>";
             $exec5 = $db->query($sql5);
-            $datageneral5 = $exec5->fetchAll();
-            $count_results = count($datageneral5);
+            $datageneral8 = $exec5->fetchAll();
+            $count_results = count($datageneral8);
 
             if ($count_results > 0) {
-                if ($datageneral4['machine_name'] == 'identifier') {
-                    $thereturn.= '<resource>' . "\n";
-                }
-                $thereturn.=preview_elements_from_datatype($datageneral4, $datageneral5, $metadatarecord);
-                if ($datageneral4['machine_name'] == 'identifier') {
-                    $thereturn.= '</resource>' . "\n";
+
+                foreach ($datageneral8 as $datageneral8) {
+                    $exist_relation_resource = 0;
+                    $thereturnonto = '';
+                    $thereturnonto2 = '';
+                    $thereturnonto3 = '';
+                    $sql6 = "SELECT c.*,b.machine_name,b.id as elm_id,b.vocabulary_id as vocabulary_id FROM  metadata_element b  LEFT JOIN metadata_element_hierarchy c 
+			ON c.element_id = b.id  WHERE c.pelement_id=" . $datageneral4['elm_id'] . " and c.is_visible=1 ;";
+                    //echo $sql6."<br>";
+                    $exec6 = $db->query($sql6);
+                    $datageneral6 = $exec6->fetchAll();
+                    $ontology1 = '';
+                    $ontology2 = '';
+                    foreach ($datageneral6 as $datageneral6) {
+                        //print_r($datageneral6);break;
+                        $sql7 = "SELECT * FROM  metadata_element_value WHERE record_id=" . $metadatarecord['id'] . " and element_hierarchy=" . $datageneral6['id'] . " and multi=" . $datageneral8['multi'] . " ORDER BY parent_indexer ASC ;";
+                        //echo $sql7; break;
+                        $exec7 = $db->query($sql7);
+                        $datageneral5 = $exec7->fetchAll();
+                        $count_results5 = count($datageneral5);
+
+                        if ($count_results5 > 0) {
+
+
+
+                            foreach ($datageneral5 as $datageneral5) {
+                                //print_r($datageneral5);
+
+                                if ($datageneral6['datatype_id'] == 6) {
+                                    if (strlen($datageneral5['vocabulary_record_id']) > 0) {
+                                        $sql_ont = "SELECT * FROM  metadata_vocabulary_record WHERE id=" . $datageneral5['vocabulary_record_id'] . " ;";
+                                        //echo $sql_ont."<br>";
+                                        $exec_ont = $db->query($sql_ont);
+                                        $datageneral_ont = $exec_ont->fetch();
+
+                                        if (strlen($datageneral_ont['source']) > 0) {
+                                            $thereturnonto.= '<' . $datageneral6['machine_name'] . '>' . "\n";
+                                            $thereturnonto.=xmlformat($datageneral_ont['source'], 'source', '', $indent);
+                                            $thereturnonto.=xmlformat($datageneral_ont['value'], 'value', '', $indent);
+                                            $thereturnonto.= '</' . $datageneral6['machine_name'] . '>' . "\n";
+                                        } else {
+                                            $thereturnonto.=xmlformat($datageneral_ont['value'], $datageneral6['machine_name'], '', $indent);
+                                        }
+                                    }
+                                }
+                                if ($datageneral6['machine_name'] == 'catalog' or $datageneral6['machine_name'] == 'entry') {
+                                    $exist_relation_resource = 1;
+                                    $thereturnonto2.= '<' . $datageneral6['machine_name'] . '>';
+                                    $thereturnonto2.= $datageneral5['value'];
+                                    $thereturnonto2.= '</' . $datageneral6['machine_name'] . '>' . "\n";
+                                }
+                            }
+                        }
+                    }
+                    if ($exist_relation_resource == 1) {
+                        $thereturnonto3.= '<resource>' . "\n";
+                        $thereturnonto3.= '<identifier>' . "\n";
+                        $thereturnonto3 .=$thereturnonto2;
+                        $thereturnonto3.= '</identifier>' . "\n";
+                        $thereturnonto3.= '</resource>' . "\n";
+                    }
+                    $thereturn.= '<' . $datageneral4['machine_name'] . '>' . "\n";
+                    $thereturn .=$thereturnonto;
+                    $thereturn .=$thereturnonto3;
+
+                    $thereturn.= '</' . $datageneral4['machine_name'] . '>' . "\n";
                 }
             }
         }

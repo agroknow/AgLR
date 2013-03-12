@@ -13,7 +13,7 @@ try {
     }
 } catch (Exception $e) {
 	die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
-}	
+}
 $user = current_user();
 $sqllan="SELECT * FROM metadata_record WHERE id=".$_POST['record_id']." ";
 $execlan=$db->query($sqllan);
@@ -22,7 +22,7 @@ $execlan=null;
 
 $result_multi=get_db()->getTable('Item')->find($result_rec['object_id']);
 
-if($user['id']==1 or $user['id']==11 or $result_multi->wasAddedBy(current_user()) or has_permission($result_multi, 'edit')){  //if he has add the exhibit 
+if($user['id']==1 or $user['role']=='super' or $result_multi->wasAddedBy(current_user()) or has_permission($result_multi, 'edit')){  //if he has add the exhibit 
 $sqllan="UPDATE metadata_element_value SET  language_id='".$_POST['language_id']."' WHERE element_hierarchy=".$_POST['element_hierarchy']." and language_id='".$_POST['language_id_old']."' and record_id=".$_POST['record_id']." and multi=".$_POST['multi'].""; //echo $sqllan; break;
 $execlan=$db->query($sqllan);
 if($execlan){

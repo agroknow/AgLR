@@ -435,7 +435,7 @@ if (empty($errors)) { //if no errors
             } elseif ($datageneral3['machine_name'] == 'classification') { ///////if CLASSIFICATION
                 $output.= preview_elements($datageneral4, NULL, $metadatarecord, $datageneral3);
             } elseif ($datageneral3['machine_name'] == 'relation') { ///////if RELATION
-                $output2.= preview_elements($datageneral4, NULL, $metadatarecord, $datageneral3);
+                $output.= preview_elements($datageneral4, NULL, $metadatarecord, $datageneral3);
             } else { ///the rest parent elements///////////////////////////////
                 foreach ($datageneral4 as $datageneral4) {
 

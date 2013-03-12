@@ -411,63 +411,59 @@ function createlomelement($type, $name, $value = NULL, $extra = NULL, $selectval
         $element = '<select ' . $extra . ' ' . $disabled . '  name="' . $name . '">';
 
         $element.='<option value="">Select </option>';
-        $voc_multi_label = array();
 
         $ar = 0;
-        foreach ($selectvalues as $selectvaluesforlang) {
-            //$voc_multi_label[$ar]['value']= voc_multi_label($selectvaluesforlang[$selectvalueswhich]);
-            if ($selectvaluesforlang['sequence'] > 0) {
-                $voc_multi_label[] = array('value' => voc_multi_label($selectvaluesforlang[$selectvalueswhich]), 'sequence' => $selectvaluesforlang['sequence'], 'id' => $selectvaluesforlang[$selectvalueswhich]);
-
-                $voc_multi_label[$ar]['sequence'] = $selectvaluesforlang['sequence'];
-            } else {
-                $voc_multi_label[] = array('value' => voc_multi_label($selectvaluesforlang[$selectvalueswhich]), 'sequence' => 9999, 'id' => $selectvaluesforlang[$selectvalueswhich]);
-            }
-            // $voc_multi_label[$ar]['id']=$selectvaluesforlang[$selectvalueswhich];
-            $ar+=1;
-        }
-        //print_r($voc_multi_label);
-        //   foreach ($voc_multi_label as $key => $row) {
-        //  $valuesort[$key]  = $row['value'];
-        //  $sequencesort[$key] = $row['sequence'];
-//}
-//print_r($voc_multi_label);
-//array_multisort($valuesort, SORT_DESC,SORT_REGULAR, $voc_multi_label);
-        //print_r($valuesort);
-        foreach ($voc_multi_label as $voc_multi_label) {
-
-            $element.='<option value="' . $voc_multi_label['id'] . '" ';
-            if ($value === $voc_multi_label['id']) {
+        $size_of_objects = sizeof($selectvalues);
+        for ($x = 0; $x < $size_of_objects; $x++) {
+            $selectvaluesforlang = & $selectvalues[$x];
+            if(strlen($selectvaluesforlang[$selectvalueswhich])>0){ 
+            $element.='<option value="' . $selectvaluesforlang[$selectvalueswhich] . '" ';
+            if ($value === $selectvaluesforlang[$selectvalueswhich]) {
                 $element.= 'selected=selected';
             }
-            $element.='>' . $voc_multi_label['value'] . '</option>';
+            $element.='>' . voc_multi_label($selectvaluesforlang[$selectvalueswhich]) . '</option>';
+            }
+            unset($selectvaluesforlang);
+            unset($selectvalues[$x]);
         }
         $element.='</select>';
     } elseif ($type == 'selectxml') {
         $element = '<select ' . $extra . ' ' . $disabled . '  name="' . $name . '">';
         $element.='<option value="">Select </option>';
-        foreach ($selectvalues as $selectvalues) {
-            $element.='<option value="' . $selectvalues[$selectvalueswhich] . '" ';
-            if ($value == $selectvalues[$selectvalueswhich]) {
+        
+        $size_of_objects = sizeof($selectvalues);
+        for ($x = 0; $x < $size_of_objects; $x++) {
+            $selectvaluesforlang = & $selectvalues[$x];
+            if(strlen($selectvaluesforlang[$selectvalueswhich])>0){ 
+            $element.='<option value="' . $selectvaluesforlang[$selectvalueswhich] . '" ';
+            if ($value == $selectvaluesforlang[$selectvalueswhich]) {
                 $element.= 'selected=selected';
             }
-            $element.='>' . $selectvalues[$selectalter] . '</option>';
+            $element.='>' . $selectvaluesforlang[$selectalter] . '</option>';
+            
+        }
         }
         $element.='</select>';
+        unset($selectvaluesforlang);
+        unset($selectvalues);
+        
     } elseif ($type == 'selectlanstr') {
         $lan = $value;
         $element = '<select ' . $extra . ' ' . $disabled . ' id="' . $name . '"  name="' . $name . '"  onchange="UpdateLangstringFormFieldExisted(' . $langstringparams['element_hierarchy'] . ',' . $langstringparams['record_id'] . ',' . $langstringparams['multi'] . ',\'' . $value . '\',this.value,\'' . $name . '\'); return false;">';
         $element.='<option value="none">Select </option>';
         //print_r($selectvalues);
         //echo $value;
-        foreach ($selectvalues as $selectvalues) {
-            $identifier = (string) $selectvalues->identifier;
-            $element.='<option  value="' . $identifier . '" ';
-            //if($value!=$selectvalues[$selectvalueswhich]){$element.='onChange="UpdateLangstringFormFieldExisted('.$langstringparams['element_hierarchy'].','.$langstringparams['record_id'].','.$langstringparams['multi'].','.$selectvalues[$selectvalueswhich].','.$value.'); return false;"';}
-            if ($value == $identifier) {
+        $size_of_objects = sizeof($selectvalues);
+        for ($x = 0; $x < $size_of_objects; $x++) {
+            $selectvaluesforlang = & $selectvalues[$x];
+
+            $element.='<option value="' . $selectvaluesforlang['value'] . '" ';
+            if ($value === $selectvaluesforlang['value']) {
                 $element.= 'selected=selected';
             }
-            $element.='>' . $selectvalues->name . '</option>';
+            $element.='>' . voc_multi_label($selectvaluesforlang[$selectvalueswhich]) . '</option>';
+            unset($selectvaluesforlang);
+            unset($selectvalues[$x]);
         }
         $element.='</select>';
     }
@@ -475,28 +471,18 @@ function createlomelement($type, $name, $value = NULL, $extra = NULL, $selectval
 }
 
 function lomradioform($data6, $dataform, $view_mode = NULL) {
-    require_once 'Omeka/Core.php';
-    $core = new Omeka_Core;
-
-    try {
-        $db = $core->getDb();
-
-        //Force the Zend_Db to make the connection and catch connection errors
-        try {
-            $mysqli = $db->getConnection()->getConnection();
-        } catch (Exception $e) {
-            throw new Exception("<h1>MySQL connection error: [" . mysqli_connect_errno() . "]</h1>" . "<p>" . $e->getMessage() . '</p>');
-        }
-    } catch (Exception $e) {
-        die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
-    }
+    $db = Zend_Registry::get('db');
     $disable = '';
     if ($view_mode == 1) {
         $disable = 'disabled="disabled"';
     }
-    foreach ($data6 as $datarecord) {
+    $size_of_objects = sizeof($data6);
+    for ($x = 0; $x < $size_of_objects; $x++) {
+        $datarecord = & $data6[$x];
         if ($datarecord['element_hierarchy'] === $dataform['id']) {
             $datarecordvalue = $datarecord['value'];
+            unset($datarecord);
+            unset($data6[$x]);
         }
     }//select the value for more than one foreach
     $dataform['labal_name'] = return_multi_language_label_name($dataform['element_id']);
@@ -525,22 +511,8 @@ function lomradioform($data6, $dataform, $view_mode = NULL) {
     return $output;
 }
 
-function lomontology($data6, $dataform, $datalan, $extra, $parent_multi = NULL, $record = NULL, $view_mode = NULL) {
-    require_once 'Omeka/Core.php';
-    $core = new Omeka_Core;
-
-    try {
-        $db = $core->getDb();
-
-        //Force the Zend_Db to make the connection and catch connection errors
-        try {
-            $mysqli = $db->getConnection()->getConnection();
-        } catch (Exception $e) {
-            throw new Exception("<h1>MySQL connection error: [" . mysqli_connect_errno() . "]</h1>" . "<p>" . $e->getMessage() . '</p>');
-        }
-    } catch (Exception $e) {
-        die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
-    }
+function lomontology($data6, $dataform, $extra, $parent_multi = NULL, $record = NULL, $view_mode = NULL, $xml_general) {
+    $db = Zend_Registry::get('db');
     ?>
     <script language="javascript"> 
         function toggletree(iddivtree) {
@@ -584,7 +556,9 @@ function lomontology($data6, $dataform, $datalan, $extra, $parent_multi = NULL, 
         $data6 = $exec5->fetchAll();
         $exec5 = NULL;
     }
-    foreach ($data6 as $datarecord) {
+    $size_of_objects = sizeof($data6);
+    for ($x = 0; $x < $size_of_objects; $x++) {
+        $datarecord = & $data6[$x];
         if ($datarecord['element_hierarchy'] === $dataform['id']) { //select the value for more than one foreach
             $datarecordvalue = $datarecord['classification_id'];
             $formmulti = $datarecord['multi'];
@@ -593,21 +567,11 @@ function lomontology($data6, $dataform, $datalan, $extra, $parent_multi = NULL, 
             $formcount+=1;
             $output.='<div id="' . $dataform['id'] . '_' . $formmulti . '_field">';
             if ($dataform['vocabulary_id'] > 0) {//select and isset vocabulary
-                $sqlvocelem = "SELECT e.value,d.id FROM metadata_vocabulary d RIGHT JOIN metadata_vocabulary_record e ON d.id = e.vocabulary_id RIGHT JOIN
-					metadata_vocabulary_value f ON f.vocabulary_rid = e.id WHERE d.id=" . $dataform['vocabulary_id'] . "";
-                $execvocele = $db->query($sqlvocelem);
-                $datavocele = $execvocele->fetch();
-                //echo $datavocele['value'];
-                libxml_use_internal_errors(false);
-                $uri = WEB_ROOT;
-                $xmlvoc = '' . $uri . '/archive/xmlvoc/' . $datavocele['value'] . '.xml';
-                $xml = @simplexml_load_file($xmlvoc, NULL, LIBXML_NOERROR | LIBXML_NOWARNING);
-                $xml = internal_xml('' . $dataform['id'] . '_' . $multi . '_tree', '' . $datavocele['value'] . '', $_SESSION['get_language_for_internal_xml'], $drop_down = 1);
-                //print_r($datarecordvalue);
-                $output.= createlomelement('selectxml', '' . $dataform['id'] . '_' . $formmulti . '', $datarecordvalue, 'id="' . $dataform['id'] . '_' . $formmulti . '" style="width:300px;float:left;" ' . $extra . '', $xml, 'id', 'value', NULL, NULL, $view_mode);
+                $xml = internal_xml('' . $dataform['id'] . '_' . $multi . '_tree', $xml_general, $_SESSION['get_language_for_internal_xml'], $dataform['vocabulary_id']);
+                $output.= createlomelement('selectxml', '' . $dataform['id'] . '_' . $formmulti . '', $datarecordvalue, 'id="' . $dataform['id'] . '_' . $formmulti . '" style="width:300px;float:left;" ' . $extra . '', $xml['drop_down'], 'id', 'value', NULL, NULL, $view_mode);
                 if ($view_mode != 1) {
                     $output.= '<a href="javascript:void(0)" onclick="toggletree(\'' . $dataform['id'] . '_' . $multi . '_tree\');" style="float:left;margin-left:2px;" id="' . $dataform['id'] . '_' . $multi . '">Browse</a>';
-                    $output.=internal_xml('' . $dataform['id'] . '_' . $multi . '_tree', '' . $datavocele['value'] . '', $_SESSION['get_language_for_internal_xml'], NULL);
+                    $output.=$xml['hierarchy_tree'];
                 }
 
                 if ($view_mode != 1) {
@@ -618,13 +582,12 @@ function lomontology($data6, $dataform, $datalan, $extra, $parent_multi = NULL, 
                 } ///if view_mode not display
                 $output.= '<br style="clear:both"><br>';
             } //select and isset vocabulary
-            else {
-                $output.= createlomelement('select', '' . $dataform['id'] . '_' . $formcount . '', $datarecordvalue, 'style="width:300px;" ' . $extra . '', $datalan, 'id', 'locale_name', NULL, $datarecoreditable, $view_mode);
-                $output.= '<br style="clear:both"><br>';
-            }//end else select and isset vocabulary
+
 
             $output.= "</div>";
         }
+        unset($datarecord);
+        unset($data6[$x]);
     }//select the value for more than one foreach
     //an den uparxei eggrafh create one empty //////////////////////////////////////////////////////
     if ($formcount === 0 and $view_mode != 1) {
@@ -636,30 +599,17 @@ function lomontology($data6, $dataform, $datalan, $extra, $parent_multi = NULL, 
         }
         $formcount+=1;
         if ($dataform['vocabulary_id'] > 0) {//select and isset vocabulary
-            $sqlvocelem = "SELECT e.value,d.id FROM metadata_vocabulary d RIGHT JOIN metadata_vocabulary_record e ON d.id = e.vocabulary_id RIGHT JOIN
-					metadata_vocabulary_value f ON f.vocabulary_rid = e.id WHERE d.id=" . $dataform['vocabulary_id'] . "";
-            $execvocele = $db->query($sqlvocelem);
-            $datavocele = $execvocele->fetch();
-            //echo $datavocele['value'];
-            libxml_use_internal_errors(false);
-            $uri = WEB_ROOT;
-            $xmlvoc = '' . $uri . '/archive/xmlvoc/' . $datavocele['value'] . '.xml';
-            $xml = @simplexml_load_file($xmlvoc, NULL, LIBXML_NOERROR | LIBXML_NOWARNING);
-            $xml = internal_xml('' . $dataform['id'] . '_' . $multi . '_tree', '' . $datavocele['value'] . '', $_SESSION['get_language_for_internal_xml'], 1);
+            $xml = internal_xml('' . $dataform['id'] . '_' . $multi . '_tree', $xml_general, $_SESSION['get_language_for_internal_xml'], $dataform['vocabulary_id']);
             //foreach ($sortedxml as $sortedxml) { echo $sortedxml; }
             //print_r($sortedxml);
             //print_r($xml->term);
-            $output.= createlomelement('selectxml', '' . $dataform['id'] . '_' . $multi . '', '', 'id="' . $dataform['id'] . '_' . $multi . '" style="width:300px;float:left;" ' . $extra . '', $xml, 'id', 'value', NULL, NULL, '' . $dataform['id'] . '');
+            $output.= createlomelement('selectxml', '' . $dataform['id'] . '_' . $multi . '', '', 'id="' . $dataform['id'] . '_' . $multi . '" style="width:300px;float:left;" ' . $extra . '', $xml['drop_down'], 'id', 'value', NULL, NULL, '' . $dataform['id'] . '');
             $output.= '<a href="javascript:void(0)" onclick="toggletree(\'' . $dataform['id'] . '_' . $multi . '_tree\');" style="float:left;margin-left:2px;" id="' . $dataform['id'] . '_' . $multi . '">Browse</a>';
 
-            $output.=internal_xml('' . $dataform['id'] . '_' . $multi . '_tree', '' . $datavocele['value'] . '', $_SESSION['get_language_for_internal_xml'], NULL);
+            //$output.=internal_xml('' . $dataform['id'] . '_' . $multi . '_tree', '' . $datavocele['value'] . '', $_SESSION['get_language_for_internal_xml'], NULL);
+            $output.=$xml['hierarchy_tree'];
             $output.= '<br style="clear:both"><br>';
         } //select and isset vocabulary
-        else {
-
-            $output.= createlomelement('select', '' . $dataform['id'] . '_' . $formcount . '', '', 'style="width:300px;" ' . $extra . '', $datalan, 'id', 'locale_name');
-            $output.= '<br style="clear:both"><br>';
-        }//end else select and isset vocabulary
     }//end create one empty
     $output.= "</div>";
 
@@ -676,153 +626,8 @@ function lomontology($data6, $dataform, $datalan, $extra, $parent_multi = NULL, 
     return $output;
 }
 
-function lomselectformfromXml($data6, $dataform, $datalan, $extra, $parent_multi = NULL, $record = NULL) {
-    require_once 'Omeka/Core.php';
-    $core = new Omeka_Core;
-
-    try {
-        $db = $core->getDb();
-
-        //Force the Zend_Db to make the connection and catch connection errors
-        try {
-            $mysqli = $db->getConnection()->getConnection();
-        } catch (Exception $e) {
-            throw new Exception("<h1>MySQL connection error: [" . mysqli_connect_errno() . "]</h1>" . "<p>" . $e->getMessage() . '</p>');
-        }
-    } catch (Exception $e) {
-        die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
-    }
-    $output = '';
-
-    if ($dataform['min_occurs'] > 0) {
-        $output = '<div style="float:left;border-bottom:1px solid #d7d5c4;padding-right:9px; margin-right:5px;padding-bottom:9px; margin-bottom:5px; width:100%;"  id="' . $dataform['id'] . '" class="mandatory_element">';
-    } elseif ($dataform['is_recommented'] == 1) {
-        $output = '<div style="float:left;border-bottom:1px solid #d7d5c4;padding-right:9px; margin-right:5px;padding-bottom:9px; margin-bottom:5px; width:100%;"  id="' . $dataform['id'] . '" class="recommented_element">';
-    } else {
-        $output = '<div style="float:left;border-bottom:1px solid #d7d5c4;padding-right:9px; margin-right:5px;padding-bottom:9px; margin-bottom:5px; width:100%;"  id="' . $dataform['id'] . '" class="optional_element">';
-    }
-
-
-    //$output= '<div style="float:left;border-bottom:1px solid #d7d5c4;padding-right:9px; margin-right:5px;padding-bottom:9px; margin-bottom:5px; width:100%;" 
-    //id="'.$dataform['id'].'">';
-    //echo '<div id="'.$dataform['id'].'">';
-    if ($parent_multi) {
-        $madatory = 0;
-    } else {
-        $madatory = $dataform['min_occurs'];
-    }
-    $dataform['labal_name'] = return_multi_language_label_name($dataform['element_id']);
-    $output.= '<div style="float:left;width:160px;">' . createlomlabel($dataform['labal_name'], 'for=' . $dataform['id'] . ' style="width:158px;"', $madatory, $dataform['element_id']) . '</div>';
-    $output.= '<div style="float:left;width:610px;" id="' . $dataform['id'] . '_inputs">';
-    $formcount = 0;
-
-    if (isset($parent_multi) and $parent_multi > 0) {
-        $sqltest = "SELECT * FROM metadata_element_value WHERE record_id='" . $record['id'] . "' and element_hierarchy='" . $dataform['id'] . "' and multi='" . $parent_multi . "' ORDER BY (case WHEN multi IS NULL THEN '9999' ELSE multi END) ASC";
-        //echo $sqltest; //break;
-        $exec5 = $db->query($sqltest);
-        $data6 = $exec5->fetchAll();
-        $exec5 = NULL;
-    }
-    foreach ($data6 as $datarecord) {
-        if ($datarecord['element_hierarchy'] === $dataform['id']) { //select the value for more than one foreach
-            $datarecordvalue = $datarecord['value'];
-            $formmulti = $datarecord['multi'];
-            $multi = $datarecord['multi'];
-            $datarecoreditable = $datarecord['is_editable'];
-            $formcount+=1;
-            $output.='<div id="' . $dataform['id'] . '_' . $formmulti . '_field">';
-            if ($dataform['vocabulary_id'] > 0) {//select and isset vocabulary
-                $sqlvocelem = "SELECT e.value,d.id FROM metadata_vocabulary d RIGHT JOIN metadata_vocabulary_record e ON d.id = e.vocabulary_id RIGHT JOIN
-					metadata_vocabulary_value f ON f.vocabulary_rid = e.id WHERE d.id=" . $dataform['vocabulary_id'] . "";
-                $execvocele = $db->query($sqlvocelem);
-                $datavocele = $execvocele->fetch();
-                //echo $datavocele['value'];
-                libxml_use_internal_errors(false);
-                $uri = WEB_ROOT;
-                $xmlvoc = '' . $uri . '/archive/xmlvoc/' . $datavocele['value'] . '.xml';
-                $xml = @simplexml_load_file($xmlvoc, NULL, LIBXML_NOERROR | LIBXML_NOWARNING);
-                $xml = objecttosortedarray($xml);
-                //print_r($datarecordvalue);
-                $output.= createlomelement('selectxml', '' . $dataform['id'] . '_' . $formmulti . '', $datarecordvalue, 'style="width:300px;float:left;" ' . $extra . '', $xml, 'term', 'term');
-
-
-                //if($dataform['max_occurs']>1){
-                $output.= '<a class="lom-remove" alt="Remove ' . $dataform['labal_name'] . '" title="Remove ' . $dataform['labal_name'] . '" href="#" onClick="removeFormFieldExisted(\'' . $dataform['id'] . '_' . $formmulti . '_field\',\'' . $dataform['id'] . '\',\'' . $datarecord['language_id'] . '\',\'' . $datarecord['record_id'] . '\',\'' . $datarecord['multi'] . '\'); return false;" 
-                style="position:relative; left:5px; top:2px;float:left;">Remove</a>';
-                //}//maxoccurs>1
-                $output.= '<br style="clear:both"><br>';
-            } //select and isset vocabulary
-            else {
-                $output.= createlomelement('select', '' . $dataform['id'] . '_' . $formcount . '', $datarecordvalue, 'style="width:300px;" ' . $extra . '', $datalan, 'id', 'locale_name', NULL, $datarecoreditable);
-                $output.= '<br style="clear:both"><br>';
-            }//end else select and isset vocabulary
-
-            $output.= "</div>";
-        }
-    }//select the value for more than one foreach
-    //an den uparxei eggrafh create one empty //////////////////////////////////////////////////////
-    if ($formcount === 0) {
-        $formmulti = 1;
-        if ($parent_multi > 0) {
-            $multi = $parent_multi;
-        } else {
-            $multi = 1;
-        }
-        $formcount+=1;
-        if ($dataform['vocabulary_id'] > 0) {//select and isset vocabulary
-            $sqlvocelem = "SELECT e.value,d.id FROM metadata_vocabulary d RIGHT JOIN metadata_vocabulary_record e ON d.id = e.vocabulary_id RIGHT JOIN
-					metadata_vocabulary_value f ON f.vocabulary_rid = e.id WHERE d.id=" . $dataform['vocabulary_id'] . "";
-            $execvocele = $db->query($sqlvocelem);
-            $datavocele = $execvocele->fetch();
-            //echo $datavocele['value'];
-            libxml_use_internal_errors(false);
-            $uri = WEB_ROOT;
-            $xmlvoc = '' . $uri . '/archive/xmlvoc/' . $datavocele['value'] . '.xml';
-            $xml = @simplexml_load_file($xmlvoc, NULL, LIBXML_NOERROR | LIBXML_NOWARNING);
-            $xml = objecttosortedarray($xml);
-            //foreach ($sortedxml as $sortedxml) { echo $sortedxml; }
-            //print_r($sortedxml);
-            //print_r($xml->term);
-            $output.= createlomelement('selectxml', '' . $dataform['id'] . '_' . $multi . '', '', 'style="width:300px;" ' . $extra . '', $xml, 'term', 'term');
-            $output.= '<br style="clear:both"><br>';
-        } //select and isset vocabulary
-        else {
-
-            $output.= createlomelement('select', '' . $dataform['id'] . '_' . $formcount . '', '', 'style="width:300px;" ' . $extra . '', $datalan, 'id', 'locale_name');
-            $output.= '<br style="clear:both"><br>';
-        }//end else select and isset vocabulary
-    }//end create one empty
-    $output.= "</div>";
-
-
-    if ($dataform['max_occurs'] > 1) {
-        $output.='<input name="hdnLine_' . $dataform['id'] . '" id="hdnLine_' . $dataform['id'] . '" type="hidden" value="' . $formmulti . '">
-        <div style="position:relative;clear:both;"><a alt="Add ' . $dataform['labal_name'] . '" title="Add ' . $dataform['labal_name'] . '" style="float:left;" class="lom-add-new" href="#" 
-       onClick="addFormFieldSelectXml(\'' . $formmulti . '\',\'' . $dataform['id'] . '\',\'hdnLine_' . $dataform['id'] . '\',\'' . $dataform['vocabulary_id'] . '\'); return false;">Add ' . $dataform['labal_name'] . '</a></div>';
-    } //end max occurs
-
-    $output.= '</div>';
-    $output.= '<br style="clear:both"><br>';
-
-    return $output;
-}
-
 function lomselectform($data6, $dataform, $datalan, $extra, $parent_multi = NULL, $record = NULL, $view_mode = NULL) {
-    require_once 'Omeka/Core.php';
-    $core = new Omeka_Core;
-
-    try {
-        $db = $core->getDb();
-
-        //Force the Zend_Db to make the connection and catch connection errors
-        try {
-            $mysqli = $db->getConnection()->getConnection();
-        } catch (Exception $e) {
-            throw new Exception("<h1>MySQL connection error: [" . mysqli_connect_errno() . "]</h1>" . "<p>" . $e->getMessage() . '</p>');
-        }
-    } catch (Exception $e) {
-        die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
-    }
+    $db = Zend_Registry::get('db');
 
     $output = '';
     if ($dataform['min_occurs'] > 0) {
@@ -853,7 +658,9 @@ function lomselectform($data6, $dataform, $datalan, $extra, $parent_multi = NULL
         $data6 = $exec5->fetchAll();
         $exec5 = NULL;
     }
-    foreach ($data6 as $datarecord) {
+    $size_of_objects = sizeof($data6);
+    for ($x = 0; $x < $size_of_objects; $x++) {
+        $datarecord = & $data6[$x];
         if ($datarecord['element_hierarchy'] === $dataform['id']) { //select the value for more than one foreach
             $datarecordvalue = $datarecord['vocabulary_record_id'];
             $formmulti = $datarecord['multi'];
@@ -862,9 +669,9 @@ function lomselectform($data6, $dataform, $datalan, $extra, $parent_multi = NULL
             $formcount+=1;
             $output.='<div id="' . $dataform['id'] . '_' . $formmulti . '_field">';
             if ($dataform['vocabulary_id'] > 0) {//select and isset vocabulary
-                $sqlvocelem = "SELECT e.value,f.label,d.id,e.sequence,e.id as vov_rec_id FROM metadata_vocabulary d LEFT JOIN metadata_vocabulary_record e ON d.id = e.vocabulary_id LEFT JOIN
-					metadata_vocabulary_value f ON f.vocabulary_rid = e.id WHERE d.id=" . $dataform['vocabulary_id'] . " and e.public=1  and f.language_id='" . get_language_for_switch() . "' ORDER BY (case WHEN e.sequence IS NULL THEN '99999' END),e.sequence,f.label ASC";
-                $execvocele = $db->query($sqlvocelem);
+                $execvocele = $db->query("SELECT f.label,e.sequence,e.id as vov_rec_id FROM metadata_vocabulary_record e JOIN
+					metadata_vocabulary_value f ON f.vocabulary_rid = e.id WHERE e.vocabulary_id=" . $dataform['vocabulary_id'] . " and e.public=1  and f.language_id='" . get_language_for_switch() . "'  ORDER BY (case WHEN e.sequence IS NULL THEN '99999' END),e.sequence,f.label ASC");
+
                 $datavocele = $execvocele->fetchAll();
                 $output.= createlomelement('select', '' . $dataform['id'] . '_' . $formmulti . '', $datarecordvalue, 'style="width:300px;float:left;" ' . $extra . '', $datavocele, 'vov_rec_id', 'label', NULL, $datarecoreditable, $view_mode);
 
@@ -881,12 +688,14 @@ function lomselectform($data6, $dataform, $datalan, $extra, $parent_multi = NULL
                 $output.= '<br style="clear:both"><br>';
             } //select and isset vocabulary
             else {
-                $output.= createlomelement('selectlanstr', '' . $dataform['id'] . '_' . $formcount . '', $datarecordvalue, 'style="width:300px;" ' . $extra . '', $datalan, 'id', 'locale_name');
+                $output.= createlomelement('selectlanstr', '' . $dataform['id'] . '_' . $formcount . '', $datarecordvalue, 'style="width:300px;" ' . $extra . '', $datalan, 'vov_rec_id', 'label');
                 $output.= '<br style="clear:both"><br>';
             }//end else select and isset vocabulary
 
             $output.= "</div>";
         }
+        unset($datarecord);
+        unset($data6[$x]);
     }//select the value for more than one foreach
     //an den uparxei eggrafh create one empty //////////////////////////////////////////////////////
     if ($formcount === 0 and $view_mode != 1) {
@@ -898,16 +707,15 @@ function lomselectform($data6, $dataform, $datalan, $extra, $parent_multi = NULL
         }
         $formcount+=1;
         if ($dataform['vocabulary_id'] > 0) {//select and isset vocabulary
-            $sqlvocelem = "SELECT e.value,f.label,d.id,e.sequence,e.id as vov_rec_id FROM metadata_vocabulary d LEFT JOIN metadata_vocabulary_record e ON d.id = e.vocabulary_id LEFT JOIN
-					metadata_vocabulary_value f ON f.vocabulary_rid = e.id WHERE d.id=" . $dataform['vocabulary_id'] . " and e.public=1  and f.language_id='" . get_language_for_switch() . "'  ORDER BY (case WHEN e.sequence IS NULL THEN '99999' END),e.sequence,f.label ASC";
-            $execvocele = $db->query($sqlvocelem);
+            $execvocele = $db->query("SELECT f.label,e.sequence,e.id as vov_rec_id FROM metadata_vocabulary_record e JOIN
+					metadata_vocabulary_value f ON f.vocabulary_rid = e.id WHERE e.vocabulary_id=" . $dataform['vocabulary_id'] . " and e.public=1  and f.language_id='" . get_language_for_switch() . "'  ORDER BY (case WHEN e.sequence IS NULL THEN '99999' END),e.sequence,f.label ASC");
             $datavocele = $execvocele->fetchAll();
             $output.= createlomelement('select', '' . $dataform['id'] . '_' . $multi . '', '', 'style="width:300px;" ' . $extra . '', $datavocele, 'vov_rec_id', 'label');
             $output.= '<br style="clear:both"><br>';
         } //select and isset vocabulary
         else {
 
-            $output.= createlomelement('selectlanstr', '' . $dataform['id'] . '_' . $formcount . '', '', 'style="width:300px;" ' . $extra . '', $datalan, 'id', 'locale_name');
+            $output.= createlomelement('selectlanstr', '' . $dataform['id'] . '_' . $formcount . '', '', 'style="width:300px;" ' . $extra . '', $datalan, 'vov_rec_id', 'label');
             $output.= '<br style="clear:both"><br>';
         }//end else select and isset vocabulary
     }//end create one empty
@@ -928,21 +736,7 @@ function lomselectform($data6, $dataform, $datalan, $extra, $parent_multi = NULL
 }
 
 function lomtextareaform($data6, $dataform, $datalan, $parent_multi = NULL, $record = NULL, $for_translation = NULL, $view_mode = NULL) {
-    require_once 'Omeka/Core.php';
-    $core = new Omeka_Core;
-
-    try {
-        $db = $core->getDb();
-
-        //Force the Zend_Db to make the connection and catch connection errors
-        try {
-            $mysqli = $db->getConnection()->getConnection();
-        } catch (Exception $e) {
-            throw new Exception("<h1>MySQL connection error: [" . mysqli_connect_errno() . "]</h1>" . "<p>" . $e->getMessage() . '</p>');
-        }
-    } catch (Exception $e) {
-        die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
-    }
+    $db = Zend_Registry::get('db');
 
     if ($for_translation == 1) {
         $output = '';
@@ -976,8 +770,12 @@ function lomtextareaform($data6, $dataform, $datalan, $parent_multi = NULL, $rec
 
 
         $languagearray = array();
-        foreach ($_POST['language_select'] as $language_select) {
+        $size_of_objects = sizeof($_POST['language_select']);
+        for ($x = 0; $x < $size_of_objects; $x++) {
+            $language_select = & $_POST['language_select'][$x];
             $languagearray[] = map_language_for_xerox2($language_select);
+            unset($language_select);
+            //unset($_POST['language_select'][$x]);
         }
 
         $multi_languagearray = array();
@@ -994,7 +792,9 @@ function lomtextareaform($data6, $dataform, $datalan, $parent_multi = NULL, $rec
 // }
 
 
-        foreach ($multi_languagearray as $multi_languagearray_for) {
+        $size_of_objects = sizeof($multi_languagearray);
+        for ($x = 0; $x < $size_of_objects; $x++) {
+            $multi_languagearray_for = & $multi_languagearray[$x];
 
             $sqltest23 = "SELECT * FROM metadata_element_value WHERE record_id='" . $record['id'] . "' and element_hierarchy='" . $dataform['id'] . "' and multi='" . $multi_languagearray_for . "' and language_id='en' ORDER BY (case WHEN multi IS NULL THEN '9999' ELSE multi END) ASC";
             //echo $sqltest; //break;
@@ -1024,7 +824,7 @@ function lomtextareaform($data6, $dataform, $datalan, $parent_multi = NULL, $rec
                 $exec52 = NULL;
 
                 if ($data62) {
-                    // print_r($data62);
+                    //print_r($data62);
                     // echo '<br><br>';
                     foreach ($data62 as $datarecord) {
 
@@ -1054,7 +854,7 @@ function lomtextareaform($data6, $dataform, $datalan, $parent_multi = NULL, $rec
                             if ($dataform['datatype_id'] === 1) {
                                 $langstringparams = array('element_hierarchy' => $datarecord['element_hierarchy'], "record_id" => $datarecord['record_id'], "multi" => $datarecord['multi']);
                                 $output.= createlomelement('selectlanstr', '' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_lan', $datarecordvaluelan, 'class="combo" 
-					style="vertical-align:top;" disabled="disabled" ', $datalan, 'id', 'locale_name', $langstringparams);
+					style="vertical-align:top;" disabled="disabled" ', $datalan, 'vov_rec_id', 'label', $langstringparams);
 
                                 $output.='<input type="hidden" name="' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_lan" value="' . $datarecordvaluelan . '">';
                             }//langstring
@@ -1086,7 +886,7 @@ function lomtextareaform($data6, $dataform, $datalan, $parent_multi = NULL, $rec
                     if ($dataform['datatype_id'] === 1) {
                         $langstringparams = array('element_hierarchy' => $datarecord['element_hierarchy'], "record_id" => $datarecord['record_id'], "multi" => $datarecord['multi']);
                         $output.= createlomelement('selectlanstr', '' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_lan', $languagearray_for, 'class="combo" 
-					style="vertical-align:top;" disabled="disabled" ', $datalan, 'id', 'locale_name', $langstringparams);
+					style="vertical-align:top;" disabled="disabled" ', $datalan, 'vov_rec_id', 'label', $langstringparams);
 
                         $output.='<input type="hidden" name="' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_lan" value="' . $languagearray_for . '">';
                     }//langstring
@@ -1148,7 +948,9 @@ function lomtextareaform($data6, $dataform, $datalan, $parent_multi = NULL, $rec
             $exec5 = NULL;
         }
 
-        foreach ($data6 as $datarecord) {
+        $size_of_objects = sizeof($data6);
+        for ($x = 0; $x < $size_of_objects; $x++) {
+            $datarecord = & $data6[$x];
             if ($datarecord['element_hierarchy'] === $dataform['id']) {
                 $datarecordvalue = $datarecord['value'];
                 $datarecordvaluelan = $datarecord['language_id'];
@@ -1179,7 +981,7 @@ function lomtextareaform($data6, $dataform, $datalan, $parent_multi = NULL, $rec
                 if ($dataform['datatype_id'] === 1) {
                     $langstringparams = array('element_hierarchy' => $datarecord['element_hierarchy'], "record_id" => $datarecord['record_id'], "multi" => $datarecord['multi']);
                     $output.= createlomelement('selectlanstr', '' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_lan', $datarecordvaluelan, 'class="combo" 
-					style="vertical-align:top;"', $datalan, 'id', 'locale_name', $langstringparams, NULL, $view_mode);
+					style="vertical-align:top;"', $datalan, 'vov_rec_id', 'label', $langstringparams, NULL, $view_mode);
                 }//langstring
                 //$output.='<br>';  
                 if ($view_mode != 1) {
@@ -1192,6 +994,8 @@ function lomtextareaform($data6, $dataform, $datalan, $parent_multi = NULL, $rec
                 $output.= '</div>'; /////////////////div tou add remove
                 $output.= '</div>';
             }
+            unset($datarecord);
+            unset($data6[$x]);
         }//select the value for more than one foreach //if $datarecord['element_hierarchy']===$dataform['id']  an uparxei eggrafh
         $output.='<input name="hdnLine_' . $dataform['id'] . '_' . $multi . '" id="hdnLine_' . $dataform['id'] . '_' . $multi . '" type="hidden" value="' . $formcount . '">';
         $output.= '</div>';
@@ -1220,7 +1024,7 @@ function lomtextareaform($data6, $dataform, $datalan, $parent_multi = NULL, $rec
             //if hierarchy type= langstring
             if ($dataform['datatype_id'] === 1) {
                 $output.= createlomelement('selectlanstr', '' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_lan', '', 'class="combo" 
-					style="vertical-align:top;"', $datalan, 'id', 'locale_name');
+					style="vertical-align:top;"', $datalan, 'vov_rec_id', 'label');
             }//langstring
             $output.= '<br>';
             $output.= "</div>";
@@ -1236,21 +1040,7 @@ function lomtextareaform($data6, $dataform, $datalan, $parent_multi = NULL, $rec
 }
 
 function lomtextformdate($data6, $dataform, $datalan, $parent_multi = NULL, $record = NULL, $view_mode = NULL) {
-    require_once 'Omeka/Core.php';
-    $core = new Omeka_Core;
-
-    try {
-        $db = $core->getDb();
-
-        //Force the Zend_Db to make the connection and catch connection errors
-        try {
-            $mysqli = $db->getConnection()->getConnection();
-        } catch (Exception $e) {
-            throw new Exception("<h1>MySQL connection error: [" . mysqli_connect_errno() . "]</h1>" . "<p>" . $e->getMessage() . '</p>');
-        }
-    } catch (Exception $e) {
-        die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
-    }
+    $db = Zend_Registry::get('db');
 
     $output = '';
     if ($dataform['min_occurs'] > 0) {
@@ -1298,7 +1088,9 @@ function lomtextformdate($data6, $dataform, $datalan, $parent_multi = NULL, $rec
         $data6 = $exec5->fetchAll();
         $exec5 = NULL;
     }
-    foreach ($data6 as $datarecord) {
+    $size_of_objects = sizeof($data6);
+    for ($x = 0; $x < $size_of_objects; $x++) {
+        $datarecord = & $data6[$x];
         if ($datarecord['element_hierarchy'] === $dataform['id']) {
             $datarecordvalue = $datarecord['value'];
             $datarecordvaluelan = $datarecord['language_id'];
@@ -1342,7 +1134,7 @@ function lomtextformdate($data6, $dataform, $datalan, $parent_multi = NULL, $rec
             if ($dataform['datatype_id'] === 1) {
                 $langstringparams = array('element_hierarchy' => $datarecord['element_hierarchy'], "record_id" => $datarecord['record_id'], "multi" => $datarecord['multi']);
                 $output.= createlomelement('selectlanstr', '' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_lan', $datarecordvaluelan, 'class="combo" 
-					style="vertical-align:top;"', $datalan, 'id', 'locale_name', $langstringparams, NULL, $view_mode);
+					style="vertical-align:top;"', $datalan, 'vov_rec_id', 'label', $langstringparams, NULL, $view_mode);
             }//langstring
             if ($dataform['datatype_id'] === 1 and $view_mode != 1) {
                 $output.='<a class="lom-remove" href="#" onClick="removeFormFieldExisted(\'' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_field\',\'' . $dataform['id'] . '\',\'' . $datarecord['language_id'] . '\',\'' . $datarecord['record_id'] . '\',\'' . $datarecord['multi'] . '\'); return false;" style="">Remove Language</a><br>';
@@ -1354,6 +1146,8 @@ function lomtextformdate($data6, $dataform, $datalan, $parent_multi = NULL, $rec
             $output.= '</div>'; /////////////////div tou add remove
             $output.= '</div>';
         }
+        unset($datarecord);
+        unset($data6[$x]);
     }//select the value for more than one foreach //if $datarecord['element_hierarchy']===$dataform['id']  an uparxei eggrafh
     $output.='<input name="hdnLine_' . $dataform['id'] . '_' . $multi . '" id="hdnLine_' . $dataform['id'] . '_' . $multi . '" type="hidden" value="' . $formcount . '">';
     $output.= '</div>';
@@ -1388,7 +1182,7 @@ function lomtextformdate($data6, $dataform, $datalan, $parent_multi = NULL, $rec
         //if hierarchy type= langstring
         if ($dataform['datatype_id'] === 1) {
             $output.= createlomelement('selectlanstr', '' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_lan', '', 'class="combo" 
-					style="vertical-align:top;"', $datalan, 'id', 'locale_name');
+					style="vertical-align:top;"', $datalan, 'vov_rec_id', 'label');
         }//langstring
         $output.= '<br>';
         $output.= "</div>";
@@ -1402,23 +1196,7 @@ function lomtextformdate($data6, $dataform, $datalan, $parent_multi = NULL, $rec
 }
 
 function lomtextform($data6, $dataform, $datalan, $parent_multi = NULL, $record = NULL, $for_translation = NULL, $view_mode) {
-    require_once 'Omeka/Core.php';
-    $core = new Omeka_Core;
-
-    try {
-        $db = $core->getDb();
-
-        //Force the Zend_Db to make the connection and catch connection errors
-        try {
-            $mysqli = $db->getConnection()->getConnection();
-        } catch (Exception $e) {
-            throw new Exception("<h1>MySQL connection error: [" . mysqli_connect_errno() . "]</h1>" . "<p>" . $e->getMessage() . '</p>');
-        }
-    } catch (Exception $e) {
-        die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
-    }
-
-
+    $db = Zend_Registry::get('db');
 
     if ($for_translation == 1) {
         $output = '';
@@ -1533,7 +1311,7 @@ function lomtextform($data6, $dataform, $datalan, $parent_multi = NULL, $record 
                             if ($dataform['datatype_id'] === 1) {
                                 $langstringparams = array('element_hierarchy' => $datarecord['element_hierarchy'], "record_id" => $datarecord['record_id'], "multi" => $datarecord['multi']);
                                 $output.= createlomelement('selectlanstr', '' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_lan', $datarecordvaluelan, 'class="combo" 
-					style="vertical-align:top;" disabled="disabled" ', $datalan, 'id', 'locale_name', $langstringparams);
+					style="vertical-align:top;" disabled="disabled" ', $datalan, 'vov_rec_id', 'label', $langstringparams);
 
                                 $output.='<input type="hidden" name="' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_lan" value="' . $datarecordvaluelan . '">';
                             }//langstring
@@ -1566,7 +1344,7 @@ function lomtextform($data6, $dataform, $datalan, $parent_multi = NULL, $record 
                     if ($dataform['datatype_id'] === 1) {
                         $langstringparams = array('element_hierarchy' => $datarecord['element_hierarchy'], "record_id" => $datarecord['record_id'], "multi" => $datarecord['multi']);
                         $output.= createlomelement('selectlanstr', '' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_lan', $languagearray_for, 'class="combo" 
-					style="vertical-align:top;" disabled="disabled" ', $datalan, 'id', 'locale_name', $langstringparams);
+					style="vertical-align:top;" disabled="disabled" ', $datalan, 'vov_rec_id', 'label', $langstringparams);
 
                         $output.='<input type="hidden" name="' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_lan" value="' . $languagearray_for . '">';
                     }//langstring
@@ -1631,7 +1409,9 @@ function lomtextform($data6, $dataform, $datalan, $parent_multi = NULL, $record 
             $data6 = $exec5->fetchAll();
             $exec5 = NULL;
         }
-        foreach ($data6 as $datarecord) {
+        $size_of_objects = sizeof($data6);
+        for ($x = 0; $x < $size_of_objects; $x++) {
+            $datarecord = & $data6[$x];
             if ($datarecord['element_hierarchy'] === $dataform['id']) {
                 $datarecordvalue = $datarecord['value'];
                 $datarecordvaluelan = $datarecord['language_id'];
@@ -1668,7 +1448,7 @@ function lomtextform($data6, $dataform, $datalan, $parent_multi = NULL, $record 
                 if ($dataform['datatype_id'] === 1) {
                     $langstringparams = array('element_hierarchy' => $datarecord['element_hierarchy'], "record_id" => $datarecord['record_id'], "multi" => $datarecord['multi']);
                     $output.= createlomelement('selectlanstr', '' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_lan', $datarecordvaluelan, 'class="combo" 
-					style="vertical-align:top;"', $datalan, 'id', 'locale_name', $langstringparams, NULL, $view_mode);
+					style="vertical-align:top;"', $datalan, 'vov_rec_id', 'label', $langstringparams, NULL, $view_mode);
                 }//langstring
                 if ($dataform['datatype_id'] === 1 and $view_mode != 1) {
                     $output.='<a class="lom-remove" href="#" onClick="removeFormFieldExisted(\'' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_field\',\'' . $dataform['id'] . '\',\'' . $datarecord['language_id'] . '\',\'' . $datarecord['record_id'] . '\',\'' . $datarecord['multi'] . '\'); return false;" style="float:right;">Remove Language</a><br>';
@@ -1680,6 +1460,8 @@ function lomtextform($data6, $dataform, $datalan, $parent_multi = NULL, $record 
                 $output.= '</div>'; /////////////////div tou add remove
                 $output.= '</div>';
             }
+            unset($datarecord);
+            unset($data6[$x]);
         }//select the value for more than one foreach //if $datarecord['element_hierarchy']===$dataform['id']  an uparxei eggrafh
         $output.='<input name="hdnLine_' . $dataform['id'] . '_' . $multi . '" id="hdnLine_' . $dataform['id'] . '_' . $multi . '" type="hidden" value="' . $formcount . '">';
         $output.= '</div>';
@@ -1708,7 +1490,7 @@ function lomtextform($data6, $dataform, $datalan, $parent_multi = NULL, $record 
             //if hierarchy type= langstring
             if ($dataform['datatype_id'] === 1) {
                 $output.= createlomelement('selectlanstr', '' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_lan', '', 'class="combo" 
-					style="vertical-align:top;"', $datalan, 'id', 'locale_name');
+					style="vertical-align:top;"', $datalan, 'vov_rec_id', 'label');
             }//langstring
             $output.= '<br>';
             $output.= "</div>";
@@ -1722,27 +1504,8 @@ function lomtextform($data6, $dataform, $datalan, $parent_multi = NULL, $record 
     return $output;
 }
 
-function lomvcardform($data6, $dataform, $datalan, $record, $parent_multi = NULL, $view_mode) {
-    require_once 'Omeka/Core.php';
-    $core = new Omeka_Core;
-
-    try {
-        $db = $core->getDb();
-
-        //Force the Zend_Db to make the connection and catch connection errors
-        try {
-            $mysqli = $db->getConnection()->getConnection();
-        } catch (Exception $e) {
-            throw new Exception("<h1>MySQL connection error: [" . mysqli_connect_errno() . "]</h1>" . "<p>" . $e->getMessage() . '</p>');
-        }
-    } catch (Exception $e) {
-        die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
-    }
-
-
-
-
-
+function lomvcardform($data6, $dataform, $record, $parent_multi = NULL, $view_mode) {
+    $db = Zend_Registry::get('db');
     if (isset($parent_multi) and $parent_multi > 0) {
         $sqltest = "SELECT * FROM metadata_element_value WHERE record_id='" . $record['id'] . "' and element_hierarchy='" . $dataform['id'] . "' and multi='" . $parent_multi . "' ORDER BY (case WHEN multi IS NULL THEN '9999' ELSE multi END) ASC";
         //echo $sqltest; //break;
@@ -1849,24 +1612,8 @@ function lomvcardform($data6, $dataform, $datalan, $record, $parent_multi = NULL
     return $output;
 }
 
-function lomparentform($data6, $dataform, $datalan, $record, $depth, $view_mode) {
-    require_once 'Omeka/Core.php';
-    $core = new Omeka_Core;
-
-    try {
-        $db = $core->getDb();
-
-        //Force the Zend_Db to make the connection and catch connection errors
-        try {
-            $mysqli = $db->getConnection()->getConnection();
-        } catch (Exception $e) {
-            throw new Exception("<h1>MySQL connection error: [" . mysqli_connect_errno() . "]</h1>" . "<p>" . $e->getMessage() . '</p>');
-        }
-    } catch (Exception $e) {
-        die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
-    }
-
-
+function lomparentform($data6, $dataform, $datalan, $record, $depth, $view_mode, $xml_general) {
+    $db = Zend_Registry::get('db');
 
     if ($dataform['min_occurs'] > 0) {
         echo '<div id="' . $dataform['id'] . '" class="mandatory_element">';
@@ -1881,18 +1628,18 @@ function lomparentform($data6, $dataform, $datalan, $record, $depth, $view_mode)
     $parentcount = 0;
     $parentcount = count($data6);
     if ($parentcount > 0) { //an uparxei eggrafh		
-        foreach ($data6 as $data6) {
+        $size_of_objects = sizeof($data6);
+        for ($x = 0; $x < $size_of_objects; $x++) {
+            $datarecord = & $data6[$x];
 
-            $sqlchele = "SELECT c.*,b.vocabulary_id,b.id as elm_id FROM  metadata_element b JOIN metadata_element_hierarchy c 
-			ON c.element_id = b.id WHERE c.pelement_id=" . $dataform['elm_id'] . " and c.is_visible=1  ORDER BY (case WHEN c.sequence IS NULL THEN '9999' ELSE c.sequence END) ASC";
-            //echo $sqlchele; //break;
-            $execchele = $db->query($sqlchele);
+            $execchele = $db->query("SELECT c.*,b.vocabulary_id,b.id as elm_id FROM  metadata_element b JOIN metadata_element_hierarchy c 
+			ON c.element_id = b.id WHERE c.pelement_id=" . $dataform['elm_id'] . " and c.is_visible=1  ORDER BY (case WHEN c.sequence IS NULL THEN '9999' ELSE c.sequence END) ASC");
             $childelements = $execchele->fetchAll();
             $execchele = NULL;
             $childelementscount = count($childelements);
-            $parent_multi = $data6['multi'];
-            $totalmulti = $data6['multi'];
-            $datarecoreditablepar = $data6['is_editable'];
+            $parent_multi = $datarecord['multi'];
+            $totalmulti = $datarecord['multi'];
+            $datarecoreditablepar = $datarecord['is_editable'];
 
             $output = '';
             if ($childelementscount > 0) {
@@ -1911,7 +1658,7 @@ function lomparentform($data6, $dataform, $datalan, $record, $depth, $view_mode)
                     if ($datarecoreditablepar === 0 or $view_mode == 1) {
                         
                     } else {
-                        $labalname.= '<a class="lom-remove" href="#" onClick="removeFormmultiParent(\'' . $dataform['id'] . '_' . $parent_multi . '\',\'' . $dataform['id'] . '\',\'' . $data6['record_id'] . '\',\'' . $parent_multi . '\',\'1\'); return false;">Remove ' . $dataform['labal_name'] . '</a>';
+                        $labalname.= '<a class="lom-remove" href="#" onClick="removeFormmultiParent(\'' . $dataform['id'] . '_' . $parent_multi . '\',\'' . $dataform['id'] . '\',\'' . $datarecord['record_id'] . '\',\'' . $parent_multi . '\',\'1\'); return false;">Remove ' . $dataform['labal_name'] . '</a>';
                     }//if not editable
                 }
                 echo '<input name="' . $dataform['id'] . '_' . $parent_multi . '" id="' . $dataform['id'] . '_' . $parent_multi . '" type="hidden" value="">';
@@ -1921,26 +1668,32 @@ function lomparentform($data6, $dataform, $datalan, $record, $depth, $view_mode)
                 $margindepth+=10;
                 echo'<div style="margin-left:' . $margindepth . 'px;">';
                 //echo $childelements['labal_name'];
-                foreach ($childelements as $childelements) {
+                $size_of_objectsy = sizeof($childelements);
+                for ($y = 0; $y < $size_of_objectsy; $y++) {
+                    $childelements_vl = & $childelements[$y];
                     //$depth+=1;
                     //echo $childelements['labal_name'];
                     $extra = 'style="font-weight:normal;"';
-                    if ($childelements['element_id'] === 48) {
+                    if ($childelements_vl['element_id'] === 48) {
                         $extra = "onchange='change49(this.value)'";
                     }
-                    checkelement($childelements, $datalan, $record, $depth, $extra, $parent_multi, NULL, $view_mode);
+                    checkelement($childelements_vl, $datalan, $record, $depth, $extra, $parent_multi, NULL, $view_mode, $xml_general);
+
+                    unset($childelements_vl);
+                    unset($childelements[$y]);
                 }
                 echo'</div>';
 
 
                 echo'</div><br style="clear:both;">';
             }//if isset if(childelements['id']>0){
+            unset($datarecord);
+            unset($data6[$x]);
         }//foreach $data6
     } else { //an den uparxei data6 eggrafei dhmiourgia neas
-        $sqlchele = "SELECT c.*,b.vocabulary_id,b.id as elm_id FROM  metadata_element b JOIN metadata_element_hierarchy c 
-			ON c.element_id = b.id WHERE c.pelement_id=" . $dataform['elm_id'] . " and c.is_visible=1  ORDER BY (case WHEN c.sequence IS NULL THEN '9999' ELSE c.sequence END) ASC";
-        //echo $sqlchele; //break;
-        $execchele = $db->query($sqlchele);
+
+        $execchele = $db->query("SELECT c.*,b.vocabulary_id,b.id as elm_id FROM  metadata_element b JOIN metadata_element_hierarchy c 
+			ON c.element_id = b.id WHERE c.pelement_id=" . $dataform['elm_id'] . " and c.is_visible=1  ORDER BY (case WHEN c.sequence IS NULL THEN '9999' ELSE c.sequence END) ASC");
         $childelements = $execchele->fetchAll();
         $execchele = NULL;
         $childelementscount = count($childelements);
@@ -1976,7 +1729,7 @@ function lomparentform($data6, $dataform, $datalan, $record, $depth, $view_mode)
                 if ($childelements['element_id'] === 48) {
                     $extra = "onchange='change49(this.value)'";
                 }
-                checkelement($childelements, $datalan, $record, $depth, $extra, $parent_multi, NULL, $view_mode);
+                checkelement($childelements, $datalan, $record, $depth, $extra, $parent_multi, NULL, $view_mode, $xml_general);
             }
             echo'</div>';
 
@@ -1989,27 +1742,11 @@ function lomparentform($data6, $dataform, $datalan, $record, $depth, $view_mode)
     return $output;
 }
 
-function checkelement($dataform, $datalan, $record, $depth = 0, $extra = NULL, $parent_multi = NULL, $for_translation = NULL, $view_mode = NULL) {
+function checkelement($dataform, $datalan, $record, $depth = 0, $extra = NULL, $parent_multi = NULL, $for_translation = NULL, $view_mode = NULL, $xml_general = NULL) {
 
-    require_once 'Omeka/Core.php';
-    $core = new Omeka_Core;
+    $db = Zend_Registry::get('db');
 
-    try {
-        $db = $core->getDb();
-
-        //Force the Zend_Db to make the connection and catch connection errors
-        try {
-            $mysqli = $db->getConnection()->getConnection();
-        } catch (Exception $e) {
-            throw new Exception("<h1>MySQL connection error: [" . mysqli_connect_errno() . "]</h1>" . "<p>" . $e->getMessage() . '</p>');
-        }
-    } catch (Exception $e) {
-        die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
-    }
-
-    $sqltest = "SELECT * FROM metadata_element_value WHERE record_id='" . $record['id'] . "' and element_hierarchy='" . $dataform['id'] . "' ORDER BY (case WHEN multi IS NULL THEN '9999' ELSE multi END) ASC";
-    //echo $sqltest; //break;
-    $exec5 = $db->query($sqltest);
+    $exec5 = $db->query("SELECT * FROM metadata_element_value WHERE record_id='" . $record['id'] . "' and element_hierarchy='" . $dataform['id'] . "' ORDER BY (case WHEN multi IS NULL THEN '9999' ELSE multi END) ASC");
     $data6 = $exec5->fetchAll();
     $exec5 = NULL;
 
@@ -2018,19 +1755,19 @@ function checkelement($dataform, $datalan, $record, $depth = 0, $extra = NULL, $
     ////////////////////////////////if hierarchy type= parent////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     if ($dataform['datatype_id'] === 2) {
-        lomparentform($data6, $dataform, $datalan, $record, $depth, $view_mode);
+        lomparentform($data6, $dataform, $datalan, $record, $depth, $view_mode, $xml_general);
     } //end form name = parent
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////if hierarchy tyoe = vcard////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     elseif ($dataform['datatype_id'] === 3) {
-        echo lomvcardform($data6, $dataform, $datalan, $record, $parent_multi, $view_mode);
+        echo lomvcardform($data6, $dataform, $record, $parent_multi, $view_mode);
     } //end form name = vcard
     elseif ($dataform['datatype_id'] === 4) {
         //echo lomselectformfromXml($data6,$dataform,$datalan,$extra,$parent_multi,$record);
     } //end form name = select from xml//////////////////////////////////////////
     elseif ($dataform['datatype_id'] === 5) {
-        echo lomontology($data6, $dataform, $datalan, $extra, $parent_multi, $record, $view_mode);
+        echo lomontology($data6, $dataform, $extra, $parent_multi, $record, $view_mode, $xml_general);
     } //end form name = select from ontology//////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////if hierarchy form name = radio////////////////////////////////////////////////
@@ -2094,17 +1831,10 @@ function createnew_xml_selectbox($id, $divid, $vocabulary_id, $ontology = NULL) 
     echo "<div id='row" . $id . "'><select name='" . $divid . "_" . $id . "' id='" . $divid . "_" . $id . "' class='combo' style='width:300px;float:left;'>";
     echo "<option value=''>Select</option>";
 
-    $sqlvocelemnew = "SELECT e.value,d.id FROM metadata_vocabulary d RIGHT JOIN metadata_vocabulary_record e ON d.id = e.vocabulary_id RIGHT JOIN
-					metadata_vocabulary_value f ON f.vocabulary_rid = e.id WHERE d.id=" . $vocabulary_id . "";
-    $execvocelenew = $db->query($sqlvocelemnew);
-    $datavocelenew = $execvocelenew->fetch();
-    libxml_use_internal_errors(false);
-    $uri = WEB_ROOT;
-    $xmlvocnew = '' . $uri . '/archive/xmlvoc/' . $datavocelenew['value'] . '.xml';
-    $xmlnew = @simplexml_load_file($xmlvocnew, NULL, LIBXML_NOERROR | LIBXML_NOWARNING);
-    $xmlnew = internal_xml(NULL, NULL, $_SESSION['get_language_for_internal_xml'], 1);
 
-    foreach ($xmlnew as $xmlnew) {
+    $xmlnew = internal_xml(NULL, $xml_general, $_SESSION['get_language_for_internal_xml'], $vocabulary_id);
+
+    foreach ($xmlnew['drop_down'] as $xmlnew) {
         echo '<option value="' . $xmlnew['id'] . '" ';
         echo '>' . $xmlnew['value'] . '</option>';
     }
@@ -2120,7 +1850,8 @@ function createnew_xml_selectbox($id, $divid, $vocabulary_id, $ontology = NULL) 
         <?php
         if ($ontology > 0) {
 
-            echo internal_xml('' . $_POST['divid'] . '_' . $_POST['id'] . '_tree', NULL, $_SESSION['get_language_for_internal_xml'], NULL);
+            //echo internal_xml('' . $_POST['divid'] . '_' . $_POST['id'] . '_tree', NULL, $_SESSION['get_language_for_internal_xml'], NULL);
+            echo $xmlnew['hierarchy_tree'];
         }
         ?>
 
@@ -2164,136 +1895,201 @@ function createnew_xml_selectbox($id, $divid, $vocabulary_id, $ontology = NULL) 
         return $data['id'];
     }
 
-    function internal_xml($id, $file, $lang, $drop_down) {
-
-        libxml_use_internal_errors(false);
-        $uri = WEB_ROOT;
-        $xmlvoc = '' . $uri . '/archive/xmlvoc/' . $file . '.xml';
-        $xml = @simplexml_load_file($xmlvoc, NULL, LIBXML_NOERROR | LIBXML_NOWARNING);
-        //$xml=objecttosortedarray($xml);
-        //print_r($xml);
-        ?>
-        <?php
-        if ($drop_down == 1) {
-            $result = $xml->xpath("hierarchy/class");
-            //print_r($result); break;
-            $sortedxml = array();
-
-            foreach ($result as $result2) {
-
-                $result3 = (string) $result2->attributes()->id;
-                $result4 = $xml->xpath("instances/instance[@instanceOf='" . $result3 . "' and @lang='" . $lang . "']");
-                if (!strlen($result4[0]) > 0) {
-                    $result4 = $xml->xpath("instances/instance[@instanceOf='" . $result3 . "' and @lang='en']");
-                }
-                if (!strlen($result4[0]) > 0) {
-                    $result4 = $xml->xpath("instances/instance[@instanceOf='" . $result3 . "']");
-                    foreach ($result4 as $result4) {
-                        if (strlen($result4) > 0) {
-                            $result4[0] = $result4;
-                            break;
-                        }
-                    }
-                }
-                //print_r($result4); break;
-                $sortedxml[] = array('value' => (string) $result4[0], 'id' => $result3);
-            }
-
-
-            foreach ($sortedxml as $key => $row) {
-                $volume[$key] = $row['value'];
-            }
-
-// Sort the data with volume descending, edition ascending
-// Add $data as the last parameter, to sort by the common key
-            array_multisort($volume, SORT_ASC, $sortedxml);
-            ////dinstinct values for multi dimensions arrays instead of unique array
-            $sortedxml = array_map("unserialize", array_unique(array_map("serialize", $sortedxml)));
-            return $sortedxml;
-        } else {
-
-            ///////find the root element where all the classes are childs!
-            $resultrootelement2 = $xml->xpath("hierarchy[@rootElement]");
-            foreach ($resultrootelement2 as $c) {
-                $resultrootelement = (string) $c->attributes()->rootElement;
-            }
-
-            $result = $xml->xpath("hierarchy/class[@subClassOf='" . $resultrootelement . "']");
-            $output = '<div id="' . $id . '"  style="clear:both;height:auto;display:none;">';
-            $output.='<ul>';
-
-
-            foreach ($result as $result2) {
-                $result3 = (string) $result2->attributes()->id;
-                $result4 = $xml->xpath("instances/instance[@instanceOf='" . $result3 . "' and @lang='" . $lang . "']");
-                if (!strlen($result4[0]) > 0) {
-                    $result4 = $xml->xpath("instances/instance[@instanceOf='" . $result3 . "' and @lang='en']");
-                }
-                if (!strlen($result4[0]) > 0) {
-                    $result4 = $xml->xpath("instances/instance[@instanceOf='" . $result3 . "']");
-                    foreach ($result4 as $result4) {
-                        if (strlen($result4) > 0) {
-                            $result4[0] = $result4;
-                            break;
-                        }
-                    }
-                }
-                $output.='<li id="' . $result3 . '"><a href="#">' . $result4[0] . '</a>';
-                $output.= ontology_depth_elements($xml, $result3, $lang);
-
-                $output.='</li>';
-            }
-            $output.='</ul>';
-            $output.='</div>';
-
-            $select_id = str_replace('_tree', '', $id);
-            $output.=' <script type="text/javascript" class="source below">
-jQuery(function () {
-	jQuery("#' . $id . '")
-		.jstree({ "plugins" : ["themes","html_data","ui"] })
-		// 1) if using the UI plugin bind to select_node
-		.bind("select_node.jstree", function (event, data) { 
-			// `data.rslt.obj` is the jquery extended node that was clicked
-			//alert(data.rslt.obj.attr("id"));
-				document.getElementById(\'' . $select_id . '\').value=data.rslt.obj.attr("id");
-			
-		})
-		// 2) if not using the UI plugin - the Anchor tags work as expected
-		//    so if the anchor has a HREF attirbute - the page will be changed
-		//    you can actually prevent the default, etc (normal jquery usage)
-		.delegate("a", "click", function (event, data) { event.preventDefault(); })
-});
-</script>';
-            return $output;
+    function FindElement(&$readerobject, $name) {
+        while ($readerobject->name != $name) {
+            if (!$readerobject->read())
+                break;
         }
+        if ($readerobject->name == $name) {
+            $readerobject->read();
+            return 1;
+        }
+        else
+            return 0;
     }
 
-    function ontology_depth_elements($xml, $result3, $lang) {
-        $output2 = '';
-        $resultnew = $xml->xpath("hierarchy/class[@subClassOf='" . $result3 . "']");
-        if ($resultnew) {
-            foreach ($resultnew as $resultnew) {
-                $resultnewid = (string) $resultnew->attributes()->id;
-                $resultnewval = $xml->xpath("instances/instance[@instanceOf='" . $resultnewid . "' and @lang='" . $lang . "']");
-                if (!strlen($resultnewval[0]) > 0) {
-                    $resultnewval = $xml->xpath("instances/instance[@instanceOf='" . $resultnewid . "' and @lang='en']");
-                }
-                if (!strlen($resultnewval[0]) > 0) {
-                    $resultnewval = $xml->xpath("instances/instance[@instanceOf='" . $resultnewid . "']");
-                    foreach ($resultnewval as $resultnewval) {
-                        if (strlen($resultnewval) > 0) {
-                            $resultnewval[0] = $resultnewval;
-                            break;
+    function parse_ontologies($xml_general) {
+        $xml = $xml_general;
+
+        $new_xml_instanceOf = array();
+        $new_xml_lang = array();
+        $new_xml_value = array();
+        $new_xml_id = array();
+        $new_xml_subClassOf = array();
+        $new_xml_instanceOf_en = array();
+        $new_xml_value_en = array();
+        $i = 0;
+        $x = 0;
+        while ($xml->read()) {
+
+
+            switch ($xml->nodeType) {
+                case (XMLReader::ELEMENT):
+                    if ($xml->localName == 'instance' and ($xml->getAttribute('lang') == $_SESSION['get_language_for_internal_xml'] or $xml->getAttribute('lang') == 'en')) {
+                        $i++;
+                        $instanceOfvalue = $xml->getAttribute('instanceOf');
+                        $instanceLang = $xml->getAttribute('lang');
+                        $xml->read();
+                        $instanceValue = $xml->value;
+
+                        if ($instanceLang == $_SESSION['get_language_for_internal_xml']) {
+                            $new_xml_instanceOf[$i] = $instanceOfvalue;
+                            $new_xml_value[$i] = $instanceValue;
                         }
+                        if ($instanceLang == 'en') {
+
+                            if (strlen($instanceValue) > 0) {
+                                $new_xml_instanceOf_en[$i] = $instanceOfvalue;
+                                $new_xml_value_en[$i] = $instanceValue;
+                            } else {
+                                $new_xml_instanceOf_en[$i] = $instanceOfvalue;
+                                $new_xml_value_en[$i] = $instanceOfvalue;
+                            }
+                        }
+                    }//print_r($new_xml_instanceOf_en);
+                    if ($xml->localName == 'class') {
+                        $x++;
+                        $new_xml_id[$x] = $xml->getAttribute('id');
+                        $new_xml_subClassOf[$x] = $xml->getAttribute('subClassOf');
                     }
-                }
-                $output2.='<ul>';
-                $output2.='<li id="' . $resultnewid . '" class="jstree-leaf"><a href="#">' . $resultnewval[0] . '</a>';
-                $output2.= ontology_depth_elements($xml, $resultnewid, $lang);
-                $output2.='</li>';
-                $output2.='</ul>';
+                    if ($xml->localName == 'hierarchy') {
+                        $rootElement = $xml->getAttribute('rootElement');
+                    }
             }
         }
+        $xml = NULL;
+        $size_of_objects = sizeof($new_xml_id);
+        for ($x = 0; $x < $size_of_objects; $x++) {
+            $result2 = & $new_xml_id[$x];
+            $result3 = & $new_xml_subClassOf[$x];
+            
+
+            $label_position = array_search($result2, $new_xml_instanceOf);
+            if (strlen($result2) > 0) {
+                if (strlen($new_xml_value[$label_position]) > 0) {
+                    //echo $result2.' - '. $new_xml_value[$label_position].'<br><br>';
+                    $sortedxml[] = array('id' => $result2, 'value' => (string) $new_xml_value[$label_position]);
+                } else {
+
+                    $label_position2 = array_search($result2, $new_xml_instanceOf_en);
+                    $sortedxml[] = array('id' => $result2, 'value' => (string) $new_xml_value_en[$label_position2]);
+                }
+            }
+            //echo $result2['id'];
+        }
+        
+        foreach ($sortedxml as $key => $row) {
+            $volume[$key] = $row['value'];
+        }
+
+        // Sort the data with volume descending, edition ascending
+        // Add $data as the last parameter, to sort by the common key
+        array_multisort($volume, SORT_ASC, $sortedxml);
+        $sortedxml1 = array_map("unserialize", array_unique(array_map("serialize", $sortedxml)));
+        
+        $output.='<ul>';
+        $size_of_objects = sizeof($new_xml_id);
+        for ($x = 0; $x < $size_of_objects; $x++) {
+            $result2 = & $new_xml_id[$x];
+            $result3 = & $new_xml_subClassOf[$x];
+
+            if ($result3 == $rootElement) {
+                $label_position = array_search($result2, $new_xml_instanceOf);
+                if (strlen($new_xml_value[$label_position]) > 0) {
+                    $result4[0] = $new_xml_value[$label_position];
+                } else {
+
+                    $label_position2 = array_search($result2, $new_xml_instanceOf_en);
+                    $result4[0] = $new_xml_value_en[$label_position2];
+                }
+
+                $output.='<li id="' . $result2 . '"><a href="#">' . $result4[0] . '</a>';
+                $output.=ontology_depth_elements($new_xml_id, $result2, $new_xml_subClassOf, $new_xml_instanceOf, $new_xml_value, $new_xml_instanceOf_en, $new_xml_value_en);
+
+                $output.= '</li>';
+            }
+            unset($result2);
+            unset($result3);
+        }
+
+        $output.='</ul>';
+        unset($new_xml_value_en);
+        unset($new_xml_instanceOf_en);
+        unset($new_xml_id);
+        unset($new_xml_subClassOf);
+        unset($new_xml_value);
+        unset($new_xml_instanceOf);
+        unset($new_xml_lang);
+        $sortedxml_final = array('drop_down' => $sortedxml1, 'hierarchy_tree' => $output);
+        unset($sortedxml1);
+        unset($output);
+        return $sortedxml_final;
+        ///////////////////////clean memory/////
+    }
+
+    function internal_xml($id, $xml_general, $lang, $voc_id) {
+
+        //print_r($xml);break
+        $xml = $xml_general[$voc_id];
+        ?>
+        <?php
+        $output = '<div id="' . $id . '"  style="clear:both;height:auto;display:none;">';
+        $output .=$xml['hierarchy_tree'];
+
+
+        $output.='</div>';
+
+        $select_id = str_replace('_tree', '', $id);
+        $output.=' <script type="text/javascript" class="source below">
+          jQuery(function () {
+          jQuery("#' . $id . '")
+          .jstree({ "plugins" : ["themes","html_data","ui"] })
+          // 1) if using the UI plugin bind to select_node
+          .bind("select_node.jstree", function (event, data) {
+          // `data.rslt.obj` is the jquery extended node that was clicked
+          //alert(data.rslt.obj.attr("id"));
+          document.getElementById(\'' . $select_id . '\').value=data.rslt.obj.attr("id");
+
+          })
+          // 2) if not using the UI plugin - the Anchor tags work as expected
+          //    so if the anchor has a HREF attirbute - the page will be changed
+          //    you can actually prevent the default, etc (normal jquery usage)
+          .delegate("a", "click", function (event, data) { event.preventDefault(); })
+          });
+          </script>';
+        $sortedxml_final = array('drop_down' => $xml['drop_down'], 'hierarchy_tree' => $output);
+        return $sortedxml_final;
+    }
+
+    function ontology_depth_elements($new_xml_id2, $result_check, $new_xml_subClassOf, $new_xml_instanceOf, $new_xml_value, $new_xml_instanceOf_en, $new_xml_value_en) {
+        $output2 = '';
+        $output2.='<ul>';
+        $size_of_objects = sizeof($new_xml_id2);
+        for ($x = 0; $x < $size_of_objects; $x++) {
+            $result22 = & $new_xml_id2[$x];
+            $result32 = & $new_xml_subClassOf[$x];
+
+            if ($result32 == $result_check) {
+                $label_position = array_search($result22, $new_xml_instanceOf);
+                if (strlen($new_xml_value[$label_position]) > 0) {
+                    $result4[0] = $new_xml_value[$label_position];
+                } else {
+
+                    $label_position2 = array_search($result22, $new_xml_instanceOf_en);
+                    $result4[0] = $new_xml_value_en[$label_position2];
+                }
+
+                $output2.='<li id="' . $result22 . '"><a href="#">' . $result4[0] . '</a>';
+                $output2.=ontology_depth_elements($new_xml_id2, $result22, $new_xml_subClassOf, $new_xml_instanceOf, $new_xml_value, $new_xml_instanceOf_en, $new_xml_value_en);
+
+                $output2.= '</li>';
+            }
+            unset($result22);
+            unset($result32);
+        }
+
+        $output2.='</ul>';
+
         return $output2;
     }
 
@@ -2308,25 +2104,12 @@ jQuery(function () {
 
     function show_element_description($id) {
 
-        require_once 'Omeka/Core.php';
-        $core = new Omeka_Core;
-
-        try {
-            $db = $core->getDb();
-
-            //Force the Zend_Db to make the connection and catch connection errors
-            try {
-                $mysqli = $db->getConnection()->getConnection();
-            } catch (Exception $e) {
-                throw new Exception("<h1>MySQL connection error: [" . mysqli_connect_errno() . "]</h1>" . "<p>" . $e->getMessage() . '</p>');
-            }
-        } catch (Exception $e) {
-            die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
-        }
+        $db = Zend_Registry::get('db');
 
         $sqlvocelemnew = "SELECT * FROM metadata_element_label_description  WHERE element_id=" . $id . "";
         $execvocelenew = $db->query($sqlvocelemnew);
         $datavocelenew = $execvocelenew->fetch();
+        $execvocelenew = NULL;
 
         if (strlen($datavocelenew['description']) > 0) {
             return $datavocelenew['description'];
@@ -2335,21 +2118,7 @@ jQuery(function () {
 
     function return_multi_language_label_name($element_id, $language_id = NULL) {
 
-        require_once 'Omeka/Core.php';
-        $core = new Omeka_Core;
-
-        try {
-            $db = $core->getDb();
-
-            //Force the Zend_Db to make the connection and catch connection errors
-            try {
-                $mysqli = $db->getConnection()->getConnection();
-            } catch (Exception $e) {
-                throw new Exception("<h1>MySQL connection error: [" . mysqli_connect_errno() . "]</h1>" . "<p>" . $e->getMessage() . '</p>');
-            }
-        } catch (Exception $e) {
-            die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
-        }
+        $db = Zend_Registry::get('db');
         if ($language_id > 0) {
             $language_id = $language_id;
         } else {
@@ -2358,6 +2127,7 @@ jQuery(function () {
         $sql2 = "SELECT * FROM metadata_element_label WHERE element_id=" . $element_id . " and language_id='" . $language_id . "'";
         $exec2 = $db->query($sql2);
         $datageneral = $exec2->fetch();
+
         if ($datageneral['id'] > 0) {
             $datageneral = $datageneral;
         } else {
@@ -2365,26 +2135,13 @@ jQuery(function () {
             $exec2 = $db->query($sql2);
             $datageneral = $exec2->fetch();
         }
+        $exec2 = NULL;
         return $datageneral['labal_name'];
     }
 
     function voc_multi_label($voc_rec_id, $language_id = NULL) {
 
-        require_once 'Omeka/Core.php';
-        $core = new Omeka_Core;
-
-        try {
-            $db = $core->getDb();
-
-            //Force the Zend_Db to make the connection and catch connection errors
-            try {
-                $mysqli = $db->getConnection()->getConnection();
-            } catch (Exception $e) {
-                throw new Exception("<h1>MySQL connection error: [" . mysqli_connect_errno() . "]</h1>" . "<p>" . $e->getMessage() . '</p>');
-            }
-        } catch (Exception $e) {
-            die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
-        }
+        $db = Zend_Registry::get('db');
         if ($language_id > 0) {
             $language_id = $language_id;
         } else {
@@ -2400,26 +2157,13 @@ jQuery(function () {
             $exec2 = $db->query($sql2);
             $datageneral = $exec2->fetch();
         }
+        $exec2 = NULL;
         return $datageneral['label'];
     }
 
     function return_label_description($element_id, $language_id = NULL) {
 
-        require_once 'Omeka/Core.php';
-        $core = new Omeka_Core;
-
-        try {
-            $db = $core->getDb();
-
-            //Force the Zend_Db to make the connection and catch connection errors
-            try {
-                $mysqli = $db->getConnection()->getConnection();
-            } catch (Exception $e) {
-                throw new Exception("<h1>MySQL connection error: [" . mysqli_connect_errno() . "]</h1>" . "<p>" . $e->getMessage() . '</p>');
-            }
-        } catch (Exception $e) {
-            die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
-        }
+        $db = Zend_Registry::get('db');
         if ($language_id > 0) {
             $language_id = $language_id;
         } else {
@@ -2435,6 +2179,7 @@ jQuery(function () {
             $exec2 = $db->query($sql2);
             $datageneral = $exec2->fetch();
         }
+        $exec2 = NULL;
         if (strlen($datageneral['description']) > 0) {
             $datageneral['description'] = $datageneral['description'];
         } else {
@@ -2471,8 +2216,8 @@ jQuery(function () {
     function get_language_for_internal_xml() {
         if (isset($_GET['lang'])) {
             $get_language = transform_language_id_for_internal_xml($_GET['lang']);
-        } elseif (isset($_SESSION['get_language'])) {
-            $get_language = $_SESSION['get_language'];
+        } elseif (isset($_SESSION['get_language_for_internal_xml'])) {
+            $get_language = $_SESSION['get_language_for_internal_xml'];
         } else {
             $get_language = 'en';
         }
@@ -2617,7 +2362,7 @@ jQuery(function () {
             /////until february 2015!!!!!!
             $token = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name=gkista&http://open.xerox.com/LLTokenId=50&Issuer=https://open.xerox.com&Audience=https://open.xerox.com&ExpiresOn=1425081600&HMACSHA256=eWdmtuu%2b6o2XjPb9lxm3Gh52Fny0NEWu6YxGltvgtJI%3d";
 
-
+            $text= htmlentities($text, ENT_QUOTES, 'UTF-8');//////add this for characters not ascii ”
             $header = 'Content-Type: application/json' . "\r\n";
             $header.= 'Host: services.open.xerox.com' . "\r\n";
             $header.= 'Authorization: WRAP access_token="' . $token . '"' . "\r\n";
