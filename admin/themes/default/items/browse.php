@@ -10,31 +10,35 @@ head(array('title' => $pageTitle, 'content_class' => 'horizontal-nav', 'bodyclas
 
 
 <?php endif; ?>
-        <script>
-        function showloader() { 
-
-            document.getElementById('loadertoopenpage_div').style.display='block';
-            document.getElementById('loadertoopenpage_img').style.display='block';
-
+<script>
+    function showloader() { 
+        document.body.onclick = function (e) {
+            if (!e.ctrlKey) {
+                document.getElementById('loadertoopenpage_div').style.display='block';
+                document.getElementById('loadertoopenpage_img').style.display='block';
+            }
         }
 
-        function hideloader() { 
 
-            document.getElementByID('loadertoopenpage').style.display='none';
+    }
 
-        }
-    </script>
-    <div id="loadertoopenpage_div" style="display: none; position: fixed; top: 0px; left: 0px; width:100%; height: 100%;  text-align: center; 
-         background-color: silver;
-         opacity:0.3;
-         filter:alpha(opacity=30);">
-    </div>
-    <div id="loadertoopenpage_img" style="display: none; position: fixed; top: 0px; left: 0px; width:100%; height: 100%;  text-align: center; 
-         background-image: url(<?php echo uri('themes/default/images/loader.gif') ?>);
-         background-position: center center;
-         background-repeat: no-repeat; z-index: 1000;">
+    function hideloader() { 
 
-    </div>
+        document.getElementByID('loadertoopenpage').style.display='none';
+
+    }
+</script>
+<div id="loadertoopenpage_div" style="display: none; position: fixed; top: 0px; left: 0px; width:100%; height: 100%;  text-align: center; 
+     background-color: silver;
+     opacity:0.3;
+     filter:alpha(opacity=30);">
+</div>
+<div id="loadertoopenpage_img" style="display: none; position: fixed; top: 0px; left: 0px; width:100%; height: 100%;  text-align: center; 
+     background-image: url(<?php echo uri('themes/default/images/loader.gif') ?>);
+     background-position: center center;
+     background-repeat: no-repeat; z-index: 1000;">
+
+</div>
 <div id="primary">
     <?php echo flash(); ?>
     <?php if (total_results()): ?>
@@ -176,7 +180,7 @@ head(array('title' => $pageTitle, 'content_class' => 'horizontal-nav', 'bodyclas
                 </thead>
                 <tbody>
                     <?php $key = 0; ?>
-                        <?php while ($item = loop_items()): ?>
+                    <?php while ($item = loop_items()): ?>
                         <tr class="item <?php if (++$key % 2 == 1) echo 'odd'; else echo 'even'; ?>">
                             <?php $id = item('id'); ?>
                             <?php /* ?><?php if (has_permission($item, 'edit') || has_permission($item, 'tag')): ?>
@@ -185,10 +189,12 @@ head(array('title' => $pageTitle, 'content_class' => 'horizontal-nav', 'bodyclas
                             <td class="item-info">
                                 <span class="title"><?php echo link_to_item(item('Dublin Core', 'Title'), array(), 'show'); ?></span>
                                 <ul class="action-links group">
-                                    <li><?php echo link_to_item(__('View'), array('onclick'=>'showloader();'), 'show'); ?></li>
-                                    <li><?php $uri = WEB_ROOT;
-                            $uri = explode('http://', $uri);
-                            echo '<a href="http://' . $uri[1] . '/oai?verb=GetRecordOnlyLom&metadataPrefix=oai_lom&identifier=oai:' . $uri[1] . '/:' . $item->id . ':item" target="_blank">XML</a>'; ?></li>
+                                    <li><?php echo link_to_item(__('View'), array('onclick' => 'showloader();'), 'show'); ?></li>
+                                    <li><?php
+                    $uri = WEB_ROOT;
+                    $uri = explode('http://', $uri);
+                    echo '<a href="http://' . $uri[1] . '/oai?verb=GetRecordOnlyLom&metadataPrefix=oai_lom&identifier=oai:' . $uri[1] . '/:' . $item->id . ':item" target="_blank">XML</a>';
+                            ?></li>
                                     <?php
                                     #
                                     #
@@ -200,7 +206,7 @@ head(array('title' => $pageTitle, 'content_class' => 'horizontal-nav', 'bodyclas
                                     <?php endif; ?>
 
                                     <?php if (has_permission($item, 'edit')): ?>
-                                        <li><?php echo link_to_item(__('Edit'), array('onclick'=>'showloader();'), 'edit'); ?></li>
+                                        <li><?php echo link_to_item(__('Edit'), array('onclick' => 'showloader();'), 'edit'); ?></li>
                                     <?php endif; ?>
                                     <?php if (has_permission($item, 'delete')): ?>
                                         <li><?php echo link_to_item(__('Delete'), array('class' => 'delete-confirm'), 'delete-confirm'); ?></li>
@@ -232,9 +238,9 @@ head(array('title' => $pageTitle, 'content_class' => 'horizontal-nav', 'bodyclas
 
                                                 }
                                             </script>
-                                    <?php endif; ?>
+                                        <?php endif; ?>
 
-                                <?php endif; ?>
+                                    <?php endif; ?>
                                 </ul>
                                 <?php fire_plugin_hook('admin_append_to_items_browse_simple_each'); ?>
                                 <?php /* ?><div class="item-details">
@@ -252,14 +258,14 @@ head(array('title' => $pageTitle, 'content_class' => 'horizontal-nav', 'bodyclas
                                   <?php fire_plugin_hook('admin_append_to_items_browse_detailed_each'); ?>
                                   </div><?php */ ?>
                             </td>
-                                <?php /* ?><td><?php echo strip_formatting(item('Dublin Core', 'Creator')); ?></td><?php */ ?>
+                            <?php /* ?><td><?php echo strip_formatting(item('Dublin Core', 'Creator')); ?></td><?php */ ?>
                             <td><?php
-                                echo ($typeName = __(item('Item Type Name'))) ? __($typeName) : '<em>' . __(item('Dublin Core', 'Type', array('snippet' => 35))) . '</em>';
-                                ?></td>
+                    echo ($typeName = __(item('Item Type Name'))) ? __($typeName) : '<em>' . __(item('Dublin Core', 'Type', array('snippet' => 35))) . '</em>';
+                            ?></td>
                             <td>
-                            <?php if ($item->public): ?>
+                                <?php if ($item->public): ?>
                                     <img src="<?php echo img('silk-icons/tick.png'); ?>" alt="<?php echo __('Validate'); ?>"/>
-                            <?php endif; ?>
+                                <?php endif; ?>
                             </td>
                             <?php /* ?><td>
                               <?php if($item->featured): ?>
@@ -268,15 +274,15 @@ head(array('title' => $pageTitle, 'content_class' => 'horizontal-nav', 'bodyclas
                               </td><?php */ ?>
                             <td><?php echo format_date(item('Date Added')); ?></td>
                         </tr>
-                <?php endwhile; ?>
+                    <?php endwhile; ?>
                 </tbody>
             </table>
             <div class="group">
                 <?php if (has_permission('Items', 'edit')): ?>
-        <?php /* ?><div class="batch-edit-option">
-          <input type="submit" class="submit" name="submit" value="<?php echo __('Edit Selected Items'); ?>" />
-          </div><?php */ ?>
-        <?php endif; ?>
+                    <?php /* ?><div class="batch-edit-option">
+                      <input type="submit" class="submit" name="submit" value="<?php echo __('Edit Selected Items'); ?>" />
+                      </div><?php */ ?>
+                <?php endif; ?>
                 <div class="pagination"><?php echo pagination_links(); ?></div>
             </div>
         </form>
@@ -286,23 +292,23 @@ head(array('title' => $pageTitle, 'content_class' => 'horizontal-nav', 'bodyclas
           <?php echo output_format_list(false, ' · '); ?>
           </div><?php */ ?>
 
-            <?php elseif (!total_items()): ?>
+    <?php elseif (!total_items()): ?>
         <div id="no-items">
             <p><?php echo __('There are no items in the archive yet.'); ?>
 
-        <?php if (has_permission('Items', 'add')): ?>
-            <?php echo link_to('items', 'add', __('Add an item.')); ?></p>
-    <?php endif; ?>
+                <?php if (has_permission('Items', 'add')): ?>
+                    <?php echo link_to('items', 'add', __('Add an item.')); ?></p>
+            <?php endif; ?>
         </div>
 
-<?php else: ?>
-        <p><?php echo __('The query searched %s items and returned no results.', total_items()); ?> <?php //echo __('Would you like to %s?', link_to_advanced_search(__('refine your search')));  ?></p>
+    <?php else: ?>
+        <p><?php echo __('The query searched %s items and returned no results.', total_items()); ?> <?php //echo __('Would you like to %s?', link_to_advanced_search(__('refine your search')));    ?></p>
 
     <?php endif; ?>
 
 
 
-<?php fire_plugin_hook('admin_append_to_items_browse_primary', $items); ?>
+    <?php fire_plugin_hook('admin_append_to_items_browse_primary', $items); ?>
 
 </div>
 <?php foot(); ?>
