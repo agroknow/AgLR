@@ -414,7 +414,7 @@ function createlomelement($type, $name, $value = NULL, $extra = NULL, $selectval
 
         $ar = 0;
         $size_of_objects = sizeof($selectvalues);
-        for ($x = 0; $x < $size_of_objects; $x++) {
+        for ($x = 0; $x <= $size_of_objects; $x++) {
             $selectvaluesforlang = & $selectvalues[$x];
             if(strlen($selectvaluesforlang[$selectvalueswhich])>0){ 
             $element.='<option value="' . $selectvaluesforlang[$selectvalueswhich] . '" ';
@@ -432,7 +432,7 @@ function createlomelement($type, $name, $value = NULL, $extra = NULL, $selectval
         $element.='<option value="">Select </option>';
         
         $size_of_objects = sizeof($selectvalues);
-        for ($x = 0; $x < $size_of_objects; $x++) {
+        for ($x = 0; $x <= $size_of_objects; $x++) {
             $selectvaluesforlang = & $selectvalues[$x];
             if(strlen($selectvaluesforlang[$selectvalueswhich])>0){ 
             $element.='<option value="' . $selectvaluesforlang[$selectvalueswhich] . '" ';
@@ -454,7 +454,7 @@ function createlomelement($type, $name, $value = NULL, $extra = NULL, $selectval
         //print_r($selectvalues);
         //echo $value;
         $size_of_objects = sizeof($selectvalues);
-        for ($x = 0; $x < $size_of_objects; $x++) {
+        for ($x = 0; $x <= $size_of_objects; $x++) {
             $selectvaluesforlang = & $selectvalues[$x];
 
             $element.='<option value="' . $selectvaluesforlang['value'] . '" ';
@@ -477,7 +477,7 @@ function lomradioform($data6, $dataform, $view_mode = NULL) {
         $disable = 'disabled="disabled"';
     }
     $size_of_objects = sizeof($data6);
-    for ($x = 0; $x < $size_of_objects; $x++) {
+    for ($x = 0; $x <= $size_of_objects; $x++) {
         $datarecord = & $data6[$x];
         if ($datarecord['element_hierarchy'] === $dataform['id']) {
             $datarecordvalue = $datarecord['value'];
@@ -557,7 +557,7 @@ function lomontology($data6, $dataform, $extra, $parent_multi = NULL, $record = 
         $exec5 = NULL;
     }
     $size_of_objects = sizeof($data6);
-    for ($x = 0; $x < $size_of_objects; $x++) {
+    for ($x = 0; $x <= $size_of_objects; $x++) {
         $datarecord = & $data6[$x];
         if ($datarecord['element_hierarchy'] === $dataform['id']) { //select the value for more than one foreach
             $datarecordvalue = $datarecord['classification_id'];
@@ -659,7 +659,7 @@ function lomselectform($data6, $dataform, $datalan, $extra, $parent_multi = NULL
         $exec5 = NULL;
     }
     $size_of_objects = sizeof($data6);
-    for ($x = 0; $x < $size_of_objects; $x++) {
+    for ($x = 0; $x <= $size_of_objects; $x++) {
         $datarecord = & $data6[$x];
         if ($datarecord['element_hierarchy'] === $dataform['id']) { //select the value for more than one foreach
             $datarecordvalue = $datarecord['vocabulary_record_id'];
@@ -771,7 +771,7 @@ function lomtextareaform($data6, $dataform, $datalan, $parent_multi = NULL, $rec
 
         $languagearray = array();
         $size_of_objects = sizeof($_POST['language_select']);
-        for ($x = 0; $x < $size_of_objects; $x++) {
+        for ($x = 0; $x <= $size_of_objects; $x++) {
             $language_select = & $_POST['language_select'][$x];
             $languagearray[] = map_language_for_xerox2($language_select);
             unset($language_select);
@@ -793,7 +793,7 @@ function lomtextareaform($data6, $dataform, $datalan, $parent_multi = NULL, $rec
 
 
         $size_of_objects = sizeof($multi_languagearray);
-        for ($x = 0; $x < $size_of_objects; $x++) {
+        for ($x = 0; $x <= $size_of_objects; $x++) {
             $multi_languagearray_for = & $multi_languagearray[$x];
 
             $sqltest23 = "SELECT * FROM metadata_element_value WHERE record_id='" . $record['id'] . "' and element_hierarchy='" . $dataform['id'] . "' and multi='" . $multi_languagearray_for . "' and language_id='en' ORDER BY (case WHEN multi IS NULL THEN '9999' ELSE multi END) ASC";
@@ -949,7 +949,7 @@ function lomtextareaform($data6, $dataform, $datalan, $parent_multi = NULL, $rec
         }
 
         $size_of_objects = sizeof($data6);
-        for ($x = 0; $x < $size_of_objects; $x++) {
+        for ($x = 0; $x <= $size_of_objects; $x++) {
             $datarecord = & $data6[$x];
             if ($datarecord['element_hierarchy'] === $dataform['id']) {
                 $datarecordvalue = $datarecord['value'];
@@ -1089,7 +1089,7 @@ function lomtextformdate($data6, $dataform, $datalan, $parent_multi = NULL, $rec
         $exec5 = NULL;
     }
     $size_of_objects = sizeof($data6);
-    for ($x = 0; $x < $size_of_objects; $x++) {
+    for ($x = 0; $x <= $size_of_objects; $x++) {
         $datarecord = & $data6[$x];
         if ($datarecord['element_hierarchy'] === $dataform['id']) {
             $datarecordvalue = $datarecord['value'];
@@ -1410,7 +1410,7 @@ function lomtextform($data6, $dataform, $datalan, $parent_multi = NULL, $record 
             $exec5 = NULL;
         }
         $size_of_objects = sizeof($data6);
-        for ($x = 0; $x < $size_of_objects; $x++) {
+        for ($x = 0; $x <= $size_of_objects; $x++) {
             $datarecord = & $data6[$x];
             if ($datarecord['element_hierarchy'] === $dataform['id']) {
                 $datarecordvalue = $datarecord['value'];
@@ -1629,7 +1629,7 @@ function lomparentform($data6, $dataform, $datalan, $record, $depth, $view_mode,
     $parentcount = count($data6);
     if ($parentcount > 0) { //an uparxei eggrafh		
         $size_of_objects = sizeof($data6);
-        for ($x = 0; $x < $size_of_objects; $x++) {
+        for ($x = 0; $x <= $size_of_objects; $x++) {
             $datarecord = & $data6[$x];
 
             $execchele = $db->query("SELECT c.*,b.vocabulary_id,b.id as elm_id FROM  metadata_element b JOIN metadata_element_hierarchy c 
@@ -1959,7 +1959,7 @@ function createnew_xml_selectbox($id, $divid, $vocabulary_id, $ontology = NULL) 
         }
         $xml = NULL;
         $size_of_objects = sizeof($new_xml_id);
-        for ($x = 0; $x < $size_of_objects; $x++) {
+        for ($x = 0; $x <= $size_of_objects; $x++) {
             $result2 = & $new_xml_id[$x];
             $result3 = & $new_xml_subClassOf[$x];
             
@@ -1989,7 +1989,7 @@ function createnew_xml_selectbox($id, $divid, $vocabulary_id, $ontology = NULL) 
         
         $output.='<ul>';
         $size_of_objects = sizeof($new_xml_id);
-        for ($x = 0; $x < $size_of_objects; $x++) {
+        for ($x = 0; $x <= $size_of_objects; $x++) {
             $result2 = & $new_xml_id[$x];
             $result3 = & $new_xml_subClassOf[$x];
 
@@ -2065,7 +2065,7 @@ function createnew_xml_selectbox($id, $divid, $vocabulary_id, $ontology = NULL) 
         $output2 = '';
         $output2.='<ul>';
         $size_of_objects = sizeof($new_xml_id2);
-        for ($x = 0; $x < $size_of_objects; $x++) {
+        for ($x = 0; $x <= $size_of_objects; $x++) {
             $result22 = & $new_xml_id2[$x];
             $result32 = & $new_xml_subClassOf[$x];
 
