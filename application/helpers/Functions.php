@@ -416,12 +416,12 @@ function createlomelement($type, $name, $value = NULL, $extra = NULL, $selectval
         $size_of_objects = sizeof($selectvalues);
         for ($x = 0; $x < $size_of_objects; $x++) {
             $selectvaluesforlang = & $selectvalues[$x];
-            if(strlen($selectvaluesforlang[$selectvalueswhich])>0){ 
-            $element.='<option value="' . $selectvaluesforlang[$selectvalueswhich] . '" ';
-            if ($value === $selectvaluesforlang[$selectvalueswhich]) {
-                $element.= 'selected=selected';
-            }
-            $element.='>' . voc_multi_label($selectvaluesforlang[$selectvalueswhich]) . '</option>';
+            if (strlen($selectvaluesforlang[$selectvalueswhich]) > 0) {
+                $element.='<option value="' . $selectvaluesforlang[$selectvalueswhich] . '" ';
+                if ($value === $selectvaluesforlang[$selectvalueswhich]) {
+                    $element.= 'selected=selected';
+                }
+                $element.='>' . voc_multi_label($selectvaluesforlang[$selectvalueswhich]) . '</option>';
             }
             unset($selectvaluesforlang);
             unset($selectvalues[$x]);
@@ -430,23 +430,21 @@ function createlomelement($type, $name, $value = NULL, $extra = NULL, $selectval
     } elseif ($type == 'selectxml') {
         $element = '<select ' . $extra . ' ' . $disabled . '  name="' . $name . '">';
         $element.='<option value="">Select </option>';
-        
+
         $size_of_objects = sizeof($selectvalues);
         for ($x = 0; $x < $size_of_objects; $x++) {
             $selectvaluesforlang = & $selectvalues[$x];
-            if(strlen($selectvaluesforlang[$selectvalueswhich])>0){ 
-            $element.='<option value="' . $selectvaluesforlang[$selectvalueswhich] . '" ';
-            if ($value == $selectvaluesforlang[$selectvalueswhich]) {
-                $element.= 'selected=selected';
+            if (strlen($selectvaluesforlang[$selectvalueswhich]) > 0) {
+                $element.='<option value="' . $selectvaluesforlang[$selectvalueswhich] . '" ';
+                if ($value == $selectvaluesforlang[$selectvalueswhich]) {
+                    $element.= 'selected=selected';
+                }
+                $element.='>' . $selectvaluesforlang[$selectalter] . '</option>';
             }
-            $element.='>' . $selectvaluesforlang[$selectalter] . '</option>';
-            
-        }
         }
         $element.='</select>';
         unset($selectvaluesforlang);
         unset($selectvalues);
-        
     } elseif ($type == 'selectlanstr') {
         $lan = $value;
         $element = '<select ' . $extra . ' ' . $disabled . ' id="' . $name . '"  name="' . $name . '"  onchange="UpdateLangstringFormFieldExisted(' . $langstringparams['element_hierarchy'] . ',' . $langstringparams['record_id'] . ',' . $langstringparams['multi'] . ',\'' . $value . '\',this.value,\'' . $name . '\'); return false;">';
@@ -1691,7 +1689,6 @@ function lomparentform($data6, $dataform, $datalan, $record, $depth, $view_mode,
             unset($data6[$x]);
         }//foreach $data6
     } else { //an den uparxei data6 eggrafei dhmiourgia neas
-
         $execchele = $db->query("SELECT c.*,b.vocabulary_id,b.id as elm_id FROM  metadata_element b JOIN metadata_element_hierarchy c 
 			ON c.element_id = b.id WHERE c.pelement_id=" . $dataform['elm_id'] . " and c.is_visible=1  ORDER BY (case WHEN c.sequence IS NULL THEN '9999' ELSE c.sequence END) ASC");
         $childelements = $execchele->fetchAll();
@@ -1847,13 +1844,13 @@ function createnew_xml_selectbox($id, $divid, $vocabulary_id, $ontology = NULL) 
     }
     ?>
     <a class='lom-remove' style='float:left;' href='#' onClick='removeFormField("#row<?php echo $_POST['id']; ?>"); return false;'>Remove</a><div><br>
-        <?php
-        if ($ontology > 0) {
+    <?php
+    if ($ontology > 0) {
 
-            //echo internal_xml('' . $_POST['divid'] . '_' . $_POST['id'] . '_tree', NULL, $_SESSION['get_language_for_internal_xml'], NULL);
-            echo $xmlnew['hierarchy_tree'];
-        }
-        ?>
+        //echo internal_xml('' . $_POST['divid'] . '_' . $_POST['id'] . '_tree', NULL, $_SESSION['get_language_for_internal_xml'], NULL);
+        echo $xmlnew['hierarchy_tree'];
+    }
+    ?>
 
         <?php
     }
@@ -1962,7 +1959,7 @@ function createnew_xml_selectbox($id, $divid, $vocabulary_id, $ontology = NULL) 
         for ($x = 0; $x <= $size_of_objects; $x++) {
             $result2 = & $new_xml_id[$x];
             $result3 = & $new_xml_subClassOf[$x];
-            
+
 
             $label_position = array_search($result2, $new_xml_instanceOf);
             if (strlen($result2) > 0) {
@@ -1977,7 +1974,7 @@ function createnew_xml_selectbox($id, $divid, $vocabulary_id, $ontology = NULL) 
             }
             //echo $result2['id'];
         }
-        
+
         foreach ($sortedxml as $key => $row) {
             $volume[$key] = $row['value'];
         }
@@ -1986,7 +1983,7 @@ function createnew_xml_selectbox($id, $divid, $vocabulary_id, $ontology = NULL) 
         // Add $data as the last parameter, to sort by the common key
         array_multisort($volume, SORT_ASC, $sortedxml);
         $sortedxml1 = array_map("unserialize", array_unique(array_map("serialize", $sortedxml)));
-        
+
         $output.='<ul>';
         $size_of_objects = sizeof($new_xml_id);
         for ($x = 0; $x <= $size_of_objects; $x++) {
@@ -2362,7 +2359,7 @@ function createnew_xml_selectbox($id, $divid, $vocabulary_id, $ontology = NULL) 
             /////until february 2015!!!!!!
             $token = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name=gkista&http://open.xerox.com/LLTokenId=50&Issuer=https://open.xerox.com&Audience=https://open.xerox.com&ExpiresOn=1425081600&HMACSHA256=eWdmtuu%2b6o2XjPb9lxm3Gh52Fny0NEWu6YxGltvgtJI%3d";
 
-            $text= htmlentities($text, ENT_QUOTES, 'UTF-8');//////add this for characters not ascii ”
+            $text = htmlentities($text, ENT_QUOTES, 'UTF-8'); //////add this for characters not ascii ”
             $header = 'Content-Type: application/json' . "\r\n";
             $header.= 'Host: services.open.xerox.com' . "\r\n";
             $header.= 'Authorization: WRAP access_token="' . $token . '"' . "\r\n";
@@ -2382,7 +2379,7 @@ function createnew_xml_selectbox($id, $divid, $vocabulary_id, $ontology = NULL) 
             $page2 = file_get_contents("https://services.open.xerox.com/RestOp/TranslabOrganicLingua/TranslateTextStringSync", false, $context2);
             $obj2 = json_decode($page2);
 //print_r($page2);
-//echo "<br><br>";
+            echo "<br><br>";
 
             foreach ($obj2 as $obj3) {
                 foreach ($obj3 as $key => $obj4) {
@@ -2394,7 +2391,21 @@ function createnew_xml_selectbox($id, $divid, $vocabulary_id, $ontology = NULL) 
 //echo $_POST['dividtext'];
 //return 'Original text: '.$_POST['dividtext'].' <br> Translated text: '.$obj5;
                                 //return $obj5."".$sourceLanguage."";
-                                return $obj5;
+                                if (is_string($obj5)) {
+                                    return $obj5;
+                                } else {
+                                    //print_r($obj5);
+                                    foreach ($obj5 as $key => $obj51) {
+                                        if ($key == '#text') {
+                                            $obj511='';
+                                            foreach($obj51 as $obj51){
+                                                $obj511.=$obj51;
+                                            }
+                                            return $obj511;
+                                        }
+                                    }
+                                }
+                                //
                             }
                         }
                     }
@@ -2432,7 +2443,7 @@ function createnew_xml_selectbox($id, $divid, $vocabulary_id, $ontology = NULL) 
         <form>
             <select style="width:190px; font-size: 12px;" name="my_languages" id="my_languages" onchange="top.location.href='<?php change_interface_language('\'+this.form.my_languages.options[this.form.my_languages.selectedIndex].value+\''); ?>' ">
 
-                <?php $chooselang = 'Choose language'; ?>
+    <?php $chooselang = 'Choose language'; ?>
                 <option value="<?php echo $_SESSION['get_language']; ?>"><?php echo __($chooselang); ?></option>
                 <option value="el">Ελληνικά</option>
                 <option value="en">English</option>
@@ -2447,7 +2458,6 @@ function createnew_xml_selectbox($id, $divid, $vocabulary_id, $ontology = NULL) 
             </select>
         </form>
 
-        <?php
-    }
+    <?php
+}
 
-    
