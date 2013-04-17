@@ -2379,7 +2379,7 @@ function createnew_xml_selectbox($id, $divid, $vocabulary_id, $ontology = NULL) 
             $page2 = file_get_contents("https://services.open.xerox.com/RestOp/TranslabOrganicLingua/TranslateTextStringSync", false, $context2);
             $obj2 = json_decode($page2);
 //print_r($page2);
-            echo "<br><br>";
+//            echo "<br><br>";
 
             foreach ($obj2 as $obj3) {
                 foreach ($obj3 as $key => $obj4) {
