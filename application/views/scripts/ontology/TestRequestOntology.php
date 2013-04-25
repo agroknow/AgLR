@@ -2,7 +2,7 @@
 
 error_reporting(E_ALL);
 
-$url = "https://dkmtools.fbk.eu/moki/organiclingua/OntologyService/RequestManager.php";
+$url = "https://dkmtools.fbk.eu/moki/multilingual/organiclingua/OntologyService/RequestManager.php";
 
 $ch = curl_init();
 

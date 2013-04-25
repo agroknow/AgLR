@@ -19,6 +19,8 @@ $output .= '<hierarchy rootElement="#OAAEConcept">';
 $result = $xmlobj->xpath("owl:Class");
 $i = 0;
 
+/////////////////////////HIERARCHY///////////////////////////////////
+
 foreach ($result as $c) {
     $rdf_elements = $c->children('rdf', true);
     $rdfs_elements = $c->children('rdfs', true);
@@ -30,7 +32,7 @@ foreach ($result as $c) {
         $sub_owl_elements = $rdfs_elements->subClassOf->children('owl', true);
         $attofsubelement = $sub_owl_elements->attributes('rdf', true);
         $attofelement = $c->attributes('rdf', true);
-//print $i.'. Element: '.$attofelement['about'].' - Subclass: '.$attofsubelement['about'];
+//print $i.'. Element: '.$attofelement['about'].' - Subclass: '.$attofsubelement['about'].'<br>';
         $output .= '<class id="' . $attofelement['about'] . '" className="' . $attofelement['about'] . '" subClassOf="' . $attofsubelement['about'] . '" />' . "\n";
     }
 }
@@ -42,9 +44,10 @@ foreach ($result2 as $c2) {
     foreach ($rdf_elements2 as $rdf_elements2) {
         $owl_elements2 = $rdf_elements2->children('owl', true);
         foreach ($owl_elements2 as $owl_elements2) {
+            $i+=1;
             $attofsubelement = $owl_elements2->attributes('rdf', true);
-            //print '. Element: '.$attofelement['about'].' - Subclass: '.$attofsubelement['about'];
-            $output .= '<class id="'.$attofelement['about'].'" className="'.$attofelement['about'].'" subClassOf="'.$attofsubelement['about'].'" />';
+//            print $i.'. Element: '.$attofelement['about'].' - Subclass: '.$attofsubelement['about'].'<br>';
+            $output .= '<class id="' . $attofelement['about'] . '" className="' . $attofelement['about'] . '" subClassOf="' . $attofsubelement['about'] . '" />';
         }
     }
 }
@@ -53,6 +56,9 @@ foreach ($result2 as $c2) {
 $output .= '</hierarchy>';
 $output .= '<instances>';
 
+/////////////////TRANSLATIONS//////////////////
+
+/////ta owl class which are classes
 foreach ($result as $c) {
 
 
@@ -60,21 +66,50 @@ foreach ($result as $c) {
     $rdfs_elements = $c->children('rdfs', true);
     $owl_elements = $c->children('owl', true);
 
+        if ($rdfs_elements->label) {
+            //if ($owl_elements->hasTranslation) {
 
-    if ($owl_elements->hasTranslation) {
+            $attofelement = $c->attributes('rdf', true);
+            //echo $attofelement['about'].' - ';
+            $attofelement2 = $rdfs_elements->label->attributes('xml', true);
+             //echo $attofelement2['lang'].' - ';
+            //print($rdfs_elements->label);
+            ////print($owl_elements);
+            //echo "<br>";
 
-        $attofelement = $c->attributes('rdf', true);
-        //echo $attofelement['about'].' - ';
-        $attofelement2 = $owl_elements->attributes();
-        //echo $attofelement2['lang'].' - ';
-        //print($owl_elements);
-        
-        $output .= '<instance instanceOf="' . $attofelement['about'] . '" lang="' . $attofelement2['lang'] . '">' . "";
-        $output .= '' . $owl_elements . '' . "";
-        $output .= '</instance>';
-        
-    }
+            $output .= '<instance instanceOf="' . $attofelement['about'] . '" lang="' . $attofelement2['lang'] . '">' . "";
+            $output .= '' . $rdfs_elements . '' . "";
+            //$output .= '' . $owl_elements . '' . "";
+            $output .= '</instance>';
+        }
 }
+
+///////ta rdf description which are the last ones
+foreach ($result2 as $c) {
+
+
+    $rdf_elements = $c->children('rdf', true);
+    $rdfs_elements = $c->children('rdfs', true);
+    $owl_elements = $c->children('owl', true);
+
+        if ($rdfs_elements->label) {
+            //if ($owl_elements->hasTranslation) {
+
+            $attofelement = $c->attributes('rdf', true);
+            //echo $attofelement['about'].' - ';
+            $attofelement2 = $rdfs_elements->label->attributes('xml', true);
+             //echo $attofelement2['lang'].' - ';
+            //print($rdfs_elements->label);
+            ////print($owl_elements);
+            //echo "<br>";
+
+            $output .= '<instance instanceOf="' . $attofelement['about'] . '" lang="' . $attofelement2['lang'] . '">' . "";
+            $output .= '' . $rdfs_elements . '' . "";
+            //$output .= '' . $owl_elements . '' . "";
+            $output .= '</instance>';
+        }
+}
+
 $output .= '</instances>';
 
 $output .= '</classification>';
@@ -105,5 +140,4 @@ fclose($fp);
 if ($fp) {
     echo "<a href='http://" . $_SERVER['SERVER_NAME'] . "" . uri('archive/xmlvoc') . "/" . $xmlname . "' target='_blank'> New Internal Xml from API ontology</a>";
 }
-
 ?>
