@@ -111,7 +111,7 @@ $itemTitle = __('View Item #%s', item('id')) . $itemTitle;
 </style>
 
 <div>
-    <a style="position:relative; float:right; right:0px;" id="show_optional">Enrich Metadata</a>
+    <a style="position:relative; float:right; right:0px;cursor: hand; cursor: pointer;" id="show_optional">Enrich Metadata</a>
 </div>
 <br style="clear:both;">
 <?php include 'form-tabs.php'; // Definitions for all the tabs for the form.  ?>
