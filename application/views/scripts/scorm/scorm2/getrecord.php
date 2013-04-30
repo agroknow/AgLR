@@ -59,7 +59,7 @@ $identifier = onlyNumbers($identifier);
   '<?xml version="1.0" encoding="UTF-8"?>
   <OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xmlns:lom="http://ltsc.ieee.org/xsd/LOM" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">' . "\n";
  */
-$XMLHEADER = '<manifest xmlns="http://www.imsproject.org/xsd/imscp_rootv1p1p2" xmlns:imsmd="http://ltsc.ieee.org/xsd/LOM" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_rootv1p2" identifier="MANIFEST-' . $identifier . '" xsi:schemaLocation="http://www.imsproject.org/xsd/imscp_rootv1p1p2 imscp_rootv1p1p2.xsd http://ltsc.ieee.org/xsd/LOM lom.xsd http://www.adlnet.org/xsd/adlcp_rootv1p2 adlcp_rootv1p2.xsd">' . "\n";
+$XMLHEADER = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" . '<manifest xmlns="http://www.imsproject.org/xsd/imscp_rootv1p1p2" xmlns:imsmd="http://ltsc.ieee.org/xsd/LOM" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_rootv1p2" identifier="MANIFEST-' . $identifier . '" xsi:schemaLocation="http://www.imsproject.org/xsd/imscp_rootv1p1p2 imscp_rootv1p1p2.xsd http://ltsc.ieee.org/xsd/LOM lom.xsd http://www.adlnet.org/xsd/adlcp_rootv1p2 adlcp_rootv1p2.xsd">' . "\n";
 
 
 
@@ -186,7 +186,7 @@ if (empty($errors)) { //if no errors
     $output .= '<organizations default="ORG-Pathway">' . "\n";
     $output .= '<organization identifier="ORG-' . $omekaitem['id'] . '" structure="hierarchical">' . "\n";
     $output .= '<title>' . "\n"; ///for pathway
-    $output .= '<![CDATA['.$omekaitem['title'].']]>'; ///for pathway
+    $output .= '<![CDATA[' . $omekaitem['title'] . ']]>'; ///for pathway
     $output .= '</title>' . "\n";
     foreach ($sections as $sections2) {
 
@@ -264,7 +264,12 @@ if (empty($errors)) { //if no errors
             $pagestextr = $db->query($sqlpagestext);
             $pagestext2 = $pagestextr->fetchAll();
             foreach ($pagestext2 as $pagestext) {
-                $output .= $pagestext['text'] . "<br>";
+                ////replace strange space ascii character////////////////
+                $pagestexttext = trim ($pagestext['text']);
+                $pagestexttext = trim($pagestexttext,chr(0xC2).chr(0xA0).chr(0xb)); 
+                $pagestexttext = str_replace("", " ", $pagestext['text']); 
+                
+                $output .= trim ($pagestexttext) . "<br>";
             }
             $output .= ']]>';
             $output .= '</imsmd:string>' . "\n";
@@ -387,37 +392,38 @@ if (empty($errors)) { //if no errors
             $exec = $db->query($maxIdSQL);
             $result_multi = $exec->fetchAll();
             foreach ($result_multi as $result_multi) {
-                $output .= '<file>' . "\n";
-                $sqlmetadatarecord = "select * from metadata_record where object_id=" . $result_multi['item_id'] . " and object_type='item' and validate=1";
+                if ($result_multi['item_id'] > 0) {
+
+                    $sqlmetadatarecord = "select * from metadata_record where object_id=" . $result_multi['item_id'] . " and object_type='item' and validate=1";
 //echo $sqlmetadatarecord; //break;
-                $exec2 = $db->query($sqlmetadatarecord);
-                $metadatarecord = $exec2->fetch();
+                    $exec2 = $db->query($sqlmetadatarecord);
+                    $metadatarecord = $exec2->fetch();
 
-                $sqlomekaitem = "select * from omeka_items where id=" . $result_multi['item_id'] . "";
+                    $sqlomekaitem = "select * from omeka_items where id=" . $result_multi['item_id'] . "";
 //echo $sqlmetadatarecord; //break;
-                $execomekaitem = $db->query($sqlomekaitem);
-                $omekaitem = $execomekaitem->fetch();
+                    $execomekaitem = $db->query($sqlomekaitem);
+                    $omekaitem = $execomekaitem->fetch();
 
 
+                    if ($metadatarecord['id'] > 0) {
 
-
-                $sqlmetadatarecordvalue = "select * from metadata_element_value where record_id=" . $metadatarecord['id'] . " ORDER BY element_hierarchy ASC";
-                $exec = $db->query($sqlmetadatarecordvalue);
-                $metadatarecordvalue_res = $exec->fetchAll();
+                        $sqlmetadatarecordvalue = "select * from metadata_element_value where record_id=" . $metadatarecord['id'] . " ORDER BY element_hierarchy ASC";
+                        $exec = $db->query($sqlmetadatarecordvalue);
+                        $metadatarecordvalue_res = $exec->fetchAll();
 //echo $sqlmetadatarecordvalue; break;
 //$metadatarecordvalue_res=mysql_query($sqlmetadatarecordvalue);
 //$metadatarecordvalue=mysql_fetch_array($metadatarecordvalue_res);
 
 
-
-                $output .= '<metadata>' . "\n";
-                $output .= '<imsmd:lom>' . "\n";
+                        $output .= '<file>' . "\n";
+                        $output .= '<metadata>' . "\n";
+                        $output .= '<imsmd:lom>' . "\n";
 
 //query for creating general elements pelement=0		 
-                $sql3 = "SELECT c.*,b.machine_name,b.id as elm_id2 FROM  metadata_element b  LEFT JOIN metadata_element_hierarchy c 
+                        $sql3 = "SELECT c.*,b.machine_name,b.id as elm_id2 FROM  metadata_element b  LEFT JOIN metadata_element_hierarchy c 
 			ON c.element_id = b.id WHERE c.pelement_id=0 and c.is_visible=1  ORDER BY (case WHEN c.sequence IS NULL THEN '9999' ELSE c.sequence END) ASC;";
-                $exec3 = $db->query($sql3);
-                $datageneral3 = $exec3->fetchAll();
+                        $exec3 = $db->query($sql3);
+                        $datageneral3 = $exec3->fetchAll();
 
 
 /////////////////////////
@@ -425,69 +431,71 @@ if (empty($errors)) { //if no errors
 
 
 
-                foreach ($datageneral3 as $datageneral3) {
+                        foreach ($datageneral3 as $datageneral3) {
 
-                    $output2 = '';
-                    $sql4 = "SELECT c.*,b.machine_name,b.id as elm_id FROM  metadata_element b  LEFT JOIN metadata_element_hierarchy c 
+                            $output2 = '';
+                            $sql4 = "SELECT c.*,b.machine_name,b.id as elm_id FROM  metadata_element b  LEFT JOIN metadata_element_hierarchy c 
 			ON c.element_id = b.id  WHERE c.pelement_id=" . $datageneral3['elm_id2'] . " and c.is_visible=1 ORDER BY (case WHEN c.sequence IS NULL THEN '9999' ELSE c.sequence END) ASC;";
-                    //echo $sql4;break;
-                    $exec4 = $db->query($sql4);
-                    $datageneral4 = $exec4->fetchAll();
+                            //echo $sql4;break;
+                            $exec4 = $db->query($sql4);
+                            $datageneral4 = $exec4->fetchAll();
 
 
-                    if ($datageneral3['machine_name'] == 'rights') { ///////if RIGHTS
-                        $output2.= preview_elements($datageneral4, NULL, $metadatarecord, $datageneral3);
-                    } elseif ($datageneral3['machine_name'] == 'classification') { ///////if CLASSIFICATION
-                        //$output.= preview_elements($datageneral4, NULL, $metadatarecord, $datageneral3);
-                    } elseif ($datageneral3['machine_name'] == 'relation') { ///////if RELATION
-                        $output2.= preview_elements($datageneral4, NULL, $metadatarecord, $datageneral3);
-                    } else { ///the rest parent elements///////////////////////////////
-                        foreach ($datageneral4 as $datageneral4) {
+                            if ($datageneral3['machine_name'] == 'rights') { ///////if RIGHTS
+                                $output2.= preview_elements($datageneral4, NULL, $metadatarecord, $datageneral3);
+                            } elseif ($datageneral3['machine_name'] == 'classification') { ///////if CLASSIFICATION
+                                //$output.= preview_elements($datageneral4, NULL, $metadatarecord, $datageneral3);
+                            } elseif ($datageneral3['machine_name'] == 'relation') { ///////if RELATION
+                                $output2.= preview_elements($datageneral4, NULL, $metadatarecord, $datageneral3);
+                            } else { ///the rest parent elements///////////////////////////////
+                                foreach ($datageneral4 as $datageneral4) {
 
 
 
-                            $sql5 = "SELECT * FROM  metadata_element_value WHERE record_id=" . $metadatarecord['id'] . " and element_hierarchy=" . $datageneral4['id'] . " ORDER BY multi ASC;";
-                            //echo $sql4."<br>";
-                            $exec5 = $db->query($sql5);
-                            $datageneral5 = $exec5->fetchAll();
-                            $count_results = count($datageneral5);
+                                    $sql5 = "SELECT * FROM  metadata_element_value WHERE record_id=" . $metadatarecord['id'] . " and element_hierarchy=" . $datageneral4['id'] . " ORDER BY multi ASC;";
+                                    //echo $sql4."<br>";
+                                    $exec5 = $db->query($sql5);
+                                    $datageneral5 = $exec5->fetchAll();
+                                    $count_results = count($datageneral5);
 
-                            if ($count_results > 0) {
+                                    if ($count_results > 0) {
 
-                                if ($datageneral3['machine_name'] == 'general') { ///////if GENERAL
-                                    $output2.= preview_elements($datageneral4, $datageneral5, $metadatarecord, $datageneral3);
-                                } elseif ($datageneral3['machine_name'] == 'educational') { ///////if EDUCATIONAL
-                                    $output2.= preview_elements($datageneral4, $datageneral5, $metadatarecord, $datageneral3);
-                                } elseif ($datageneral3['machine_name'] == 'technical') { ///////if TECHNICAL
-                                    $output2.= preview_elements($datageneral4, $datageneral5, $metadatarecord, $datageneral3);
-                                } elseif ($datageneral3['machine_name'] == 'lifeCycle') { ///////if LIFECYCLE
-                                    $output2.= preview_elements($datageneral4, $datageneral5, $metadatarecord, $datageneral3);
-                                } elseif ($datageneral3['machine_name'] == 'metaMetadata') { ///////if META-METADATA
-                                    $output2.= preview_elements($datageneral4, $datageneral5, $metadatarecord, $datageneral3);
-                                } elseif ($datageneral3['machine_name'] == 'annotation') { ///////if ANNOTATION
-                                    $output2.= preview_elements($datageneral4, $datageneral5, $metadatarecord, $datageneral3);
-                                } else {
-                                    $output2.= preview_elements_from_datatype($datageneral4, $datageneral5, $metadatarecord);
-                                }
-                            }//if count_results
-                        }//datageneral4
-                    } ///the rest parent elements///////////////////////////////	
-                    ////////////////echo the result of all parent element if exist
-                    if (strlen($output2) > 0) {
+                                        if ($datageneral3['machine_name'] == 'general') { ///////if GENERAL
+                                            $output2.= preview_elements($datageneral4, $datageneral5, $metadatarecord, $datageneral3);
+                                        } elseif ($datageneral3['machine_name'] == 'educational') { ///////if EDUCATIONAL
+                                            $output2.= preview_elements($datageneral4, $datageneral5, $metadatarecord, $datageneral3);
+                                        } elseif ($datageneral3['machine_name'] == 'technical') { ///////if TECHNICAL
+                                            $output2.= preview_elements($datageneral4, $datageneral5, $metadatarecord, $datageneral3);
+                                        } elseif ($datageneral3['machine_name'] == 'lifeCycle') { ///////if LIFECYCLE
+                                            $output2.= preview_elements($datageneral4, $datageneral5, $metadatarecord, $datageneral3);
+                                        } elseif ($datageneral3['machine_name'] == 'metaMetadata') { ///////if META-METADATA
+                                            $output2.= preview_elements($datageneral4, $datageneral5, $metadatarecord, $datageneral3);
+                                        } elseif ($datageneral3['machine_name'] == 'annotation') { ///////if ANNOTATION
+                                            $output2.= preview_elements($datageneral4, $datageneral5, $metadatarecord, $datageneral3);
+                                        } else {
+                                            $output2.= preview_elements_from_datatype($datageneral4, $datageneral5, $metadatarecord);
+                                        }
+                                    }//if count_results
+                                }//datageneral4
+                            } ///the rest parent elements///////////////////////////////	
+                            ////////////////echo the result of all parent element if exist
+                            if (strlen($output2) > 0) {
 
-                        $output.= '<imsmd:' . $datageneral3['machine_name'] . '>' . "\n";
-                        $output.= $output2;
-                        $output.= '</imsmd:' . $datageneral3['machine_name'] . '>' . "\n";
+                                $output.= '<imsmd:' . $datageneral3['machine_name'] . '>' . "\n";
+                                $output.= $output2;
+                                $output.= '</imsmd:' . $datageneral3['machine_name'] . '>' . "\n";
+                            }
+                        }//datageneral3
+
+
+
+                        $output .= '</imsmd:lom>' . "\n";
+                        $output .= '</metadata>' . "\n";
+
+
+                        $output .= '</file>' . "\n";
                     }
-                }//datageneral3
-
-
-
-                $output .= '</imsmd:lom>' . "\n";
-                $output .= '</metadata>' . "\n";
-
-
-                $output .= '</file>' . "\n";
+                }
             }
 
 
