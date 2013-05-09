@@ -662,7 +662,7 @@ return $last_exhibit_id;
 
 }
 
-function savemetadataitem(){
+function savemetadataitem($postvariable=NULL,$object_type='item') {
 
 require_once 'Omeka/Core.php';
 $core = new Omeka_Core;
@@ -680,7 +680,7 @@ try {
 	die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
 }	
 
-$maxIdSQL="select * from metadata_record where object_id=".$_POST['item_id']." and object_type='item'";
+$maxIdSQL="select * from metadata_record where object_id=".$_POST['item_id']." and object_type='".$object_type."'";
 $exec=$db->query($maxIdSQL);
 $row=$exec->fetch();
 $record_id=$row["id"];
@@ -842,7 +842,7 @@ $maxIdSQL="update omeka_element_texts SET text='".addslashes($exhibit_title_from
 //echo $maxIdSQL."<br>"; 
 $exec=$db->query($maxIdSQL);
 
-$maxIdSQL="update metadata_record SET date_modified='".$_POST['date_modified']."',validate='".$_POST['public']."' where object_id=".$_POST['item_id']." and object_type='item'";
+$maxIdSQL="update metadata_record SET date_modified='".$_POST['date_modified']."',validate='".$_POST['public']."' where object_id=".$_POST['item_id']." and object_type='".$object_type."'";
 $exec=$db->query($maxIdSQL);
 
 $maxIdSQL="update omeka_items SET public=".$_POST['public'].",modified='".$_POST['date_modified']."' where id=".$_POST['item_id']."";
@@ -1502,4 +1502,289 @@ if(isset($dataProvider)){$dataProviderforurl= "dataProvider:".$dataProvider." AN
 
  <?php
  }
-?>
+  function savenewtemplate($itid, $formtype) {
+
+    require_once 'Omeka/Core.php';
+    $core = new Omeka_Core;
+
+    try {
+        $db = $core->getDb();
+
+        //Force the Zend_Db to make the connection and catch connection errors
+        try {
+            $mysqli = $db->getConnection()->getConnection();
+        } catch (Exception $e) {
+            throw new Exception("<h1>MySQL connection error: [" . mysqli_connect_errno() . "]</h1>" . "<p>" . $e->getMessage() . '</p>');
+        }
+    } catch (Exception $e) {
+        die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
+    }
+
+
+    $itemtdb = $db->Items;
+
+    $maxIdSQL = "SELECT MAX(id) AS MAX_ID FROM " . $itemtdb . " LIMIT 0,1";
+    $exec = $db->query($maxIdSQL);
+    $row = $exec->fetch();
+    $max_id = $row["MAX_ID"];
+    $exec = null;
+
+//print_r($_FILES['file']['type']['0']); break; 
+
+    if (strlen($_POST['title']) > 0) {
+        $_POST['Elements']['68']['0']['text'] = $_POST['title'];
+    }
+    if (strlen($_POST['Elements']['68']['0']['text']) > 0) {
+        $path_title = addslashes($_POST['Elements']['68']['0']['text']);
+    } else {
+        $path_title = "template-title-" . $max_id . "";
+        $_POST['Elements']['68']['0']['text'] = "resource-title-" . $max_id . "";
+    }
+    if ($_POST['description']) {
+        $path_description = addslashes($_POST['description']);
+    } else {
+        $path_description = "";
+    }
+
+    if ($_POST['type']) {
+        $formtype = $_POST['type'];
+    } else {
+        $formtype = "0";
+    }
+//if($_POST['Elements']['68']['0']['text']){$path_title=addslashes($_POST['Elements']['68']['0']['text']);} else{$path_title="resource-title-".$max_id."";}
+    if ($_POST['public']) {
+        $path_public = $_POST['public'];
+    } else {
+        $path_public = "0";
+    }
+
+    $date_modified = date("Y-m-d H:i:s");
+    $mainAttributesSql = "INSERT INTO $itemtdb (featured,item_type_id,public,modified,added) VALUES (0," . $formtype . ",'" . $_POST['public'] . "','" . $date_modified . "','" . $date_modified . "')";
+//echo $mainAttributesSql; break;
+    $db->exec($mainAttributesSql);
+
+
+
+    $lastExhibitIdSQL = "SELECT LAST_INSERT_ID() AS LAST_EXHIBIT_ID FROM " . $itemtdb;
+    $exec = $db->query($lastExhibitIdSQL);
+    $row = $exec->fetch();
+    $last_exhibit_id = $row["LAST_EXHIBIT_ID"];
+    $exec = null;
+
+    $entitiesRelationsdb = $db->EntitiesRelations;
+    $entity_id = current_user();
+    $entitiesRelationsSql = "INSERT INTO " . $entitiesRelationsdb . " (entity_id, relation_id, relationship_id, type, time) VALUES (" . $entity_id->entity_id . ", " . $last_exhibit_id . ",1,'Item','" . date("Y-m-d H:i:s") . "')";
+    $exec = $db->query($entitiesRelationsSql);
+
+    $path_title = htmlspecialchars($path_title);
+    $path_title = addslashes($path_title);
+    $path_description = htmlspecialchars($path_description);
+    $path_description = addslashes($path_description);
+
+
+
+    $mainAttributesSql = "INSERT INTO omeka_element_texts (record_id ,record_type_id ,element_id,text) VALUES (" . $last_exhibit_id . ",2,68,'" . $path_title . "')";
+//echo $mainAttributesSql;break;
+    $db->exec($mainAttributesSql);
+
+    $mainAttributesSql = "INSERT INTO omeka_element_texts (record_id ,record_type_id ,element_id,text) VALUES (" . $last_exhibit_id . ",2,59,'" . $path_description . "')";
+//echo $mainAttributesSql;break;
+    $db->exec($mainAttributesSql);
+
+
+    /* ===================================INSERT record for METADATA=================================== */
+    $metadatarecordSql = "INSERT INTO metadata_record (id, object_id, object_type,date_modified) VALUES ('', " . $last_exhibit_id . ",'template','" . $date_modified . "')";
+    $execmetadatarecordSql = $db->query($metadatarecordSql);
+
+
+    $lastExhibitIdSQL = "SELECT LAST_INSERT_ID() AS LAST_EXHIBIT_ID FROM metadata_record";
+    $exec = $db->query($lastExhibitIdSQL);
+    $row = $exec->fetch();
+    $last_record_id = $row["LAST_EXHIBIT_ID"];
+    $exec = null;
+
+
+    $metadatarecordSql = "INSERT INTO metadata_element_value (element_hierarchy, value, language_id, multi, record_id, parent_indexer) VALUES ('6','" . $path_title . "','en',1, " . $last_record_id . ",1)";
+    $execmetadatarecordSql = $db->query($metadatarecordSql);
+    $exec = null;
+
+    $metadatarecordSql = "INSERT INTO metadata_element_value (element_hierarchy, value, language_id, multi, record_id, parent_indexer) VALUES ('8','" . $path_description . "','en',1, " . $last_record_id . ",1)";
+    $execmetadatarecordSql = $db->query($metadatarecordSql);
+    $exec = null;
+    
+    $metadatarecordSql = "INSERT INTO metadata_element_value (element_hierarchy, value, language_id, multi, record_id, parent_indexer,is_editable) VALUES ('32','','none',1, " . $last_record_id . ",1,0)";
+    $execmetadatarecordSql = $db->query($metadatarecordSql);
+    $exec = null;
+    
+    $metadatarecordSql = "INSERT INTO metadata_element_value (element_hierarchy, value, language_id, multi, record_id, parent_indexer,is_editable) VALUES ('53','Parent Element','none',1, " . $last_record_id . ",1,0)";
+    $execmetadatarecordSql = $db->query($metadatarecordSql);
+    $exec = null;
+
+    $metadatarecordSql = "INSERT INTO metadata_element_value (element_hierarchy, value, language_id, multi, record_id, parent_indexer,is_editable) VALUES ('54','URI','none',1, " . $last_record_id . ",1,0)";
+    $execmetadatarecordSql = $db->query($metadatarecordSql);
+    $exec = null;
+
+    $metadatarecordSql = "INSERT INTO metadata_element_value (element_hierarchy, value, language_id, multi, record_id, parent_indexer,is_editable) VALUES ('55','','none',1, " . $last_record_id . ",1,0)";
+    $execmetadatarecordSql = $db->query($metadatarecordSql);
+    $exec = null;
+
+    $metadatarecordSql = "INSERT INTO metadata_element_value (element_hierarchy, value, language_id, multi, record_id, parent_indexer,is_editable) VALUES ('60','Parent Element','none',1, " . $last_record_id . ",1,0)";
+    $execmetadatarecordSql = $db->query($metadatarecordSql);
+    $exec = null;
+
+    $metadatarecordSql = "INSERT INTO metadata_element_value (element_hierarchy, value, language_id, multi, record_id, parent_indexer,is_editable) VALUES ('61','Organic_Edunet_Schema','none',1, " . $last_record_id . ",1,0)";
+    $execmetadatarecordSql = $db->query($metadatarecordSql);
+    $exec = null;
+
+    $metadatarecordSql = "INSERT INTO metadata_element_value (element_hierarchy, value, language_id, multi, record_id, parent_indexer,is_editable) VALUES ('62','Organic_Edunet_" . $last_record_id . "','none',1, " . $last_record_id . ",1,0)";
+    $execmetadatarecordSql = $db->query($metadatarecordSql);
+    $exec = null;
+    
+    
+//////////////////////rights for coe/////////////////////////////
+    /*$metadatarecordSql = "INSERT INTO metadata_element_value (element_hierarchy, value, language_id, multi, record_id, parent_indexer,is_editable) VALUES ('9','yes','none',1, " . $last_record_id . ",1,NULL)";
+    $execmetadatarecordSql = $db->query($metadatarecordSql);
+    $exec = null;
+    $metadatarecordSql = "INSERT INTO metadata_element_value (element_hierarchy, value, language_id, multi, record_id, parent_indexer,is_editable) VALUES ('24','no','none',1, " . $last_record_id . ",1,NULL)";
+    $execmetadatarecordSql = $db->query($metadatarecordSql);
+    $exec = null;
+    $metadatarecordSql = "INSERT INTO metadata_element_value (element_hierarchy, value, language_id, multi, record_id, parent_indexer,is_editable) VALUES ('81','Ressource made available for free by the Council of Europe. All rights reserved.','en',1, " . $last_record_id . ",1,NULL)";
+    $execmetadatarecordSql = $db->query($metadatarecordSql);
+    $exec = null;
+*/
+///////////////////////vcard///////////////////////////
+    $entityuser = current_user(); //print_r($entityuser); break;
+///////////////////////end vcard///////////////////////////
+
+    $metadatarecordSql = "INSERT INTO metadata_element_value (element_hierarchy, value, language_id, multi, record_id, parent_indexer,is_editable) VALUES ('67','OE AP v3.0','none',1, " . $last_record_id . ",1,0)";
+    $execmetadatarecordSql = $db->query($metadatarecordSql);
+    $exec = null;
+
+    $metadatarecordSql = "INSERT INTO metadata_element_value (element_hierarchy, value, language_id, multi, record_id, parent_indexer,is_editable) VALUES ('86','Parent Element','none',1, " . $last_record_id . ",1,0)";
+    $execmetadatarecordSql = $db->query($metadatarecordSql);
+    $exec = null;
+
+
+    return $last_exhibit_id;
+}  
+
+function createresourcefromtemplate($record_id,$rowsqlfortitle) {
+
+    require_once 'Omeka/Core.php';
+    $core = new Omeka_Core;
+
+    try {
+        $db = $core->getDb();
+
+        //Force the Zend_Db to make the connection and catch connection errors
+        try {
+            $mysqli = $db->getConnection()->getConnection();
+        } catch (Exception $e) {
+            throw new Exception("<h1>MySQL connection error: [" . mysqli_connect_errno() . "]</h1>" . "<p>" . $e->getMessage() . '</p>');
+        }
+    } catch (Exception $e) {
+        die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
+    }
+    
+            $sql = "SELECT * FROM metadata_element_value WHERE record_id=" . $record_id . " order by element_hierarchy,multi ASC";
+        $exec5 = $db->query($sql);
+        $data5 = $exec5->fetchAll();
+
+
+        $itemtdb = $db->Items;
+
+//print($xml->general->title->string);
+//print($xml->technical->format); 
+        $type = $_POST['resourcetype'];
+        if ($type == 'hyperlink') {
+            $formtype = 11;
+        } elseif ($type == 'image') {
+            $formtype = 6;
+        } elseif ($type == 'file') {
+            $formtype = 20;
+        } else {
+            $formtype = 11;
+        }
+        $path_public = 0;
+
+        $date_modified = date("Y-m-d H:i:s");
+        $mainAttributesSql = "INSERT INTO $itemtdb (featured,item_type_id,public,modified,added) VALUES (0," . $formtype . ",'" . $path_public . "','" . $date_modified . "','" . $date_modified . "')";
+        $mainAttributesSql;
+        $db->exec($mainAttributesSql);
+
+
+
+        $lastExhibitIdSQL = "SELECT LAST_INSERT_ID() AS LAST_EXHIBIT_ID FROM " . $itemtdb;
+        $exec = $db->query($lastExhibitIdSQL);
+        $row = $exec->fetch();
+        $last_exhibit_id = $row["LAST_EXHIBIT_ID"];
+        $exec = null;
+
+        $entitiesRelationsdb = $db->EntitiesRelations;
+        $user_entity_id = current_user(); 
+        $entitiesRelationsSql = "INSERT INTO " . $entitiesRelationsdb . " (entity_id, relation_id, relationship_id, type, time) VALUES (" . $user_entity_id['entity_id'] . ", " . $last_exhibit_id . ",1,'Item','" . date("Y-m-d H:i:s") . "')";
+        $exec = $db->query($entitiesRelationsSql);
+
+        $path_title = htmlspecialchars($rowsqlfortitle['text']);
+        $path_title = addslashes($path_title);
+//$path_description=htmlspecialchars($path_description);
+//$path_description=addslashes($path_description);
+//$path_url=htmlspecialchars($path_url);
+//$path_url=addslashes($path_url);
+
+
+        $mainAttributesSql = "INSERT INTO omeka_element_texts (record_id ,record_type_id ,element_id,text) VALUES (" . $last_exhibit_id . ",2,68,'" . $path_title . "')";
+        //echo $mainAttributesSql;
+        $db->exec($mainAttributesSql);
+
+        $metadatarecordSql = "INSERT INTO metadata_record (id, object_id, object_type,date_modified) VALUES ('', " . $last_exhibit_id . ",'item','" . $date_modified . "')";
+        $execmetadatarecordSql = $db->query($metadatarecordSql);
+
+
+        $lastExhibitIdSQL = "SELECT LAST_INSERT_ID() AS LAST_EXHIBIT_ID FROM metadata_record";
+        $exec = $db->query($lastExhibitIdSQL);
+        $row = $exec->fetch();
+        $last_record_id = $row["LAST_EXHIBIT_ID"];
+        $exec = null;
+        
+    $metadatarecordSql = "INSERT INTO metadata_element_value (element_hierarchy, value, language_id, multi, record_id, parent_indexer,is_editable) VALUES ('60','Parent Element','none',1, " . $last_record_id . ",1,0)";
+    $execmetadatarecordSql = $db->query($metadatarecordSql);
+    $exec = null;
+
+    $metadatarecordSql = "INSERT INTO metadata_element_value (element_hierarchy, value, language_id, multi, record_id, parent_indexer,is_editable) VALUES ('61','Organic_Edunet_Schema','none',1, " . $last_record_id . ",1,0)";
+    $execmetadatarecordSql = $db->query($metadatarecordSql);
+    $exec = null;
+
+    $metadatarecordSql = "INSERT INTO metadata_element_value (element_hierarchy, value, language_id, multi, record_id, parent_indexer,is_editable) VALUES ('62','Organic_Edunet_" . $last_record_id . "','none',1, " . $last_record_id . ",1,0)";
+    $execmetadatarecordSql = $db->query($metadatarecordSql);
+    $exec = null;
+    
+    $metadatarecordSql = "INSERT INTO metadata_element_value (element_hierarchy, value, language_id, multi, record_id, parent_indexer,is_editable) VALUES ('67','OE AP v3.0','none',1, " . $last_record_id . ",1,0)";
+    $execmetadatarecordSql = $db->query($metadatarecordSql);
+    $exec = null;
+    
+
+        foreach ($data5 as $data5) {
+            
+$arr = array(60,61,62,67);
+if(!(in_array($data5['element_hierarchy'], $arr) and $data5['multi']==1)) { //echo $data5['is_editable'];
+            if(!(strlen($data5['vocabulary_record_id'])>0)){$data5['vocabulary_record_id']='NULL';}
+            if(!(strlen($data5['multi'])>0)){$data5['multi']='NULL';}
+            if(!(strlen($data5['parent_indexer'])>0)){$data5['parent_indexer']='NULL';}
+            if(!(strlen($data5['vcard_id'])>0)){$data5['vcard_id']='NULL';}
+            if(!(strlen($data5['is_editable'])>0)){$data5['is_editable']='NULL';}
+            if(!(strlen($data5['classification_id'])>0)){$data5['classification_id']='NULL';}
+            
+            $metadatarecordSql = "INSERT INTO metadata_element_value (element_hierarchy,value,language_id,vocabulary_record_id,multi,record_id,parent_indexer,vcard_id,is_editable,classification_id) VALUES 
+                ('".$data5['element_hierarchy']."','".$data5['value']."','".$data5['language_id']."',".$data5['vocabulary_record_id'].",".$data5['multi'].",".$last_record_id.",".$data5['parent_indexer'].",".$data5['vcard_id'].",".$data5['is_editable'].",'".$data5['classification_id']."')";
+           //echo "<br>";
+            $execmetadatarecordSql = $db->query($metadatarecordSql);
+            $exec = null;
+        }
+        }
+        
+        return $last_exhibit_id;
+    
+}
+    
+    ?>

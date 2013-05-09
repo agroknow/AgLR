@@ -4,7 +4,8 @@
 
 $primaryNav = array(
         __('Items') => uri('items'), 
-        __('Collections') => uri('collections')
+        __('Collections') => uri('collections'),
+        __('Templates') => uri('templates')
 
         );              
     echo nav(apply_filters('admin_navigation_main', $primaryNav));

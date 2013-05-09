@@ -153,7 +153,7 @@ if (isset($_GET['resumptionToken'])) { ///////yyyymmdd:offset:metadataprefix:set
             $row_spec = $execspec->fetch();
             $specSize = count($row_spec);
         } elseif ($resumptionTokensetSpec == 'no') {
-            $query_spec = "select * from metadata_record where validate=1 ";
+            $query_spec = "select * from metadata_record where validate=1  and object_type!='template'";
             $execspec = $db->query($query_spec);
             $row_spec = $execspec->fetch();
             $specSize = count($row_spec);
@@ -171,7 +171,7 @@ if (isset($_GET['resumptionToken'])) { ///////yyyymmdd:offset:metadataprefix:set
             } else {
                 $sqlforinstitution = " and (b.entity_id=0)";
             }
-            $query_spec = "select a.* from metadata_record as a join omeka_entities_relations as b on (b.relation_id=a.object_id and lower(b.type)=a.object_type) where a.validate=1 and b.relationship_id=1 " . $sqlforinstitution . "";
+            $query_spec = "select a.* from metadata_record as a join omeka_entities_relations as b on (b.relation_id=a.object_id and lower(b.type)=a.object_type) where a.validate=1 and b.relationship_id=1 " . $sqlforinstitution . "  and a.object_type!='template'";
             $execspec = $db->query($query_spec);
             $row_spec = $execspec->fetch();
             $specSize = count($row_spec);
@@ -295,14 +295,14 @@ if (isset($_GET['set'])) {
 if (isset($_GET['set']) or strlen($resumptionTokensetSpec) > 0) {
 
     if ($getsetn == 'resources' or $getsetn == 'pathways' or $getsetn == 'no') {
-        $sqlmetadatarecord = "select a.* from metadata_record as a where a.validate=1 " . $getset . "";
+        $sqlmetadatarecord = "select a.* from metadata_record as a where a.validate=1 " . $getset . "  and a.object_type!='template'";
     } elseif (strpos($_GET['set'], 'institution') or strpos($_GET['resumptionToken'], 'institution')) {
-        $sqlmetadatarecord = "select a.* from metadata_record as a join omeka_entities_relations as b on (b.relation_id=a.object_id and lower(b.type)=a.object_type) where a.validate=1 and b.relationship_id=1 " . $sqlforinstitution . "";
+        $sqlmetadatarecord = "select a.* from metadata_record as a join omeka_entities_relations as b on (b.relation_id=a.object_id and lower(b.type)=a.object_type) where a.validate=1 and b.relationship_id=1 " . $sqlforinstitution . "  and a.object_type!='template'";
     } else {
         $sqlmetadatarecord = "select a.* from metadata_record as a join omeka_items as b on a.object_id=b.id where a.validate=1 and a.object_type='item' " . $getsetcol . "";
     }
 } else {
-    $sqlmetadatarecord = "select a.* from metadata_record as a where a.validate=1 ";
+    $sqlmetadatarecord = "select a.* from metadata_record as a where a.validate=1 and a.object_type!='template'";
 }
 //echo $sqlmetadatarecord; break;
 $exec2 = $db->query($sqlmetadatarecord);
