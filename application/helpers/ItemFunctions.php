@@ -689,7 +689,9 @@ if(isset($_POST['item_url'])){$_POST['55_1']=$_POST['item_url']; $_POST['32_1']=
 //print_r($_POST);break;
 foreach($_POST as $var => $value)
 {
-if($var!='item_id' and $var!='title' and $var!='delete_files' and $var!='Pages' and $var!='hdnLine' and $var!='hdnLine_group_total' and $var!='hdnLine_group_vcard' and $var!='hdnLine_group_total_parent' and $var!='slug' and $var!='public' and $var!='Sections' and $var!='save_exhibit' and $var!='date_modified' and $var!='save_meta' and $var!='item_url' and $var!='collection_id'){
+$var12=explode("_",$var); //split form name at _
+if($var!='item_id' and $var!='title' and $var!='delete_files' and $var!='Pages' and $var!='hdnLine' and $var!='hdnLine_group_total' and $var!='hdnLine_group_vcard' and $var!='hdnLine_group_total_parent' and $var!='slug' and $var!='public' and $var!='Sections' and $var!='save_exhibit' and $var!='date_modified' and $var!='save_meta' and $var!='item_url' and $var!='collection_id' and $var12[0]!='translatedanalytics' and $var12[0]!='fortranslationanalytics' and $var12[0]!='translatedanalyticslan' and $var12[0]!='fortranslationanalyticslan'){
+
 $var1=explode("_",$var); //split form name at _
 if($var1[0]=='vcard'){ //if is vcard!!!
 $var=$var1[2];
@@ -1785,6 +1787,70 @@ if(!(in_array($data5['element_hierarchy'], $arr) and $data5['multi']==1)) { //ec
         
         return $last_exhibit_id;
     
+}
+function save_analytics_for_translation($postvariable=NULL,$object_type='item') {
+
+require_once 'Omeka/Core.php';
+$core = new Omeka_Core;
+
+try {
+    $db = $core->getDb();
+    
+    //Force the Zend_Db to make the connection and catch connection errors
+    try {
+        $mysqli = $db->getConnection()->getConnection();
+    } catch (Exception $e) {
+        throw new Exception("<h1>MySQL connection error: [" . mysqli_connect_errno() . "]</h1>" . "<p>" . $e->getMessage() . '</p>');
+    }
+} catch (Exception $e) {
+	die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
+}	
+
+$maxIdSQL="select * from metadata_record where object_id=".$_POST['item_id']." and object_type='".$object_type."'";
+$exec=$db->query($maxIdSQL);
+$row=$exec->fetch();
+$record_id=$row["id"];
+$exec=null;
+//print_r($_POST);break;
+$entityuser = current_user(); //print_r($entityuser); break;
+foreach($_POST as $var => $value)
+{
+$var12=explode("_",$var); //split form name at _
+if($var12[0]=='translatedanalytics' or $var12[0]=='fortranslationanalytics' or $var12[0]=='fortranslationanalyticslan' or $var12[0]==='translatedanalyticslan'){
+
+$var1=explode("_",$var); //split form name at _
+$var=$var1[0];
+$varrec=$var1[1]; 
+$varelem=$var1[2]; 
+$varmul=$var1[3]; 
+$varforcount=$var1[4]; 
+ 
+$original_text=$_POST['fortranslationanalytics_'.$varrec.'_'.$varelem.'_'.$varmul.''];
+$original_text = htmlspecialchars($original_text);
+$original_text = addslashes($original_text);
+$original_text_lang=$_POST['fortranslationanalyticslan_'.$varrec.'_'.$varelem.'_'.$varmul.''];
+$translated_text=$_POST['translatedanalytics_'.$varrec.'_'.$varelem.'_'.$varmul.'_'.$varforcount.''];
+$translated_text = htmlspecialchars($translated_text);
+$translated_text = addslashes($translated_text);
+$translated_text_lang=$_POST['translatedanalyticslan_'.$varrec.'_'.$varelem.'_'.$varmul.'_'.$varforcount.''];
+$user_fixed_text=$_POST[''.$varelem.'_'.$varmul.'_'.$varforcount.''];
+$user_fixed_text = htmlspecialchars($user_fixed_text);
+$user_fixed_text = addslashes($user_fixed_text);
+
+
+
+if($var!='fortranslationanalytics' and $var!='fortranslationanalyticslan' and $var!='translatedanalyticslan'){ //not get in if is language name at form or name is hdnline
+
+$maxIdSQL = "insert into omeka_translation_analytics SET date='" . $_POST['date_modified']. "',service_id=1,element_id='" . $varelem . "',record_id=" . $varrec . ",user_id=" . $entityuser['id'] . ",original_text='" . $original_text . "',original_text_lang='" . $original_text_lang . "',translated_text='" . $translated_text . "',translated_text_lang='" . $translated_text_lang . "',user_fixed_text='" . $user_fixed_text . "' ;";
+
+echo $maxIdSQL."<br>"; 
+$exec=$db->query($maxIdSQL);
+$result_multi=$exec->fetch();
+$exec=null;
+}//end not get in if is language name at form 
+}
+}
+return $_POST['item_id'];
 }
     
     ?>

@@ -673,6 +673,7 @@ class ItemsController extends Omeka_Controller_Action {
         $this->view->assign(compact('general_pelements', 'xml_general', 'db'));
 
         if (array_key_exists('save_meta', $_POST)) {
+            $analytics_id=save_analytics_for_translation($_POST);
             $lastexid = savemetadataitem($_POST);
             //print_r($_POST); 
             //break;
