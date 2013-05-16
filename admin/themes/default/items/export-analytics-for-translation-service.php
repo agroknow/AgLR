@@ -15,7 +15,7 @@ require_once 'Omeka/Core.php';
         } catch (Exception $e) {
             die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
         }
-        echo "<table>";
+        echo "<table border='1'>";
         echo "<tr><td>User </td><td> Service </td><td> Original Text </td><td> Original Text Lang </td><td> Translated Text </td><td> Translated Text Lang </td><td> User Input </td><td> Element </td><td> Resource </td></tr>";
 
         $execvocele2_general = $db->query("SELECT f.title,a.*,e.first_name,e.last_name,e.middle_name FROM omeka_translation_analytics a JOIN  omeka_entities e ON e.id = a.user_id JOIN  omeka_translation_analytics_service f ON f.id = a.service_id");
