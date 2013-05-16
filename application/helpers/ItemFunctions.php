@@ -1841,7 +1841,7 @@ $user_fixed_text = addslashes($user_fixed_text);
 
 if($var!='fortranslationanalytics' and $var!='fortranslationanalyticslan' and $var!='translatedanalyticslan'){ //not get in if is language name at form or name is hdnline
 
-$maxIdSQL = "insert into omeka_translation_analytics SET date='" . $_POST['date_modified']. "',service_id=1,element_id='" . $varelem . "',record_id=" . $varrec . ",user_id=" . $entityuser['id'] . ",original_text='" . $original_text . "',original_text_lang='" . $original_text_lang . "',translated_text='" . $translated_text . "',translated_text_lang='" . $translated_text_lang . "',user_fixed_text='" . $user_fixed_text . "' ;";
+$maxIdSQL = "insert into omeka_translation_analytics SET date='" . $_POST['date_modified']. "',service_id=1,element_id='" . $varelem . "',record_id=" . $varrec . ",user_id=" . $entityuser['entity_id'] . ",original_text='" . $original_text . "',original_text_lang='" . $original_text_lang . "',translated_text='" . $translated_text . "',translated_text_lang='" . $translated_text_lang . "',user_fixed_text='" . $user_fixed_text . "' ;";
 
 echo $maxIdSQL."<br>"; 
 $exec=$db->query($maxIdSQL);
