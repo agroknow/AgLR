@@ -787,25 +787,27 @@ $exec_check_if_voc=$db->query($maxIdSQL_check_if_voc);
 $result_check_if_voc=$exec_check_if_voc->fetch(); //echo $result_check_if_voc['datatype_id']."<br>";
 if ($result_check_if_voc['datatype_id'] == 6) {
                             $vocabulary_record_id = $value;
-                            $value = 'NULL';
-                            $classification_id = 'NULL';
+                            $value = NULL;
+                            $classification_id = NULL;
                         } elseif ($result_check_if_voc['datatype_id'] == 5) {
-                            $vocabulary_record_id = 'NULL';
+                            $vocabulary_record_id = NULL;
                             $classification_id = $value;
-                            $value = 'NULL';
+                            $value = NULL;
                         } else {
-                            $vocabulary_record_id = 'NULL';
-                            $classification_id = 'NULL';
+                            $vocabulary_record_id = NULL;
+                            $classification_id = NULL;
                             $value = $value;
                             $value = htmlspecialchars($value);
                             $value = addslashes($value);
                         }
 
-                        $maxIdSQL = "insert into metadata_element_value SET element_hierarchy=" . $var . ",value='" . $value . "',language_id='" . $language . "',record_id=" . $record_id . ",multi=" . $varmulti . ",parent_indexer=" . $parent_indexer . ",vocabulary_record_id=" . $vocabulary_record_id . ",classification_id='" . $classification_id . "' ON DUPLICATE KEY UPDATE value='" . $value . "',vocabulary_record_id=" . $vocabulary_record_id . ",classification_id='" . $classification_id . "'";
-
+//$maxIdSQL = "insert into metadata_element_value SET element_hierarchy=" . $var . ",value='" . $value . "',language_id='" . $language . "',record_id=" . $record_id . ",multi=" . $varmulti . ",parent_indexer=" . $parent_indexer . ",vocabulary_record_id=" . $vocabulary_record_id . ",classification_id='" . $classification_id . "' ON DUPLICATE KEY UPDATE value='" . $value . "',vocabulary_record_id=" . $vocabulary_record_id . ",classification_id='" . $classification_id . "'";
+//$mainAttributesSql="INSERT INTO omeka_element_texts (record_id ,record_type_id ,element_id,text) VALUES (?,?,?,?)";
+$maxIdSQL = "insert into metadata_element_value (element_hierarchy,value,language_id,record_id,multi,parent_indexer,vocabulary_record_id,classification_id) VALUES (?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE value=?,vocabulary_record_id=?,classification_id=?";
+$exec=$db->exec($maxIdSQL, array($var, $value, $language, $record_id,$varmulti,$parent_indexer,$vocabulary_record_id,$classification_id,$value,$vocabulary_record_id,$classification_id));//title
 //echo $maxIdSQL."<br>"; 
-$exec=$db->query($maxIdSQL);
-$result_multi=$exec->fetch();
+//$exec=$db->query($maxIdSQL);
+//$result_multi=$exec->fetch();
 $exec=null;
 }//if strlen >1 if exist value
 
@@ -839,10 +841,8 @@ $result_multi3=$execlan3->fetch();
 
 $exhibit_title_from_metadata=$result_multi3['value'];//title gia pathway
 
-
-$maxIdSQL="update omeka_element_texts SET text='".addslashes($exhibit_title_from_metadata)."' where record_id=".$_POST['item_id']."";
-//echo $maxIdSQL."<br>"; 
-$exec=$db->query($maxIdSQL);
+$maxIdSQL="update omeka_element_texts SET text=? where record_id=?";
+$exec=$db->exec($maxIdSQL, array(addslashes($exhibit_title_from_metadata), $_POST['item_id']));//title
 
 $maxIdSQL="update metadata_record SET date_modified='".$_POST['date_modified']."',validate='".$_POST['public']."' where object_id=".$_POST['item_id']." and object_type='".$object_type."'";
 $exec=$db->query($maxIdSQL);
@@ -924,18 +924,12 @@ $path_url=htmlspecialchars($path_url);
 $path_url=addslashes($path_url);
 
 
-$mainAttributesSql="INSERT INTO omeka_element_texts (record_id ,record_type_id ,element_id,text) VALUES (".$last_exhibit_id.",2,68,'".$path_title."')";
+$mainAttributesSql="INSERT INTO omeka_element_texts (record_id ,record_type_id ,element_id,text) VALUES (?,?,?,?)";
 //echo $mainAttributesSql;break;
-$db->exec($mainAttributesSql);
-
-$mainAttributesSql="INSERT INTO omeka_element_texts (record_id ,record_type_id ,element_id,text) VALUES (".$last_exhibit_id.",2,59,'".$path_description."')";
-//echo $mainAttributesSql;break;
-$db->exec($mainAttributesSql);
-
-
-$mainAttributesSql="INSERT INTO omeka_element_texts (record_id ,record_type_id ,element_id,text) VALUES (".$last_exhibit_id.",2,28,'".$path_url."')";
-//echo $mainAttributesSql;break;
-$db->exec($mainAttributesSql);
+$db->exec($mainAttributesSql, array($last_exhibit_id, 2, 68, $path_title));//title
+$db->exec($mainAttributesSql, array($last_exhibit_id, 2, 59, $path_description));//description
+$db->exec($mainAttributesSql, array($last_exhibit_id, 2, 28, $path_url));//path url
+//$db->exec($mainAttributesSql);
 
 /*===================================INSERT record for METADATA===================================*/
 $metadatarecordSql="INSERT INTO metadata_record (id, object_id, object_type,date_modified) VALUES ('', ".$last_exhibit_id.",'item','".$date_modified."')";
@@ -949,23 +943,20 @@ $last_record_id=$row["LAST_EXHIBIT_ID"];
 $exec=null;
 
 
-$metadatarecordSql="INSERT INTO metadata_element_value (element_hierarchy, value, language_id, multi, record_id, parent_indexer) VALUES ('6','".$path_title."','en',1, ".$last_record_id.",1)";
-$execmetadatarecordSql=$db->query($metadatarecordSql);
-$exec=null;
-
-$metadatarecordSql="INSERT INTO metadata_element_value (element_hierarchy, value, language_id, multi, record_id, parent_indexer) VALUES ('8','".$path_description."','en',1, ".$last_record_id.",1)";
-$execmetadatarecordSql=$db->query($metadatarecordSql);
-$exec=null;
+$metadatarecordSql="INSERT INTO metadata_element_value (element_hierarchy, value, language_id, multi, record_id, parent_indexer) VALUES (?,?,?,?,?,?)";
+$execmetadatarecordSql=$db->query($metadatarecordSql, array(8,$path_description,'en',1, $last_record_id,1)); ///description in metadata record
+$execmetadatarecordSql=$db->query($metadatarecordSql, array(6,$path_title,'en',1, $last_record_id,1)); ///title in metadata record
+$execmetadatarecordSql=null;
 
 //libraries/omeka/record.php
-$metadatarecordSql="INSERT INTO metadata_element_value (element_hierarchy, value, language_id, multi, record_id, parent_indexer,is_editable) VALUES ('32','".$path_url."','none',1, ".$last_record_id.",1,0)";
-$execmetadatarecordSql=$db->query($metadatarecordSql);
-$exec=null;
+$metadatarecordSql="INSERT INTO metadata_element_value (element_hierarchy, value, language_id, multi, record_id, parent_indexer,is_editable) VALUES (?,?,?,?,?,?,?)";
+$execmetadatarecordSql=$db->query($metadatarecordSql, array(32,$path_url,'none',1, $last_record_id,1,0)); ///location in metadata record
+$execmetadatarecordSql=null;
 
 //libraries/omeka/record.php
 $metadatarecordSql="INSERT INTO metadata_element_value (element_hierarchy, value, language_id, vocabulary_record_id, multi, record_id, parent_indexer,is_editable) VALUES ('33',NULL,'none','".$formetypetext."',1, ".$last_record_id.",1,1)";
 $execmetadatarecordSql=$db->query($metadatarecordSql);
-$exec=null;
+$execmetadatarecordSql=null;
 
 $metadatarecordSql="INSERT INTO metadata_element_value (element_hierarchy, value, language_id, vocabulary_record_id, multi, record_id, parent_indexer,is_editable) VALUES ('68',NULL,'none','305',1, ".$last_record_id.",1,1)";
 $execmetadatarecordSql=$db->query($metadatarecordSql);
@@ -979,9 +970,9 @@ $metadatarecordSql="INSERT INTO metadata_element_value (element_hierarchy, value
 $execmetadatarecordSql=$db->query($metadatarecordSql);
 $exec=null;
 
-$metadatarecordSql="INSERT INTO metadata_element_value (element_hierarchy, value, language_id, multi, record_id, parent_indexer,is_editable) VALUES ('55','".$path_url."','none',1, ".$last_record_id.",1,0)";
-$execmetadatarecordSql=$db->query($metadatarecordSql);
-$exec=null;
+$metadatarecordSql="INSERT INTO metadata_element_value (element_hierarchy, value, language_id, multi, record_id, parent_indexer,is_editable) VALUES (?,?,?,?,?,?,?)";
+$execmetadatarecordSql=$db->query($metadatarecordSql, array(55,$path_url,'none',1, $last_record_id,1,0)); ///location in metadata record
+$execmetadatarecordSql=null;
 
 $metadatarecordSql="INSERT INTO metadata_element_value (element_hierarchy, value, language_id, multi, record_id, parent_indexer,is_editable) VALUES ('60','Parent Element','none',1, ".$last_record_id.",1,0)";
 $execmetadatarecordSql=$db->query($metadatarecordSql);
