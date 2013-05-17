@@ -171,13 +171,13 @@ class ItemsController extends Omeka_Controller_Action {
                     $_SESSION['get_language_for_internal_xml'] = get_language_for_internal_xml();
                     $uri = WEB_ROOT;
                     $xml_general = array();
-                    $execvocele2_general = $db->query("SELECT d.vocabulary_id FROM metadata_element d JOIN  metadata_element_hierarchy e ON d.id = e.element_id WHERE e.datatype_id=5 and e.is_visible=1");
+                    $execvocele2_general = $db->query("SELECT d.vocabulary_id FROM metadata_element d JOIN  metadata_element_hierarchy e ON d.id = e.element_id WHERE e.datatype_id=? and e.is_visible=?", array(5,1));
                     $datavocele2 = $execvocele2_general->fetchAll();
                     $execvocele2_general = NULL;
-                    foreach ($datavocele2 as $datavocele2) {
-                        $sqlvocelem = "SELECT e.value,d.id FROM metadata_vocabulary d JOIN metadata_vocabulary_record e ON d.id = e.vocabulary_id JOIN
-					metadata_vocabulary_value f ON f.vocabulary_rid = e.id WHERE d.id=" . $datavocele2['vocabulary_id'] . "";
-                        $execvocele = $db->query($sqlvocelem);
+                    $sqlvocelem = "SELECT e.value,d.id FROM metadata_vocabulary d JOIN metadata_vocabulary_record e ON d.id = e.vocabulary_id JOIN
+					metadata_vocabulary_value f ON f.vocabulary_rid = e.id WHERE d.id=?";
+                    foreach ($datavocele2 as $datavocele2) {                      
+                        $execvocele = $db->query($sqlvocelem, array($datavocele2['vocabulary_id']));  
                         $datavocele = $execvocele->fetch();
                         $execvocele = NULL;
                         //$xmlvoc = '' . $uri . '/archive/xmlvoc/' . $datavocele['value'] . '.xml';
@@ -191,8 +191,8 @@ class ItemsController extends Omeka_Controller_Action {
                     }
 
                     //query for creating general elements pelement=0
-                    $sql2 = "SELECT * FROM metadata_element_hierarchy WHERE pelement_id=0 and is_visible=1  ORDER BY (case WHEN sequence IS NULL THEN '9999' ELSE sequence END) ASC;";
-                    $exec3 = $db->query($sql2);
+                    $sql2 = "SELECT * FROM metadata_element_hierarchy WHERE pelement_id=? and is_visible=?  ORDER BY (case WHEN sequence IS NULL THEN '9999' ELSE sequence END) ASC;";
+                    $exec3 = $db->query($sql2, array(0,1)); 
                     $general_pelements = $exec3->fetchAll();
                     $exec3 = NULL;
                     $this->view->assign(compact('general_pelements', 'xml_general', 'db'));
@@ -310,13 +310,13 @@ class ItemsController extends Omeka_Controller_Action {
         $_SESSION['get_language_for_internal_xml'] = get_language_for_internal_xml();
         $uri = WEB_ROOT;
         $xml_general = array();
-        $execvocele2_general = $db->query("SELECT d.vocabulary_id FROM metadata_element d JOIN  metadata_element_hierarchy e ON d.id = e.element_id WHERE e.datatype_id=5 and e.is_visible=1");
+        $execvocele2_general = $db->query("SELECT d.vocabulary_id FROM metadata_element d JOIN  metadata_element_hierarchy e ON d.id = e.element_id WHERE e.datatype_id=? and e.is_visible=?", array(5,1));
         $datavocele2 = $execvocele2_general->fetchAll();
         $execvocele2_general = NULL;
+        $sqlvocelem = "SELECT e.value,d.id FROM metadata_vocabulary d JOIN metadata_vocabulary_record e ON d.id = e.vocabulary_id JOIN
+					metadata_vocabulary_value f ON f.vocabulary_rid = e.id WHERE d.id=?";
         foreach ($datavocele2 as $datavocele2) {
-            $sqlvocelem = "SELECT e.value,d.id FROM metadata_vocabulary d JOIN metadata_vocabulary_record e ON d.id = e.vocabulary_id JOIN
-					metadata_vocabulary_value f ON f.vocabulary_rid = e.id WHERE d.id=" . $datavocele2['vocabulary_id'] . "";
-            $execvocele = $db->query($sqlvocelem);
+            $execvocele = $db->query($sqlvocelem, array($datavocele2['vocabulary_id']));
             $datavocele = $execvocele->fetch();
             $execvocele = NULL;
             //$xmlvoc = '' . $uri . '/archive/xmlvoc/' . $datavocele['value'] . '.xml';
@@ -329,8 +329,8 @@ class ItemsController extends Omeka_Controller_Action {
         }
 
         //query for creating general elements pelement=0
-        $sql2 = "SELECT * FROM metadata_element_hierarchy WHERE pelement_id=0 and is_visible=1  ORDER BY (case WHEN sequence IS NULL THEN '9999' ELSE sequence END) ASC;";
-        $exec3 = $db->query($sql2);
+        $sql2 = "SELECT * FROM metadata_element_hierarchy WHERE pelement_id=? and is_visible=?  ORDER BY (case WHEN sequence IS NULL THEN '9999' ELSE sequence END) ASC;";
+        $exec3 = $db->query($sql2, array(0,1)); 
         $general_pelements = $exec3->fetchAll();
         $exec3 = NULL;
         $this->view->assign(compact('general_pelements', 'xml_general', 'db'));
