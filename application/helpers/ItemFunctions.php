@@ -894,7 +894,7 @@ if($_POST['type']){$formtype=$_POST['type'];} else{$formtype="0";}
 if($formtype==11){$formetypetext='text/html'; $formetypetext=find_voc_rec_id($formetypetext,21);} elseif(isset($_FILES['file']['type']['0'])){
 $formetypetext=FiletypeMapping($_FILES['file']['type']['0']);
 if(stripos(' '.$_FILES['file']['type']['0'],"image")>0){$formtype=6;}else{$formtype=20;}
-} else{$formetypetext="";}
+} else{$formetypetext=NULL;}
 //if($_POST['Elements']['68']['0']['text']){$path_title=addslashes($_POST['Elements']['68']['0']['text']);} else{$path_title="resource-title-".$max_id."";}
 if($_POST['public']){$path_public=$_POST['public'];} else{$path_public="0";}
 
@@ -954,8 +954,8 @@ $execmetadatarecordSql=$db->query($metadatarecordSql, array(32,$path_url,'none',
 $execmetadatarecordSql=null;
 
 //libraries/omeka/record.php
-$metadatarecordSql="INSERT INTO metadata_element_value (element_hierarchy, value, language_id, vocabulary_record_id, multi, record_id, parent_indexer,is_editable) VALUES ('33',NULL,'none','".$formetypetext."',1, ".$last_record_id.",1,1)";
-$execmetadatarecordSql=$db->query($metadatarecordSql);
+$metadatarecordSql="INSERT INTO metadata_element_value (element_hierarchy, value, language_id, vocabulary_record_id, multi, record_id, parent_indexer,is_editable) VALUES (?,?,?,?,?,?,?,?)";
+$execmetadatarecordSql=$db->query($metadatarecordSql, array(33,NULL,'none',$formetypetext,1, $last_record_id,1,1));
 $execmetadatarecordSql=null;
 
 $metadatarecordSql="INSERT INTO metadata_element_value (element_hierarchy, value, language_id, vocabulary_record_id, multi, record_id, parent_indexer,is_editable) VALUES ('68',NULL,'none','305',1, ".$last_record_id.",1,1)";

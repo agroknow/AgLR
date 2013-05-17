@@ -141,16 +141,16 @@
         $exec4=NULL;
 //end
 //query for all values
-        $sql = "SELECT * FROM metadata_record WHERE object_id=" . $item->id . " and object_type='item'";
-        $execrecord = $db->query($sql);
+        $sql = "SELECT * FROM metadata_record WHERE object_id=? and object_type=?";
+        $execrecord = $db->query($sql, array($item->id,'item'));        
         $record = $execrecord->fetch();
         $execrecord =NULL;
         $record_id = $record['id'];
 //end
 //query for all languages iso vocabulary_record=13 (ISO LANGUAGES)
-        $sqllan = "SELECT e.value,e.sequence,e.id as vov_rec_id FROM metadata_vocabulary_record e JOIN
-					metadata_vocabulary_value f ON f.vocabulary_rid = e.id WHERE e.vocabulary_id=23 and e.public=1  and f.language_id='" . get_language_for_switch() . "'  ORDER BY (case WHEN e.sequence IS NULL THEN '99999' END),e.sequence,f.label ASC";
-        $execlan = $db->query($sqllan);
+         $sqllan = "SELECT e.value,e.sequence,e.id as vov_rec_id FROM metadata_vocabulary_record e JOIN
+					metadata_vocabulary_value f ON f.vocabulary_rid = e.id WHERE e.vocabulary_id=? and e.public=?  and f.language_id=?  ORDER BY (case WHEN e.sequence IS NULL THEN '99999' END),e.sequence,f.label ASC";
+        $execlan=$db->query($sqllan, array(23,1,get_language_for_switch()));    
         $datalan = $execlan->fetchAll();
         $execlan =NULL;
 

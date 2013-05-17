@@ -1760,7 +1760,7 @@ function checkelement($dataform, $datalan, $record, $depth = 0, $extra = NULL, $
 
     $db = Zend_Registry::get('db');
 
-    $exec5 = $db->query("SELECT * FROM metadata_element_value WHERE record_id='" . $record['id'] . "' and element_hierarchy='" . $dataform['id'] . "' ORDER BY (case WHEN multi IS NULL THEN '9999' ELSE multi END) ASC");
+    $exec5 = $db->query("SELECT * FROM metadata_element_value WHERE record_id=? and element_hierarchy=? ORDER BY (case WHEN multi IS NULL THEN '9999' ELSE multi END) ASC", array($record['id'],$dataform['id'])); 
     $data6 = $exec5->fetchAll();
     $exec5 = NULL;
 
@@ -2138,15 +2138,15 @@ function createnew_xml_selectbox($id, $divid, $vocabulary_id, $ontology = NULL) 
         } else {
             $language_id = $_SESSION['get_language'];
         }
-        $sql2 = "SELECT * FROM metadata_element_label WHERE element_id=" . $element_id . " and language_id='" . $language_id . "'";
-        $exec2 = $db->query($sql2);
+        $sql2 = "SELECT * FROM metadata_element_label WHERE element_id=? and language_id=?";
+        $exec2 = $db->query($sql2, array($element_id,$language_id));       
         $datageneral = $exec2->fetch();
 
         if ($datageneral['id'] > 0) {
             $datageneral = $datageneral;
         } else {
-            $sql2 = "SELECT * FROM metadata_element_label WHERE element_id=" . $element_id . " and language_id='en'";
-            $exec2 = $db->query($sql2);
+            //$sql2 = "SELECT * FROM metadata_element_label WHERE element_id=? and language_id=?";
+            $exec2 = $db->query($sql2, array($element_id,'en')); 
             $datageneral = $exec2->fetch();
         }
         $exec2 = NULL;
@@ -2161,14 +2161,14 @@ function createnew_xml_selectbox($id, $divid, $vocabulary_id, $ontology = NULL) 
         } else {
             $language_id = $_SESSION['get_language'];
         }
-        $sql2 = "SELECT * FROM metadata_vocabulary_value WHERE vocabulary_rid=" . $voc_rec_id . " and language_id='" . $language_id . "'";
-        $exec2 = $db->query($sql2);
+        $sql2 = "SELECT * FROM metadata_vocabulary_value WHERE vocabulary_rid=? and language_id=?";
+        $exec2 = $db->query($sql2, array($voc_rec_id,$language_id));     
         $datageneral = $exec2->fetch();
         if ($datageneral['id'] > 0) {
             $datageneral = $datageneral;
         } else {
-            $sql2 = "SELECT * FROM metadata_vocabulary_value WHERE vocabulary_rid=" . $voc_rec_id . " and language_id='en'";
-            $exec2 = $db->query($sql2);
+            //$sql2 = "SELECT * FROM metadata_vocabulary_value WHERE vocabulary_rid=? and language_id=?";
+            $exec2 = $db->query($sql2, array($voc_rec_id,'en'));
             $datageneral = $exec2->fetch();
         }
         $exec2 = NULL;
@@ -2183,14 +2183,14 @@ function createnew_xml_selectbox($id, $divid, $vocabulary_id, $ontology = NULL) 
         } else {
             $language_id = $_SESSION['get_language'];
         }
-        $sql2 = "SELECT * FROM metadata_element_label_description WHERE element_id=" . $element_id . " and language_id='" . $language_id . "' and public=1";
-        $exec2 = $db->query($sql2);
+        $sql2 = "SELECT * FROM metadata_element_label_description WHERE element_id=? and language_id=? and public=?";
+        $exec2 = $db->query($sql2, array($element_id,$language_id,1));
         $datageneral = $exec2->fetch();
         if ($datageneral['id'] > 0) {
             $datageneral = $datageneral;
         } else {
-            $sql2 = "SELECT * FROM metadata_element_label_description WHERE element_id=" . $element_id . " and language_id='en' and public=1";
-            $exec2 = $db->query($sql2);
+            //$sql2 = "SELECT * FROM metadata_element_label_description WHERE element_id=? and language_id=? and public=?";
+            $exec2 = $db->query($sql2, array($element_id,'en',1));
             $datageneral = $exec2->fetch();
         }
         $exec2 = NULL;
@@ -2294,22 +2294,22 @@ function createnew_xml_selectbox($id, $divid, $vocabulary_id, $ontology = NULL) 
         } catch (Exception $e) {
             die($e->getMessage() . '<p>Please refer to <a href="http://omeka.org/codex/">Omeka documentation</a> for help.</p>');
         }
-        if (strlen($vocabulary_record_id) > 0) {
+         if (strlen($vocabulary_record_id) > 0) {
             $vocabulary_record_id = $vocabulary_record_id;
         } else {
-            $vocabulary_record_id = 'NULL';
+            $vocabulary_record_id = NULL;
         }
-        $lastExhibitIdSQL = "SELECT * FROM metadata_record where object_id=" . $item_id . " and object_type='" . $object_type . "'";
-        $exec = $db->query($lastExhibitIdSQL);
+        $lastExhibitIdSQL = "SELECT * FROM metadata_record where object_id=? and object_type=?";
+        $exec = $db->query($lastExhibitIdSQL, array($item_id,$object_type));        
         $row = $exec->fetch();
         $last_record_id = $row["id"];
         $exec = null;
         $value = htmlspecialchars($value);
         $value = addslashes($value);
-        $metadatarecordSql = "INSERT INTO metadata_element_value (element_hierarchy, value, language_id, vocabulary_record_id, multi, record_id, parent_indexer) VALUES ('" . $element_hierarchy . "','" . $value . "','none', " . $vocabulary_record_id . ",1, " . $last_record_id . ", " . $parent_indexer . ") ON DUPLICATE KEY UPDATE value='" . $value . "',vocabulary_record_id=" . $vocabulary_record_id . "";
+        $metadatarecordSql = "INSERT INTO metadata_element_value (element_hierarchy, value, language_id, vocabulary_record_id, multi, record_id, parent_indexer) VALUES (?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE value=?,vocabulary_record_id=?";
 //echo $metadatarecordSql;break;
-        $execmetadatarecordSql = $db->query($metadatarecordSql);
-        $exec = null;
+        $execmetadatarecordSql = $db->query($metadatarecordSql, array($element_hierarchy,$value,'none',$vocabulary_record_id,1,$last_record_id,$parent_indexer,$value,$vocabulary_record_id));    
+        $execmetadatarecordSql = null;
     }
 
     function map_language_for_xerox2($language, $for_xerox = NULL) {
