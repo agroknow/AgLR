@@ -690,7 +690,7 @@ if(isset($_POST['item_url'])){$_POST['55_1']=$_POST['item_url']; $_POST['32_1']=
 foreach($_POST as $var => $value)
 {
 $var12=explode("_",$var); //split form name at _
-if($var!='item_id' and $var!='title' and $var!='delete_files' and $var!='Pages' and $var!='hdnLine' and $var!='hdnLine_group_total' and $var!='hdnLine_group_vcard' and $var!='hdnLine_group_total_parent' and $var!='slug' and $var!='public' and $var!='Sections' and $var!='save_exhibit' and $var!='date_modified' and $var!='save_meta' and $var!='item_url' and $var!='collection_id' and $var12[0]!='translatedanalytics' and $var12[0]!='fortranslationanalytics' and $var12[0]!='translatedanalyticslan' and $var12[0]!='fortranslationanalyticslan'){
+if($var!='item_id' and $var!='title' and $var!='delete_files' and $var!='Pages' and $var!='hdnLine' and $var!='hdnLine_group_total' and $var!='hdnLine_group_vcard' and $var!='hdnLine_group_total_parent' and $var!='slug' and $var!='public' and $var!='Sections' and $var!='save_exhibit' and $var!='date_modified' and $var!='save_meta' and $var!='item_url' and $var!='collection_id' and $var12[0]!='translatedanalytics' and $var12[0]!='fortranslationanalytics' and $var12[0]!='translatedanalyticslan' and $var12[0]!='fortranslationanalyticslan' and $var12[0]!='translatedanalyticsservice'){
 
 $var1=explode("_",$var); //split form name at _
 if($var1[0]=='vcard'){ //if is vcard!!!
@@ -1827,15 +1827,27 @@ $translated_text_lang=$_POST['translatedanalyticslan_'.$varrec.'_'.$varelem.'_'.
 $user_fixed_text=$_POST[''.$varelem.'_'.$varmul.'_'.$varforcount.''];
 $user_fixed_text = htmlspecialchars($user_fixed_text);
 $user_fixed_text = addslashes($user_fixed_text);
+$translated_service=$_POST['translatedanalyticsservice_'.$varrec.'_'.$varelem.'_'.$varmul.'_'.$varforcount.''];
 
-
+$result_multi=NULL;
+$maxIdSQL = "select * from omeka_translation_analytics_service where title=?;";
+$exec=$db->query($maxIdSQL,array($translated_service));
+$result_multi=$exec->fetch();
+if(!$result_multi['id']>0 and strlen($translated_service)>0){
+$maxIdSQL = "insert into omeka_translation_analytics_service SET title=?;";
+$exec=$db->query($maxIdSQL,array($translated_service));
+$maxIdSQL = "select * from omeka_translation_analytics_service where title=?;";
+$exec=$db->query($maxIdSQL,array($translated_service));
+$result_multi=$exec->fetch();
+}
+$exec=null;
 
 if($var!='fortranslationanalytics' and $var!='fortranslationanalyticslan' and $var!='translatedanalyticslan'){ //not get in if is language name at form or name is hdnline
 
-$maxIdSQL = "insert into omeka_translation_analytics SET date='" . $_POST['date_modified']. "',service_id=1,element_id='" . $varelem . "',record_id=" . $varrec . ",user_id=" . $entityuser['entity_id'] . ",original_text='" . $original_text . "',original_text_lang='" . $original_text_lang . "',translated_text='" . $translated_text . "',translated_text_lang='" . $translated_text_lang . "',user_fixed_text='" . $user_fixed_text . "' ;";
+$maxIdSQL = "insert into omeka_translation_analytics SET date=?,service_id=?,element_id=?,record_id=?,user_id=?,original_text=?,original_text_lang=?,translated_text=?,translated_text_lang=?,user_fixed_text=? ;";
 
-echo $maxIdSQL."<br>"; 
-$exec=$db->query($maxIdSQL);
+//echo $maxIdSQL."<br>"; 
+$exec=$db->query($maxIdSQL,array($_POST['date_modified'],$result_multi['id'],$varelem,$varrec,$entityuser['entity_id'],$original_text,$original_text_lang,$translated_text,$translated_text_lang,$user_fixed_text));
 $result_multi=$exec->fetch();
 $exec=null;
 }//end not get in if is language name at form 

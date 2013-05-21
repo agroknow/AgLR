@@ -771,7 +771,8 @@ function lomtextareaform($data6, $dataform, $datalan, $parent_multi = NULL, $rec
         $size_of_objects = sizeof($_POST['language_select']);
         for ($x = 0; $x < $size_of_objects; $x++) {
             $language_select = & $_POST['language_select'][$x];
-            $languagearray[] = map_language_for_xerox2($language_select);
+            //$languagearray[] = map_language_for_xerox2($language_select);
+            $languagearray[] = $language_select;
             unset($language_select);
             //unset($_POST['language_select'][$x]);
         }
@@ -801,7 +802,7 @@ function lomtextareaform($data6, $dataform, $datalan, $parent_multi = NULL, $rec
             $exec523 = NULL;
             if ($data623) {
                 $string_source = $data623['value'];
-                $language_source = 'en-EN';
+                $language_source = 'en';
                 $output.='<input type="hidden" name="fortranslationanalytics_'.$record['id'].'_'.$dataform['id'].'_'.$multi_languagearray_for.'" value="'.$string_source.'">';
                 $output.='<input type="hidden" name="fortranslationanalyticslan_'.$record['id'].'_'.$dataform['id'].'_'.$multi_languagearray_for.'" value="'.$language_source.'">';
             } else {
@@ -810,12 +811,12 @@ function lomtextareaform($data6, $dataform, $datalan, $parent_multi = NULL, $rec
                 $exec5234 = $db->query($sqltest234);
                 $data6234 = $exec5234->fetch();
                 $exec5234 = NULL;
-                $string_source2 = $data6234['value'];
-                $language_source2 = map_language_for_xerox2($data6234['language_id'], 1);
-                $string_source = translatexerox('en-EN', $string_source2, $language_source2);
-                $language_source = 'en-EN';
-                $output.='<input type="hidden" name="fortranslationanalytics_'.$record['id'].'_'.$dataform['id'].'_'.$multi_languagearray_for.'" value="'.$string_source2.'">';
-                $output.='<input type="hidden" name="fortranslationanalyticslan_'.$record['id'].'_'.$dataform['id'].'_'.$multi_languagearray_for.'" value="'.$language_source2.'">';
+                $string_source = $data6234['value'];
+                //$language_source2 = map_language_for_xerox2($data6234['language_id'], 1);
+                //$string_source = translatexerox('en-EN', $string_source2, $language_source2);
+                $language_source = $data6234['language_id'];
+                $output.='<input type="hidden" name="fortranslationanalytics_'.$record['id'].'_'.$dataform['id'].'_'.$multi_languagearray_for.'" value="'.$string_source.'">';
+                $output.='<input type="hidden" name="fortranslationanalyticslan_'.$record['id'].'_'.$dataform['id'].'_'.$multi_languagearray_for.'" value="'.$language_source.'">';
             }
             
             foreach ($languagearray as $languagearray_for) {
@@ -877,16 +878,12 @@ function lomtextareaform($data6, $dataform, $datalan, $parent_multi = NULL, $rec
                     $formcounttotal+=1;
                     $output.='<div id="' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_field" style="clear:both;">';
                     $output.='This is a translation proposed by the system <br> ';
-                    if ($languagearray_for == 'en') {
-                        $translated_text=$string_source;
-                        $output.= createlomelement('textarea', '' . $dataform['id'] . '_' . $multi . '_' . $formcount . '', '' . $translated_text . '', 'rows="4" cols="60" class="textinput" id="' . $dataform['id'] . '_' . $multi . '_' . $formcount . '" style="float:left;background-color:#DDDAD3;"', NULL, NULL, NULL, NULL, $datarecoreditable) . '&nbsp;&nbsp';
-                    } else {
-                        $translated_text=translatexerox(map_language_for_xerox2($languagearray_for, 1), $string_source, $language_source);
-                        $output.= createlomelement('textarea', '' . $dataform['id'] . '_' . $multi . '_' . $formcount . '', '' . $translated_text . '', 'rows="4" cols="60" class="textinput" id="' . $dataform['id'] . '_' . $multi . '_' . $formcount . '" style="float:left;background-color:#FFF8E7;border:2px solid #A74C29;"', NULL, NULL, NULL, NULL, $datarecoreditable) . '&nbsp;&nbsp';
-                    }
-                    $output.='<input type="hidden" name="translatedanalytics_'.$record['id'].'_'.$dataform['id'].'_' . $multi . '_' . $formcount . '" value="'.$translated_text.'">';
+                        $translated_text=translatexerox($languagearray_for, $string_source, $language_source);
+                        $output.= createlomelement('textarea', '' . $dataform['id'] . '_' . $multi . '_' . $formcount . '', '' . $translated_text['text'] . '', 'rows="4" cols="60" class="textinput" id="' . $dataform['id'] . '_' . $multi . '_' . $formcount . '" style="float:left;background-color:#FFF8E7;border:2px solid #A74C29;"', NULL, NULL, NULL, NULL, $datarecoreditable) . '&nbsp;&nbsp';
+                    $output.='<input type="hidden" name="translatedanalytics_'.$record['id'].'_'.$dataform['id'].'_' . $multi . '_' . $formcount . '" value="'.$translated_text['text'].'">';
                     $output.='<input type="hidden" name="translatedanalyticslan_'.$record['id'].'_'.$dataform['id'].'_' . $multi . '_' . $formcount . '" value="'.$languagearray_for.'">';
-
+                    $output.='<input type="hidden" name="translatedanalyticsservice_'.$record['id'].'_'.$dataform['id'].'_' . $multi . '_' . $formcount . '" value="'.$translated_text['service'].'">';
+                    
                     $output.='<div style="position:relative; left:5px; top:2px; float:left;"> ';
                     //if hierarchy type= langstring/////////////////////////////////////////////
                     if ($dataform['datatype_id'] === 1) {
@@ -1237,7 +1234,8 @@ function lomtextform($data6, $dataform, $datalan, $parent_multi = NULL, $record 
 
         $languagearray = array();
         foreach ($_POST['language_select'] as $language_select) {
-            $languagearray[] = map_language_for_xerox2($language_select);
+            //$languagearray[] = map_language_for_xerox2($language_select);
+            $languagearray[] = $language_select;
         }
 
         $multi_languagearray = array();
@@ -1261,24 +1259,23 @@ function lomtextform($data6, $dataform, $datalan, $parent_multi = NULL, $record 
             $exec523 = $db->query($sqltest23);
             $data623 = $exec523->fetch();
             $exec523 = NULL;
-            if ($data623) {
+           if ($data623) {
                 $string_source = $data623['value'];
-                $language_source = 'en-EN';
+                $language_source = 'en';
                 $output.='<input type="hidden" name="fortranslationanalytics_'.$record['id'].'_'.$dataform['id'].'_'.$multi_languagearray_for.'" value="'.$string_source.'">';
                 $output.='<input type="hidden" name="fortranslationanalyticslan_'.$record['id'].'_'.$dataform['id'].'_'.$multi_languagearray_for.'" value="'.$language_source.'">';
-
             } else {
                 $sqltest234 = "SELECT * FROM metadata_element_value WHERE record_id='" . $record['id'] . "' and element_hierarchy='" . $dataform['id'] . "' and multi='" . $multi_languagearray_for . "' ORDER BY (case WHEN multi IS NULL THEN '9999' ELSE multi END) ASC";
                 //echo $sqltest234; //break;
                 $exec5234 = $db->query($sqltest234);
                 $data6234 = $exec5234->fetch();
                 $exec5234 = NULL;
-                $string_source2 = $data6234['value'];
-                $language_source2 = map_language_for_xerox2($data6234['language_id'], 1);
-                $string_source = translatexerox('en-EN', $string_source2, $language_source2);
-                $language_source = 'en-EN';
-                $output.='<input type="hidden" name="fortranslationanalytics_'.$record['id'].'_'.$dataform['id'].'_'.$multi_languagearray_for.'" value="'.$string_source2.'">';
-                $output.='<input type="hidden" name="fortranslationanalyticslan_'.$record['id'].'_'.$dataform['id'].'_'.$multi_languagearray_for.'" value="'.$language_source2.'">';
+                $string_source = $data6234['value'];
+                //$language_source2 = map_language_for_xerox2($data6234['language_id'], 1);
+                //$string_source = translatexerox('en-EN', $string_source2, $language_source2);
+                $language_source = $data6234['language_id'];
+                $output.='<input type="hidden" name="fortranslationanalytics_'.$record['id'].'_'.$dataform['id'].'_'.$multi_languagearray_for.'" value="'.$string_source.'">';
+                $output.='<input type="hidden" name="fortranslationanalyticslan_'.$record['id'].'_'.$dataform['id'].'_'.$multi_languagearray_for.'" value="'.$language_source.'">';
             }
 
 
@@ -1344,15 +1341,12 @@ function lomtextform($data6, $dataform, $datalan, $parent_multi = NULL, $record 
                     $output.='<div id="' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_field" style="clear:both;position:relative;padding-top:2px;">';
                     //$output.= createlomelement('text', '' . $dataform['id'] . '_' . $multi . '_' . $formcount . '', '' . translatexerox(map_language_for_xerox2($languagearray_for,1), $string_in_english) . '', 'rows="4" cols="60" class="textinput" id="' . $dataform['id'] . '_' . $multi . '_' . $formcount . '" style="float:left;"', NULL, NULL, NULL, NULL, $datarecoreditable) . '&nbsp;&nbsp';
                     $output.='This is a translation proposed by the system <br> ';
-                    if ($languagearray_for == 'en') {
-                        $translated_text=$string_source;
-                        $output.= createlomelement('text', '' . $dataform['id'] . '_' . $multi . '_' . $formcount . '', '' . $translated_text . '', 'class="textinput" id="' . $dataform['id'] . '_' . $multi . '_' . $formcount . '" style="float:left;width:200px; background-color:#DDDAD3;"', NULL, NULL, NULL, NULL, $datarecoreditable) . '&nbsp;&nbsp';
-                    } else {
-                        $translated_text=translatexerox(map_language_for_xerox2($languagearray_for, 1), $string_source, $language_source);
-                        $output.= createlomelement('text', '' . $dataform['id'] . '_' . $multi . '_' . $formcount . '', '' . $translated_text . '', 'class="textinput" id="' . $dataform['id'] . '_' . $multi . '_' . $formcount . '" style="float:left;width:200px; background-color:#FFF8E7;border:2px solid #A74C29;"', NULL, NULL, NULL, NULL, $datarecoreditable) . '&nbsp;&nbsp';
-                    }
-                    $output.='<input type="hidden" name="translatedanalytics_'.$record['id'].'_'.$dataform['id'].'_' . $multi . '_' . $formcount . '" value="'.$translated_text.'">';
+                    $translated_text=translatexerox($languagearray_for, $string_source, $language_source);
+                    $output.= createlomelement('text', '' . $dataform['id'] . '_' . $multi . '_' . $formcount . '', '' . $translated_text['text'] . '', 'class="textinput" id="' . $dataform['id'] . '_' . $multi . '_' . $formcount . '" style="float:left;width:200px; background-color:#FFF8E7;border:2px solid #A74C29;"', NULL, NULL, NULL, NULL, $datarecoreditable) . '&nbsp;&nbsp';
+                    
+                    $output.='<input type="hidden" name="translatedanalytics_'.$record['id'].'_'.$dataform['id'].'_' . $multi . '_' . $formcount . '" value="'.$translated_text['text'].'">';
                     $output.='<input type="hidden" name="translatedanalyticslan_'.$record['id'].'_'.$dataform['id'].'_' . $multi . '_' . $formcount . '" value="'.$languagearray_for.'">';
+                    $output.='<input type="hidden" name="translatedanalyticsservice_'.$record['id'].'_'.$dataform['id'].'_' . $multi . '_' . $formcount . '" value="'.$translated_text['service'].'">'; 
 
                     $output.='<div style="position:relative; left:5px; top:2px; float:left;"> ';
                     //if hierarchy type= langstring/////////////////////////////////////////////
@@ -2374,8 +2368,8 @@ function createnew_xml_selectbox($id, $divid, $vocabulary_id, $ontology = NULL) 
 //            $token = $obj->access_token;
             //$token = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name=gkista&http://open.xerox.com/LLTokenId=41&Issuer=https://open.xerox.com&Audience=https://open.xerox.com&ExpiresOn=1355443200&HMACSHA256=EbgxS4cjiu2uCugubzyn64MO9nsrOV%2byPNG2SmiEzw0%3d";
             /////until february 2015!!!!!!
-            $token = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name=gkista&http://open.xerox.com/LLTokenId=50&Issuer=https://open.xerox.com&Audience=https://open.xerox.com&ExpiresOn=1425081600&HMACSHA256=eWdmtuu%2b6o2XjPb9lxm3Gh52Fny0NEWu6YxGltvgtJI%3d";
-
+            //$token = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name=gkista&http://open.xerox.com/LLTokenId=50&Issuer=https://open.xerox.com&Audience=https://open.xerox.com&ExpiresOn=1425081600&HMACSHA256=eWdmtuu%2b6o2XjPb9lxm3Gh52Fny0NEWu6YxGltvgtJI%3d";
+/*
             $text = htmlentities($text, ENT_QUOTES, 'UTF-8'); //////add this for characters not ascii ”
             $header = 'Content-Type: application/json' . "\r\n";
             $header.= 'Host: services.open.xerox.com' . "\r\n";
@@ -2391,13 +2385,35 @@ function createnew_xml_selectbox($id, $divid, $vocabulary_id, $ontology = NULL) 
 "encoding":"UTF-8"
 }',
                     )));
-
+*/
 //print_r($context2); break;
-            $page2 = file_get_contents("https://services.open.xerox.com/RestOp/TranslabOrganicLingua/TranslateTextStringSync", false, $context2);
-            $obj2 = json_decode($page2);
+            ///////call analytic service
+            //$text = htmlentities($text, ENT_QUOTES, 'UTF-8'); //////add this for characters not ascii ”
+            $text=urlencode($text);
+            //echo "http://62.217.124.232/translationapi/analytics/translate?text=".$text."&from=".$sourceLanguage."&to=".$targetLanguage."";
+            $page2 = file_get_contents("http://62.217.124.232/translationapi/analytics/translate?text=".$text."&from=".$sourceLanguage."&to=".$targetLanguage."");
+            $returning_results=array();
+            if($page2){
+              $obj2 = json_decode($page2); 
+              if($obj2 and $obj2->data->translation){
+                 $returning_results['text']= $obj2->data->translation; 
+              }else{
+                 $returning_results['text']= '';  
+              }
+              if($obj2 and $obj2->data->service_used){
+                 $returning_results['service']= $obj2->data->service_used;
+              }else{
+                 $returning_results['service']= 'None';  
+              }
+                
+            }else{
+             $returning_results['text']='';$returning_results['service']='None';   
+            }
+            //print_r($returning_results);break;
+            return $returning_results;
 //print_r($page2);
 //            echo "<br><br>";
-
+/*
             foreach ($obj2 as $obj3) {
                 foreach ($obj3 as $key => $obj4) {
                     if ($key == 'n:StringResponse') {
@@ -2427,7 +2443,7 @@ function createnew_xml_selectbox($id, $divid, $vocabulary_id, $ontology = NULL) 
                         }
                     }
                 }
-            }
+            }*/
         }//if strlen language
     }
 
