@@ -28,6 +28,40 @@ jQuery(document).bind('omeka:elementformload', function () {
 });
 //]]>   
 </script>
+<script type="text/javascript">
+        function suggestmetadata(urllink) {
+
+if (urllink && !urllink.match(/^http([s]?):\/\/.*/)) {
+    urllink='http://' + urllink;
+  }
+urllink=encodeURI(urllink);
+jQuery.getJSON("http://organiclingua.know-center.tugraz.at:8080/ol/Service?operation=extractDescription&element="+urllink+"",function(result){
+      var titletext;
+      var descriptiontext;
+      jQuery.each(result, function(i, field){
+        if(i=="title"){
+titletext=field;
+}
+if(i=="description"){
+descriptiontext=field;
+
+}
+  });   
+var answer = confirm("Are you sure you want add Title: '"+titletext+"'?");
+                if (answer){
+                 jQuery("#titletext").html(titletext);
+                }
+var answer = confirm("Are you sure you want add Description: '"+descriptiontext+"'?");
+                if (answer){
+                 jQuery("#descriptiontext").html(descriptiontext);   
+                }
+
+
+
+      
+    });
+        }
+        </script>
 
 <?php echo flash(); ?>
 
@@ -48,25 +82,27 @@ jQuery(document).bind('omeka:elementformload', function () {
 <div id="item-metadata">
 
 <div class="field">
+		<label for="title" id="title"><b>*URL</b></label>
+        <?php //$title=item('Dublin Core', 'Title'); ?>
+		<textarea rows="4" cols="70" class="textinput" name="link" id="link" /></textarea>
+		<?php //echo form_error('title'); ?>
+<a href="javascript:void(0);" onclick="suggestmetadata(document.getElementById('link').value);return false;" class="submit" style="font-size: 13px; clear: none; float: none; left:15px; top: 5px; position: relative;"><?php echo __('Suggest Metadata'); ?></a>
+</div> 
+        
+<div class="field">
 		<label for="title" id="title"><b>*<?php echo __('Title'); ?></b></label>
         <?php //$title=item('Dublin Core', 'Title'); ?>
-		<textarea rows="4" cols="70" class="textinput" name="title" /></textarea>
+		<textarea rows="4" cols="70" class="textinput" name="title" id="titletext" /></textarea>
 		<?php //echo form_error('title'); ?>
 </div> 
 
 <div class="field">
 		<label for="title" id="title"><b>*<?php echo __('Description'); ?></b></label>
         <?php //$title=item('Dublin Core', 'Title'); ?>
-		<textarea rows="4" cols="70" class="textinput" name="description" /></textarea>
+		<textarea rows="4" cols="70" class="textinput" name="description"  id="descriptiontext" /></textarea>
 		<?php //echo form_error('title'); ?>
 </div> 
 
-<div class="field">
-		<label for="title" id="title"><b>*URL</b></label>
-        <?php //$title=item('Dublin Core', 'Title'); ?>
-		<textarea rows="4" cols="70" class="textinput" name="link" /></textarea>
-		<?php //echo form_error('title'); ?>
-</div> 
 <input type="hidden" name="type" value="11">
 
 <div id="stepbuttoncollection">
