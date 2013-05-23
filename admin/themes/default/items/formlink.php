@@ -47,14 +47,14 @@ descriptiontext=field;
 
 }
   });   
-var answer = confirm("Are you sure you want add Title: '"+titletext+"'?");
-                if (answer){
+//var answer = confirm("Are you sure you want add Title: '"+titletext+"'?");
+                //if (answer){
                  jQuery("#titletext").html(titletext);
-                }
-var answer = confirm("Are you sure you want add Description: '"+descriptiontext+"'?");
-                if (answer){
+               // }
+//var answer = confirm("Are you sure you want add Description: '"+descriptiontext+"'?");
+                //if (answer){
                  jQuery("#descriptiontext").html(descriptiontext);   
-                }
+               // }
 
 
 
