@@ -2391,9 +2391,14 @@ function createnew_xml_selectbox($id, $divid, $vocabulary_id, $ontology = NULL) 
             //$text = htmlentities($text, ENT_QUOTES, 'UTF-8'); //////add this for characters not ascii ”
             $text=urlencode($text);
             //echo "http://62.217.124.232/translationapi/analytics/translate?text=".$text."&from=".$sourceLanguage."&to=".$targetLanguage."";
-            $page2 = file_get_contents("aglr.agroknow.gr/translationapi/analytics/translate?text=".$text."&from=".$sourceLanguage."&to=".$targetLanguage."");
+            $ctx=stream_context_create(array('http'=>
+    array(
+        'timeout' => 1200 // 20 minutes
+    )
+));
+            $page2 = file_get_contents("http://aglr.agroknow.gr/translationapi/analytics/translate?text=".$text."&from=".$sourceLanguage."&to=".$targetLanguage."",false,$ctx);
             $returning_results=array();
-            if($page2){
+            if(!$page2===false){
               $obj2 = json_decode($page2); 
               if($obj2 and $obj2->data->translation){
                  $returning_results['text']= $obj2->data->translation; 
