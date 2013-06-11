@@ -12,7 +12,7 @@ $xmlobj = @simplexml_load_file('http://' . $_SERVER['SERVER_NAME'] . '' . uri('o
 if ($xmlobj === false)
     die('Bad XML response!');
 
-
+ 
 $output .= '<hierarchy rootElement="#OAAEConcept">';
 
 /////get all elements with the name:'owl:Class'
