@@ -798,7 +798,7 @@ if ($result_check_if_voc['datatype_id'] == 6) {
                             $classification_id = NULL;
                             $value = $value;
                             $value = htmlspecialchars($value);
-                            $value = addslashes($value);
+                            //$value = addslashes($value);
                         }
 
 //$maxIdSQL = "insert into metadata_element_value SET element_hierarchy=" . $var . ",value='" . $value . "',language_id='" . $language . "',record_id=" . $record_id . ",multi=" . $varmulti . ",parent_indexer=" . $parent_indexer . ",vocabulary_record_id=" . $vocabulary_record_id . ",classification_id='" . $classification_id . "' ON DUPLICATE KEY UPDATE value='" . $value . "',vocabulary_record_id=" . $vocabulary_record_id . ",classification_id='" . $classification_id . "'";
@@ -841,8 +841,8 @@ $result_multi3=$execlan3->fetch();
 
 $exhibit_title_from_metadata=$result_multi3['value'];//title gia pathway
 
-$maxIdSQL="update omeka_element_texts SET text=? where record_id=?";
-$exec=$db->exec($maxIdSQL, array(addslashes($exhibit_title_from_metadata), $_POST['item_id']));//title
+$maxIdSQL = "update omeka_element_texts SET text=? where record_id=? and element_id=?";
+$exec = $db->exec($maxIdSQL, array($exhibit_title_from_metadata, $_POST['item_id'],68)); //title
 
 $maxIdSQL="update metadata_record SET date_modified='".$_POST['date_modified']."',validate='".$_POST['public']."' where object_id=".$_POST['item_id']." and object_type='".$object_type."'";
 $exec=$db->query($maxIdSQL);
@@ -887,8 +887,8 @@ $exec=null;
 //print_r($_FILES['file']['type']['0']); break; 
 
 if(strlen($_POST['title'])>0){$_POST['Elements']['68']['0']['text']=$_POST['title'];}
-if(strlen($_POST['Elements']['68']['0']['text'])>0){$path_title=addslashes($_POST['Elements']['68']['0']['text']);} else{$path_title="resource-title-".$max_id.""; $_POST['Elements']['68']['0']['text']="resource-title-".$max_id."";}
-if($_POST['description']){$path_description=addslashes($_POST['description']);} else{$path_description="";}
+if(strlen($_POST['Elements']['68']['0']['text'])>0){$path_title=$_POST['Elements']['68']['0']['text'];} else{$path_title="resource-title-".$max_id.""; $_POST['Elements']['68']['0']['text']="resource-title-".$max_id."";}
+if($_POST['description']){$path_description=$_POST['description'];} else{$path_description="";}
 if($_POST['link']){$path_url=$_POST['link'];} else{$path_url="";}
 if($_POST['type']){$formtype=$_POST['type'];} else{$formtype="0";}
 if($formtype==11){$formetypetext='text/html'; $formetypetext=find_voc_rec_id($formetypetext,21);} elseif(isset($_FILES['file']['type']['0'])){
@@ -917,11 +917,11 @@ $entitiesRelationsSql="INSERT INTO ".$entitiesRelationsdb." (entity_id, relation
 $exec=$db->query($entitiesRelationsSql);
 
 $path_title=htmlspecialchars($path_title);
-$path_title=addslashes($path_title);
+//$path_title=addslashes($path_title);
 $path_description=htmlspecialchars($path_description);
-$path_description=addslashes($path_description);
+//$path_description=addslashes($path_description);
 $path_url=htmlspecialchars($path_url);
-$path_url=addslashes($path_url);
+//$path_url=addslashes($path_url);
 
 
 $mainAttributesSql="INSERT INTO omeka_element_texts (record_id ,record_type_id ,element_id,text) VALUES (?,?,?,?)";
@@ -1528,13 +1528,13 @@ if(isset($dataProvider)){$dataProviderforurl= "dataProvider:".$dataProvider." AN
         $_POST['Elements']['68']['0']['text'] = $_POST['title'];
     }
     if (strlen($_POST['Elements']['68']['0']['text']) > 0) {
-        $path_title = addslashes($_POST['Elements']['68']['0']['text']);
+        $path_title = $_POST['Elements']['68']['0']['text'];
     } else {
         $path_title = "template-title-" . $max_id . "";
         $_POST['Elements']['68']['0']['text'] = "resource-title-" . $max_id . "";
     }
     if ($_POST['description']) {
-        $path_description = addslashes($_POST['description']);
+        $path_description = $_POST['description'];
     } else {
         $path_description = "";
     }
@@ -1570,19 +1570,16 @@ if(isset($dataProvider)){$dataProviderforurl= "dataProvider:".$dataProvider." AN
     $exec = $db->query($entitiesRelationsSql);
 
     $path_title = htmlspecialchars($path_title);
-    $path_title = addslashes($path_title);
+    //$path_title = addslashes($path_title);
     $path_description = htmlspecialchars($path_description);
-    $path_description = addslashes($path_description);
+    //$path_description = addslashes($path_description);
 
 
 
-    $mainAttributesSql = "INSERT INTO omeka_element_texts (record_id ,record_type_id ,element_id,text) VALUES (" . $last_exhibit_id . ",2,68,'" . $path_title . "')";
+    $mainAttributesSql = "INSERT INTO omeka_element_texts (record_id ,record_type_id ,element_id,text) VALUES (?,?,?,?)";
 //echo $mainAttributesSql;break;
-    $db->exec($mainAttributesSql);
-
-    $mainAttributesSql = "INSERT INTO omeka_element_texts (record_id ,record_type_id ,element_id,text) VALUES (" . $last_exhibit_id . ",2,59,'" . $path_description . "')";
-//echo $mainAttributesSql;break;
-    $db->exec($mainAttributesSql);
+    $db->exec($mainAttributesSql, array($last_exhibit_id, 2, 68, $path_title)); //title
+    $db->exec($mainAttributesSql, array($last_exhibit_id, 2, 59, $path_description)); //description
 
 
     /* ===================================INSERT record for METADATA=================================== */
@@ -1597,13 +1594,10 @@ if(isset($dataProvider)){$dataProviderforurl= "dataProvider:".$dataProvider." AN
     $exec = null;
 
 
-    $metadatarecordSql = "INSERT INTO metadata_element_value (element_hierarchy, value, language_id, multi, record_id, parent_indexer) VALUES ('6','" . $path_title . "','en',1, " . $last_record_id . ",1)";
-    $execmetadatarecordSql = $db->query($metadatarecordSql);
-    $exec = null;
-
-    $metadatarecordSql = "INSERT INTO metadata_element_value (element_hierarchy, value, language_id, multi, record_id, parent_indexer) VALUES ('8','" . $path_description . "','en',1, " . $last_record_id . ",1)";
-    $execmetadatarecordSql = $db->query($metadatarecordSql);
-    $exec = null;
+    $metadatarecordSql = "INSERT INTO metadata_element_value (element_hierarchy, value, language_id, multi, record_id, parent_indexer) VALUES (?,?,?,?,?,?)";
+    $execmetadatarecordSql = $db->query($metadatarecordSql, array(8, $path_description, 'en', 1, $last_record_id, 1)); ///description in metadata record
+    $execmetadatarecordSql = $db->query($metadatarecordSql, array(6, $path_title, 'en', 1, $last_record_id, 1)); ///title in metadata record
+    $execmetadatarecordSql = null;
     
     $metadatarecordSql = "INSERT INTO metadata_element_value (element_hierarchy, value, language_id, multi, record_id, parent_indexer,is_editable) VALUES ('32','','none',1, " . $last_record_id . ",1,0)";
     $execmetadatarecordSql = $db->query($metadatarecordSql);
@@ -1756,22 +1750,24 @@ function createresourcefromtemplate($record_id,$rowsqlfortitle) {
     $execmetadatarecordSql = $db->query($metadatarecordSql);
     $exec = null;
     
-
+$maxIdSQL = "INSERT INTO metadata_element_value (element_hierarchy,value,language_id,vocabulary_record_id,multi,record_id,parent_indexer,vcard_id,is_editable,classification_id) VALUES (?,?,?,?,?,?,?,?,?,?)";
         foreach ($data5 as $data5) {
             
 $arr = array(60,61,62,67);
 if(!(in_array($data5['element_hierarchy'], $arr) and $data5['multi']==1)) { //echo $data5['is_editable'];
-            if(!(strlen($data5['vocabulary_record_id'])>0)){$data5['vocabulary_record_id']='NULL';}
-            if(!(strlen($data5['multi'])>0)){$data5['multi']='NULL';}
-            if(!(strlen($data5['parent_indexer'])>0)){$data5['parent_indexer']='NULL';}
-            if(!(strlen($data5['vcard_id'])>0)){$data5['vcard_id']='NULL';}
-            if(!(strlen($data5['is_editable'])>0)){$data5['is_editable']='NULL';}
-            if(!(strlen($data5['classification_id'])>0)){$data5['classification_id']='NULL';}
+            if(!(strlen($data5['vocabulary_record_id'])>0)){$data5['vocabulary_record_id']=NULL;}
+            if(!(strlen($data5['multi'])>0)){$data5['multi']=NULL;}
+            if(!(strlen($data5['parent_indexer'])>0)){$data5['parent_indexer']=NULL;}
+            if(!(strlen($data5['vcard_id'])>0)){$data5['vcard_id']=NULL;}
+            if(!(strlen($data5['is_editable'])>0)){$data5['is_editable']=NULL;}
+            if(!(strlen($data5['classification_id'])>0)){$data5['classification_id']=NULL;}
             
-            $metadatarecordSql = "INSERT INTO metadata_element_value (element_hierarchy,value,language_id,vocabulary_record_id,multi,record_id,parent_indexer,vcard_id,is_editable,classification_id) VALUES 
-                ('".$data5['element_hierarchy']."','".$data5['value']."','".$data5['language_id']."',".$data5['vocabulary_record_id'].",".$data5['multi'].",".$last_record_id.",".$data5['parent_indexer'].",".$data5['vcard_id'].",".$data5['is_editable'].",'".$data5['classification_id']."')";
-           //echo "<br>";
-            $execmetadatarecordSql = $db->query($metadatarecordSql);
+            //$metadatarecordSql = "INSERT INTO metadata_element_value (element_hierarchy,value,language_id,vocabulary_record_id,multi,record_id,parent_indexer,vcard_id,is_editable,classification_id) VALUES 
+            //    ('" . $data5['element_hierarchy'] . "','" . $data5['value'] . "','" . $data5['language_id'] . "'," . $data5['vocabulary_record_id'] . "," . $data5['multi'] . "," . $last_record_id . "," . $data5['parent_indexer'] . "," . $data5['vcard_id'] . "," . $data5['is_editable'] . ",'" . $data5['classification_id'] . "')";
+
+    $exec = $db->exec($maxIdSQL, array($data5['element_hierarchy'],$data5['value'],$data5['language_id'],$data5['vocabulary_record_id'],$data5['multi'],$last_record_id,$data5['parent_indexer'],$data5['vcard_id'],$data5['is_editable'],$data5['classification_id'])); //title            
+//echo "<br>";
+            //$execmetadatarecordSql = $db->query($metadatarecordSql);
             $exec = null;
         }
         }
@@ -1818,15 +1814,15 @@ $varforcount=$var1[4];
  
 $original_text=$_POST['fortranslationanalytics_'.$varrec.'_'.$varelem.'_'.$varmul.''];
 $original_text = htmlspecialchars($original_text);
-$original_text = addslashes($original_text);
+//$original_text = addslashes($original_text);
 $original_text_lang=$_POST['fortranslationanalyticslan_'.$varrec.'_'.$varelem.'_'.$varmul.''];
 $translated_text=$_POST['translatedanalytics_'.$varrec.'_'.$varelem.'_'.$varmul.'_'.$varforcount.''];
 $translated_text = htmlspecialchars($translated_text);
-$translated_text = addslashes($translated_text);
+//$translated_text = addslashes($translated_text);
 $translated_text_lang=$_POST['translatedanalyticslan_'.$varrec.'_'.$varelem.'_'.$varmul.'_'.$varforcount.''];
 $user_fixed_text=$_POST[''.$varelem.'_'.$varmul.'_'.$varforcount.''];
 $user_fixed_text = htmlspecialchars($user_fixed_text);
-$user_fixed_text = addslashes($user_fixed_text);
+//$user_fixed_text = addslashes($user_fixed_text);
 $translated_service=$_POST['translatedanalyticsservice_'.$varrec.'_'.$varelem.'_'.$varmul.'_'.$varforcount.''];
 
 $result_multi=NULL;

@@ -2299,7 +2299,7 @@ function createnew_xml_selectbox($id, $divid, $vocabulary_id, $ontology = NULL) 
         $last_record_id = $row["id"];
         $exec = null;
         $value = htmlspecialchars($value);
-        $value = addslashes($value);
+        //$value = addslashes($value);
         $metadatarecordSql = "INSERT INTO metadata_element_value (element_hierarchy, value, language_id, vocabulary_record_id, multi, record_id, parent_indexer) VALUES (?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE value=?,vocabulary_record_id=?";
 //echo $metadatarecordSql;break;
         $execmetadatarecordSql = $db->query($metadatarecordSql, array($element_hierarchy,$value,'none',$vocabulary_record_id,1,$last_record_id,$parent_indexer,$value,$vocabulary_record_id));    
