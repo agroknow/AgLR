@@ -84,7 +84,7 @@ descriptiontext=field;
 <div class="field">
 		<label for="title" id="title"><b>*URL</b></label>
         <?php //$title=item('Dublin Core', 'Title'); ?>
-		<textarea rows="4" cols="70" class="textinput" name="link" id="link" /></textarea>
+		<textarea rows="4" cols="70" style="width: 395px;" class="textinput" name="link" id="link" /></textarea>
 		<?php //echo form_error('title'); ?>
 <a href="javascript:void(0);" onclick="suggestmetadata(document.getElementById('link').value);return false;" class="submit" style="font-size: 13px; clear: none; float: none; left:15px; top: 5px; position: relative;"><?php echo __('Suggest Metadata'); ?></a>
 </div> 
@@ -92,14 +92,14 @@ descriptiontext=field;
 <div class="field">
 		<label for="title" id="title"><b>*<?php echo __('Title'); ?></b></label>
         <?php //$title=item('Dublin Core', 'Title'); ?>
-		<textarea rows="4" cols="70" class="textinput" name="title" id="titletext" /></textarea>
+		<textarea rows="4" cols="70" style="width: 395px;" class="textinput" name="title" id="titletext" /></textarea>
 		<?php //echo form_error('title'); ?>
 </div> 
 
 <div class="field">
 		<label for="title" id="title"><b>*<?php echo __('Description'); ?></b></label>
         <?php //$title=item('Dublin Core', 'Title'); ?>
-		<textarea rows="4" cols="70" class="textinput" name="description"  id="descriptiontext" /></textarea>
+		<textarea rows="4" cols="70" style="width: 395px;" class="textinput" name="description"  id="descriptiontext" /></textarea>
 		<?php //echo form_error('title'); ?>
 </div> 
 
