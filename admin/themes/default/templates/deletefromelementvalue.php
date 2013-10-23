@@ -58,8 +58,9 @@ $sqlchele="SELECT c.* FROM  metadata_element b  LEFT JOIN metadata_element_hiera
 			$parent_multi=$_POST['multi'];
 			if($childelementscount>0){
 foreach($childelements as $childelements){
-$sqllan="DELETE  FROM metadata_element_value WHERE element_hierarchy=".$childelements['id']." and language_id='none' and record_id=".$_POST['record_id']." and multi=".$_POST['multi'].""; //echo $sqllan;// break;
+$sqllan="DELETE  FROM metadata_element_value WHERE element_hierarchy=".$childelements['id']." and language_id='none' and record_id=".$_POST['record_id']." and multi=".$_POST['multi'].""; //echo $sqllan.'<br>';// break;
 $execlan=$db->query($sqllan);
+}//forech child
 if($execlan){
 
 $sqllan="DELETE  FROM metadata_element_value WHERE element_hierarchy=".$_POST['element_hierarchy']." and language_id='none' and record_id=".$_POST['record_id']." and multi=".$_POST['multi'].""; //echo $sqllan;// break;
@@ -68,7 +69,7 @@ if($execlan){
 return true; } else{ return false; }
 
  } else{ return false; }
-}//forech child
+
 
 }//if($childelementscount>0)
 

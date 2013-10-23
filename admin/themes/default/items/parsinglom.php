@@ -586,7 +586,7 @@ function create_the_query_for_ingest($xmlname_gelement, $xmlname_element, $getge
             //print_r($getgeneral);
             foreach ($getgeneral->value as $string) {
                 $i+=1;
-                savelomelementforxmlparsing($xmlname_element['id'], $string, $item_id, 'none', $i, $multi);
+                savelomelementforxmlparsing($xmlname_element['id'], strtolower($string), $item_id, 'none', $i, $multi);
                 //echo $string."-".$string['language']."<br>";
             }
         } //if($getgeneralname=='cost')
@@ -597,7 +597,7 @@ function create_the_query_for_ingest($xmlname_gelement, $xmlname_element, $getge
             //print_r($getgeneral);
             foreach ($getgeneral->value as $string) {
                 $i+=1;
-                savelomelementforxmlparsing($xmlname_element['id'], $string, $item_id, 'none', $i, $multi);
+                savelomelementforxmlparsing($xmlname_element['id'], strtolower($string), $item_id, 'none', $i, $multi);
                 //echo $string."-".$string['language']."<br>";
             }
         } //if($getgeneralname=='copyrightAndOtherRestrictions')

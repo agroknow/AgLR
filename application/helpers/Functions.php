@@ -432,8 +432,10 @@ function createlomelement($type, $name, $value = NULL, $extra = NULL, $selectval
         $element.='<option value="">Select </option>';
 
         $size_of_objects = sizeof($selectvalues);
-        for ($x = 0; $x < $size_of_objects; $x++) {
-            $selectvaluesforlang = & $selectvalues[$x];
+       // for ($x = 0; $x < $size_of_objects; $x++) {
+            //$selectvaluesforlang = & $selectvalues[$x];
+                foreach($selectvalues as $selectvaluesforlang){
+            //$selectvaluesforlang = & $selectvalues[$x];
             if (strlen($selectvaluesforlang[$selectvalueswhich]) > 0) {
                 $element.='<option value="' . $selectvaluesforlang[$selectvalueswhich] . '" ';
                 if ($value == $selectvaluesforlang[$selectvalueswhich]) {
