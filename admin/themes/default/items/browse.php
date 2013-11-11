@@ -2,17 +2,33 @@
 $pageTitle = __('Browse Items');
 head(array('title' => $pageTitle, 'content_class' => 'horizontal-nav', 'bodyclass' => 'items primary browse-items'));
 ?>
+<?php echo js('prototype'); ?>
+<?php echo js('tooltip_browse_items'); ?>
 <h1><?php echo $pageTitle; ?> <?php echo __('(%s total)', total_results()); ?></h1>
 <?php if (has_permission('Items', 'add')): ?>
     <?php /* ?><p id="add-item" class="add-button"><a class="add" href="<?php echo html_escape(uri('items/add')); ?>"><?php echo __('Add a File'); ?></a></p><?php */ ?>
-    <p id="add-item" class="add-button" style="position:relative; top:0px;"><a class="add" href="<?php echo html_escape(uri('items/add')); ?>"><?php echo __('Add a File'); ?></a></p>
-    <p id="add-item" class="add-button" style="position:relative; top:0px; right:5px;"><a class="add" href="<?php echo html_escape(uri('items/addlink')); ?>"><?php echo __('Add a Hyperlink'); ?></a></p> &nbsp;
+    <p id="add-item" class="add-button" style="position:relative; top:0px;"><a class="add" id="fileText" title="<?php echo __('Add in your collection a new resource from your local disk.'); ?>" href="<?php echo html_escape(uri('items/add')); ?>"><?php echo __('Add a File'); ?></a></p>
+    <p id="add-item" class="add-button" style="position:relative; top:0px; right:5px;"><a class="add" id="hyperlinkText" title="<?php echo __('Add in your collection a new resource found online by providing its URL.'); ?>" href="<?php echo html_escape(uri('items/addlink')); ?>"><?php echo __('Add a Hyperlink'); ?></a></p> &nbsp;
+    <?php /*<p id="add-item" class="add-button" style="position:relative; right:10px; top:0px;"><a class="add" id="displayText" title="<?php echo __('Add in your collection a new resource from external repositories.'); ?>" href="<?php echo html_escape(uri('items/ingestitemtorepository')); ?>"><?php echo __('Ingest a Resource'); ?></a></p>*/?>
 
+    <div id="displayText_help" style="display:none; position:absolute;top:0px; border:1px solid #333;background:#f7f5d1;padding:2px 5px; color:#333;z-index:100;">
+        <?php echo __('Add in your collection a new resource from external repositories.'); ?>
+    </div>
+    <div id="hyperlinkText_help" style="display:none; position:absolute;top:0px; border:1px solid #333;background:#f7f5d1;padding:2px 5px; color:#333;z-index:100;">
+        <?php echo __('Add in your collection a new resource found online by providing its URL.'); ?>
+    </div>
+    <div id="fileText_help" style="display:none; position:absolute;top:0px; border:1px solid #333;background:#f7f5d1;padding:2px 5px; color:#333;z-index:100;">
+        <?php echo __('Add in your collection a new resource from your local disk.'); ?>
+    </div>
 
+     <script type="text/javascript">
+var my_tooltip = new Tooltip('displayText', 'displayText_help');
+var my_tooltip2 = new Tooltip('fileText', 'fileText_help');
+var my_tooltip3 = new Tooltip('hyperlinkText', 'hyperlinkText_help');
+</script>   
 <?php endif; ?>
 <script>
     function showloader() { 
-        
         document.body.onclick = function (e) {
             if (!(e.ctrlKey || e.which==2)) {
                 document.getElementById('loadertoopenpage_div').style.display='block';
@@ -128,6 +144,11 @@ head(array('title' => $pageTitle, 'content_class' => 'horizontal-nav', 'bodyclas
           </script>
          * */ ?>
         <div id="browse-meta" class="group">
+            <p class="help_text">
+            <?php echo __('The Resources area consists of Resources Management options such as Ingest a Resource, Add a Hyperlink, Add a File.'); ?><br>
+            <?php echo __('It also offers the list of all the resources and the option of Search.'); ?><br>
+            <?php echo __('A quick filter option allows for a faster choice between different modes of resources.'); ?>
+            </p>
             <div id="browse-meta-lists">
                 <ul id="items-sort" class="navigation">
                     <li><strong><?php echo __('Quick Filter'); ?></strong></li>
@@ -148,7 +169,14 @@ head(array('title' => $pageTitle, 'content_class' => 'horizontal-nav', 'bodyclas
                 </ul>
             </div>
             <div id="simple-search-form">
-                <?php echo simple_search(); ?>
+                <?php echo '<img id="searchText" style="position:relative; top:21px; left:15px;" src="' . uri("themes/default/items/images/information.png") . '">'; echo simple_search(); ?>
+                <div id="searchText_help" style="display:none; position:absolute;top:0px; border:1px solid #333;background:#f7f5d1;padding:2px 5px; color:#333;z-index:100;">
+        <?php echo __('Search using keywords through your resources.'); ?>
+    </div>
+<script type="text/javascript">
+var my_tooltip7 = new Tooltip('searchText', 'searchText_help');
+
+    </script>
                 <?php //echo link_to_advanced_search(__('Advanced Search'), array('id' => 'advanced-search-link')); ?>
             </div>
         </div>
@@ -169,14 +197,29 @@ head(array('title' => $pageTitle, 'content_class' => 'horizontal-nav', 'bodyclas
                             <?php /* ?><th id="batch-edit-heading"><?php echo __('Select'); ?></th><?php */ ?>
                         <?php endif; ?>
                         <?php
-                        $browseHeadings[__('Title')] = 'Dublin Core,Title';
+                        $browseHeadings[__('Title').' <img id="titleText" src="' . uri("themes/default/items/images/information.png") . '">'] = 'Dublin Core,Title';
                         /* $browseHeadings[__('Creator')] = 'Dublin Core,Creator'; */
                         $browseHeadings[__('Type')] = null;
-                        $browseHeadings[__('Validate')] = 'public';
+                        $browseHeadings[__('Validate').' <img id="publicText" src="' . uri("themes/default/items/images/information.png") . '">'] = 'public';
                         /* $browseHeadings[__('Featured')] = 'featured'; */
-                        $browseHeadings[__('Date Added')] = 'added';
+                        $browseHeadings[__('Date Added').' <img id="dateaddedText" src="' . uri("themes/default/items/images/information.png") . '">'] = 'added';
                         echo browse_headings($browseHeadings);
                         ?>
+                        
+     <div id="titleText_help" style="display:none; position:absolute;top:0px; border:1px solid #333;background:#f7f5d1;padding:2px 5px; color:#333;z-index:100;">
+        <?php echo __('Sort alphabetically the resources based on Title'); ?>
+    </div>
+    <div id="publicText_help" style="display:none; position:absolute;top:0px; border:1px solid #333;background:#f7f5d1;padding:2px 5px; color:#333;z-index:100;">
+        <?php echo __('Sort the resources based on their status (public – private).'); ?>
+    </div>
+    <div id="dateaddedText_help" style="display:none; position:absolute;top:0px; border:1px solid #333;background:#f7f5d1;padding:2px 5px; color:#333;z-index:100;">
+        <?php echo __('Sort the resources based on the Date Added.'); ?>
+    </div>
+                        <script type="text/javascript">
+var my_tooltip4 = new Tooltip('titleText', 'titleText_help');
+var my_tooltip5 = new Tooltip('publicText', 'publicText_help');
+var my_tooltip6 = new Tooltip('dateaddedText', 'dateaddedText_help');
+    </script>
                     </tr>
                 </thead>
                 <tbody>

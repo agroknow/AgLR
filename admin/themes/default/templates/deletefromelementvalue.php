@@ -24,7 +24,7 @@ $execrec=null;
 
 $result_multi=get_db()->getTable('Item')->find($result_rec['object_id']);
 
-if($user['id']==1 or $user['id']==11 or $result_multi->wasAddedBy(current_user()) or has_permission($result_multi, 'edit')){  //if he has add the exhibit 
+if($user['id']==1 or $user['role']=='super' or $result_multi->wasAddedBy(current_user()) or has_permission($result_multi, 'edit')){  //if he has add the exhibit 
 
 if(isset($_POST['allvalues']) and $_POST['allvalues']==1){
 
@@ -69,7 +69,6 @@ if($execlan){
 return true; } else{ return false; }
 
  } else{ return false; }
-
 
 }//if($childelementscount>0)
 

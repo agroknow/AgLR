@@ -18,7 +18,7 @@ var arlink =document.testform.link.value;
 var returnval;
 
 if((ardescription=="") || (arlink=="") || (artitle=="")) {
- alert("You must fill all the mandatory fields (*)");
+ alert("<?php echo __('You must fill all the mandatory fields (*)'); ?>");
    returnval = false;
    }
 else

@@ -3,11 +3,13 @@
 # This file is distributed under the same license as the Omeka package.
 # 
 # Translators:
-# Alexios Dimitropoulos <alexios.dimitropoulos@gmail.com>, 2012.
-# Organic.Lingua  <info@organic-lingua.eu>, 2012.
-# stauros gkinis <gkista@yahoo.gr>, 2012.
-# Stoitsis Giannis <>, 2012.
-#   <vprot@agroknow.gr>, 2012.
+# Alexios Dimitropoulos <alexios.dimitropoulos@gmail.com>, 2012
+# elkoko <elenakokoliou@agroknow.gr>, 2013
+# Organic.Lingua <info@organic-lingua.eu>, 2012
+# stauros gkinis <gkista@yahoo.gr>, 2012
+# Stoitsis Giannis <>, 2012
+# valia <valia.7t@gmail.com>, 2012
+# vprot <vprot@agroknow.gr>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Metadata Editor AgLR\n"
@@ -19,7 +21,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: el\n"
+"Language: el_GR\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 # Dublin Core description
@@ -2197,7 +2199,7 @@ msgstr "'%s' δεν είναι έγκυρη ειδική αξία"
 
 #: application/helpers/LinkFunctions.php:43
 msgid "View"
-msgstr "Προοβολή"
+msgstr "Προβολή"
 
 #: application/helpers/LinkFunctions.php:208
 msgid "RSS"

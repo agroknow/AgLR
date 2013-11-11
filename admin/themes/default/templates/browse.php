@@ -2,6 +2,8 @@
 $pageTitle = __('Browse Templates');
 head(array('title' => $pageTitle, 'content_class' => 'horizontal-nav', 'bodyclass' => 'items primary browse-items'));
 ?>
+<?php echo js('prototype'); ?>
+<?php echo js('tooltip_browse_items'); ?>
 <h1><?php echo $pageTitle; ?> <?php echo __('(%s total)', total_results()); ?></h1>
 <?php if (has_permission('Items', 'add')): ?>
     <?php /* ?><p id="add-item" class="add-button"><a class="add" href="<?php echo html_escape(uri('items/add')); ?>"><?php echo __('Add a File'); ?></a></p><?php */ ?>
@@ -166,14 +168,29 @@ head(array('title' => $pageTitle, 'content_class' => 'horizontal-nav', 'bodyclas
                             <?php /* ?><th id="batch-edit-heading"><?php echo __('Select'); ?></th><?php */ ?>
                         <?php endif; ?>
                         <?php
-                        $browseHeadings[__('Title')] = 'Dublin Core,Title';
+                        $browseHeadings[__('Title').' <img id="titleText" src="' . uri("themes/default/items/images/information.png") . '">'] = 'Dublin Core,Title';
                         /* $browseHeadings[__('Creator')] = 'Dublin Core,Creator'; */
                         $browseHeadings[__('Type')] = null;
-                        $browseHeadings[__('Validate')] = 'public';
+                        $browseHeadings[__('Validate').' <img id="publicText" src="' . uri("themes/default/items/images/information.png") . '">'] = 'public';
                         /* $browseHeadings[__('Featured')] = 'featured'; */
-                        $browseHeadings[__('Date Added')] = 'added';
+                        $browseHeadings[__('Date Added').' <img id="dateaddedText" src="' . uri("themes/default/items/images/information.png") . '">'] = 'added';
                         echo browse_headings($browseHeadings);
                         ?>
+                        
+     <div id="titleText_help" style="display:none; position:absolute;top:0px; border:1px solid #333;background:#f7f5d1;padding:2px 5px; color:#333;z-index:100;">
+        <?php echo __('Sort alphabetically the resources based on Title'); ?>
+    </div>
+    <div id="publicText_help" style="display:none; position:absolute;top:0px; border:1px solid #333;background:#f7f5d1;padding:2px 5px; color:#333;z-index:100;">
+        <?php echo __('Sort the resources based on their status (public – private).'); ?>
+    </div>
+    <div id="dateaddedText_help" style="display:none; position:absolute;top:0px; border:1px solid #333;background:#f7f5d1;padding:2px 5px; color:#333;z-index:100;">
+        <?php echo __('Sort the resources based on the Date Added.'); ?>
+    </div>
+                        <script type="text/javascript">
+var my_tooltip4 = new Tooltip('titleText', 'titleText_help');
+var my_tooltip5 = new Tooltip('publicText', 'publicText_help');
+var my_tooltip6 = new Tooltip('dateaddedText', 'dateaddedText_help');
+    </script>
                     </tr>
                 </thead>
                 <tbody>

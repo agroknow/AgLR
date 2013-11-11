@@ -2,26 +2,26 @@
 # Copyright (C) 2011 Roy Rosenzweig Center for History and New Media
 # This file is distributed under the same license as the Omeka package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Omeka 1.5\n"
+"Project-Id-Version: Metadata Editor AgLR\n"
 "Report-Msgid-Bugs-To: omeka-dev@googlegroups.com\n"
 "POT-Creation-Date: 2011-11-22 16:18-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 
 # Dublin Core description
 msgid ""
-"The Dublin Core metadata element set. These elements are common to all Omeka "
-"resources, including items, files, collections, exhibits, and entities. See "
-"http://dublincore.org/documents/dces/."
+"The Dublin Core metadata element set. These elements are common to all Omeka"
+" resources, including items, files, collections, exhibits, and entities. See"
+" http://dublincore.org/documents/dces/."
 msgstr ""
 
 # #-#-#-#-#  Omeka.base.pot (Omeka 1.5)  #-#-#-#-#
@@ -120,8 +120,8 @@ msgstr ""
 msgid ""
 "The metadata element set that, in addition to the Dublin Core element set, "
 "was included in the `files` table in previous versions of Omeka. These "
-"elements are common to all Omeka files. This set may be deprecated in future "
-"versions."
+"elements are common to all Omeka files. This set may be deprecated in future"
+" versions."
 msgstr ""
 
 # Omeka Legacy File: Additional Creator element
@@ -620,8 +620,8 @@ msgstr ""
 #: admin/themes/default/error/405.php:11
 #, php-format
 msgid ""
-"You must use a different method to access this URL. If you reached this page "
-"by following a link or clicking a button in Omeka, please contact the %s."
+"You must use a different method to access this URL. If you reached this page"
+" by following a link or clicking a button in Omeka, please contact the %s."
 msgstr ""
 
 #: admin/themes/default/files/edit.php:8
@@ -771,8 +771,8 @@ msgstr ""
 
 #: admin/themes/default/index.php:65
 msgid ""
-"Manage your general settings for the site, including title, description, and "
-"themes."
+"Manage your general settings for the site, including title, description, and"
+" themes."
 msgstr ""
 
 #: admin/themes/default/index.php:75
@@ -1073,8 +1073,8 @@ msgstr ""
 #: admin/themes/default/items/files-form.php:4
 msgid ""
 "The path to Image Magick has not been set. No derivative images will be "
-"created. If you would like Omeka to create derivative images, please add the "
-"path to your settings form."
+"created. If you would like Omeka to create derivative images, please add the"
+" path to your settings form."
 msgstr ""
 
 #: admin/themes/default/items/files-form.php:7
@@ -1173,8 +1173,9 @@ msgstr ""
 #: admin/themes/default/plugins/browse.php:24
 msgid ""
 "Add new plugins by downloading them from the <a href=\"http://omeka.org/add-"
-"ons/plugins/\">Omeka Plugins Directory</a>, or <a href=\"http://omeka.org/"
-"codex/Plugin_Writing_Best_Practices\">write your own</a>!"
+"ons/plugins/\">Omeka Plugins Directory</a>, or <a "
+"href=\"http://omeka.org/codex/Plugin_Writing_Best_Practices\">write your "
+"own</a>!"
 msgstr ""
 
 #: admin/themes/default/plugins/config.php:2
@@ -1362,8 +1363,9 @@ msgstr ""
 #: admin/themes/default/themes/browse.php:48
 msgid ""
 "Add new themes by downloading them from the <a href=\"http://omeka.org/add-"
-"ons/themes/\">Omeka Theme Directory</a>, or <a href=\"http://omeka.org/codex/"
-"Theme_Writing_Best_Practices\">design your own</a>!"
+"ons/themes/\">Omeka Theme Directory</a>, or <a "
+"href=\"http://omeka.org/codex/Theme_Writing_Best_Practices\">design your "
+"own</a>!"
 msgstr ""
 
 #: admin/themes/default/themes/config.php:2
@@ -1803,8 +1805,8 @@ msgstr ""
 #: application/controllers/UsersController.php:296
 #, php-format
 msgid ""
-"Your account for the %s archive has been created. Please click the following "
-"link to activate your account:"
+"Your account for the %s archive has been created. Please click the following"
+" link to activate your account:"
 msgstr ""
 
 #: application/controllers/UsersController.php:299
@@ -1892,7 +1894,8 @@ msgstr ""
 
 #: application/forms/GeneralSettings.php:86 application/forms/Install.php:148
 msgid ""
-"Limit the number of items displayed per page in the administrative interface."
+"Limit the number of items displayed per page in the administrative "
+"interface."
 msgstr ""
 
 #: application/forms/GeneralSettings.php:92 application/forms/Install.php:155
@@ -1913,8 +1916,8 @@ msgstr ""
 
 #: application/forms/GeneralSettings.php:106
 msgid ""
-"Enable the Prototype JavaScript library. This may be required for some older "
-"plugins."
+"Enable the Prototype JavaScript library. This may be required for some older"
+" plugins."
 msgstr ""
 
 #: application/forms/GeneralSettings.php:110 application/forms/Install.php:169
@@ -2017,7 +2020,8 @@ msgstr ""
 
 #: application/forms/SecuritySettings.php:29
 msgid ""
-"Check this field if you would like to allow any file to be uploaded to Omeka."
+"Check this field if you would like to allow any file to be uploaded to "
+"Omeka."
 msgstr ""
 
 #: application/forms/SecuritySettings.php:35
@@ -2125,8 +2129,7 @@ msgstr ""
 
 #: application/helpers/ElementForm.php:286
 #, php-format
-msgid ""
-"Cannot display a form input for \"%s\" if element type name is not given!"
+msgid "Cannot display a form input for \"%s\" if element type name is not given!"
 msgstr ""
 
 #: application/helpers/ElementForm.php:346
@@ -2366,8 +2369,8 @@ msgstr ""
 #: application/models/ItemPermissions.php:34
 #, php-format
 msgid ""
-"This SQL statement needs a FROM or JOIN clause equivalent to '%s i' in order "
-"to have permissions checked!"
+"This SQL statement needs a FROM or JOIN clause equivalent to '%s i' in order"
+" to have permissions checked!"
 msgstr ""
 
 #: application/models/ItemSearch.php:98
@@ -2415,8 +2418,8 @@ msgstr ""
 
 #: application/models/ItemType.php:360
 msgid ""
-"Invalid parameter. The hasElement function requires either an element object "
-"or an element id to determine if an item type has an element."
+"Invalid parameter. The hasElement function requires either an element object"
+" or an element id to determine if an item type has an element."
 msgstr ""
 
 #: application/models/Option.php:28 application/models/Option.php:32
@@ -2605,8 +2608,9 @@ msgstr ""
 #: application/views/scripts/error/index.php:29
 msgid ""
 "To learn how to see more detailed information about this error, see the "
-"Omeka Codex page on <a href=\"http://omeka.org/codex/"
-"Retrieving_error_messages\">retrieving error messages</a>."
+"Omeka Codex page on <a "
+"href=\"http://omeka.org/codex/Retrieving_error_messages\">retrieving error "
+"messages</a>."
 msgstr ""
 
 #: application/views/scripts/functions.php:54
@@ -2731,9 +2735,9 @@ msgstr ""
 #: application/views/scripts/upgrade/completed.php:13
 #: application/views/scripts/upgrade/migrate.php:18
 msgid ""
-"If you have any questions please refer to <a href=\"http://omeka.org/codex"
-"\">Omeka documentation</a> or post a message on the <a href=\"http://omeka."
-"org/forums\">Omeka forums</a>."
+"If you have any questions please refer to <a "
+"href=\"http://omeka.org/codex\">Omeka documentation</a> or post a message on"
+" the <a href=\"http://omeka.org/forums\">Omeka forums</a>."
 msgstr ""
 
 #: application/views/scripts/upgrade/index.php:10
@@ -2843,7 +2847,6 @@ msgstr ""
 msgid "Omeka Installation"
 msgstr ""
 
-
 #: admin/themes/default/items/browse.php:8
 msgid "Add a Hyperlink"
 msgstr ""
@@ -2852,47 +2855,431 @@ msgstr ""
 msgid "Upload a File"
 msgstr ""
 
-#: admin/applications/Functions.php:general!
+#: admin/applications/Functions.phpgeneral!
 msgid "Add"
 msgstr ""
 
-#: admin/applications/Functions.php:general!
+#: admin/applications/Functions.phpgeneral!
 msgid "Getting Started with Agricultural Learning Repository tool"
 msgstr ""
 
-#: admin/applications/Functions.php:general!
+#: admin/applications/Functions.phpgeneral!
 msgid "Translate"
 msgstr ""
 
-#: admin/applications/Functions.php:general!
+#: admin/applications/Functions.phpgeneral!
 msgid "XML"
 msgstr ""
 
-#: admin/applications/Functions.php:general!
+#: admin/applications/Functions.phpgeneral!
 msgid "Hyperlink"
 msgstr ""
 
-#: admin/applications/Functions.php:general!
+#: admin/applications/Functions.phpgeneral!
 msgid "File"
 msgstr ""
 
-#: admin/applications/Functions.php:general!
+#: admin/applications/Functions.phpgeneral!
 msgid "Photos"
 msgstr ""
 
-#: admin/applications/Functions.php:general!
+#: admin/applications/Functions.phpgeneral!
 msgid "Add a new hyperlink to your archive"
 msgstr ""
 
-#: admin/applications/Functions.php:general!
+#: admin/applications/Functions.phpgeneral!
 msgid "Please select language to translate:"
 msgstr ""
 
-#: admin/applications/Functions.php:general!
+#: admin/applications/Functions.phpgeneral!
 msgid "Translate Item #%s"
 msgstr ""
 
-#: admin/applications/Functions.php:general!
+#: admin/applications/Functions.phpgeneral!
 msgid "Save Translations"
 msgstr ""
 
+#: admingeneral!
+msgid "Educational Pathways"
+msgstr ""
+
+#: admingeneral!
+msgid "GO NOW!"
+msgstr ""
+
+#: admingeneral!
+msgid "Pathways"
+msgstr ""
+
+#: admingeneral!
+msgid "Natural Europe Project website"
+msgstr ""
+
+#: admingeneral!
+msgid "Natural Europe Pathway Authoring and Metadata Tool.  &copy; 2011"
+msgstr ""
+
+#: admingeneral!
+msgid "You are here"
+msgstr ""
+
+#: admingeneral!
+msgid "Access the Resource"
+msgstr ""
+
+#: admingeneral!
+msgid "Given Metadata"
+msgstr ""
+
+#: admingeneral!
+msgid "Sign-in"
+msgstr ""
+
+#: admingeneral!
+msgid "Return to Pathway"
+msgstr ""
+
+#: admingeneral!
+msgid "Resources"
+msgstr ""
+
+#: admingeneral!
+msgid "Browse Resources"
+msgstr ""
+
+#: admingeneral!
+msgid "Ingest a Resource"
+msgstr ""
+
+#: admingeneral!
+msgid "Ingest a Resource from Natural Europe federation"
+msgstr ""
+
+#: admingeneral!
+msgid "Search in Natural Europe"
+msgstr ""
+
+#: admingeneral!
+msgid "Access to the resource"
+msgstr ""
+
+#: admingeneral!
+msgid "View Metadata"
+msgstr ""
+
+#: admingeneral!
+msgid "Ingest a Resource from Europeana federation"
+msgstr ""
+
+#: admingeneral!
+msgid "IMAGE"
+msgstr ""
+
+#: admingeneral!
+msgid "TEXT"
+msgstr ""
+
+#: admingeneral!
+msgid "VIDEO"
+msgstr ""
+
+#: admingeneral!
+msgid "SOUND"
+msgstr ""
+
+#: admingeneral!
+msgid "Access resource at Europeana"
+msgstr ""
+
+#: admingeneral!
+msgid "Provider"
+msgstr ""
+
+#: admingeneral!
+msgid "Ingest a Resource from Ariadne federation"
+msgstr ""
+
+#: admingeneral!
+msgid "Search in Ariadne"
+msgstr ""
+
+#: admingeneral!
+msgid "Search in Europeana"
+msgstr ""
+
+#: admingeneral!
+msgid "You search"
+msgstr ""
+
+#: admingeneral!
+msgid "Total results"
+msgstr ""
+
+#: admingeneral!
+msgid "Guidelines"
+msgstr ""
+
+#: admingeneral!
+msgid "Natural Europe Handbook"
+msgstr ""
+
+#: admingeneral!
+msgid "Natural Europe Manual"
+msgstr ""
+
+#: admingeneral!
+msgid "Quality Criteria for Natural Europe Pathways"
+msgstr ""
+
+#: admin/themes/default/index.php:85
+#, php-format
+msgid "<em>%1$s</em> contains %2$s resources. There are %5$s users."
+msgstr ""
+
+#: admin/applications/Functions.phpgeneral!
+msgid "Validate"
+msgstr ""
+
+#: admin/applications/Functions.phpgeneral!
+msgid "Choose language"
+msgstr ""
+
+#: admingeneral!
+msgid "Delete Resource"
+msgstr ""
+
+#: admingeneral!
+msgid "Delete Pathway"
+msgstr ""
+
+#: admingeneral!
+msgid "Add it to my Repository"
+msgstr ""
+
+#: admingeneral!
+msgid "Save and Return to Pathway"
+msgstr ""
+
+#: admingeneral!
+msgid "Portuguese"
+msgstr ""
+
+#: admingeneral!
+msgid "Hungarian"
+msgstr ""
+
+#: admingeneral!
+msgid "Russian"
+msgstr ""
+
+#: admingeneral!
+msgid "Finnish"
+msgstr ""
+
+#: admingeneral!
+msgid "Estonian"
+msgstr ""
+
+#: admingeneral!
+msgid "Spanish"
+msgstr ""
+
+#: admingeneral!
+msgid "Greek"
+msgstr ""
+
+#: admingeneral!
+msgid "German"
+msgstr ""
+
+#: admingeneral!
+msgid "English"
+msgstr ""
+
+#: admingeneral!
+msgid "Organization"
+msgstr ""
+
+#: admingeneral!
+msgid "Suranme"
+msgstr ""
+
+#: admingeneral!
+msgid "Add new"
+msgstr ""
+
+#: admingeneral!
+msgid "Remove Language"
+msgstr ""
+
+#: admingeneral!
+msgid "Add Language"
+msgstr ""
+
+#: admingeneral!
+msgid "Browse"
+msgstr ""
+
+#: admingeneral!
+msgid "No"
+msgstr ""
+
+#: admingeneral!
+msgid "Yes, if others share alike"
+msgstr ""
+
+#: admingeneral!
+msgid "Yes"
+msgstr ""
+
+#: admingeneral!
+msgid "Insert new image to your collection"
+msgstr ""
+
+#: admingeneral!
+msgid "Insert Image"
+msgstr ""
+
+#: admingeneral!
+msgid "Keep in mind that you didn't select a file to upload."
+msgstr ""
+
+#: admingeneral!
+msgid "You must fill all the mandatory fields (*)"
+msgstr ""
+
+#: admingeneral!
+msgid "Save"
+msgstr ""
+
+#: admingeneral!
+msgid "Only recommended"
+msgstr ""
+
+#: admingeneral!
+msgid "Enrich Metadata"
+msgstr ""
+
+#: admingeneral!
+msgid "Filter results by type"
+msgstr ""
+
+#: admingeneral!
+msgid "Report a problem"
+msgstr ""
+
+#: admingeneral!
+msgid "Add Resource"
+msgstr ""
+
+#: admingeneral!
+msgid "Add File"
+msgstr ""
+
+#: admingeneral!
+msgid "Add Pathway"
+msgstr ""
+
+#: admingeneral!
+msgid "easier to downoad"
+msgstr ""
+
+#: admingeneral!
+msgid "Getting Started with Natural Europe Pathway Authoring Tool"
+msgstr ""
+
+#: admingeneral!
+msgid "Are you sure you want to CHANGE the language? This action will be SAVED!"
+msgstr ""
+
+#: admingeneral!
+msgid "Are you sure you want to DELETE it?"
+msgstr ""
+
+#: admingeneral!
+msgid "evolution (biology)"
+msgstr ""
+
+#: admingeneral!
+msgid "mechanics (physics)"
+msgstr ""
+
+#: admingeneral!
+msgid "reproduction (biology)"
+msgstr ""
+
+#: admingeneral!
+msgid "Τhe Dashboard of the Pathway Authoring Tool provides you with an overview of what is available on the site."
+msgstr ""
+
+#: admingeneral!
+msgid "You can either access Resources and Pathway sections from the toolbar or from the links provided right below the toolbar."
+msgstr ""
+
+#: admingeneral!
+msgid "Moreover, you can find guidelines and overview of the site."
+msgstr ""
+
+#: admingeneral!
+msgid "The Resources area consists of Resources Management options such as Ingest a Resource, Add a Hyperlink, Add a File."
+msgstr ""
+
+#: admingeneral!
+msgid "It also offers the list of all the resources and the option of Search."
+msgstr ""
+
+#: admingeneral!
+msgid "A quick filter option allows for a faster choice between different modes of resources."
+msgstr ""
+
+#: admingeneral!
+msgid "Add in your collection a new resource from external repositories."
+msgstr ""
+
+#: admingeneral!
+msgid "Add in your collection a new resource found online by providing its URL."
+msgstr ""
+
+#: admingeneral!
+msgid "Add in your collection a new resource from your local disk."
+msgstr ""
+
+#: admingeneral!
+msgid "Sort alphabetically the resources based on Title"
+msgstr ""
+
+#: admingeneral!
+msgid "Sort the resources based on their status (public – private)."
+msgstr ""
+
+#: admingeneral!
+msgid "Sort the resources based on the Date Added."
+msgstr ""
+
+#: admingeneral!
+msgid "Search using keywords through your resources."
+msgstr ""
+
+#: admingeneral!
+msgid "Describe your resource providing the information requested bellow."
+msgstr ""
+
+#: admingeneral!
+msgid "Make your resource public and visible in your pathway by clicking the Public button."
+msgstr ""
+
+#: admingeneral!
+msgid "Use of more elements to describe your pathway"
+msgstr ""
+
+#: admingeneral!
+msgid "Basic elements for describe your pathway."
+msgstr ""
+
+#: admingeneral!
+msgid "Use of more elements to describe your resource"
+msgstr ""
+
+#: admingeneral!
+msgid "Basic elements for describe your resource."
+msgstr ""

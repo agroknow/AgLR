@@ -20,13 +20,13 @@
 
  
             if((ardescription=="") || (artitle=="")) {
-                alert("You must fill all the mandatory fields (*)");
+                alert("<?php echo __('You must fill all the mandatory fields (*)'); ?>");
                 returnval = false;
             }
             else
             {
                 if(arlink=="") {
-                    alert("Keep in mind that you didn't select a file to upload. ");
+                    alert("<?php echo __("Keep in mind that you didn't select a file to upload."); ?>");
                     returnval = false;
                 }else{
                     returnval = true;

@@ -82,7 +82,6 @@ unset($datageneral3);
 	
 			}//foreach datageneral3
 
-		 
 $sql3="SELECT a.* FROM metadata_element_value a JOIN metadata_record b ON a.record_id = b.id WHERE b.object_id=".$item['id']." and b.object_type='item' and a.element_hierarchy=34 LIMIT 0,1";
 $exec3=$db->query($sql3); 
 $itemsource=$exec3->fetch();

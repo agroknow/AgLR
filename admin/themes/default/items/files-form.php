@@ -63,18 +63,18 @@ if (empty($pathToConvert) && has_permission('Settings', 'edit')): ?>
     <div class="error">The path to Image Magick has not been set. No derivative images will be created. If you would like Omeka to create derivative images, please add the path to your settings form.</div>
 <?php endif; ?>
 <?php if ( item_has_files() ){ ?>
-    <h3>Current Files</h3>
+    <h3><?php echo __('Current Files'); ?></h3>
     <div id="file-list">
     <table>
         <thead>
             <tr>
-                <th>File Name</th>
+                <th><?php echo __('File Name'); ?></th>
                 <!-- <th>Edit File Metadata</th> -->
                 <?php
                 $action123 = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
                 if($action123!='show'){
                 ?>
-                <th>Delete?</th>
+                <th><?php echo __('Delete'); ?>?</th>
                 <?php } ?>
             </tr>
         </thead>

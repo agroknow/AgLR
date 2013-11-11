@@ -78,7 +78,7 @@ if ($format=="PDF" || $format=="HTML,PDF")
 	echo '<img src="'.$uri.'/application/views/scripts/images/files-icons/pdf.png"/>';
 	}
 else {
-	echo '<img src="http://open.thumbshots.org/image.aspx?url='.$identifier.'"/>';
+	echo '<img src="http://img.bitpixels.com/getthumbnail?code=29089&size=200&url='.$identifier.'"/>';
 	}
 echo '</div>';
 echo '<div style="float:left;width:605px;"><strong>'.$title.'</strong><br>'.$descrip.'';
@@ -88,7 +88,7 @@ echo '<br><div style="position:relative; top:2px;height:40px;"><a style="positio
     padding-bottom: 10px;
     padding-right: 10px;
 	padding-left: 10px;
-    padding-top: 10px;" href="'.uri("items/addinjestitem",$params).'">Add it to my Repository</a>';
+    padding-top: 10px;" href="'.uri("items/addinjestitem",$params).'">'.__('Add it to my Repository').'</a>';
 echo '</div></div>';
 echo "</div><br style='clear:both;'>";
 }

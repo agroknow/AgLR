@@ -1,7 +1,7 @@
 <?php
 $pageTitle = __('Dashboard');
 head(array('bodyclass'=>'index primary-secondary', 'title'=>$pageTitle)); ?>
-<h1><?php echo $pageTitle;; ?></h1>
+<h1><?php echo __($pageTitle); ?></h1>
     <div id="primary">
         
         <?php // Retrieve the latest version of Omeka by pinging the Omeka server. ?>

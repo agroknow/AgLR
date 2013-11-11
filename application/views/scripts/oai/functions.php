@@ -371,7 +371,7 @@ function preview_elements($datageneral4, $datageneral5, $metadatarecord, $datage
 
 
                             foreach ($datageneral5 as $datageneral5) {
-
+                                $ontology2_en_value_string='';
                                 if ($datageneral6['datatype_id'] == 5) {
                                     if (strlen($datageneral5['classification_id']) > 0) {
 
@@ -399,6 +399,9 @@ function preview_elements($datageneral4, $datageneral5, $metadatarecord, $datage
                                         $datageneral_ont = $exec_ont->fetch();
                                         $ontology1 = $datageneral_ont['value'];
                                     }
+                                }
+                                if ($datageneral6['form_type_id'] == 2) {
+                                        $ontology3 = $datageneral5['value'];
                                 }
                             }//foreach($datageneral5 as $datageneral5){
                         }//if($count_results5>0){
@@ -441,6 +444,25 @@ function preview_elements($datageneral4, $datageneral5, $metadatarecord, $datage
                         }
                     }
                     ////////////for CoE/////////////////
+                    if ($schema['name'] == 'NE') {
+                        ////////////for NE/////////////////
+
+                        $taxon_entry = $ontology1 . "" . $ontology2_en_value_string . "";
+                        $taxon_id_value = ' ';
+                        if ($datageneral4['machine_name'] == 'purpose_educational_level') {
+                            $class_source = 'educational level';
+                        } elseif ($datageneral4['machine_name'] == 'purpose_discipline') {
+                            $class_source = 'LRE thesaurus';
+                        } elseif ($datageneral4['machine_name'] == 'purpose_educational_objective') {
+                            $class_source = "Revised Bloom's Taxonomy";
+                            $taxon_id_value = $ontology1;
+                            $taxon_entry=$ontology3;
+                        } else {
+                            $class_source = '';
+                        }
+                        
+                    }
+                    ////////////for NE/////////////////
                     ////////////////////create puprose value from element machine name//////////////////////
                     $for_purpose = $datageneral4['machine_name'];
                     $for_purpose = explode('purpose_', $for_purpose);

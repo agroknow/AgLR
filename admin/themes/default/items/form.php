@@ -71,32 +71,24 @@
 //echo js('tiny_mce/tiny_mce');
 // echo js('tiny_mce/tiny_mce_src'); // Use the 'tiny_mce_src' file for debugging.
 ?>
-<?php echo js('items'); ?>
-<?php echo js('jquery.jstree'); ?>
-<?php echo js('prototype'); ?>
-<?php //echo js('scriptaculous');  ?>
-<?php echo js('tooltip'); ?>
-<?php //echo js('calendar/js/jquery-1.5.1.min.js');  ?>
-<?php //echo js('calendar/css/ui-lightness/jquery-ui-1.8.13.custom.css');   ?>
-
 <script type="text/javascript" charset="utf-8">
     //<![CDATA[
     // TinyMCE hates document.ready.
     jQuery(window).load(function () {
         Omeka.Items.initializeTabs();
 
-        //var addImage = <?php //echo js_escape(img('silk-icons/add.png')); ?>;
-        //var deleteImage = <?php //echo js_escape(img('silk-icons/delete.png')); ?>;
-        //Omeka.Items.tagDelimiter = <?php //echo js_escape(get_option('tag_delimiter')); ?>;
+        //var addImage = <?php //echo js_escape(img('silk-icons/add.png'));  ?>;
+        //var deleteImage = <?php //echo js_escape(img('silk-icons/delete.png'));  ?>;
+        //Omeka.Items.tagDelimiter = <?php //echo js_escape(get_option('tag_delimiter'));  ?>;
         //Omeka.Items.enableTagRemoval(addImage, deleteImage);
         //Omeka.Items.makeFileWindow();
-        //Omeka.Items.tagChoices('#tags', <?php //echo js_escape(uri(array('controller' => 'tags', 'action' => 'autocomplete'), 'default', array(), true)); ?>);
+        //Omeka.Items.tagChoices('#tags', <?php //echo js_escape(uri(array('controller' => 'tags', 'action' => 'autocomplete'), 'default', array(), true));  ?>);
 
         // Must run the element form scripts AFTER reseting textarea ids.
-       // Query(document).trigger('omeka:elementformload');
+        // Query(document).trigger('omeka:elementformload');
 
         //Omeka.Items.enableAddFiles();
-        //Omeka.Items.changeItemType(<?php //echo js_escape(uri("items/change-type")) ?><?php //if ($id = item('id')) echo ', ' . $id; ?>);
+        //Omeka.Items.changeItemType(<?php //echo js_escape(uri("items/change-type"))  ?><?php //if ($id = item('id')) echo ', ' . $id;  ?>);
     });
 
     jQuery(document).bind('omeka:elementformload', function () {
@@ -131,28 +123,34 @@
         $step = 0;
 
 //query for all elements without asking pelement
-        $sql = "SELECT f.*,e.vocabulary_id,e.id as elm_id FROM  metadata_element_hierarchy f  JOIN metadata_element e ON f.element_id = e.id WHERE f.is_visible=1  ORDER BY (case WHEN f.sequence IS NULL THEN '9999' ELSE f.sequence END) ASC";
+        $values = $metadataFile[metadata_elements_hide_from_resources][element_hierarchy_resources_hide];
+        if ($values != false) {
+            $valuesql = "and f.id NOT IN (" . implode(',', $values) . ") ";
+        } else {
+            $valuesql = "";
+        }
+        $sql = "SELECT f.*,e.vocabulary_id,e.id as elm_id FROM  metadata_element_hierarchy f  JOIN metadata_element e ON f.element_id = e.id WHERE f.is_visible=1 and e.schema_id=" . $metadataFile[metadata_schema_resources][id] . " " . $valuesql . " ORDER BY (case WHEN f.sequence IS NULL THEN '9999' ELSE f.sequence END) ASC";
 /////////////////query for translate specific elements//////////
         if (isset($_POST['submit_language'])) {
-        $sql = "SELECT f.*,e.vocabulary_id,e.id as elm_id FROM  metadata_element_hierarchy f  JOIN metadata_element e ON f.element_id = e.id WHERE (f.id=6 or f.id=8 or f.id=35) and f.is_visible=1 ORDER BY (case WHEN f.sequence IS NULL THEN '9999' ELSE f.sequence END) ASC";
+            $sql = "SELECT f.*,e.vocabulary_id,e.id as elm_id FROM  metadata_element_hierarchy f  JOIN metadata_element e ON f.element_id = e.id WHERE (f.id=6 or f.id=8 or f.id=35) and f.is_visible=1 ORDER BY (case WHEN f.sequence IS NULL THEN '9999' ELSE f.sequence END) ASC";
         }
         $exec4 = $db->query($sql);
         $data4 = $exec4->fetchAll();
-        $exec4=NULL;
+        $exec4 = NULL;
 //end
 //query for all values
         $sql = "SELECT * FROM metadata_record WHERE object_id=? and object_type=?";
-        $execrecord = $db->query($sql, array($item->id,'item'));        
+        $execrecord = $db->query($sql, array($item->id, 'item'));
         $record = $execrecord->fetch();
-        $execrecord =NULL;
+        $execrecord = NULL;
         $record_id = $record['id'];
 //end
 //query for all languages iso vocabulary_record=13 (ISO LANGUAGES)
-         $sqllan = "SELECT e.value,e.sequence,e.id as vov_rec_id FROM metadata_vocabulary_record e JOIN
+        $sqllan = "SELECT e.value,e.sequence,e.id as vov_rec_id FROM metadata_vocabulary_record e JOIN
 					metadata_vocabulary_value f ON f.vocabulary_rid = e.id WHERE e.vocabulary_id=? and e.public=?  and f.language_id=?  ORDER BY (case WHEN e.sequence IS NULL THEN '99999' END),e.sequence,f.label ASC";
-        $execlan=$db->query($sqllan, array(23,1,get_language_for_switch()));    
+        $execlan = $db->query($sqllan, array(23, 1, get_language_for_switch()));
         $datalan = $execlan->fetchAll();
-        $execlan =NULL;
+        $execlan = NULL;
 
 //end
 
@@ -170,18 +168,18 @@
             if (strlen($label_description) > 0) {
                 echo "<p style='padding:2px;border:solid 1px #76BB5F; color: #76BB5F;'><strong><i>" . $label_description . "</i></strong></p>";
             }
-            
+
             foreach ($data4 as $dataform) {  //for every element under general
                 if ($data['element_id'] === $dataform['pelement_id']) { //if pelement tou hierarchy = element general
                     if (!isset($_POST['submit_language'])) {
-                        checkelement($dataform, $datalan, $record,NULL,NULL,NULL,NULL,NULL,$xml_general);
+                        checkelement($dataform, $datalan, $record, NULL, NULL, NULL, NULL, NULL, $xml_general);
                     } else {
                         checkelement($dataform, $datalan, $record, 0, NULL, NULL, 1, NULL, $xml_general);
                     }
                 }//if $data['element_id']===$dataform['pelement_id']
             }//if pelement tou hierarchy = element general (dataform)
 
-            
+
             echo '</div>';  //close div general
         }//end for every element general  (data)
         ?>
@@ -191,10 +189,10 @@
                 var id = document.getElementById(''+iddiv+'').value;
                 id = (id - 1) + 2;
                 document.getElementById(''+iddiv+'').value = id;
-        	
-                jQuery('#'+divid+'_inputs').append("<div id='"+divid+"_"+id+"_field' style='clear:both;'><textarea cols='60' rows='4' class='textinput' name='"+divid+"_"+id+"' id='txt" + id + "' style='float:left;'></textarea>&nbsp;&nbsp<div style='position:relative; left:5px; top:2px; float:left;'><select style='vertical-align:top;' name='"+divid+"_"+id+"_lan' class='combo'><option value='none'>Select </option><?php foreach ($datalan as $datalan1) { ?><option value='<?php echo $datalan1['value']; ?>'><?php echo voc_multi_label($datalan1['vov_rec_id']); ?></option><?php } ?></select>&nbsp;&nbsp;<br><a class='lom-remove' style='float:right;' href='#' onClick='removeFormField(\"#"+divid+"_"+id+"_field\"); return false;'>Remove Language</a></div><div>");
+            	
+                jQuery('#'+divid+'_inputs').append("<div id='"+divid+"_"+id+"_field' style='clear:both;'><textarea cols='60' rows='4' class='textinput' name='"+divid+"_"+id+"' id='txt" + id + "' style='float:left;'></textarea>&nbsp;&nbsp<div style='position:relative; left:5px; top:2px; float:left;'><select style='vertical-align:top;' name='"+divid+"_"+id+"_lan' class='combo'><option value='none'><?php echo __('Select'); ?> </option><?php foreach ($datalan as $datalan1) { ?><option value='<?php echo $datalan1['value']; ?>'><?php echo voc_multi_label($datalan1['vov_rec_id']); ?></option><?php } ?></select>&nbsp;&nbsp;<br><a class='lom-remove' style='float:right;' href='#' onClick='removeFormField(\"#"+divid+"_"+id+"_field\"); return false;'><?php echo __('Remove Language'); ?></a></div><div>");
 
-        	
+            	
             }
 
             function addFormvcard(multi,divid,iddiv,label) {
@@ -202,14 +200,14 @@
                 id = (id - 1) + 2;
                 document.getElementById(''+iddiv+'').value = id;
 
-                jQuery('#'+divid+'').append("<div id='"+divid+"_"+id+"' style='float:left;border-bottom:1px solid #d7d5c4;padding-right:9px; margin-right:5px;padding-bottom:9px; margin-bottom:5px;width:100%;'><input name='vcard_general_"+divid+"_"+id+"' id='vcard_general_"+divid+"_"+id+"' type='hidden' value=''><div style='float:left;'><label style='width:158px;'>"+label+"&nbsp;&nbsp;<a class='lom-remove' href='#' onClick='removedivid(\""+divid+"_"+id+"\"); return false;'>Remove</a></label></div><br><div style='float:left;'><span style='float:left; width:70px;'>Name: </span><input type='text' value='' name='vcard_name_"+divid+"_"+id+"' style='float:left;width:200px;' id='"+divid+"_"+id+"' class='textinput'><br><br><span style='float:left; width:70px;'>Surname: </span><input type='text' value='' name='vcard_surname_"+divid+"_"+id+"' style='float:left;width:200px;' id='"+divid+"_"+id+"' class='textinput'><br><br><span style='float:left; width:70px;'>Email: </span><input type='text' value='' name='vcard_email_"+divid+"_"+id+"' style='float:left;width:200px;' id='"+divid+"_"+id+"' class='textinput'><br><br><span style='float:left; width:70px;'>Organization: </span><input type='text' value='' name='vcard_organization_"+divid+"_"+id+"' style='float:left;width:200px;' id='"+divid+"_"+id+"' class='textinput'><br><br><div></div>");
+                jQuery('#'+divid+'').append("<div id='"+divid+"_"+id+"' style='float:left;border-bottom:1px solid #d7d5c4;padding-right:9px; margin-right:5px;padding-bottom:9px; margin-bottom:5px;width:100%;'><input name='vcard_general_"+divid+"_"+id+"' id='vcard_general_"+divid+"_"+id+"' type='hidden' value=''><div style='float:left;'><label style='width:158px;'>"+label+"&nbsp;&nbsp;<a class='lom-remove' href='#' onClick='removedivid(\""+divid+"_"+id+"\"); return false;'><?php echo __('Remove'); ?></a></label></div><br><div style='float:left;'><span style='float:left; width:70px;'><?php echo __('Name'); ?>: </span><input type='text' value='' name='vcard_name_"+divid+"_"+id+"' style='float:left;width:200px;' id='"+divid+"_"+id+"' class='textinput'><br><br><span style='float:left; width:70px;'><?php echo __('Surname'); ?>: </span><input type='text' value='' name='vcard_surname_"+divid+"_"+id+"' style='float:left;width:200px;' id='"+divid+"_"+id+"' class='textinput'><br><br><span style='float:left; width:70px;'><?php echo __('Email'); ?>: </span><input type='text' value='' name='vcard_email_"+divid+"_"+id+"' style='float:left;width:200px;' id='"+divid+"_"+id+"' class='textinput'><br><br><span style='float:left; width:70px;'><?php echo __('Organization'); ?>: </span><input type='text' value='' name='vcard_organization_"+divid+"_"+id+"' style='float:left;width:200px;' id='"+divid+"_"+id+"' class='textinput'><br><br><div></div>");
 
-        	
+            	
             }
 
             function removeFormvcardExisted(divid,element_hierarchy,record_id,multi,vcard,parent_indexer) {
 
-                var answer = confirm("Are you sure you want to DELETE it?")
+                var answer = confirm("<?php echo __('Are you sure you want to DELETE it?'); ?>")
                 if (answer){
 
                     jQuery.post("<?php echo uri('items/deleteelementvalue'); ?>", { element_hierarchy: element_hierarchy, record_id: record_id, multi: multi, vcard: vcard, parent_indexer: parent_indexer },
@@ -225,7 +223,7 @@
 
             function removeFormmultiParent(divid,element_hierarchy,record_id,multi,parent_element) {
 
-                var answer = confirm("Are you sure you want to DELETE it?")
+                var answer = confirm("<?php echo __('Are you sure you want to DELETE it?'); ?>")
                 if (answer){
 
                     jQuery.post("<?php echo uri('items/deleteelementvalue'); ?>", { element_hierarchy: element_hierarchy, record_id: record_id, multi: multi, parent_element: parent_element},
@@ -241,10 +239,10 @@
                 var id = document.getElementById(''+iddiv+'').value;
                 id = (id - 1) + 2;
                 document.getElementById(''+iddiv+'').value = id;
-        	
-                jQuery('#'+divid+'_inputs').append("<div id='"+divid+"_"+id+"_field' style='margin-top:15px;style='clear:both;''><input type='text' class='textinput' style='width:200px;' name='"+divid+"_"+id+"' id='txt" + id + "' value=''>&nbsp;&nbsp<select style='vertical-align:top;' name='"+divid+"_"+id+"_lan' class='combo'><option value='none'>Select </option><?php foreach ($datalan as $datalan1) { ?><option value='<?php echo $datalan1['value']; ?>'><?php echo voc_multi_label($datalan1['vov_rec_id']); ?></option><?php } ?></select>&nbsp;&nbsp;<a class='lom-remove' style='float:right;' href='#' onClick='removeFormField(\"#"+divid+"_"+id+"_field\"); return false;'>Remove Language</a><div>");
+            	
+                jQuery('#'+divid+'_inputs').append("<div id='"+divid+"_"+id+"_field' style='margin-top:15px;style='clear:both;''><input type='text' class='textinput' style='width:200px;' name='"+divid+"_"+id+"' id='txt" + id + "' value=''>&nbsp;&nbsp<select style='vertical-align:top;' name='"+divid+"_"+id+"_lan' class='combo'><option value='none'><?php echo __('Select'); ?> </option><?php foreach ($datalan as $datalan1) { ?><option value='<?php echo $datalan1['value']; ?>'><?php echo voc_multi_label($datalan1['vov_rec_id']); ?></option><?php } ?></select>&nbsp;&nbsp;<a class='lom-remove' style='float:right;' href='#' onClick='removeFormField(\"#"+divid+"_"+id+"_field\"); return false;'><?php echo __('Remove Language'); ?></a><div>");
 
-        	
+            	
             }
 
 
@@ -271,9 +269,9 @@
                 id = (id - 1) + 2;
                 document.getElementById(''+iddiv+'').value = id;
 
-                jQuery('#'+divid+'_inputs').append("<div id='"+divid+"_"+id+"_inputs'><hr style='clear:both;'><a class='lom-add-new' href='#' onClick='addFormField(\"0\",\""+divid+"_"+id+"\",\"hdnLine_"+divid+"_"+id+"\"); return false;'>Add Language</a>&nbsp;&nbsp;<a class='lom-remove' href='#' onClick='removeFormFieldTotal(\""+divid+"_"+id+"\"); return false;'>Remove "+label+"</a><br><br><div id='"+divid+"_"+id+"_1_field'><textarea cols='60' rows='4' class='textinput' name='"+divid+"_"+id+"_1' id='txt1'></textarea>&nbsp;&nbsp<select style='vertical-align:top;' name='"+divid+"_"+id+"_1_lan' class='combo'><option value='none'>Select </option><?php foreach ($datalan as $datalan1) { ?><option value='<?php echo $datalan1['value']; ?>'><?php echo voc_multi_label($datalan1['vov_rec_id']); ?></option><?php } ?></select>&nbsp;&nbsp;<a class='lom-remove' style='float:right;' href='#' onClick='removeFormField(\"#"+divid+"_"+id+"_1_field\"); return false;'>Remove Language</a><div><input type='hidden' name='hdnLine_"+divid+"_"+id+"' id='hdnLine_"+divid+"_"+id+"' value='1'></div>");
+                jQuery('#'+divid+'_inputs').append("<div id='"+divid+"_"+id+"_inputs'><hr style='clear:both;'><a class='lom-add-new' href='#' onClick='addFormField(\"0\",\""+divid+"_"+id+"\",\"hdnLine_"+divid+"_"+id+"\"); return false;'><?php echo __('Add Language'); ?></a>&nbsp;&nbsp;<a class='lom-remove' href='#' onClick='removeFormFieldTotal(\""+divid+"_"+id+"\"); return false;'><?php echo __('Remove'); ?> "+label+"</a><br><br><div id='"+divid+"_"+id+"_1_field'><textarea cols='60' rows='4' class='textinput' name='"+divid+"_"+id+"_1' id='txt1'></textarea>&nbsp;&nbsp<select style='vertical-align:top;' name='"+divid+"_"+id+"_1_lan' class='combo'><option value='none'><?php echo __('Select'); ?> </option><?php foreach ($datalan as $datalan1) { ?><option value='<?php echo $datalan1['value']; ?>'><?php echo voc_multi_label($datalan1['vov_rec_id']); ?></option><?php } ?></select>&nbsp;&nbsp;<a class='lom-remove' style='float:right;' href='#' onClick='removeFormField(\"#"+divid+"_"+id+"_1_field\"); return false;'><?php echo __('Remove Language'); ?></a><div><input type='hidden' name='hdnLine_"+divid+"_"+id+"' id='hdnLine_"+divid+"_"+id+"' value='1'></div>");
 
-        	
+            	
             }
 
             function addFormTotalFieldText(multi,divid,iddiv,label) {
@@ -281,9 +279,9 @@
                 id = (id - 1) + 2;
                 document.getElementById(''+iddiv+'').value = id;
 
-                jQuery('#'+divid+'_inputs').append("<div id='"+divid+"_"+id+"_inputs'><hr style='clear:both;'><a class='lom-add-new' href='#' onClick='addFormFieldText(\"0\",\""+divid+"_"+id+"\",\"hdnLine_"+divid+"_"+id+"\"); return false;'>Add Language</a>&nbsp;&nbsp;<a class='lom-remove' href='#' onClick='removeFormFieldTotal(\""+divid+"_"+id+"\"); return false;'>Remove "+label+"</a><br><br><div id='"+divid+"_"+id+"_1_field'><input type='text' class='textinput' style='width:200px;' name='"+divid+"_"+id+"_1' id='txt1' value=''>&nbsp;&nbsp<select style='vertical-align:top;' name='"+divid+"_"+id+"_1_lan' class='combo'><option value='none'>Select </option><?php foreach ($datalan as $datalan1) { ?><option value='<?php echo $datalan1['value']; ?>'><?php echo voc_multi_label($datalan1['vov_rec_id']); ?></option><?php } ?></select>&nbsp;&nbsp;<a class='lom-remove' style='float:right;' href='#' onClick='removeFormField(\"#"+divid+"_"+id+"_1_field\"); return false;'>Remove Language</a><div><input type='hidden' name='hdnLine_"+divid+"_"+id+"' id='hdnLine_"+divid+"_"+id+"' value='1'></div>");
+                jQuery('#'+divid+'_inputs').append("<div id='"+divid+"_"+id+"_inputs'><hr style='clear:both;'><a class='lom-add-new' href='#' onClick='addFormFieldText(\"0\",\""+divid+"_"+id+"\",\"hdnLine_"+divid+"_"+id+"\"); return false;'><?php echo __('Add Language'); ?></a>&nbsp;&nbsp;<a class='lom-remove' href='#' onClick='removeFormFieldTotal(\""+divid+"_"+id+"\"); return false;'><?php echo __('Remove'); ?> "+label+"</a><br><br><div id='"+divid+"_"+id+"_1_field'><input type='text' class='textinput' style='width:200px;' name='"+divid+"_"+id+"_1' id='txt1' value=''>&nbsp;&nbsp<select style='vertical-align:top;' name='"+divid+"_"+id+"_1_lan' class='combo'><option value='none'><?php echo __('Select'); ?> </option><?php foreach ($datalan as $datalan1) { ?><option value='<?php echo $datalan1['value']; ?>'><?php echo voc_multi_label($datalan1['vov_rec_id']); ?></option><?php } ?></select>&nbsp;&nbsp;<a class='lom-remove' style='float:right;' href='#' onClick='removeFormField(\"#"+divid+"_"+id+"_1_field\"); return false;'><?php echo __('Remove Language'); ?></a><div><input type='hidden' name='hdnLine_"+divid+"_"+id+"' id='hdnLine_"+divid+"_"+id+"' value='1'></div>");
 
-        	
+            	
             }
 
             function addFormTotalFieldTextnolan(multi,divid,iddiv,label) {
@@ -291,124 +289,124 @@
                 id = (id - 1) + 2;
                 document.getElementById(''+iddiv+'').value = id;
 
-                jQuery('#'+divid+'_inputs').append("<div id='"+divid+"_"+id+"_inputs'><hr style='clear:both;'><div id='"+divid+"_"+id+"_1_field'><input type='text' class='textinput' style='width:200px;' name='"+divid+"_"+id+"_1' id='txt1' value=''><a class='lom-remove' href='#' onClick='removeFormFieldTotal(\""+divid+"_"+id+"\"); return false;'>Remove </a></div>");
+                jQuery('#'+divid+'_inputs').append("<div id='"+divid+"_"+id+"_inputs'><hr style='clear:both;'><div id='"+divid+"_"+id+"_1_field'><input type='text' class='textinput' style='width:200px;' name='"+divid+"_"+id+"_1' id='txt1' value=''><a class='lom-remove' href='#' onClick='removeFormFieldTotal(\""+divid+"_"+id+"\"); return false;'><?php echo __('Remove'); ?> </a></div>");
 
-        	
+            	
             }
 
             function addFormFieldSelect(multi,divid,iddiv,vocabulary_id) {
                 var id = document.getElementById(''+iddiv+'').value;
                 id = (id - 1) + 2;
                 document.getElementById(''+iddiv+'').value = id;
-                
+                    
                 jQuery.post("<?php echo uri('items/findvocbyid'); ?>", { vocabulary_id: vocabulary_id, id: id,  divid:divid},
                 function(data) {
 
                     jQuery('#'+divid+'_inputs').append(data);
                 });
-                
+                    
 
 
-        	
-        }
+            	
+            }
 
-        function addFormFieldSelectXml(multi,divid,iddiv,vocabulary_id) {
-            var id = document.getElementById(''+iddiv+'').value;
-            id = (id - 1) + 2;
-            document.getElementById(''+iddiv+'').value = id;
-        	
-            jQuery.post("<?php echo uri('items/xmlselectbox'); ?>", { vocabulary_id: vocabulary_id, id: id,  divid:divid, ontology:0},
-            function(data) {
-
-                jQuery('#'+divid+'_inputs').append(data);
-            });
-        	
-        }
-
-        function addFormFieldSelectXmlOntology(multi,divid,iddiv,vocabulary_id) {
-            var id = document.getElementById(''+iddiv+'').value;
-            id = (id - 1) + 2;
-            document.getElementById(''+iddiv+'').value = id;
-        	
-            jQuery.post("<?php echo uri('items/xmlselectbox'); ?>", { vocabulary_id: vocabulary_id, id: id,  divid:divid,  ontology:1},
-            function(data) {
-
-                jQuery('#'+divid+'_inputs').append(data);
-            });
-        	
-        }
-
-
-        function removeFormFieldExisted(id,element_hierarchy,language_id,record_id,multi) {
-
-            var answer = confirm("Are you sure you want to DELETE it?")
-            if (answer){
-
-                jQuery.post("<?php echo uri('items/deleteelementvalue'); ?>", { element_hierarchy: element_hierarchy, language_id: language_id, record_id: record_id, multi: multi },
+            function addFormFieldSelectXml(multi,divid,iddiv,vocabulary_id) {
+                var id = document.getElementById(''+iddiv+'').value;
+                id = (id - 1) + 2;
+                document.getElementById(''+iddiv+'').value = id;
+            	
+                jQuery.post("<?php echo uri('items/xmlselectbox'); ?>", { vocabulary_id: vocabulary_id, id: id,  divid:divid, ontology:0},
                 function(data) {
 
-                    jQuery('#'+id).remove();
+                    jQuery('#'+divid+'_inputs').append(data);
                 });
+            	
+            }
 
-            } 
-        }
-
-
-        function removeFormFieldTotalExisted(id,element_hierarchy,record_id,multi,allvalues) {
-
-            var answer = confirm("Are you sure you want to DELETE it?")
-            if (answer){
-
-                jQuery.post("<?php echo uri('items/deleteelementvalue'); ?>", { element_hierarchy: element_hierarchy, record_id: record_id, multi: multi, allvalues: allvalues },
+            function addFormFieldSelectXmlOntology(multi,divid,iddiv,vocabulary_id) {
+                var id = document.getElementById(''+iddiv+'').value;
+                id = (id - 1) + 2;
+                document.getElementById(''+iddiv+'').value = id;
+            	
+                jQuery.post("<?php echo uri('items/xmlselectbox'); ?>", { vocabulary_id: vocabulary_id, id: id,  divid:divid,  ontology:1},
                 function(data) {
+
+                    jQuery('#'+divid+'_inputs').append(data);
+                });
+            	
+            }
+
+
+            function removeFormFieldExisted(id,element_hierarchy,language_id,record_id,multi) {
+
+                var answer = confirm("<?php echo __('Are you sure you want to DELETE it?'); ?>")
+                if (answer){
+
+                    jQuery.post("<?php echo uri('items/deleteelementvalue'); ?>", { element_hierarchy: element_hierarchy, language_id: language_id, record_id: record_id, multi: multi },
+                    function(data) {
+
+                        jQuery('#'+id).remove();
+                    });
+
+                } 
+            }
+
+
+            function removeFormFieldTotalExisted(id,element_hierarchy,record_id,multi,allvalues) {
+
+                var answer = confirm("<?php echo __('Are you sure you want to DELETE it?'); ?>")
+                if (answer){
+
+                    jQuery.post("<?php echo uri('items/deleteelementvalue'); ?>", { element_hierarchy: element_hierarchy, record_id: record_id, multi: multi, allvalues: allvalues },
+                    function(data) {
+
+                        jQuery('#'+id+'_inputs').remove();
+                    });
+
+                } 
+            }
+
+            function removeFormFieldTotal(id) {
+
+                var answer = confirm("<?php echo __('Are you sure you want to DELETE it?'); ?>")
+                if (answer){
 
                     jQuery('#'+id+'_inputs').remove();
-                });
+                } 
+            }
 
-            } 
-        }
+            function UpdateLangstringFormFieldExisted(element_hierarchy,record_id,multi,language_id_old,language_id,id) {
 
-        function removeFormFieldTotal(id) {
+                var answer = confirm("<?php echo __('Are you sure you want to CHANGE the language? This action will be SAVED!'); ?>");
+                if (answer){
 
-            var answer = confirm("Are you sure you want to DELETE it?")
-            if (answer){
-
-                jQuery('#'+id+'_inputs').remove();
-            } 
-        }
-
-        function UpdateLangstringFormFieldExisted(element_hierarchy,record_id,multi,language_id_old,language_id,id) {
-
-            var answer = confirm("Are you sure you want to CHANGE the language? This action will be SAVED!");
-            if (answer){
-
-                jQuery.post("<?php echo uri('items/updatelangstringelementvalue'); ?>", { element_hierarchy: element_hierarchy, language_id: language_id, language_id_old: language_id_old, record_id: record_id, multi: multi },
-                function(data) {
+                    jQuery.post("<?php echo uri('items/updatelangstringelementvalue'); ?>", { element_hierarchy: element_hierarchy, language_id: language_id, language_id_old: language_id_old, record_id: record_id, multi: multi },
+                    function(data) {
 
 
-                });
+                    });
 
-            }else{document.getElementById(id).value=language_id_old;} 
-        }
+                }else{document.getElementById(id).value=language_id_old;} 
+            }
 
 
-        function removedivid(id) {
+            function removedivid(id) {
 
-            var answer = confirm("Are you sure you want to DELETE it?")
-            if (answer){
+                var answer = confirm("<?php echo __('Are you sure you want to DELETE it?'); ?>")
+                if (answer){
 
-                jQuery('#'+id+'').remove();
-            } 
-        }
+                    jQuery('#'+id+'').remove();
+                } 
+            }
 
-        function removeFormField(id) {
-            jQuery(id).remove();
+            function removeFormField(id) {
+                jQuery(id).remove();
 
-        }
+            }
 
-        function change49(value){
+            function change49(value){
 
-        }
+            }
         </script>
 
 
@@ -416,7 +414,8 @@
     <?php $date_modified = date("Y-m-d H:i:s"); ?>
     <input type="hidden" name="date_modified" id="date_modified" value="<?php echo $date_modified; ?>" />
     <input type="hidden" name="item_id" id="item_id" value="<?php echo $item['id']; ?>" />
-<?php } //is isset item
+<?php
+} //is isset item
 else {
     ?>
 
@@ -455,20 +454,21 @@ else {
 if (!isset($_POST['submit_language'])) {
     ?>
     <div id="stepbuttoncollection">
-        <?php include('collection-form.php'); ?> 
+    <?php include('collection-form.php'); ?> 
     </div>
     <?php
     if (isset($item['id'])) {
-        if (($item['item_type_id'] === 6 or $item['item_type_id'] === 20) and !(stripos($itemsource['value'], "europeana.eu/portal/") > 0 or $itemsource['value'] == 'Ariadne' or $itemsource['value'] == 'Natural_Europe_TUC')) {
+
+        if (($item['item_type_id'] === 6 or $item['item_type_id'] === 20) and !(stripos($itemsource['value'], "europeana.eu/portal/") > 0 or $itemsource['value'] == 'Ariadne' or $itemsource['value'] == 'Natural_Europe_TUC' or stripos($itemsource['value'], "europeana.eu/api") > 0)) {
             ?>
             <div id="stepfile">
-                <?php include('files-form.php'); ?> 
+            <?php include('files-form.php'); ?> 
             </div>
         <?php } elseif ($item['item_type_id'] === 6 or $item['item_type_id'] === 20) { ?>
 
             <div id="stepurl">
                 <?php
-                $sql = "SELECT * FROM metadata_element_value WHERE record_id=" . $record_id . " and element_hierarchy=32";
+                $sql = "SELECT * FROM metadata_element_value WHERE record_id=" . $record_id . " and element_hierarchy=" . $metadataFile[metadata_schema_resources][element_hierarchy_location] . "";
 
                 $exec5 = $db->query($sql);
                 $data5 = $exec5->fetch();
@@ -479,10 +479,10 @@ if (!isset($_POST['submit_language'])) {
                 ?>
             </div>
 
-        <?php } else { ?>
+            <?php } else { ?>
             <div id="stepurl">
                 <?php
-                $sql = "SELECT * FROM metadata_element_value WHERE record_id=" . $record_id . " and element_hierarchy=32";
+                $sql = "SELECT * FROM metadata_element_value WHERE record_id=" . $record_id . " and element_hierarchy=" . $metadataFile[metadata_schema_resources][element_hierarchy_location] . "";
 
                 $exec5 = $db->query($sql);
                 $data5 = $exec5->fetch();
@@ -498,13 +498,18 @@ if (!isset($_POST['submit_language'])) {
     else {
         ?>
         <div id="stepfile">
-            <?php include('files-form.php'); ?> 
+        <?php include('files-form.php'); ?> 
         </div>
         <?php
     }
 }//if translate not show file-url  if(!isset($_POST['submit_language'])){
-
 //////clean php arrays for memory/////////////////////
-unset($datalan);unset($data4);unset($general_pelements);unset($label_description);unset($date_modified);unset($record);
-unset($_POST);unset($_GET);
+unset($datalan);
+unset($data4);
+unset($general_pelements);
+unset($label_description);
+unset($date_modified);
+unset($record);
+unset($_POST);
+unset($_GET);
 ?>

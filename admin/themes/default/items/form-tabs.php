@@ -82,7 +82,6 @@ unset($datageneral3);
 	
 			}//foreach datageneral3
 
-		 
 $sql3="SELECT a.* FROM metadata_element_value a JOIN metadata_record b ON a.record_id = b.id WHERE b.object_id=".$item['id']." and b.object_type='item' and a.element_hierarchy=34 LIMIT 0,1";
 $exec3=$db->query($sql3); 
 $itemsource=$exec3->fetch();
@@ -92,7 +91,7 @@ $exec3=NULL;
 ?>
 <li><a id="stepbuttoncollection_aglr" href="#stepbuttoncollection"><?php echo __('Collection'); ?></a></li>
             <?php
- if(($item['item_type_id']===6 or $item['item_type_id']===20) and !(stripos($itemsource['value'],"europeana.eu/portal/")>0 or $itemsource['value']=='Ariadne' or $itemsource['value']=='Natural_Europe_TUC')){ ?>
+if(($item['item_type_id']===6 or $item['item_type_id']===20) and !(stripos($itemsource['value'], "europeana.eu/portal/") > 0 or $itemsource['value'] == 'Ariadne' or $itemsource['value'] == 'Natural_Europe_TUC' or stripos($itemsource['value'], "europeana.eu/api") > 0)){ ?>
 <li><a id="stepbuttonfile" href="#stepfile" ><?php echo __('File'); ?></a></li>
 <?php } else{ ?>
 <li><a id="stepbuttonurl" href="#stepurl" ><?php echo __('Url'); ?></a></li>
@@ -100,3 +99,4 @@ $exec3=NULL;
 </ul>
 
 <?php } ?>
+

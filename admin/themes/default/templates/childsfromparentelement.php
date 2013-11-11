@@ -39,7 +39,7 @@ $sqlchele="SELECT c.*,b.vocabulary_id,b.id as elm_id FROM  metadata_element b JO
 			$dataform['labal_name']=return_multi_language_label_name($dataform['element_id']);
 			$labalname=$dataform['labal_name'];
 			if($dataform['max_occurs']>1){
-			$labalname.= '&nbsp;&nbsp;<a class="lom-add-new" href="#" onClick="addFormmultiParent(\'0\',\''.$dataform['id'].'\',\'hdnLine_group_total_parent_'.$dataform['id'].'\',\''.$dataform['labal_name'].'\'); return false;">Add '.$dataform['labal_name'].' </a>&nbsp;&nbsp;<a class="lom-remove" href="#" onClick="removedivid(\''.$dataform['id'].'_'.$parent_multi.'\'); return false;">Remove '.$dataform['labal_name'].'</a>';
+			$labalname.= '&nbsp;&nbsp;<a class="lom-add-new" href="#" onClick="addFormmultiParent(\'0\',\''.$dataform['id'].'\',\'hdnLine_group_total_parent_'.$dataform['id'].'\',\''.$dataform['labal_name'].'\'); return false;">'. __('Add').' '.$dataform['labal_name'].' </a>&nbsp;&nbsp;<a class="lom-remove" href="#" onClick="removedivid(\''.$dataform['id'].'_'.$parent_multi.'\'); return false;">'. __('Remove').' '.$dataform['labal_name'].'</a>';
 			}
 			echo '<input name="'.$dataform['id'].'_'.$parent_multi.'" id="'.$dataform['id'].'_'.$parent_multi.'" type="hidden" value="">';		
 			echo '<div style="float:left;">'.createlomlabel($labalname,'for='.$dataform['id'].' style="width:608px;"').'</div><br>';
