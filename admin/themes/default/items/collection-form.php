@@ -1,6 +1,6 @@
 <div class="field">
 <?php echo label('collection-id', __('Collection'));?>
-<div class="inputs">
+<div class="inputs" style="float:left;">
     <?php 
     $action123 = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
     if(isset($action123) and $action123=='show'){
