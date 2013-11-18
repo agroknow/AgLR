@@ -31,7 +31,7 @@
 </div>
 <?php */ ?>
 
-<h2>Status: </h2>
+<h2><?php echo __('Status'); ?>: </h2>
 <div class="field">
     <?php echo $this->formLabel('public', __('Public')); ?>
 <?php 

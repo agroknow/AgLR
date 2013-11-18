@@ -3283,3 +3283,19 @@ msgstr ""
 #: admingeneral!
 msgid "Basic elements for describe your resource."
 msgstr ""
+
+#: admingeneral!
+msgid "Templates"
+msgstr ""
+
+#: admingeneral!
+msgid "Add a Template"
+msgstr ""
+
+#: admingeneral!
+msgid "Add Template"
+msgstr ""
+
+#: admingeneral!
+msgid "Status"
+msgstr ""
