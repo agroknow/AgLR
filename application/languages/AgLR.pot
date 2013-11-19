@@ -3299,3 +3299,7 @@ msgstr ""
 #: admingeneral!
 msgid "Status"
 msgstr ""
+
+#: admingeneral!
+msgid "Browse Templates"
+msgstr ""
