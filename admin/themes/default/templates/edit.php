@@ -18,7 +18,7 @@ $itemTitle = __('Edit Template #%s', item('id')) . $itemTitle;
 <h1><?php echo $itemTitle; ?></h1>
 <?php echo delete_button(null, 'delete-item', __('Delete this Template'), array(), 'delete-record-form'); ?>
 <div>
-    <a style="position:relative; float:right; right:0px;cursor: hand; cursor: pointer;" id="show_optional">Enrich Metadata</a>
+    <a style="position:relative; float:right; right:0px;cursor: hand; cursor: pointer;" id="show_optional"><?php echo __('Enrich Metadata'); ?></a>
 </div>
                         <div id="show_optional_help" style="display:none; position:absolute;top:0px; border:1px solid #333;background:#f7f5d1;padding:2px 5px; color:#333;z-index:100;">
         <?php echo __('Use of more elements to describe your resource'); ?>
@@ -48,14 +48,14 @@ var my_tooltip = new Tooltip('show_optional', 'show_optional_help');
                 if(value=='none'){
                     jQuery('.optional_element').css("display", "block"); 
                     jQuery('#show_optional').css("background-color", "#FFFFFF");
-                    jQuery('#show_optional').text("Only recommended");
+                    jQuery('#show_optional').text("<?php echo __('Only recommended'); ?>");
                                    jQuery('#show_optional_help').text("<?php echo __('Basic elements for describe your resource.'); ?>");
 
  
                 }else{
                     jQuery('.optional_element').css("display", "none"); 
                     jQuery('#show_optional').css("background-color", "#F4F3EB");
-                    jQuery('#show_optional').text("Enrich Metadata");
+                    jQuery('#show_optional').text("<?php echo __('Enrich Metadata'); ?>");
                                    jQuery('#show_optional_help').text("<?php echo __('Use of more elements to describe your resource'); ?>");
 
 

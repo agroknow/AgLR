@@ -219,15 +219,15 @@ class ItemsController extends Omeka_Controller_Action {
     }
 
     protected function _getAddSuccessMessage($record) {
-        return 'The item was successfully added!';
+        return __('The item was successfully added!');
     }
 
     protected function _getEditSuccessMessage($record) {
-        return 'The item was successfully changed!';
+        return __('The item was successfully changed!');
     }
 
     protected function _getDeleteSuccessMessage($record) {
-        return 'The item was successfully deleted!';
+        return __('The item was successfully deleted!');
     }
 
     protected function _getDeleteConfirmMessage($record) {

@@ -79,13 +79,13 @@ $itemTitle = __('View Template #%s', item('id')) . $itemTitle;
             if(value=='none'){
                 jQuery('.optional_element').css("display", "block"); 
                 jQuery('#show_optional').css("background-color", "#FFFFFF");
-                jQuery('#show_optional').text("Only recommended");
+                jQuery('#show_optional').text("<?php echo __('Only recommended'); ?>");
 
  
             }else{
                 jQuery('.optional_element').css("display", "none"); 
                 jQuery('#show_optional').css("background-color", "#F4F3EB");
-                jQuery('#show_optional').text("Enrich Metadata");
+                jQuery('#show_optional').text("<?php echo __('Enrich Metadata'); ?>");
 
 
             }
@@ -143,7 +143,7 @@ $itemTitle = __('View Template #%s', item('id')) . $itemTitle;
 </style>
 
 <div>
-    <a style="position:relative; float:right; right:0px;cursor: hand; cursor: pointer;" id="show_optional">Enrich Metadata</a>
+    <a style="position:relative; float:right; right:0px;cursor: hand; cursor: pointer;" id="show_optional"><?php echo __('Enrich Metadata'); ?></a>
 </div>
 <br style="clear:both;">
 <?php include 'form-tabs.php'; // Definitions for all the tabs for the form.  ?>

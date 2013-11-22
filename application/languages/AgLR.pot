@@ -3101,7 +3101,7 @@ msgid "Organization"
 msgstr ""
 
 #: admingeneral!
-msgid "Suranme"
+msgid "Surname"
 msgstr ""
 
 #: admingeneral!
@@ -3302,4 +3302,60 @@ msgstr ""
 
 #: admingeneral!
 msgid "Browse Templates"
+msgstr ""
+
+#: admingeneral!
+msgid "Templates"
+msgstr ""
+
+#: admingeneral!
+msgid "Add a Template"
+msgstr ""
+
+#: admingeneral!
+msgid "Add Template"
+msgstr ""
+
+#: admingeneral!
+msgid "Status"
+msgstr ""
+
+#: admingeneral!
+msgid "Browse Templates"
+msgstr ""
+
+#: admingeneral!
+msgid "Edit Template"
+msgstr ""
+
+#: admingeneral!
+msgid "Edit this Template"
+msgstr ""
+
+#: admingeneral!
+msgid "Delete this Template"
+msgstr ""
+
+#: admingeneral!
+msgid "Delete Template"
+msgstr ""
+
+#: admingeneral!
+msgid "Template"
+msgstr ""
+
+#: admingeneral!
+msgid "Edit Template #%s"
+msgstr ""
+
+#, php-format
+msgid "View Item #%s"
+msgstr ""
+
+#, php-format
+msgid "View Template #%s"
+msgstr ""
+
+#, php-format
+msgid "Use Template"
 msgstr ""
