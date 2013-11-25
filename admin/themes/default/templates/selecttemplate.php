@@ -36,7 +36,7 @@ if (!isset($_POST['submit_language'])) {
         </form>
 
         <div id="pleasewait" style=" display: none; position: absolute; top: 0px; left: 0px; z-index: 100; ">
-            <span style="position: absolute; z-index: 4; top: 45px; left: 10px;">Please wait. Copying metadata from Template in progress</span>
+            <span style="position: absolute; z-index: 4; top: 45px; left: 10px;"><?php echo __('Please wait. Copying metadata from Template in progress'); ?></span>
             <img src="<?php echo uri('themes/default/templates/images/loader.gif'); ?>" alt="loading" style="width: 100%; height: 100%;"/>
 
         </div>  

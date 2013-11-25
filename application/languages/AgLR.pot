@@ -3359,3 +3359,23 @@ msgstr ""
 #, php-format
 msgid "Use Template"
 msgstr ""
+
+#, php-format
+msgid "Use this Template to describe a Hyperlink"
+msgstr ""
+
+#, php-format
+msgid "Use this Template to describe an Image"
+msgstr ""
+
+#, php-format
+msgid "Use this Template to describe a File"
+msgstr ""
+
+#, php-format
+msgid "Please wait. Copying metadata from Template in progress"
+msgstr ""
+
+#, php-format
+msgid "Please select type of Resource to use the Template:"
+msgstr ""
