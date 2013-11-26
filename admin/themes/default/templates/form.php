@@ -382,6 +382,7 @@ else {
 
 <?php
 /////////////////if translate not show file-url//////////
+/*
 if (!isset($_POST['submit_language'])) {
     ?>
     <div id="stepbuttoncollection">
@@ -433,7 +434,7 @@ if (!isset($_POST['submit_language'])) {
         </div>
         <?php
     }
-}//if translate not show file-url  if(!isset($_POST['submit_language'])){
+}//if translate not show file-url  if(!isset($_POST['submit_language'])){ */
 //////clean php arrays for memory/////////////////////
 unset($datalan);
 unset($data4);
