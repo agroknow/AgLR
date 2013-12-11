@@ -342,7 +342,7 @@ class TemplatesController extends Omeka_Controller_Action {
 
                 if ($form->isValid($_POST)) {
                     $record->delete();
-                    deleteitemlomid($item['id']);
+                    deleteitemlomid($item['id'], 'template');
                     deleteteasers($item['id']);
                 } else {
                     $this->_forward('error');

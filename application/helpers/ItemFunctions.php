@@ -1441,7 +1441,7 @@ function savenewitem($itid, $formtype) {
     return $last_exhibit_id;
 }
 
-function deleteitemlomid($item_eid) {
+function deleteitemlomid($item_eid, $type='item') {
     require_once 'Omeka/Core.php';
     $core = new Omeka_Core;
 

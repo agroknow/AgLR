@@ -780,7 +780,10 @@ function preview_elements_from_datatype($datageneral4, $datageneral5, $metadatar
     } else {
 
         foreach ($datageneral5 as $datageneral5) {
-            $output.=xmlformat($datageneral5['value'], $machine_name, '', $indent);
+            $output.= '<' . $machine_name . '>' . "\n";
+            $output.= '<![CDATA['.$datageneral5['value'].']]>';
+            $output.= '</' . $machine_name . '>' . "\n";
+            //$output.=xmlformat($datageneral5['value'], $machine_name, '', $indent);
         }
     }
 
