@@ -15,7 +15,7 @@ ol {font-size:1.4em; margin-left:18px;}
 ol li h3 {font-size:1.0em;}
 ol li p {font-size:0.9em;}
 fieldset {border:0; border-top: 1px dotted #dddad3; padding: 1.8em 0;}
-legend {font-size:1.2em; font-weight: bold; margin-bottom: -0.2em;, background: #fff; padding-right: 12px;}
+legend {font-size:1.2em; font-weight: bold; margin-bottom: -0.2em; background: #fff; padding-right: 12px;}
 label,input,textarea {display: block;}
 label {float: left; clear: left; width: 126px; font-size: 1.1em; text-align: right;}
 label.required:before {content: "* ";}
