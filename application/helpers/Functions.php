@@ -892,6 +892,14 @@ function lomtextareaform($data6, $dataform, $datalan, $parent_multi = NULL, $rec
                     $formcounttotal+=1;
                     $output.='<div id="' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_field" style="clear:both;">';
                     $output.='This is a translation proposed by the system <br> ';
+                    
+                    //get languages that are send as from in AMT 
+                    Global $language_from_for_rating;
+                    $language_from_for_rating .= $language_source .',';
+                    //get languages that are send as to in AMT
+                    Global $language_to_for_rating;
+                    $language_to_for_rating .= $languagearray_for .',';
+                    
                         $translated_text=translatexerox($languagearray_for, $string_source, $language_source);
                         $output.= createlomelement('textarea', '' . $dataform['id'] . '_' . $multi . '_' . $formcount . '', '' . $translated_text['text'] . '', 'rows="4" cols="60" class="textinput" id="' . $dataform['id'] . '_' . $multi . '_' . $formcount . '" style="float:left;background-color:#FFF8E7;border:2px solid #A74C29;"', NULL, NULL, NULL, NULL, $datarecoreditable) . '&nbsp;&nbsp';
                     $output.='<input type="hidden" name="translatedanalytics_'.$record['id'].'_'.$dataform['id'].'_' . $multi . '_' . $formcount . '" value="'.$translated_text['text'].'">';
@@ -1352,6 +1360,14 @@ function lomtextform($data6, $dataform, $datalan, $parent_multi = NULL, $record 
                     $multi = $multi_languagearray_for; //select the value for more than one foreach
                     $formcount+=1;
                     $formcounttotal+=1;
+                    
+                    //get languages that are send as from in AMT 
+                    Global $language_from_for_rating;
+                    $language_from_for_rating .= $language_source .',';
+                    //get languages that are send as to in AMT
+                    Global $language_to_for_rating;
+                    $language_to_for_rating .= $languagearray_for .',';
+                    
                     $output.='<div id="' . $dataform['id'] . '_' . $multi . '_' . $formcount . '_field" style="clear:both;position:relative;padding-top:2px;">';
                     //$output.= createlomelement('text', '' . $dataform['id'] . '_' . $multi . '_' . $formcount . '', '' . translatexerox(map_language_for_xerox2($languagearray_for,1), $string_in_english) . '', 'rows="4" cols="60" class="textinput" id="' . $dataform['id'] . '_' . $multi . '_' . $formcount . '" style="float:left;"', NULL, NULL, NULL, NULL, $datarecoreditable) . '&nbsp;&nbsp';
                     $output.='This is a translation proposed by the system <br> ';
@@ -2411,7 +2427,7 @@ function createnew_xml_selectbox($id, $divid, $vocabulary_id, $ontology = NULL) 
         'timeout' => 1200 // 20 minutes
     )
 ));
-            $page2 = file_get_contents("http://aglr.agroknow.gr/translationapi/analytics/translate?text=".$text."&from=".$sourceLanguage."&to=".$targetLanguage."",false,$ctx);
+            $page2 = file_get_contents("http://oe-api.aglr.agroknow.gr/translationapi/analytics/translate?text=".$text."&from=".$sourceLanguage."&to=".$targetLanguage."",false,$ctx);
             $returning_results=array();
             if(!$page2===false){
               $obj2 = json_decode($page2); 

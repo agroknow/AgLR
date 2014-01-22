@@ -690,8 +690,39 @@ class ItemsController extends Omeka_Controller_Action {
         $general_pelements = $exec3->fetchAll();
         $exec3 = NULL;
         $this->view->assign(compact('general_pelements', 'xml_general', 'db'));
-
+        $user = current_user();
         if (array_key_exists('save_meta', $_POST)) {
+            //foreach post to find the ratings
+            foreach ($_POST as $postname => $field) {
+                $rateurl = '';
+                if (strpos($postname, 'starrating_')) {
+                    $pieces = explode("_", $postname);
+                    $rateurl = "http://oe-api.aglr.agroknow.gr/translationapi/analytics/resources/" . $pieces[1] . "/translation/" . $pieces[1] . "_" . $pieces[2] . "_". $pieces[3] ."/rating";
+                    if (strlen($rateurl) > 5) {
+                        // Get cURL resource
+                        $curl = curl_init();
+// Set some options - we are passing in a useragent too here
+                        curl_setopt_array($curl, array(
+                            CURLOPT_RETURNTRANSFER => 1,
+                            CURLOPT_URL => '' . $rateurl . '',
+                            CURLOPT_USERAGENT => 'Codular Sample cURL Request',
+                            CURLOPT_POST => 1,
+                            CURLOPT_POSTFIELDS => array(
+                                rating => $field,
+                                usertoken => $user['id'],
+                                to => $pieces[2],
+                                from => $pieces[3]
+                            )
+                        ));
+// Send the request & save response to $resp
+                        $resp = curl_exec($curl);
+// Close request to clear up some resources
+                        curl_close($curl);
+                    }
+                }
+            }
+            // Check and add rating in database custom not the AMT
+            //print_r($_POST); break;
             $analytics_id=save_analytics_for_translation($_POST);
             $lastexid = savemetadataitem($_POST);
             //print_r($_POST); 

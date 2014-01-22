@@ -1025,7 +1025,7 @@ function savemetadataitem($postvariable = NULL, $object_type = 'item') {
 //print_r($_POST);break;
     foreach ($_POST as $var => $value) {
         $var12 = explode("_", $var); //split form name at _
-        if ($var != 'item_id' and $var != 'title' and $var != 'delete_files' and $var != 'Pages' and $var != 'hdnLine' and $var != 'hdnLine_group_total' and $var != 'hdnLine_group_vcard' and $var != 'hdnLine_group_total_parent' and $var != 'slug' and $var != 'public' and $var != 'Sections' and $var != 'save_exhibit' and $var != 'date_modified' and $var != 'save_meta' and $var != 'item_url' and $var != 'collection_id' and $var12[0] != 'translatedanalytics' and $var12[0] != 'fortranslationanalytics' and $var12[0] != 'translatedanalyticslan' and $var12[0] != 'fortranslationanalyticslan' and $var12[0] != 'translatedanalyticsservice') {
+        if ($var != 'item_id' and $var != 'title' and $var != 'delete_files' and $var != 'Pages' and $var != 'hdnLine' and $var != 'hdnLine_group_total' and $var != 'hdnLine_group_vcard' and $var != 'hdnLine_group_total_parent' and $var != 'slug' and $var != 'public' and $var != 'Sections' and $var != 'save_exhibit' and $var != 'date_modified' and $var != 'save_meta' and $var != 'item_url' and $var != 'collection_id' and $var12[0] != 'translatedanalytics' and $var12[0] != 'fortranslationanalytics' and $var12[0] != 'translatedanalyticslan' and $var12[0] != 'fortranslationanalyticslan' and $var12[0] != 'translatedanalyticsservice' and $var12[0] != 'setstarrating') {
             $var1 = explode("_", $var); //split form name at _
             if ($var1[0] == 'vcard') { //if is vcard!!!
                 $var = $var1[2];
