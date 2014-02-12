@@ -556,8 +556,8 @@ abstract class Omeka_Record implements ArrayAccess
 		savelomelement(32,''.$uri.'/archive/files/'.$data_to_save['archive_filename'].'',''.$data_to_save['item_id'].'','item','1');
 		$formetypetext=FiletypeMapping($data_to_save['mime_os']);
 		savelomelement(33,NULL,''.$data_to_save['item_id'].'','item','1',$formetypetext);
-		savelomelement(54,'URI',''.$data_to_save['item_id'].'','item','1');
-		savelomelement(55,''.$uri.'/archive/files/'.$data_to_save['archive_filename'].'',''.$data_to_save['item_id'].'','item','1');
+		//savelomelement(54,'URI',''.$data_to_save['item_id'].'','item','1');
+		//savelomelement(55,''.$uri.'/archive/files/'.$data_to_save['archive_filename'].'',''.$data_to_save['item_id'].'','item','1');
 		if(stripos(' '.$data_to_save['mime_os'],"image")>0){$formtype=6;}else{$formtype=20;}
 		saveomekasql('UPDATE omeka_items SET item_type_id='.$formtype.' where id='.$data_to_save['item_id'].'');
 		
