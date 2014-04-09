@@ -41,7 +41,7 @@ if (!isset($_POST['submit_language'])) {
         }
     </script>
 
-                <!--<span>Please select language to translate:<br><br></span>-->
+                    <!--<span>Please select language to translate:<br><br></span>-->
     <form action="<?php echo uri('items/translatexerox'); ?>" name="select_language_form" method="post" onsubmit="showloader();">
         <input type="checkbox" value="en" name="language_select[]" <?php if (in_array("en", $lang_language_id)) { ?>checked="checked" <?php } ?> />English<br />
         <input type="checkbox" value="fr" name="language_select[]" <?php if (in_array("fr", $lang_language_id)) { ?>checked="checked" <?php } ?> />French<br />
@@ -123,7 +123,7 @@ if (!isset($_POST['submit_language'])) {
             //echo item('id');
             $ratingtocheck = 0;
             $votestocheck = 0;
-            
+
             $page2 = file_get_contents("http://oe-api.aglr.agroknow.gr/translationapi/analytics/resources/" . item('id') . "/translation/" . item('id') . "_" . $AMTlanguage . "_" . $fromlanguage . "/rating", false, $ctx);
             $returning_results = array();
             if (!$page2 === false) {
@@ -136,42 +136,45 @@ if (!isset($_POST['submit_language'])) {
                 }
             }
             ?>
-        <div style="float:left;">
-            <input name="setstarrating_<?php echo item('id') . '_' . $AMTlanguage . '_' . $fromlanguage; ?>" type="radio" class="star" value="1" <?php
-            if ($ratingtocheck == 1) {
-                echo ' checked=checked ';
-            }
-            ?>/>
-            <input name="setstarrating_<?php echo item('id') . '_' . $AMTlanguage . '_' . $fromlanguage; ?>" type="radio" class="star" value="2" <?php
-            if ($ratingtocheck == 2) {
-                echo ' checked=checked ';
-            }
-            ?>/>
-            <input name="setstarrating_<?php echo item('id') . '_' . $AMTlanguage . '_' . $fromlanguage; ?>" type="radio" class="star" value="3" <?php
-            if ($ratingtocheck == 3) {
-                echo ' checked=checked ';
-            }
-            ?>/>
-            <input name="setstarrating_<?php echo item('id') . '_' . $AMTlanguage . '_' . $fromlanguage; ?>" type="radio" class="star" value="4" <?php
-            if ($ratingtocheck == 4) {
-                echo ' checked=checked ';
-            }
-            ?>/>
-            <input name="setstarrating_<?php echo item('id') . '_' . $AMTlanguage . '_' . $fromlanguage; ?>" type="radio" class="star" value="5" <?php
-                   if ($ratingtocheck == 5) {
-                       echo ' checked=checked ';
-                   }
-                   ?>/>
-        </div>
-                   <?php
-                   echo " ( of " . $votestocheck . " votes)";
-                   echo "</div>";
-               }
-               echo '</div>';
-               ?>
+            <div style="float:left;">
+                <input name="setstarrating_<?php echo item('id') . '_' . $AMTlanguage . '_' . $fromlanguage; ?>" type="radio" class="star" value="1" <?php
+                if ($ratingtocheck == 1) {
+                    echo ' checked=checked ';
+                }
+                ?>/>
+                <input name="setstarrating_<?php echo item('id') . '_' . $AMTlanguage . '_' . $fromlanguage; ?>" type="radio" class="star" value="2" <?php
+                if ($ratingtocheck == 2) {
+                    echo ' checked=checked ';
+                }
+                ?>/>
+                <input name="setstarrating_<?php echo item('id') . '_' . $AMTlanguage . '_' . $fromlanguage; ?>" type="radio" class="star" value="3" <?php
+                if ($ratingtocheck == 3) {
+                    echo ' checked=checked ';
+                }
+                ?>/>
+                <input name="setstarrating_<?php echo item('id') . '_' . $AMTlanguage . '_' . $fromlanguage; ?>" type="radio" class="star" value="4" <?php
+                if ($ratingtocheck == 4) {
+                    echo ' checked=checked ';
+                }
+                ?>/>
+                <input name="setstarrating_<?php echo item('id') . '_' . $AMTlanguage . '_' . $fromlanguage; ?>" type="radio" class="star" value="5" <?php
+                if ($ratingtocheck == 5) {
+                    echo ' checked=checked ';
+                }
+                ?>/>
+            </div>
+            <?php
+            echo " ( of " . $votestocheck . " votes)";
+            echo "</div>";
+        }
+        echo '</div>';
+        ?>
         <div>
-            <?php echo submit(array('name' => 'save_meta', 'id' => 'save-changes', 'class' => 'submit'), __('Save Translations')); ?>
-            <?php //echo submit(array('name'=>'submit', 'id'=>'save-changes', 'class'=>'submit'), __('Save Changes'));    ?>
+                <?php echo submit(array('name' => 'save_meta', 'id' => 'save-changes', 'class' => 'submit'), __('Save Translations')); ?>
+            <div style="position: relative; float: right; margin-right: 10px;">
+                <a href="javascript:history.back()" style=" font-size: 14.6px;"  class="submit"><?php echo __('Cancel'); ?></a>
+            </div>
+                <?php //echo submit(array('name'=>'submit', 'id'=>'save-changes', 'class'=>'submit'), __('Save Changes'));    ?>
         </div>
     </form>
 
@@ -180,7 +183,7 @@ if (!isset($_POST['submit_language'])) {
 <?php } ?>
 <script language="javascript" charset='utf-8'>
     function translatexerox(language) {
-        //jQuery('#<?php //echo $_POST['dividtextid'];     ?>_trans').dialog('close');
+        //jQuery('#<?php //echo $_POST['dividtextid'];      ?>_trans').dialog('close');
         var isolanguage = '';
         isolanguage = language;
 // if(language=='en-EN'){isolanguage='en'}
@@ -189,11 +192,11 @@ if (!isset($_POST['submit_language'])) {
 // if(language=='it_IT'){isolanguage='it'}
 // if(language=='fr_FR'){isolanguage='fr'}
 
-<?php //$string=translatexerox("de_DE",$_POST["dividtext"]); $string = ereg_replace("\n", " ", $string);     ?>
-        //var dividtexttext='<?php //echo $string;    ?>';
-        //document.getElementById('<?php //echo $_POST['dividtextid'];   ?>').innerHTML=dividtexttext;
+<?php //$string=translatexerox("de_DE",$_POST["dividtext"]); $string = ereg_replace("\n", " ", $string);      ?>
+        //var dividtexttext='<?php //echo $string;     ?>';
+        //document.getElementById('<?php //echo $_POST['dividtextid'];    ?>').innerHTML=dividtexttext;
 // alert(dividtext);
-//dlg1 = jQuery(window.parent.document.getElementById("<?php //echo $_POST['dividtextid'];   ?>").val);
+//dlg1 = jQuery(window.parent.document.getElementById("<?php //echo $_POST['dividtextid'];    ?>").val);
 
 
 

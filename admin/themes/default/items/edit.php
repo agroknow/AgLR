@@ -74,6 +74,9 @@ jQuery(function(){
         <?php include 'form.php'; ?>
         <div>
         <?php echo submit(array('name'=>'save_meta', 'id'=>'save-changes', 'class'=>'submit'),  __('Save Changes')); ?>
+            <div style="position: relative; float: right; margin-right: 10px;">
+                <a href="javascript:history.back()" style=" font-size: 14.6px;"  class="submit"><?php echo __('Cancel'); ?></a>
+            </div>
             <?php //echo submit(array('name'=>'submit', 'id'=>'save-changes', 'class'=>'submit'), __('Save Changes')); ?>
         </div>
     </form>
